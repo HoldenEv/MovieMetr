@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header>
+    <header className={styles.header}>
       <nav className={styles.navMenu}>
-        <h1>LOGO</h1>
+        <Link href="#" className={styles.logo}>LOGO</Link>
         <ul className={styles.list}>
           <input
             type="text"
@@ -16,7 +16,7 @@ export default function Header() {
           <Link href="#" className={styles.navLink}>
             SIGN IN
           </Link>
-          <Link href="#" className={styles.navLink}>
+          <Link href="#" className={`${styles.navLink} ${styles.createAccount}`}>
             CREATE ACCOUNT
           </Link>
         </ul>
