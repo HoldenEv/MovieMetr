@@ -26,9 +26,10 @@
 .search {
   background-color: var(--light-grey);
   border: none;
+  align-self: flex-start;
   border-radius: 23px;
   min-height: 1.6rem;
-  min-width: 60%;
+  min-width: 70%;
   padding-left: 1rem;
   opacity: 75%;
   transition: opacity 0.3s;
@@ -60,7 +61,6 @@
   display: none;
 }
 
-
 /* IN PROGRESS */
 .hamburger {
   display: none;
@@ -73,4 +73,10 @@
   margin: 5px auto;
   transition: all 0.3s ease-in-out;
   background-color: #101010;
+}
+
+@media all and (min-width: 800px) {
+  .createAccount {
+    display: block;
+  }
 }
