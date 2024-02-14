@@ -1,0 +1,82 @@
+.header {
+  color: var(--light-grey);
+  background-color: var(--dark-blue);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.7rem 1rem;
+}
+
+.navMenu {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 1rem;
+  gap: 1.5rem;
+  flex-basis: 40rem;
+}
+
+.search {
+  background-color: var(--light-grey);
+  border: none;
+  align-self: flex-start;
+  border-radius: 23px;
+  min-height: 1.6rem;
+  min-width: 70%;
+  padding-left: 1rem;
+  opacity: 75%;
+  transition: opacity 0.3s;
+}
+
+.search:focus {
+  outline: 0;
+  opacity: 97%;
+}
+
+.logo {
+  color: var(--pure-white);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navLink {
+  color: var(--light-grey);
+  text-decoration: none;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.navLink:hover {
+  color: var(--pure-white);
+}
+
+.createAccount {
+  display: none;
+}
+
+/* IN PROGRESS */
+.hamburger {
+  display: none;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+  background-color: #101010;
+}
+
+@media all and (min-width: 800px) {
+  .createAccount {
+    display: block;
+  }
+}
