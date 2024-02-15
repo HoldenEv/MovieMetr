@@ -23,14 +23,19 @@
   flex-basis: 40rem;
 }
 
+.searchContainer {
+  position: relative;
+  min-width: 70%;
+}
+
 .search {
   background-color: var(--light-grey);
   border: none;
   align-self: flex-start;
   border-radius: 23px;
   min-height: 1.6rem;
-  min-width: 70%;
-  padding-left: 1rem;
+  min-width: 90%;
+  padding-left: 2.2rem;
   opacity: 75%;
   transition: opacity 0.3s;
 }
@@ -38,6 +43,15 @@
 .search:focus {
   outline: 0;
   opacity: 97%;
+}
+
+.searchIcon {
+  position: absolute;
+  z-index: 1;
+  width: 18px;
+  height: auto;
+  top: 15%;
+  left: 10px;
 }
 
 .logo {
