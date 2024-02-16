@@ -3,7 +3,10 @@
   background-color: var(--dark-blue);
   font-size: 0.9rem;
   font-weight: 400;
-  padding: 0.7rem 1rem;
+  padding-top: 2.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.7rem;
 }
 
 .navMenu {
@@ -92,5 +95,9 @@
 @media all and (min-width: 800px) {
   .createAccount {
     display: block;
+  }
+
+  .header {
+    padding: 0.7rem 1rem;
   }
 }
