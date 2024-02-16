@@ -1,0 +1,14 @@
+.env
+
+#npm
+node_modules
+package-lock.json
+*.log
+*.qz
+
+#coveralls
+.nyc_output
+coverage
+
+#benchmarking
+benchmarks/graphs
