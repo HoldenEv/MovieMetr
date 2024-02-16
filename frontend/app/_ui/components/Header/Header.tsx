@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,8 +11,31 @@ import { search } from "@/_api/search";
 function Form() {
   /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Movies");
+  /* state of dropdown form (open/closed): starts on closed */
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  /* on open, prevent any default event and set open state to 
+  either closed or open */
+  const handleOpen = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    setOpen(!open);
+  };
+
+  /* on click of option, prevent event default, set active button
+  to category clicked close the dropdown */
+  const handleClick = (
+    category: string,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    setActiveButton(category);
+    setOpen(false);
+  };
+
+  /* handles form submit */
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -35,7 +58,36 @@ function Form() {
 
   return (
     <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <Dropdown activeButton={activeButton} setActiveButton={setActiveButton} />
+      <Dropdown
+        open={open}
+        setOpen={setOpen}
+        trigger={
+          <button
+            onClick={handleOpen}
+            className={styles.activeItem}
+            type="button"
+          >
+            {activeButton}
+          </button>
+        }
+        menu={[
+          <button
+            onClick={(event) => handleClick("Movies", event)}
+            key="movies"
+          >
+            Movies
+          </button>,
+          <button onClick={(event) => handleClick("Shows", event)} key="shows">
+            Shows
+          </button>,
+          <button
+            onClick={(event) => handleClick("People", event)}
+            key="people"
+          >
+            People
+          </button>,
+        ]}
+      />
       <input
         type="text"
         placeholder="Search..."
@@ -68,7 +120,7 @@ export default function Header() {
               SIGN IN
             </Link>
             <Link
-              href="#"
+              href="/signup"
               className={`${styles.navLink} ${styles.createAccount}`}
             >
               CREATE ACCOUNT
