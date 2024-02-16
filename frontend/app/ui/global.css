@@ -129,10 +129,16 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* Root Variables */
 :root {
   --dark-blue: #21385a;
+  --dark-grey: #444444;
   --light-grey: #d9d9d9;
   --pure-white: #fff;
 }

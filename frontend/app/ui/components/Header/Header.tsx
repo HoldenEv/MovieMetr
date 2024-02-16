@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
-// import Image from "next/image";
-// import searchIcon from "/Users/lukaschou/fortnite-meter/MovieMetr/frontend/public/search-svgrepo-com.svg"
+import Image from "next/image";
+import searchIcon from "../../../../public/search-svgrepo-com.svg";
 
 export default function Header() {
   return (
@@ -12,12 +12,19 @@ export default function Header() {
           LOGO
         </Link>
         <ul className={styles.list}>
-          <input
-            type="text"
-            placeholder="Search..."
-            className={styles.search}
-          />
-          {/* <Image src={searchIcon} alt="Search for a movie"></Image> */}
+          <div className={styles.searchContainer}>
+            <Image
+              priority
+              src={searchIcon}
+              alt="Search for a movie"
+              className={styles.searchIcon}
+            ></Image>
+            <input
+              type="text"
+              placeholder="Search..."
+              className={styles.search}
+            />
+          </div>
           <Link href="#" className={styles.navLink}>
             SIGN IN
           </Link>
