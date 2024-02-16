@@ -2,12 +2,12 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "app.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "dev": "nodemon index.ts",
+    "dev": "nodemon app.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "node dist/app.ts"
   },
   "author": "",
   "license": "ISC",
