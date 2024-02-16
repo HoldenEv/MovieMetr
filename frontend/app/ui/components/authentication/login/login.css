@@ -1,0 +1,26 @@
+.login {
+   background-color: #22324A;
+}
+
+.username {
+  padding-top: 0.7%;
+  padding-bottom: 0.4%;
+}
+
+.login-bottom-buttons {
+  padding-bottom: 0.7%;
+}
+
+.password {
+  padding-bottom: 0.4%;
+}
+
+.username-text {
+   padding-bottom: 0.3%;
+   color: white;
+}
+
+.password-text {
+  padding-bottom: 0.3%;
+  color: white; 
+}
