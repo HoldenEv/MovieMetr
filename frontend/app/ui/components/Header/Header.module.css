@@ -3,18 +3,19 @@
   background-color: var(--dark-blue);
   font-size: 0.9rem;
   font-weight: 400;
-  padding: 0.7rem 1rem;
+  padding-top: 2.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.7rem;
 }
 
 .navMenu {
-  /* border: 2px solid red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .list {
-  /* border: 2px solid red; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -23,14 +24,19 @@
   flex-basis: 40rem;
 }
 
+.searchContainer {
+  position: relative;
+  min-width: 70%;
+}
+
 .search {
   background-color: var(--light-grey);
   border: none;
   align-self: flex-start;
   border-radius: 23px;
   min-height: 1.6rem;
-  min-width: 70%;
-  padding-left: 1rem;
+  min-width: 100%;
+  padding-left: 2.2rem;
   opacity: 75%;
   transition: opacity 0.3s;
 }
@@ -40,16 +46,27 @@
   opacity: 97%;
 }
 
+.searchIcon {
+  position: absolute;
+  z-index: 1;
+  width: 18px;
+  height: auto;
+  top: 15%;
+  left: 10px;
+}
+
 .logo {
   color: var(--pure-white);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-decoration: none;
 }
 
 .navLink {
   color: var(--light-grey);
+  font-weight: 550;
   text-decoration: none;
-  height: 100%;
+  letter-spacing: 1px;
   flex-shrink: 0;
 }
 
@@ -78,5 +95,9 @@
 @media all and (min-width: 800px) {
   .createAccount {
     display: block;
+  }
+
+  .header {
+    padding: 0.7rem 1rem;
   }
 }
