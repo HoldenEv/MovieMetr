@@ -6,7 +6,7 @@ import Header from "@/ui/components/Header/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Movie Meter",
+  title: "MOIST METER",
   description: "TODO", //TODO: METADATA
 };
 
