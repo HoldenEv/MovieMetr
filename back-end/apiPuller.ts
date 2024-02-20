@@ -98,8 +98,9 @@ const searchTvShows = async (searchString: string) => {
   }
 };
 
-//returns all data for a movie by id
-//no need for a route, will be behind the scenes
+/*
+    Returns details for movie given a TMDB id, including cast info.
+*/
 const movieById = async (id: string) => {
   const url =
     "https://api.themoviedb.org/3/movie/" +
@@ -122,6 +123,7 @@ const movieById = async (id: string) => {
     throw error;
   }
 };
+
 //personById returns all data for a person by id
 const personById = async (id: string) => {
   const url =
