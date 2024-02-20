@@ -1,9 +1,11 @@
 import axios from "axios";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 //access token is current method of authentication
-const apiAccessToken =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2M2NTAyNGEyZmIzNmI0ZWI1ZjQ3MmY1ZThlYTY5ZCIsInN1YiI6IjY1Y2ZjM2RiMDcyMTY2MDE2MjM4ZmI4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a8Fu3-dZR5oxl04VuFwMzTyaMbJlWCCJ8wQjg505cYY;";
+const apiAccessToken = process.env.ACCESSTOKEN;
 //key can be used inline of http request, couldnt get it to work though
-const apiKey = "b3c65024a2fb36b4eb5f472f5e8ea69d";
+const apiKey = process.env.APIKEY;
 
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string) => {

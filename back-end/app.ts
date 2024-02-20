@@ -1,8 +1,9 @@
 import express from "express";
-//needed to install cors and 
-//npm install --save-dev @types/cors to get rid of the error
+import * as dotenv from "dotenv";
 import cors from "cors";
 import routes from "./routes/index";
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
