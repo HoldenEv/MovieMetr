@@ -4,6 +4,7 @@ export default function Login(){
 
   return (
     <div className="login">
+      <div>
       <div className="username">
         <p className="username-text">Username</p>
         <input
@@ -17,27 +18,30 @@ export default function Login(){
       <div className="password">
       <p className="password-text">Password</p>
         <input
-            type="text"
+            type="password"
             id="password"
             name="password"
-            placeholder="password"
+            placeholder="Password"
             required
           />
       </div>
-      <button className="login-button" type="submit">
+        <p className="forgot-password">Forgot Password?</p>
+      {/* <button className="login-button" type="submit">
         Forgot Password?
-      </button>
+      </button> */}
       <div className="login-bottom-buttons">
-        <div className="remember-me-button"> 
-          <input type="radio" id="html" name="fav_language" value="HTML"/>
-          <p>Remember Me</p>
-        </div>
-        <button className="create-account-button" type="submit">
+        <div className="remember-me-button">
+          <input type="checkbox" id="rememberMe" name="rememberMe" />
+            <label htmlFor="rememberMe">Remember Me</label>
+          </div>
+        <p className="create-account-button">Create Account</p>
+        {/* <button className="create-account-button" type="submit">
           Create Account
-        </button>
+        </button> */}
         <button className="login-button" type="submit">
           Login In 
         </button>
+      </div>
       </div>
     </div>
   )
