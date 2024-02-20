@@ -101,7 +101,12 @@ const searchTvShows = async (searchString: string) => {
 //returns all data for a movie by id
 //no need for a route, will be behind the scenes
 const movieById = async (id: string) => {
-  const url = "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + apiKey;
+  const url =
+    "https://api.themoviedb.org/3/movie/" +
+    id +
+    "?api_key=" +
+    apiKey +
+    "&append_to_response=credits";
   const options = {
     headers: {
       "Content-Type": "application/json",
