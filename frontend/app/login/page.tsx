@@ -11,7 +11,7 @@ export default function Login(){
             type="text"
             id="username"
             name="username"
-            placeholder="Username"
+            // placeholder="Username"
             required
           />
       </div>
@@ -21,11 +21,13 @@ export default function Login(){
             type="password"
             id="password"
             name="password"
-            placeholder="Password"
+            // placeholder="Password"
             required
           />
       </div>
-        <p className="forgot-password">Forgot Password?</p>
+        <p className="forgot-password">
+        <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
+        </p>
       {/* <button className="login-button" type="submit">
         Forgot Password?
       </button> */}
@@ -34,7 +36,9 @@ export default function Login(){
           <input type="checkbox" id="rememberMe" name="rememberMe" />
             <label htmlFor="rememberMe">Remember Me</label>
           </div>
-        <p className="create-account-button">Create Account</p>
+          <p className="create-account-button">
+          <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
+          </p>
         {/* <button className="create-account-button" type="submit">
           Create Account
         </button> */}
