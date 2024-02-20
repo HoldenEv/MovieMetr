@@ -2,14 +2,21 @@ import React from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import searchIcon from "../../../../public/search-svgrepo-com.svg";
+import searchIcon from "../../../../public/search.svg";
+import logoIcon from "../../../../public/logo.svg";
 
 export default function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navMenu}>
-        <Link href="#" className={styles.logo}>
-          LOGO
+        <Link href="#" className={styles.logoContainer}>
+          <Image
+            priority
+            src={logoIcon}
+            alt="Our logo"
+            className={styles.logoIcon}
+          ></Image>
+          <h1 className={styles.logoText}>MOVIEMETER</h1>
         </Link>
         <ul className={styles.list}>
           <div className={styles.searchContainer}>

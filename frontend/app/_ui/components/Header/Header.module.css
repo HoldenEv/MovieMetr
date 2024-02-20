@@ -55,11 +55,24 @@
   left: 10px;
 }
 
-.logo {
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.7rem;
   color: var(--pure-white);
   font-weight: 600;
   letter-spacing: 2px;
   text-decoration: none;
+}
+
+.logoIcon {
+  width: 35px;
+  height: auto;
+}
+
+.logoText {
+  display: none;
 }
 
 .navLink {
@@ -92,8 +105,9 @@
   background-color: #101010;
 }
 
-@media all and (min-width: 800px) {
-  .createAccount {
+@media all and (min-width: 850px) {
+  .createAccount,
+  .logoText {
     display: block;
   }
 
