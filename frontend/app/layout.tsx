@@ -3,7 +3,6 @@ import { League_Spartan } from "next/font/google";
 import "@/ui/global.css";
 import styles from "@/ui/Body.module.css";
 import Header from "@/ui/components/Header/Header";
->>>>>>> 8be3cb7ebb1a6516b30f6d1826c34f7b3bc26e9c
 
 const leagueSpartan = League_Spartan({ subsets: ["latin"] });
 
@@ -21,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${leagueSpartan.className} ${styles.body}`}>
         <Header />
-        <Login /> 
+        {/* <Login />  */}
         {children}
       </body>
     </html>
