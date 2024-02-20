@@ -14,6 +14,10 @@ router.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript Express!");
 });
 
+/*
+  Search by either: 'movies', 'shows', 'people'. Calls various functions from 
+  apiPuller.
+*/
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const name = req.query.name as string;
@@ -45,7 +49,7 @@ router.get("/people/:id", async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const movie = await personById(id);
     res.json(movie);
-  } catch(error) {
+  } catch (error) {
     console.error("Error getting movie details", error);
     res.status(500).send("Error getting movie details");
   }
@@ -68,7 +72,6 @@ router.get("/movies/:id", async (req: Request, res: Response) => {
 /*Below are routes tor return movie lists(popular, now playing, top rated, by genre perhaps,
   have the routes here for testing for now, likely wont need these until a home page is decided on
 */
-
 //route to get now playing movies, calls nowPlaying from apiPuller
 router.get("/now-playing", async (req: Request, res: Response) => {
   try {
