@@ -1,17 +1,14 @@
 .env
 
-# npm
+#npm
 node_modules
 package-lock.json
 *.log
-*.gz
+*.qz
 
-# Coveralls
+#coveralls
 .nyc_output
 coverage
 
-# Benchmarking
+#benchmarking
 benchmarks/graphs
-
-# ignore additional files using core.excludesFile
-# https://git-scm.com/docs/gitignore
