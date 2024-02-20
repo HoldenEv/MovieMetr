@@ -8,7 +8,7 @@ const leagueSpartan = League_Spartan({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Movie Meter",
-  description: "TODO", //TODO: METADATA
+  description: "Rate your movies",
 };
 
 export default function RootLayout({
