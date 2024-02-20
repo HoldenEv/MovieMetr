@@ -25,7 +25,7 @@ export default function Header() {
               className={styles.search}
             />
           </div>
-          <Link href="#" className={styles.navLink}>
+          <Link href="http://localhost:3000/login" className={styles.navLink}>
             SIGN IN
           </Link>
           <Link
