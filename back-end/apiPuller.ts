@@ -1,34 +1,39 @@
-import axios from 'axios';
+import axios from "axios";
 //access token is current method of authentication
-const apiAccessToken='eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2M2NTAyNGEyZmIzNmI0ZWI1ZjQ3MmY1ZThlYTY5ZCIsInN1YiI6IjY1Y2ZjM2RiMDcyMTY2MDE2MjM4ZmI4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a8Fu3-dZR5oxl04VuFwMzTyaMbJlWCCJ8wQjg505cYY;'
+const apiAccessToken =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2M2NTAyNGEyZmIzNmI0ZWI1ZjQ3MmY1ZThlYTY5ZCIsInN1YiI6IjY1Y2ZjM2RiMDcyMTY2MDE2MjM4ZmI4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.a8Fu3-dZR5oxl04VuFwMzTyaMbJlWCCJ8wQjg505cYY;";
 //key can be used inline of http request, couldnt get it to work though
-const apiKey='b3c65024a2fb36b4eb5f472f5e8ea69d';
+const apiKey = "b3c65024a2fb36b4eb5f472f5e8ea69d";
 
 const searchMovies = async (searchString: string) => {
-    const url = 'https://api.themoviedb.org/3/search/movie?api_key='+apiKey+'&query='+searchString;
-    const options = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+apiAccessToken
-        }
-    };
-    try{
-        const response = await axios.get(url, options);
-        const movies = response.data.results.map((movie: any) => ({
-            id:movie.id,
-            title:movie.title,
-            image:movie.poster_path,
-            summary:movie.overview,
-        }));
-        return movies;
-    }
-    catch(error){
-        console.error('Error searching movies', error);
-        throw error;
-    }
-}    
+  const url =
+    "https://api.themoviedb.org/3/search/movie?api_key=" +
+    apiKey +
+    "&query=" +
+    searchString;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    const movies = response.data.results.map((movie: any) => ({
+      id: movie.id,
+      title: movie.title,
+      image: movie.poster_path,
+      year: movie.release_date.slice(0, 4),
+      summary: movie.overview,
+    }));
+    return movies;
+  } catch (error) {
+    console.error("Error searching movies", error);
+    throw error;
+  }
+};
 
-export {searchMovies};
+export { searchMovies };
 //type can be movie, tv, person
 //time can be 'day' or 'week' specifying trending today or this week
 // async function getTrendingMovies(type: string, time: string){
@@ -43,12 +48,3 @@ export {searchMovies};
 //         console.log('done');
 //     }
 // }
-
-
-
-
-
-
-
-
-
