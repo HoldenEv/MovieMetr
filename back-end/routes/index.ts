@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from "express";
 import {
-  searchByActor,
+  searchByPeople,
   movieById,
   personById,
   searchMovies,
@@ -25,8 +25,8 @@ router.get("/search", async (req: Request, res: Response) => {
       results = await searchMovies(name);
     } else if (category === "shows") {
       results = await searchTvShows(name);
-    } else if (category === "actors") {
-      results = await searchByActor(name);
+    } else if (category === "people") {
+      results = await searchByPeople(name);
     } else {
       throw new Error("invalid category");
     }
@@ -37,69 +37,31 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
-//route to search for movies
-router.get("/search-movies", async (req: Request, res: Response) => {
+/*
+  Gets actor details by their TMDB id, calls personById function from apiPuller.
+*/
+router.get("/people/:id", async (req: Request, res: Response) => {
   try {
-    //may need to alter this to get the search string from the body properly
-    //searchString is the current key for the search
-    const searchString = req.query.searchString as string;
-    const movies = await searchMovies(searchString);
-    res.json(movies);
-  } catch (error) {
-    console.error("Error searching movies", error);
-    res.status(500).send("Error searching movies");
-  }
-});
-
-//route to get movie details by id,calls movieById from apiPuller
-//result is all data right now, edit movieById to map results based on whats needed
-router.get("/details-movie", async (req: Request, res: Response) => {
-  try {
-    const id = req.query.id as string;
-    const movie = await movieById(id);
+    const id = req.params.id as string;
+    const movie = await personById(id);
     res.json(movie);
-  } catch (error) {
+  } catch(error) {
     console.error("Error getting movie details", error);
     res.status(500).send("Error getting movie details");
   }
 });
 
-//route to search for actors calls searchByActor from apiPuller
-router.get("/search-actors", async (req: Request, res: Response) => {
+/*
+  Gets movie details by their TMDB id, calls movieById function from apiPuller.
+*/
+router.get("/movies/:id", async (req: Request, res: Response) => {
   try {
-    //may need to alter this to get the search string from the body properly
-    //searchString is the current key for the search
-    const searchString = req.query.searchString as string;
-    const actors = await searchByActor(searchString);
-    res.json(actors);
+    const id = req.params.id as string;
+    const movie = await movieById(id);
+    res.json(movie);
   } catch (error) {
-    console.error("Error searching actors", error);
-    res.status(500).send("Error searching actors");
-  }
-});
-
-//route to get actor details by id, calls personById() from apiPuller
-router.get("/details-actor", async (req: Request, res: Response) => {
-  try {
-    const id = req.query.id as string;
-    const actor = await personById(id);
-    res.json(actor);
-  } catch (error) {
-    console.error("Error getting actor details", error);
-    res.status(500).send("Error getting actor details");
-  }
-});
-
-//route to search for tv shows, calls searchTvShows from apiPuller
-router.get("/search-tv", async (req: Request, res: Response) => {
-  try {
-    //searchString is the current key for the search
-    const searchString = req.query.searchString as string;
-    const tvShows = await searchTvShows(searchString);
-    res.json(tvShows);
-  } catch (error) {
-    console.error("Error searching tv shows", error);
-    res.status(500).send("Error searching tv shows");
+    console.error("Error getting movie details", error);
+    res.status(500).send("Error getting movie details");
   }
 });
 

@@ -34,7 +34,7 @@ const searchMovies = async (searchString: string) => {
 }   
 
 //searchByActor returns a list of actors and their information
-const searchByActor = async (searchString: string) => {
+const searchByPeople = async (searchString: string) => {
     const url = 'https://api.themoviedb.org/3/search/person?api_key='+apiKey+'&query='+searchString;
     const options = {
         headers: {
@@ -184,7 +184,7 @@ const popularMovies = async () => {
 
 
 
-export {searchMovies, movieById,searchByActor,personById,searchTvShows,nowPlaying,popularMovies};
+export {searchMovies, movieById,searchByPeople,personById,searchTvShows,nowPlaying,popularMovies};
 
 
 
