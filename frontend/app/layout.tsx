@@ -20,7 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${leagueSpartan.className} ${styles.body}`}>
         <Header />
-        {/* <Login />  */}
         {children}
       </body>
     </html>
