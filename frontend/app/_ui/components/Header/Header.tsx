@@ -3,8 +3,8 @@ import React from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import Dropdown from "./Dropdown";
 import searchIcon from "../../../../public/search.svg";
-import logoIcon from "../../../../public/logo.svg";
 
 function Form() {
   const handleSubmit = async (event: any) => {
@@ -26,7 +26,8 @@ function Form() {
   };
 
   return (
-    <form className={styles.searchContainer} onSubmit={handleSubmit}>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <Dropdown />
       <Image
         priority
         src={searchIcon}
@@ -47,26 +48,22 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navMenu}>
-        <Link href="#" className={styles.logoContainer}>
-          <Image
-            priority
-            src={logoIcon}
-            alt="Our logo"
-            className={styles.logoIcon}
-          ></Image>
-          <h1 className={styles.logoText}>MOVIEMETER</h1>
-        </Link>
         <ul className={styles.list}>
           <Form />
-          <Link href="#" className={styles.navLink}>
-            SIGN IN
-          </Link>
-          <Link
-            href="#"
-            className={`${styles.navLink} ${styles.createAccount}`}
-          >
-            CREATE ACCOUNT
-          </Link>
+          <div className={styles.navLinks}>
+            <Link href="#" className={styles.navLink}>
+              HOME
+            </Link>
+            <Link href="#" className={styles.navLink}>
+              SIGN IN
+            </Link>
+            <Link
+              href="#"
+              className={`${styles.navLink} ${styles.createAccount}`}
+            >
+              CREATE ACCOUNT
+            </Link>
+          </div>
         </ul>
         <div className={styles.hamburger}>
           <span className={styles.bar}></span>
