@@ -1,19 +1,24 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import Dropdown from "./Dropdown";
 import searchIcon from "../../../../public/search.svg";
-import logoIcon from "../../../../public/logo.svg";
 
 function Form() {
+  const [activeButton, setActiveButton] = useState("Movies");
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     try {
       const search = event.target.search.value;
+      event.target.search.value = "";
+      const category = activeButton.toLowerCase();
       const response = await fetch(
-        `http://localhost:3001/search?category=movies&name=${search}`
+        `http://localhost:3001/search?category=${category}&name=${search}`
       );
       if (!response.ok) {
         throw new Error("response not okay");
@@ -26,19 +31,22 @@ function Form() {
   };
 
   return (
-    <form className={styles.searchContainer} onSubmit={handleSubmit}>
-      <Image
-        priority
-        src={searchIcon}
-        alt="Search for a movie"
-        className={styles.searchIcon}
-      ></Image>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <Dropdown activeButton={activeButton} setActiveButton={setActiveButton} />
       <input
         type="text"
         placeholder="Search..."
         className={styles.search}
         name="search"
       />
+      <button className={styles.searchButton} type="submit">
+        <Image
+          priority
+          src={searchIcon}
+          alt="Search for a movie"
+          className={styles.searchIcon}
+        ></Image>
+      </button>
     </form>
   );
 }
@@ -47,26 +55,22 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navMenu}>
-        <Link href="#" className={styles.logoContainer}>
-          <Image
-            priority
-            src={logoIcon}
-            alt="Our logo"
-            className={styles.logoIcon}
-          ></Image>
-          <h1 className={styles.logoText}>MOVIEMETER</h1>
-        </Link>
         <ul className={styles.list}>
           <Form />
-          <Link href="#" className={styles.navLink}>
-            SIGN IN
-          </Link>
-          <Link
-            href="#"
-            className={`${styles.navLink} ${styles.createAccount}`}
-          >
-            CREATE ACCOUNT
-          </Link>
+          <div className={styles.navLinks}>
+            <Link href="#" className={styles.navLink}>
+              HOME
+            </Link>
+            <Link href="#" className={styles.navLink}>
+              SIGN IN
+            </Link>
+            <Link
+              href="#"
+              className={`${styles.navLink} ${styles.createAccount}`}
+            >
+              CREATE ACCOUNT
+            </Link>
+          </div>
         </ul>
         <div className={styles.hamburger}>
           <span className={styles.bar}></span>

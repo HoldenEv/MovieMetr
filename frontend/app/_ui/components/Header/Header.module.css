@@ -3,40 +3,38 @@
   background-color: var(--dark-blue);
   font-size: 0.9rem;
   font-weight: 400;
-  padding-top: 2.2rem;
+  padding-top: 2.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 0.7rem;
 }
 
-.navMenu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .list {
+  min-width: 80%;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
   align-items: center;
-  padding-left: 1rem;
-  gap: 1.5rem;
-  flex-basis: 40rem;
+  gap: 1.2rem;
 }
 
-.searchContainer {
+.searchForm {
+  display: flex;
+  align-items: center;
   position: relative;
-  min-width: 70%;
+  min-width: 0;
+  width: 100%;
+  min-height: 1.5rem;
 }
 
 .search {
   background-color: var(--light-grey);
   border: none;
-  align-self: flex-start;
-  border-radius: 23px;
-  min-height: 1.6rem;
-  min-width: 100%;
-  padding-left: 2.2rem;
+  border-radius: 0 10px 10px 0;
+  align-self: stretch;
+  min-width: 75%;
+  width: 100%;
+  padding-left: 0.6rem;
   opacity: 75%;
   transition: opacity 0.3s;
 }
@@ -52,27 +50,18 @@
   width: 18px;
   height: auto;
   top: 15%;
-  left: 10px;
+  right: 20px;
 }
 
-.logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 0.7rem;
-  color: var(--pure-white);
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-decoration: none;
+.searchButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .logoIcon {
   width: 35px;
   height: auto;
-}
-
-.logoText {
-  display: none;
 }
 
 .navLink {
@@ -87,8 +76,11 @@
   color: var(--pure-white);
 }
 
-.createAccount {
-  display: none;
+.navLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 /* IN PROGRESS */
@@ -105,10 +97,67 @@
   background-color: #101010;
 }
 
+/* dropdown menu */
+.menu {
+  position: absolute;
+  border: none;
+  list-style-type: none;
+  margin: 5px 0;
+  width: 150px;
+}
+
+.activeItem {
+  border: none;
+  border-radius: 10px 0 0 10px;
+  border-right: 1px solid black;
+  min-height: 1.5rem;
+  width: 5rem;
+  background-color: #a2a5aa;
+  color: black;
+  font-weight: bold;
+}
+
+.activeItem:hover {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.menu > li {
+  margin: 0;
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.menu > li:hover {
+  background-color: #e8e7e7;
+}
+
+.menu > li > button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 @media all and (min-width: 850px) {
-  .createAccount,
-  .logoText {
-    display: block;
+  .list {
+    flex-direction: row;
+  }
+
+  .searchForm {
+    flex: 1;
+  }
+
+  .navLinks {
+    justify-content: space-end;
   }
 
   .header {
