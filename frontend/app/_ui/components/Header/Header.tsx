@@ -15,6 +15,7 @@ function Form() {
 
     try {
       const search = event.target.search.value;
+      event.target.search.value = "";
       const category = activeButton.toLowerCase();
       const response = await fetch(
         `http://localhost:3001/search?category=${category}&name=${search}`
