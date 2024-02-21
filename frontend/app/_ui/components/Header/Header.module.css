@@ -24,18 +24,17 @@
   position: relative;
   min-width: 0;
   width: 100%;
+  min-height: 1.5rem;
 }
 
 .search {
   background-color: var(--light-grey);
   border: none;
+  border-radius: 0 10px 10px 0;
   align-self: stretch;
-  border-radius: 23px;
-  min-height: 1.6rem;
   min-width: 75%;
   width: 100%;
-  padding-left: 2.3rem;
-  margin-left: 0.5rem;
+  padding-left: 0.6rem;
   opacity: 75%;
   transition: opacity 0.3s;
 }
@@ -51,7 +50,13 @@
   width: 18px;
   height: auto;
   top: 15%;
-  left: 97px;
+  right: 20px;
+}
+
+.searchButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .logoIcon {
@@ -102,7 +107,18 @@
 }
 
 .activeItem {
+  border: none;
+  border-radius: 10px 0 0 10px;
+  border-right: 1px solid black;
+  min-height: 1.5rem;
   width: 5rem;
+  background-color: #a2a5aa;
+  color: black;
+  font-weight: bold;
+}
+
+.activeItem:hover {
+  cursor: pointer;
 }
 
 .dropdown {

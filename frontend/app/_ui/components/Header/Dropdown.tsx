@@ -1,33 +1,51 @@
 import { useState } from "react";
 import styles from "./Header.module.css";
 
-export default function Dropdown() {
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Films");
+interface DropdownProps {
+  activeButton: string;
+  setActiveButton: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const handleOpen = () => {
+export default function Dropdown({
+  activeButton,
+  setActiveButton,
+}: DropdownProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (event: any) => {
+    event.preventDefault();
     setOpen(!open);
+  };
+
+  const handleClick = (category: string, event: any) => {
+    event.preventDefault();
+    setActiveButton(category);
+    setOpen(false);
   };
 
   return (
     <div className={styles.dropdown}>
-      <button onClick={handleOpen} className={`${styles.menuItem} ${styles.activeItem}`}>
-        {active}
+      <button
+        type="button"
+        onClick={handleOpen}
+        className={`${styles.menuItem} ${styles.activeItem}`}
+      >
+        {activeButton}
       </button>
       {open ? (
         <ul className={styles.menu}>
           <li>
             <button
               className={styles.menuItem}
-              onClick={() => setActive("Films")}
+              onClick={() => handleClick("Movies", event)}
             >
-              Films
+              Movies
             </button>
           </li>
           <li>
             <button
               className={styles.menuItem}
-              onClick={() => setActive("Shows")}
+              onClick={() => handleClick("Shows", event)}
             >
               Shows
             </button>
@@ -35,14 +53,13 @@ export default function Dropdown() {
           <li>
             <button
               className={styles.menuItem}
-              onClick={() => setActive("Cast/Crew")}
+              onClick={() => handleClick("People", event)}
             >
-              Cast/Crew
+              People
             </button>
           </li>
         </ul>
       ) : null}
-      {/* {open ? <div>Is open</div> : <div>Is closed</div>} */}
     </div>
   );
 }
