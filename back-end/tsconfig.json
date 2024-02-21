@@ -1,4 +1,5 @@
 {
+  
   "compilerOptions": {
     "target": "es6",
     "module": "CommonJS",
@@ -8,6 +9,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "express.d.ts", "middleware/authentication.tsx", "config.ts"],
   "exclude": ["node_modules"]
 }
