@@ -9,6 +9,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts", "middleware/authentication.tsx", "config.ts"],
-  "exclude": ["node_modules"] 
+  "include": ["**/*.ts", "express.d.ts", "middleware/authentication.tsx", "config.ts"],
+  "exclude": ["node_modules"]
 }

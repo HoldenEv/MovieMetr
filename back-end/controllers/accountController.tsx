@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import User from "";
-import config from "./config.ts";
-import jwt from "jwt-simple";
+const User = require("../models/user")
+const config = require("../config.js")
+const jwt = require("jwt-simple");
 
 exports.login = function (req : Request, res : Response) {
   User.findOne({ username: req.body.username }, (err : Error, user : any) => {
@@ -20,12 +20,12 @@ exports.login = function (req : Request, res : Response) {
   });
 };
 
-exports.register = function (req, res) {
+exports.register = function (req : Request, res : Response) {
   User.register(
     new User({ 
       email: req.body.email, 
       username: req.body.username 
-    }), req.body.password, function (err, msg) {
+    }), req.body.password, function (err : Error, msg : String) {
       if (err) {
         res.send(err);
       } else {
@@ -35,7 +35,7 @@ exports.register = function (req, res) {
   );
 };
 
-exports.profile = function(req : Request, res : Response) {
+exports.profile = function(req : any, res : Response) {
   res.json({
     message: 'You made it to the secured profile',
     user: req.user,
