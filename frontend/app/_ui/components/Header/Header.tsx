@@ -58,10 +58,10 @@ export default function Header() {
         <ul className={styles.list}>
           <Form />
           <div className={styles.navLinks}>
-            <Link href="#" className={styles.navLink}>
+            <Link href="/" className={styles.navLink}>
               HOME
             </Link>
-            <Link href="#" className={styles.navLink}>
+            <Link href="/login" className={styles.navLink}>
               SIGN IN
             </Link>
             <Link
