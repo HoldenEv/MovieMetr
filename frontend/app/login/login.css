@@ -46,7 +46,7 @@
 .login-button {
   background-color: #191C2D;
   color: white;
-  transition: background-color 0.3s, color 0.3s;
+  border-color: white;
 }
 
 .remember-me-button,
@@ -59,7 +59,6 @@
 .create-account-button,
 .login-button {
   border-radius: 20px;
-  border-color: white;
   padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
