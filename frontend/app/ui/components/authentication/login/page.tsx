@@ -1,9 +1,8 @@
 import "./login.css"
 
-export default function Login(){
-
+export default function Login() {
   return (
-    <div className="login">
+    <div className="login" id="login">
       <div className="username">
         <p className="username-text">Username</p>
         <input
@@ -27,6 +26,7 @@ export default function Login(){
       <button className="login-button" type="submit">
         Forgot Password?
       </button>
+      
       <div className="login-bottom-buttons">
         <div className="remember-me-button"> 
           <input type="radio" id="html" name="fav_language" value="HTML"/>
