@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { League_Spartan } from "next/font/google";
-import "@/ui/global.css";
-import styles from "@/ui/Body.module.css";
-import Header from "@/ui/components/Header/Header";
-//>>>>>>> 8be3cb7ebb1a6516b30f6d1826c34f7b3bc26e9c
+import { Inter } from "next/font/google"; // TODO: FIND FONTS
+import "@/_ui/global.css";
+import Header from "@/_ui/components/Header/Header";
+import styles from "@/_ui/Body.module.css"
 
-const leagueSpartan = League_Spartan({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Movie Meter",
-  description: "TODO", //TODO: METADATA
+  title: "MOIST METER",
+  description: "Rate your movies",
 };
 
 export default function RootLayout({
@@ -19,9 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${leagueSpartan.className} ${styles.body}`}>
+      <body className={`${inter.className} ${styles.body}`}>
         <Header />
-        
         {children}
       </body>
     </html>

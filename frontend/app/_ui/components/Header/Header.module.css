@@ -1,0 +1,166 @@
+.header {
+  color: var(--light-grey);
+  background-color: var(--dark-blue);
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding-top: 2.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0.7rem;
+}
+
+.list {
+  min-width: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  min-height: 1.5rem;
+}
+
+.search {
+  background-color: var(--light-grey);
+  border: none;
+  border-radius: 0 10px 10px 0;
+  align-self: stretch;
+  min-width: 75%;
+  width: 100%;
+  padding-left: 0.6rem;
+  opacity: 75%;
+  transition: opacity 0.3s;
+}
+
+.search:focus {
+  outline: 0;
+  opacity: 97%;
+}
+
+.searchIcon {
+  position: absolute;
+  z-index: 1;
+  width: 18px;
+  height: auto;
+  top: 15%;
+  right: 20px;
+}
+
+.searchButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.logoIcon {
+  width: 35px;
+  height: auto;
+}
+
+.navLink {
+  color: var(--light-grey);
+  font-weight: 550;
+  text-decoration: none;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.navLink:hover {
+  color: var(--pure-white);
+}
+
+.navLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* IN PROGRESS */
+.hamburger {
+  display: none;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+  background-color: #101010;
+}
+
+/* dropdown menu */
+.menu {
+  position: absolute;
+  border: none;
+  list-style-type: none;
+  margin: 5px 0;
+  width: 150px;
+}
+
+.activeItem {
+  border: none;
+  border-radius: 10px 0 0 10px;
+  border-right: 1px solid black;
+  min-height: 1.5rem;
+  width: 5rem;
+  background-color: #a2a5aa;
+  color: black;
+  font-weight: bold;
+}
+
+.activeItem:hover {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.menu > li {
+  margin: 0;
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.menu > li:hover {
+  background-color: #e8e7e7;
+}
+
+.menu > li > button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media all and (min-width: 850px) {
+  .list {
+    flex-direction: row;
+  }
+
+  .searchForm {
+    flex: 1;
+  }
+
+  .navLinks {
+    justify-content: space-end;
+  }
+
+  .header {
+    padding: 0.7rem 1rem;
+  }
+}
