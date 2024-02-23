@@ -29,11 +29,11 @@ export default function Header() {
             SIGN IN
           </Link>
           <Link
-            href="#"
-            className={`${styles.navLink} ${styles.createAccount}`}
-          >
+            href="http://localhost:3001/SignUp"
+            className={`${styles.navLink} ${styles.createAccount}`}>
             CREATE ACCOUNT
           </Link>
+  
         </ul>
         <div className={styles.hamburger}>
           <span className={styles.bar}></span>

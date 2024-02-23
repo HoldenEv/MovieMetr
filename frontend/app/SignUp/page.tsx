@@ -2,10 +2,10 @@ import styles from "./SignUp.module.css";
 
 export default function SignUp() {
     return (
-        <div className="login">
+        <div className={styles.login}>
           <div>
-          <div className="username">
-            <p className="username-text">Username</p>
+          <div className={styles.username}>
+            <p className={styles.usernameText}>Username</p>
             <input
                 type="text"
                 id="username"
@@ -14,8 +14,17 @@ export default function SignUp() {
                 required
               />
           </div>
-          <div className="password">
-          <p className="password-text">Password</p>
+          <div className={styles.email}>
+            <p className={styles.emailText}>Email</p>
+            <input
+            type = "text"
+            id ="email"
+            name = "email"
+            required
+            />
+          </div>
+          <div className={styles.password}>
+          <p className={styles.passwordText}>Password</p>
             <input
                 type="password"
                 id="password"
@@ -24,26 +33,23 @@ export default function SignUp() {
                 required
               />
           </div>
-            <p className="forgot-password">
+            <p className={styles.forgotPassword}>
             <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
             </p>
           {/* <button className="login-button" type="submit">
             Forgot Password?
           </button> */}
-          <div className="login-bottom-buttons">
-            <div className="remember-me-button">
+          <div className={styles.loginBottomButtons}>
+            <div className={styles.rememberMeButton}>
               <input type="checkbox" id="rememberMe" name="rememberMe" />
                 <label htmlFor="rememberMe">Remember Me</label>
               </div>
-              <p className="create-account-button">
+              <p className={styles.createAccountButton}>
               <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
               </p>
             {/* <button className="create-account-button" type="submit">
               Create Account
             </button> */}
-            <button className="login-button" type="submit">
-              Login In 
-            </button>
           </div>
           </div>
         </div>
