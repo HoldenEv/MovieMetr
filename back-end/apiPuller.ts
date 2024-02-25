@@ -67,8 +67,7 @@ const searchMovies = async (searchString: string, page: string) => {
     };
     return res;
   } catch (error) {
-    console.error("Error searching movies", error);
-    throw new Error("Error searching movies");
+    throw new Error("Error searching movies: " + error);
   }
 };
 
