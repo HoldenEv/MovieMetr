@@ -16,14 +16,14 @@ function Form() {
     try {
       const search = event.target.search.value;
       event.target.search.value = "";
-      const category = activeButton.toLowerCase();
-      const response = await fetch(
-        `http://localhost:3001/search?category=${category}&name=${search}`
-      );
-      if (!response.ok) {
-        throw new Error("response not okay");
-      }
-      const searchData = await response.json();
+      // const category = activeButton.toLowerCase();
+      // const response = await fetch(
+      //   `http://localhost:3001/search?category=${category}&name=${search}`
+      // );
+      // if (!response.ok) {
+      //   throw new Error("response not okay");
+      // }
+      // const searchData = await response.json();
       console.log(searchData);
     } catch (error) {
       console.error("error", error);
