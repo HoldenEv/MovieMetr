@@ -34,7 +34,18 @@ const searchMovies = async (searchString: string, page: string) => {
       image: movie.poster_path,
       summary: movie.overview,
     }));
-    return movies;
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    const res = {
+      page,
+      movies,
+      total_pages,
+      total_results,
+    };
+
+    return res;
   } catch (error) {
     console.error("Error searching movies", error);
     throw error;
