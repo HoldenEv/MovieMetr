@@ -112,7 +112,7 @@
   border-right: 1px solid black;
   min-height: 1.5rem;
   width: 5rem;
-  background-color: #a2a5aa;
+  background-color: var(--medium-grey);
   color: black;
   font-weight: bold;
 }
@@ -127,12 +127,12 @@
 
 .menu > li {
   margin: 0;
-  background-color: #d3d3d3;
+  background-color: var(--light-grey);
   color: black;
 }
 
 .menu > li:hover {
-  background-color: #e8e7e7;
+  background-color: var(--white-hover);
 }
 
 .menu > li > button {
