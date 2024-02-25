@@ -3,13 +3,30 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 //access token is current method of authentication
-const apiAccessToken = process.env.ACCESSTOKEN;
+const apiAccessToken: string | undefined = process.env.ACCESSTOKEN;
 //key can be used inline of http request, couldnt get it to work though
-const apiKey = process.env.APIKEY;
+const apiKey: string | undefined = process.env.APIKEY;
+
+/* interfaces for movie search data/response */
+interface MovieData {
+  id: number;
+  title: string;
+  original_title: string;
+  year: string;
+  image: string;
+  summary: string;
+}
+
+interface MovieResponse {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  movies: MovieData[];
+}
 
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string, page: string) => {
-  const url =
+  const url: string =
     "https://api.themoviedb.org/3/search/movie?api_key=" +
     apiKey +
     "&query=" +
@@ -26,7 +43,7 @@ const searchMovies = async (searchString: string, page: string) => {
     const response = await axios.get(url, options);
     //can edit this function to return more data if needed
     //calling apiById(with movie.id) will return all data for now
-    const movies = response.data.results.map((movie: any) => ({
+    const movies: MovieData[] = response.data.results.map((movie: any) => ({
       id: movie.id,
       title: movie.title,
       original_title: movie.original_title,
@@ -38,11 +55,11 @@ const searchMovies = async (searchString: string, page: string) => {
     const total_pages: number = response.data.total_pages;
     const total_results: number = response.data.total_results;
 
-    const res = {
+    const res: MovieResponse = {
       page,
-      movies,
       total_pages,
       total_results,
+      movies,
     };
 
     return res;
