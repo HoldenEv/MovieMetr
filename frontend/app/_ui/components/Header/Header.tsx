@@ -55,10 +55,10 @@ function Form() {
 export default function Header() {
   return (
     <header className={styles.header}>
-      <nav className={styles.navMenu}>
+      <nav>
         <ul className={styles.list}>
           <Form />
-          <div className={styles.navLinks}>
+          <div className={styles.navLinkContainer}>
             <Link href="/" className={styles.navLink}>
               HOME
             </Link>
