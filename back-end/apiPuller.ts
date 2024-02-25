@@ -26,6 +26,7 @@ interface MovieResponse {
 
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string, page: string) => {
+  /* configure url for TMDB movie search URL */
   const url: string =
     "https://api.themoviedb.org/3/search/movie?api_key=" +
     apiKey +
@@ -40,9 +41,10 @@ const searchMovies = async (searchString: string, page: string) => {
     },
   };
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with movie.id) will return all data for now
+
+    /* map movie results data to our own array */
     const movies: MovieData[] = response.data.results.map((movie: any) => ({
       id: movie.id,
       title: movie.title,
@@ -51,21 +53,22 @@ const searchMovies = async (searchString: string, page: string) => {
       image: movie.poster_path,
       summary: movie.overview,
     }));
+    /* store page and result info */
     const page: number = response.data.page;
     const total_pages: number = response.data.total_pages;
     const total_results: number = response.data.total_results;
 
+    /* return page, result info, movie list for response */
     const res: MovieResponse = {
       page,
       total_pages,
       total_results,
       movies,
     };
-
     return res;
   } catch (error) {
     console.error("Error searching movies", error);
-    throw error;
+    throw new Error("Error searching movies");
   }
 };
 
