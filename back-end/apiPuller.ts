@@ -7,7 +7,7 @@ const apiAccessToken: string | undefined = process.env.ACCESSTOKEN;
 //key can be used inline of http request, couldnt get it to work though
 const apiKey: string | undefined = process.env.APIKEY;
 
-/* interfaces for movie search data/response */
+/* interfaces for movie search data */
 interface MovieData {
   id: number;
   title: string;
@@ -17,11 +17,18 @@ interface MovieData {
   summary: string;
 }
 
-interface MovieResponse {
+/* interface for person search data */
+interface PersonData {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface ApiResponse {
   page: number;
   total_pages: number;
   total_results: number;
-  movies: MovieData[];
+  movies: MovieData[] | PersonData[];
 }
 
 //search for movies given a search string, currently returns id, title, image, and summary
@@ -59,7 +66,7 @@ const searchMovies = async (searchString: string, page: string) => {
     const total_results: number = response.data.total_results;
 
     /* return page, result info, movie list for response */
-    const res: MovieResponse = {
+    const res: ApiResponse = {
       page,
       total_pages,
       total_results,
@@ -92,7 +99,7 @@ const searchByPeople = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map people results data to our own array */
-    const people = response.data.results.map((person: any) => ({
+    const people: PersonData = response.data.results.map((person: any) => ({
       id: person.id,
       name: person.name,
       image: person.profile_path,
@@ -117,7 +124,8 @@ const searchByPeople = async (searchString: string, page: string) => {
 
 //searchTvShows given a searchString returns a list of tv shows and
 //their information filtered by a map
-const searchTvShows = async (searchString: string) => {
+const searchTvShows = async (searchString: string, page: string) => {
+  /* configure url for TMDB show search */
   const url =
     "https://api.themoviedb.org/3/search/tv?api_key=" +
     apiKey +
@@ -130,9 +138,9 @@ const searchTvShows = async (searchString: string) => {
     },
   };
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with tvShow.id) will return all data for now
+    /* map show results to our own array */
     const tvShows = response.data.results.map((tvShow: any) => ({
       id: tvShow.id,
       name: tvShow.name,
@@ -140,7 +148,20 @@ const searchTvShows = async (searchString: string) => {
       summary: tvShow.overview,
       startdate: tvShow.first_air_date,
     }));
-    return tvShows;
+    /* store page and result info */
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    /* return page, result info, movie list for response */
+    const res = {
+      page,
+      total_pages,
+      total_results,
+      tvShows,
+    };
+
+    return res;
   } catch (error) {
     console.error("Error searching tv shows", error);
     throw error;

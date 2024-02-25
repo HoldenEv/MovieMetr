@@ -29,7 +29,7 @@ router.get("/search", async (req: Request, res: Response) => {
     if (category === "movies") {
       results = await searchMovies(name, page);
     } else if (category === "shows") {
-      results = await searchTvShows(name);
+      results = await searchTvShows(name, page);
     } else if (category === "people") {
       results = await searchByPeople(name, page);
     } else {
