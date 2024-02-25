@@ -31,7 +31,7 @@ router.get("/search", async (req: Request, res: Response) => {
     } else if (category === "shows") {
       results = await searchTvShows(name);
     } else if (category === "people") {
-      results = await searchByPeople(name);
+      results = await searchByPeople(name, page);
     } else {
       throw new Error("invalid category");
     }

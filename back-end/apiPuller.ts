@@ -72,7 +72,7 @@ const searchMovies = async (searchString: string, page: string) => {
 };
 
 //searchByActor returns a list of actors and their information
-const searchByPeople = async (searchString: string) => {
+const searchByPeople = async (searchString: string, page: string) => {
   const url =
     "https://api.themoviedb.org/3/search/person?api_key=" +
     apiKey +
@@ -86,14 +86,25 @@ const searchByPeople = async (searchString: string) => {
   };
   try {
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with actor.id) will return all data for now
     const actors = response.data.results.map((actor: any) => ({
       id: actor.id,
       name: actor.name,
       image: actor.profile_path,
     }));
-    return actors;
+    /* store page and result info */
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    /* return page, result info, movie list for response */
+    const res = {
+      page,
+      total_pages,
+      total_results,
+      actors,
+    };
+    return res;
+
   } catch (error) {
     console.error("Error searching actors", error);
     throw error;
