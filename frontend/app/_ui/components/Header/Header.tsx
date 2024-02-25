@@ -1,27 +1,33 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "./Dropdown";
 import searchIcon from "@/_assets/search.svg";
-import {search} from "@/_api/search";
+import { search } from "@/_api/search";
 
 function Form() {
+  /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Movies");
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const inputText: String = event.target.search.value;
-      event.target.search.value = "";
-
+      /* this is so TypeScript recognizing the attributes of the event
+      we are accessing */
+      const formElement = event.target as HTMLFormElement;
+      /* store the search text */
+      const inputText = formElement.search.value;
+      /* call function to make the search */
       const searchData = await search(activeButton, inputText);
-      console.log(searchData);
+      /* reset the value of the search bar */
+      formElement.search.value = "";
+      console.log(searchData); //FOR DEBUGGING
     } catch (error) {
-      console.error("error", error);
+      console.error("Error getting results: ", error);
     }
   };
 
