@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "./Dropdown";
-import searchIcon from "../../../../public/search.svg";
+import searchIcon from "@/_assets/search.svg";
 
 function Form() {
   const [activeButton, setActiveButton] = useState("Movies");
