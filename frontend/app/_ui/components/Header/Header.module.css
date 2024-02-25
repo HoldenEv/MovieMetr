@@ -119,6 +119,7 @@
 
 .activeItem:hover {
   cursor: pointer;
+  background-color: #a9a9a9;
 }
 
 .dropdown {
