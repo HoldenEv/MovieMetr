@@ -139,7 +139,9 @@ const searchTvShows = async (searchString: string, page: string) => {
     "https://api.themoviedb.org/3/search/tv?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
