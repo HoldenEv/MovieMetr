@@ -24,6 +24,15 @@ interface PersonData {
   image: string;
 }
 
+/* interface for show search data */
+interface ShowData {
+  id: number;
+  name: string;
+  image: string;
+  summary: string;
+  startdate: string;
+}
+
 interface ApiResponse {
   page: number;
   total_pages: number;
@@ -99,7 +108,7 @@ const searchByPeople = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map people results data to our own array */
-    const people: PersonData = response.data.results.map((person: any) => ({
+    const people: PersonData[] = response.data.results.map((person: any) => ({
       id: person.id,
       name: person.name,
       image: person.profile_path,
@@ -141,12 +150,12 @@ const searchTvShows = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map show results to our own array */
-    const tvShows = response.data.results.map((tvShow: any) => ({
-      id: tvShow.id,
-      name: tvShow.name,
-      image: tvShow.poster_path,
-      summary: tvShow.overview,
-      startdate: tvShow.first_air_date,
+    const shows: ShowData[] = response.data.results.map((show: any) => ({
+      id: show.id,
+      name: show.name,
+      image: show.poster_path,
+      summary: show.overview,
+      startdate: show.first_air_date,
     }));
     /* store page and result info */
     const page: number = response.data.page;
@@ -158,7 +167,7 @@ const searchTvShows = async (searchString: string, page: string) => {
       page,
       total_pages,
       total_results,
-      tvShows,
+      shows,
     };
 
     return res;
