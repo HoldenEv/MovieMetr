@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "./Dropdown";
 import searchIcon from "@/_assets/search.svg";
+import {search} from "@/_api/search";
 
 function Form() {
   const [activeButton, setActiveButton] = useState("Movies");
@@ -14,16 +15,10 @@ function Form() {
     event.preventDefault();
 
     try {
-      const search = event.target.search.value;
+      const inputText: String = event.target.search.value;
       event.target.search.value = "";
-      // const category = activeButton.toLowerCase();
-      // const response = await fetch(
-      //   `http://localhost:3001/search?category=${category}&name=${search}`
-      // );
-      // if (!response.ok) {
-      //   throw new Error("response not okay");
-      // }
-      // const searchData = await response.json();
+
+      const searchData = await search(activeButton, inputText);
       console.log(searchData);
     } catch (error) {
       console.error("error", error);
