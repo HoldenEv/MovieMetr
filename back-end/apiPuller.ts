@@ -8,12 +8,14 @@ const apiAccessToken = process.env.ACCESSTOKEN;
 const apiKey = process.env.APIKEY;
 
 //search for movies given a search string, currently returns id, title, image, and summary
-const searchMovies = async (searchString: string) => {
+const searchMovies = async (searchString: string, page: string) => {
   const url =
     "https://api.themoviedb.org/3/search/movie?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
