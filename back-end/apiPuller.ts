@@ -73,23 +73,29 @@ const searchMovies = async (searchString: string, page: string) => {
 
 //searchByActor returns a list of actors and their information
 const searchByPeople = async (searchString: string, page: string) => {
+  /* configure url for TMDB person search */
   const url =
     "https://api.themoviedb.org/3/search/person?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + apiAccessToken,
     },
   };
+
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    const actors = response.data.results.map((actor: any) => ({
-      id: actor.id,
-      name: actor.name,
-      image: actor.profile_path,
+    /* map people results data to our own array */
+    const people = response.data.results.map((person: any) => ({
+      id: person.id,
+      name: person.name,
+      image: person.profile_path,
     }));
     /* store page and result info */
     const page: number = response.data.page;
@@ -101,13 +107,11 @@ const searchByPeople = async (searchString: string, page: string) => {
       page,
       total_pages,
       total_results,
-      actors,
+      people,
     };
     return res;
-
   } catch (error) {
-    console.error("Error searching actors", error);
-    throw error;
+    throw new Error("Error searching people: " + error);
   }
 };
 
