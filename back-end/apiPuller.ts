@@ -163,8 +163,7 @@ const searchTvShows = async (searchString: string, page: string) => {
 
     return res;
   } catch (error) {
-    console.error("Error searching tv shows", error);
-    throw error;
+    throw new Error("Error searching shows: " + error);
   }
 };
 
