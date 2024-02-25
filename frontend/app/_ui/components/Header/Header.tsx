@@ -21,8 +21,10 @@ function Form() {
       const formElement = event.target as HTMLFormElement;
       /* store the search text */
       const inputText = formElement.search.value;
+      /* start by querying the first page */
+      const page = "1" as string;
       /* call function to make the search */
-      const searchData = await search(activeButton, inputText);
+      const searchData = await search(activeButton, inputText, page);
       /* reset the value of the search bar */
       formElement.search.value = "";
       console.log(searchData); //FOR DEBUGGING
