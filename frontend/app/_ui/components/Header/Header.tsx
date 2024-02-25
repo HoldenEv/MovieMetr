@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import Dropdown from "./Dropdown";
+import Dropdown from "../DropDown/Dropdown";
 import searchIcon from "@/_assets/search.svg";
 import { search } from "@/_api/search";
 

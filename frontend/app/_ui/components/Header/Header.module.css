@@ -97,57 +97,6 @@
   background-color: #101010;
 }
 
-/* dropdown menu */
-.dropdown {
-  position: relative;
-}
-
-.menu {
-  position: absolute;
-  border: none;
-  list-style-type: none;
-  margin: 5px 0;
-  width: 150px;
-}
-
-.activeItem {
-  border: none;
-  border-radius: 10px 0 0 10px;
-  border-right: 1px solid black;
-  min-height: 1.5rem;
-  width: 5rem;
-  background-color: var(--medium-grey);
-  color: black;
-  font-weight: bold;
-}
-
-.activeItem:hover {
-  cursor: pointer;
-  background-color: #a9a9a9;
-}
-
-.menu > li {
-  margin: 0;
-  background-color: var(--light-grey);
-  color: black;
-}
-
-.menu > li:hover {
-  background-color: var(--white-hover);
-}
-
-.menu > li > button {
-  width: 100%;
-  height: 100%;
-  text-align: left;
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 5px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
 /* media queries (screens larger than phone) */
 @media only screen and (min-width: 850px) {
   .list {
