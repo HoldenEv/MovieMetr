@@ -37,7 +37,7 @@ interface ApiResponse {
   page: number;
   total_pages: number;
   total_results: number;
-  movies: MovieData[] | PersonData[];
+  data: (MovieData | PersonData | ShowData)[];
 }
 
 //search for movies given a search string, currently returns id, title, image, and summary
@@ -61,7 +61,7 @@ const searchMovies = async (searchString: string, page: string) => {
     const response = await axios.get(url, options);
 
     /* map movie results data to our own array */
-    const movies: MovieData[] = response.data.results.map((movie: any) => ({
+    const data: MovieData[] = response.data.results.map((movie: any) => ({
       id: movie.id,
       title: movie.title,
       original_title: movie.original_title,
@@ -79,7 +79,7 @@ const searchMovies = async (searchString: string, page: string) => {
       page,
       total_pages,
       total_results,
-      movies,
+      data,
     };
     return res;
   } catch (error) {
@@ -108,7 +108,7 @@ const searchByPeople = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map people results data to our own array */
-    const people: PersonData[] = response.data.results.map((person: any) => ({
+    const data: PersonData[] = response.data.results.map((person: any) => ({
       id: person.id,
       name: person.name,
       image: person.profile_path,
@@ -119,11 +119,11 @@ const searchByPeople = async (searchString: string, page: string) => {
     const total_results: number = response.data.total_results;
 
     /* return page, result info, movie list for response */
-    const res = {
+    const res: ApiResponse = {
       page,
       total_pages,
       total_results,
-      people,
+      data,
     };
     return res;
   } catch (error) {
@@ -150,7 +150,7 @@ const searchTvShows = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map show results to our own array */
-    const shows: ShowData[] = response.data.results.map((show: any) => ({
+    const data: ShowData[] = response.data.results.map((show: any) => ({
       id: show.id,
       name: show.name,
       image: show.poster_path,
@@ -163,11 +163,11 @@ const searchTvShows = async (searchString: string, page: string) => {
     const total_results: number = response.data.total_results;
 
     /* return page, result info, movie list for response */
-    const res = {
+    const res: ApiResponse = {
       page,
       total_pages,
       total_results,
-      shows,
+      data,
     };
 
     return res;
