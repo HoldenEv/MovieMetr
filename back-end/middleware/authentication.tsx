@@ -28,3 +28,4 @@ module.exports = function() {
 
   return { initialize: function() { return passport.initialize() }};
 };
+
