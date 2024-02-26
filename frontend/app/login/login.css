@@ -1,8 +1,8 @@
 .login {
-   background-color: #22324A;
-   display: flex;
-   justify-content: center;
-   padding: 2rem;
+  background-color: #22324a;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .username {
@@ -12,9 +12,9 @@
 }
 
 .username input,
-.password input{
+.password input {
   width: 100%;
-  background-color: #D8C1C1;
+  background-color: #d8c1c1;
   border-radius: 6px;
   font-size: 14px;
 }
@@ -23,13 +23,12 @@
   padding-bottom: 0.4%;
 }
 
-.username-text 
-.password-text {
+.username-text .password-text {
   padding-bottom: 0.3%;
   color: white;
 }
 
-.forgot-password{
+.forgot-password {
   font-size: 12px;
   cursor: pointer;
   text-align: right;
@@ -44,7 +43,7 @@
 }
 
 .login-button {
-  background-color: #191C2D;
+  background-color: #191c2d;
   color: white;
   border-color: white;
 }
@@ -52,7 +51,7 @@
 .remember-me-button,
 .create-account-button,
 .login-button {
-  flex: 1; 
+  flex: 1;
   text-align: center;
 }
 
@@ -61,7 +60,9 @@
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .create-account-button:hover,
