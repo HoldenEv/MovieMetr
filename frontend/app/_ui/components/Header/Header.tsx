@@ -68,7 +68,7 @@ export default function Header() {
               SIGN IN
             </Link>
             <Link
-              href="#"
+              href="/signup"
               className={`${styles.navLink} ${styles.createAccount}`}
             >
               CREATE ACCOUNT
