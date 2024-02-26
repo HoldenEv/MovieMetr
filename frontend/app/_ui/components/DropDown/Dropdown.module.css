@@ -11,7 +11,7 @@
   width: 150px;
 }
 
-.activeItem {
+/* .activeItem {
   border: none;
   border-radius: 10px 0 0 10px;
   border-right: 1px solid black;
@@ -25,7 +25,7 @@
 .activeItem:hover {
   cursor: pointer;
   background-color: #a9a9a9;
-}
+} */
 
 .menu > li {
   margin: 0;

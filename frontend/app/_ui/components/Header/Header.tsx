@@ -11,8 +11,20 @@ import { search } from "@/_api/search";
 function Form() {
   /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Movies");
+  const [open, setOpen] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleOpen = (event: any) => {
+    event.preventDefault();
+    setOpen(!open);
+  };
+
+  const handleClick = (category: string, event: any) => {
+    event.preventDefault();
+    setActiveButton(category);
+    setOpen(false);
+  };
+
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     try {
@@ -35,7 +47,29 @@ function Form() {
 
   return (
     <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <Dropdown activeButton={activeButton} setActiveButton={setActiveButton} />
+      <Dropdown
+        open={open}
+        trigger={
+          <button
+            onClick={handleOpen}
+            className={styles.activeItem}
+            type="button"
+          >
+            {activeButton}
+          </button>
+        }
+        menu={[
+          <button onClick={() => handleClick("Movies", event)} key="movies">
+            Movies
+          </button>,
+          <button onClick={() => handleClick("Shows", event)} key="shows">
+            Shows
+          </button>,
+          <button onClick={() => handleClick("People", event)} key="people">
+            People
+          </button>,
+        ]}
+      />
       <input
         type="text"
         placeholder="Search..."

@@ -6,58 +6,15 @@ interface DropdownProps {
   setActiveButton: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Dropdown({
-  activeButton,
-  setActiveButton,
-}: DropdownProps) {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = (event: any) => {
-    event.preventDefault();
-    setOpen(!open);
-  };
-
-  const handleClick = (category: string, event: any) => {
-    event.preventDefault();
-    setActiveButton(category);
-    setOpen(false);
-  };
-
+export default function Dropdown({ open, trigger, menu }) {
   return (
     <div className={styles.dropdown}>
-      <button
-        type="button"
-        onClick={handleOpen}
-        className={`${styles.menuItem} ${styles.activeItem}`}
-      >
-        {activeButton}
-      </button>
+      {trigger}
       {open ? (
         <ul className={styles.menu}>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("Movies", event)}
-            >
-              Movies
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("Shows", event)}
-            >
-              Shows
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("People", event)}
-            >
-              People
-            </button>
-          </li>
+          {menu.map((menuItem, index: number) => (
+            <li key={index}>{menuItem}</li>
+          ))}
         </ul>
       ) : null}
     </div>
