@@ -6,4 +6,5 @@ export default function Home() {
       {/* <h1>Top 10 hottest Fortnite skins</h1>
       <a href="https://www.fortnite.com/?lang=en-US">fortnite</a> */}
     </main>
-  )}
+  );
+}
