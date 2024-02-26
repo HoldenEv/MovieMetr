@@ -1,32 +1,35 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import Dropdown from "./Dropdown";
-import searchIcon from "../../../../public/search.svg";
+import Dropdown from "../DropDown/Dropdown";
+import searchIcon from "@/_assets/search.svg";
+import { search } from "@/_api/search";
 
 function Form() {
+  /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Movies");
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const search = event.target.search.value;
-      event.target.search.value = "";
-      const category = activeButton.toLowerCase();
-      const response = await fetch(
-        `http://localhost:3001/search?category=${category}&name=${search}`
-      );
-      if (!response.ok) {
-        throw new Error("response not okay");
-      }
-      const searchData = await response.json();
-      console.log(searchData);
+      /* this is so TypeScript recognizing the attributes of the event
+      we are accessing */
+      const formElement = event.target as HTMLFormElement;
+      /* store the search text */
+      const inputText = formElement.search.value;
+      /* start by querying the first page */
+      const page = "1" as string;
+      /* call function to make the search */
+      const searchData = await search(activeButton, inputText, page);
+      /* reset the value of the search bar */
+      formElement.search.value = "";
+      console.log(searchData); //FOR DEBUGGING
     } catch (error) {
-      console.error("error", error);
+      console.error("Error getting results: ", error);
     }
   };
 
@@ -54,10 +57,10 @@ function Form() {
 export default function Header() {
   return (
     <header className={styles.header}>
-      <nav className={styles.navMenu}>
+      <nav>
         <ul className={styles.list}>
           <Form />
-          <div className={styles.navLinks}>
+          <div className={styles.navLinkContainer}>
             <Link href="/" className={styles.navLink}>
               HOME
             </Link>

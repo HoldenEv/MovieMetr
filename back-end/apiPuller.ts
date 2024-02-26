@@ -3,17 +3,53 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 //access token is current method of authentication
-const apiAccessToken = process.env.ACCESSTOKEN;
+const apiAccessToken: string | undefined = process.env.ACCESSTOKEN;
 //key can be used inline of http request, couldnt get it to work though
-const apiKey = process.env.APIKEY;
+const apiKey: string | undefined = process.env.APIKEY;
+
+/* interfaces for movie search data */
+interface MovieData {
+  id: number;
+  title: string;
+  original_title: string;
+  year: string;
+  image: string;
+  summary: string;
+}
+
+/* interface for person search data */
+interface PersonData {
+  id: number;
+  name: string;
+  image: string;
+}
+
+/* interface for show search data */
+interface ShowData {
+  id: number;
+  name: string;
+  image: string;
+  summary: string;
+  startdate: string;
+}
+
+interface ApiResponse {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  data: (MovieData | PersonData | ShowData)[];
+}
 
 //search for movies given a search string, currently returns id, title, image, and summary
-const searchMovies = async (searchString: string) => {
-  const url =
+const searchMovies = async (searchString: string, page: string) => {
+  /* configure url for TMDB movie search URL */
+  const url: string =
     "https://api.themoviedb.org/3/search/movie?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -21,10 +57,11 @@ const searchMovies = async (searchString: string) => {
     },
   };
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with movie.id) will return all data for now
-    const movies = response.data.results.map((movie: any) => ({
+
+    /* map movie results data to our own array */
+    const data: MovieData[] = response.data.results.map((movie: any) => ({
       id: movie.id,
       title: movie.title,
       original_title: movie.original_title,
@@ -32,50 +69,79 @@ const searchMovies = async (searchString: string) => {
       image: movie.poster_path,
       summary: movie.overview,
     }));
-    return movies;
+    /* store page and result info */
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    /* return page, result info, movie list for response */
+    const res: ApiResponse = {
+      page,
+      total_pages,
+      total_results,
+      data,
+    };
+    return res;
   } catch (error) {
-    console.error("Error searching movies", error);
-    throw error;
+    throw new Error("Error searching movies: " + error);
   }
 };
 
 //searchByActor returns a list of actors and their information
-const searchByPeople = async (searchString: string) => {
+const searchByPeople = async (searchString: string, page: string) => {
+  /* configure url for TMDB person search */
   const url =
     "https://api.themoviedb.org/3/search/person?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + apiAccessToken,
     },
   };
+
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with actor.id) will return all data for now
-    const actors = response.data.results.map((actor: any) => ({
-      id: actor.id,
-      name: actor.name,
-      image: actor.profile_path,
+    /* map people results data to our own array */
+    const data: PersonData[] = response.data.results.map((person: any) => ({
+      id: person.id,
+      name: person.name,
+      image: person.profile_path,
     }));
-    return actors;
+    /* store page and result info */
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    /* return page, result info, movie list for response */
+    const res: ApiResponse = {
+      page,
+      total_pages,
+      total_results,
+      data,
+    };
+    return res;
   } catch (error) {
-    console.error("Error searching actors", error);
-    throw error;
+    throw new Error("Error searching people: " + error);
   }
 };
 
 //searchTvShows given a searchString returns a list of tv shows and
 //their information filtered by a map
-const searchTvShows = async (searchString: string) => {
+const searchTvShows = async (searchString: string, page: string) => {
+  /* configure url for TMDB show search */
   const url =
     "https://api.themoviedb.org/3/search/tv?api_key=" +
     apiKey +
     "&query=" +
-    searchString;
+    searchString +
+    "&page=" +
+    page;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -83,20 +149,32 @@ const searchTvShows = async (searchString: string) => {
     },
   };
   try {
+    /* make GET request to the configured url */
     const response = await axios.get(url, options);
-    //can edit this function to return more data if needed
-    //calling apiById(with tvShow.id) will return all data for now
-    const tvShows = response.data.results.map((tvShow: any) => ({
-      id: tvShow.id,
-      name: tvShow.name,
-      image: tvShow.poster_path,
-      summary: tvShow.overview,
-      startdate: tvShow.first_air_date,
+    /* map show results to our own array */
+    const data: ShowData[] = response.data.results.map((show: any) => ({
+      id: show.id,
+      name: show.name,
+      image: show.poster_path,
+      summary: show.overview,
+      startdate: show.first_air_date,
     }));
-    return tvShows;
+    /* store page and result info */
+    const page: number = response.data.page;
+    const total_pages: number = response.data.total_pages;
+    const total_results: number = response.data.total_results;
+
+    /* return page, result info, movie list for response */
+    const res: ApiResponse = {
+      page,
+      total_pages,
+      total_results,
+      data,
+    };
+
+    return res;
   } catch (error) {
-    console.error("Error searching tv shows", error);
-    throw error;
+    throw new Error("Error searching shows: " + error);
   }
 };
 
