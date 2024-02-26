@@ -2,30 +2,34 @@
     background-color: #22324A;
     display: flex;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
  }
  
  .username {
    padding-top: 1rem;
-   padding-bottom: 1rem;
    max-width: 300px;
  }
  
- .email{
-  padding-bottom: 1rem;
- }
- 
+
  .email input,
  .username input,
- .password input{
-   width: 120%;
+ .password input,
+ .repassword input {
+   width: 23rem;
    background-color: #D8C1C1;
    border-radius: 6px;
    font-size: 14px;
  }
  
- .password {
-   padding-bottom: 0.4%;
+
+ .email,
+ .password,
+ .repassword {
+   padding-top: 1rem;
+ }
+
+ .repassword {
+  padding-bottom: .5rem;
  }
  
  .emailText,
@@ -36,54 +40,57 @@
  }
  
  .forgotPassword{
-   font-size: 12px;
+   font-size: 10px;
    cursor: pointer;
-   text-align: center;
+   text-align: right;
  }
  
  .loginBottomButtons {
    display: flex;
-   justify-content: space-between;
+   justify-content: flex-start;
    align-items: center;
    padding-bottom: 0.7%;
    padding-top: 2%;
  }
  
- .loginButton {
-   background-color: #191C2D;
-   color: white;
-   transition: background-color 0.3s, color 0.3s;
- }
- 
  .rememberMeButton,
  .createAccountButton,
- .loginButton {
+ .emptySpace {
    flex: 1; 
    text-align: center;
  }
 
- .createAccountButton
- .rememberMeButton {
-  font-size: 9px;
- }
+
 
  .clickButton {
   position: sticky;
   bottom: 10px
  }
+ 
+
+ .createAccountButton {
+  font-size: 15px;
+  margin-left: 25px;
+ }
+
+ .rememberMe {
+  font-size: 10px;
+ }
 
 
- .createAccountButton,
- .loginButton {
+ .createAccountButton {
    border-radius: 100px;
-   border-color: white;
    padding: 0.5rem;
+   border-width: 2px;
+   border-style: solid;
+   border-color: white;
+   background-color: var(--darker-blue);
    cursor: pointer;
    transition: background-color 0.3s, color 0.3s;
+   justify-content: center;
  }
  
  .createAccountButton:hover,
- .loginButton:hover,
  .rememberMeButton label:focus,
  .createAccountButton:focus,
  .loginButton:focus {

@@ -33,6 +33,16 @@ export default function SignUp() {
                 required
               />
           </div>
+          <div className = {styles.repassword}>
+            <p className= {styles.emailText}>Re-Type Password</p>
+            <input
+              type="password"
+              id = "password"
+              name= "new-password"
+            
+            />
+
+          </div>
             <p className={styles.forgotPassword}>
             <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
             </p>
@@ -40,13 +50,14 @@ export default function SignUp() {
             Forgot Password?
           </button> */}
           <div className={styles.loginBottomButtons}>
-            <div className={styles.rememberMeButton}>
+            <div className={styles.rememberMe}>
               <input type="checkbox" id="rememberMe" name="rememberMe" />
-                <label htmlFor="rememberMe">Remember Me</label>
+                <label htmlFor={styles.rememberMe}>Remember Me</label>
+           </div>
+             <div> <p className={styles.createAccountButton}>
+                      <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
+                    </p>
               </div>
-              <p className={styles.createAccountButton}>
-              <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
-              </p>
             {/* <button className="create-account-button" type="submit">
               Create Account
             </button> */}
