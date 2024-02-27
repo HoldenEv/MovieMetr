@@ -1,37 +1,56 @@
 .userpage {
-    background-color: #22324a;
+  background-color: #22324a;
 }
 
 .userinfo {
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 .profile-picture {
-    width: 160px;
-    height: 160px;
-    border-radius: 80px;
-    object-fit: cover;
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  object-fit: cover;
 }
 
 .username {
-    margin-top: 20px;
-    font-size: x-large;
+  margin-top: 20px;
 }
 
 .overview {
-    display: flex;
-    justify-content: space-between;
-    width: 108%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 108%;
+  margin-top: 20px;
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .gallery-item {
-    width: 30%;
+  width: 30%;
+}
+
+@media only screen and (min-width: 850px) {
+  .list {
+    flex-direction: row;
+  }
+
+  .searchForm {
+    flex: 1;
+  }
+
+  .navLinks {
+    justify-content: space-end;
+  }
+
+  .header {
+    padding: 0.7rem 1rem;
+  }
 }
