@@ -2,58 +2,56 @@ import styles from "./signup.module.css";
 
 export default function SignUp() {
   return (
-    <div className={styles.login}>
+    <form action="#" method="POST" className={styles.formContainer}>
       <div>
-        <div className={styles.username}>
-          <p className={styles.usernameText}>Username</p>
+        <h1 className={styles.head}>Join MovieMetr</h1>
+        <hr className={styles.line}></hr>
+        <div className={styles.formRow}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            required
+            className={styles.formInput}
+          />
+        </div>
+        <div className={styles.formRow}>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
             name="username"
-            // placeholder="Username"
             required
+            className={styles.formInput}
           />
         </div>
-        <div className={styles.email}>
-          <p className={styles.emailText}>Email</p>
-          <input type="text" id="email" name="email" required />
-        </div>
-        <div className={styles.password}>
-          <p className={styles.passwordText}>Password</p>
+        <div className={styles.formRow}>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
-            // placeholder="Password"
             required
+            className={styles.formInput}
           />
         </div>
-        <div className={styles.repassword}>
-          <p className={styles.emailText}>Re-Type Password</p>
-          <input type="password" id="password" name="new-password" />
+        <div className={styles.formRow}>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            className={styles.formInput}
+          />
         </div>
-        <p className={styles.forgotPassword}>
-          <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
-        </p>
-        {/* <button className="login-button" type="submit">
-            Forgot Password?
-          </button> */}
+
         <div className={styles.loginBottomButtons}>
-          <div className={styles.rememberMe}>
-            <input type="checkbox" id="rememberMe" name="rememberMe" />
-            <label htmlFor={styles.rememberMe}>Remember Me</label>
-          </div>
-          <div>
-            {" "}
-            <p className={styles.createAccountButton}>
-              <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
-            </p>
-          </div>
-          {/* <button className="create-account-button" type="submit">
-              Create Account
-            </button> */}
+          <button className={styles.createAccountButton} type="submit">
+            Create Account
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
