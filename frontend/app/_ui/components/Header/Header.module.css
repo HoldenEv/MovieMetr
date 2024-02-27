@@ -30,6 +30,23 @@
   min-height: 1.5rem;
 }
 
+/* active button on search form */
+.activeItem {
+  border: none;
+  border-radius: 10px 0 0 10px;
+  border-right: 1px solid black;
+  min-height: 1.5rem;
+  width: 5rem;
+  background-color: var(--medium-grey);
+  color: black;
+  font-weight: bold;
+}
+
+.activeItem:hover {
+  cursor: pointer;
+  background-color: #a9a9a9;
+}
+
 /* search input */
 .search {
   background-color: var(--light-grey);
