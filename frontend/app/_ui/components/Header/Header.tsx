@@ -59,13 +59,13 @@ function Form() {
           </button>
         }
         menu={[
-          <button onClick={() => handleClick("Movies", event)} key="movies">
+          <button onClick={(event) => handleClick("Movies", event)} key="movies">
             Movies
           </button>,
-          <button onClick={() => handleClick("Shows", event)} key="shows">
+          <button onClick={(event) => handleClick("Shows", event)} key="shows">
             Shows
           </button>,
-          <button onClick={() => handleClick("People", event)} key="people">
+          <button onClick={(event) => handleClick("People", event)} key="people">
             People
           </button>,
         ]}
