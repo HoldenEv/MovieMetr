@@ -1,15 +1,14 @@
 .login {
-    background-color: #22324A;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
- }
- 
- .username {
-   padding-top: 1rem;
-   max-width: 300px;
- }
- 
+  background-color: #22324a;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.username {
+  padding-top: 1rem;
+  max-width: 300px;
+}
 
 .email input,
 .username input,
