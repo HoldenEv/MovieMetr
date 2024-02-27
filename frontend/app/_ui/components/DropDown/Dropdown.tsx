@@ -1,6 +1,7 @@
 import { useRef, useEffect, Dispatch, SetStateAction, MouseEvent } from "react";
 import styles from "./Dropdown.module.css";
 
+/* interface for dropdown props types */
 interface DropdownProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -8,8 +9,10 @@ interface DropdownProps {
   menu: React.ReactNode[];
 }
 
+/* type for callback function */
 type CallbackFunction = () => void;
 
+/* custom hook for detecting outside click */
 const useOutsideClick = (callback: CallbackFunction) => {
   const ref = useRef<HTMLDivElement>(null);
 
