@@ -1,0 +1,37 @@
+.userpage {
+    background-color: #22324a;
+}
+
+.userinfo {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.profile-picture {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    object-fit: cover;
+}
+
+.username {
+    margin-top: 20px;
+    font-size: x-large;
+}
+
+.overview {
+    display: flex;
+    justify-content: space-between;
+    width: 108%;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.gallery-item {
+    width: 30%;
+}
