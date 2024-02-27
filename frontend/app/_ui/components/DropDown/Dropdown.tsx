@@ -2,17 +2,18 @@ import { useState } from "react";
 import styles from "./Dropdown.module.css";
 
 interface DropdownProps {
-  activeButton: string;
-  setActiveButton: React.Dispatch<React.SetStateAction<string>>;
+  open: boolean;
+  trigger: React.ReactNode;
+  menu: React.ReactNode[];
 }
 
-export default function Dropdown({ open, trigger, menu }) {
+export default function Dropdown({ open, trigger, menu }: DropdownProps) {
   return (
     <div className={styles.dropdown}>
       {trigger}
       {open ? (
         <ul className={styles.menu}>
-          {menu.map((menuItem, index: number) => (
+          {menu.map((menuItem: React.ReactNode, index: number) => (
             <li key={index}>{menuItem}</li>
           ))}
         </ul>
