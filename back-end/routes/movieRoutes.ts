@@ -21,16 +21,17 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const name = req.query.name as string;
+    const page = req.query.page as string
     const category = req.query.category as string;
 
     let results: any = {};
 
     if (category === "movies") {
-      results = await searchMovies(name);
+      results = await searchMovies(name, page);
     } else if (category === "shows") {
-      results = await searchTvShows(name);
+      results = await searchTvShows(name, page);
     } else if (category === "people") {
-      results = await searchByPeople(name);
+      results = await searchByPeople(name, page);
     } else {
       throw new Error("invalid category");
     }

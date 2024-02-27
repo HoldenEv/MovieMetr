@@ -1,42 +1,44 @@
+/* general: header tag */
 .header {
   color: var(--light-grey);
   background-color: var(--dark-blue);
   font-size: 0.9rem;
   font-weight: 400;
-  padding-top: 2.2rem;
+  padding-top: 2.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 0.7rem;
 }
 
-.navMenu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* ul element (links and search bar) */
 .list {
+  min-width: 80%;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
   align-items: center;
-  padding-left: 1rem;
-  gap: 1.5rem;
-  flex-basis: 40rem;
+  gap: 1.2rem;
 }
 
-.searchContainer {
+/* form */
+.searchForm {
+  display: flex;
+  align-items: center;
   position: relative;
-  min-width: 70%;
+  min-width: 0;
+  width: 100%;
+  min-height: 1.5rem;
 }
 
+/* search input */
 .search {
   background-color: var(--light-grey);
   border: none;
-  align-self: flex-start;
-  border-radius: 23px;
-  min-height: 1.6rem;
-  min-width: 100%;
-  padding-left: 2.2rem;
+  border-radius: 0 10px 10px 0;
+  align-self: stretch;
+  min-width: 75%;
+  width: 100%;
+  padding-left: 0.6rem;
   opacity: 75%;
   transition: opacity 0.3s;
 }
@@ -52,27 +54,21 @@
   width: 18px;
   height: auto;
   top: 15%;
-  left: 10px;
+  right: 20px;
 }
 
-.logoContainer {
+.searchButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* navigation links */
+.navLinkContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-around;
-  gap: 0.7rem;
-  color: var(--pure-white);
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-decoration: none;
-}
-
-.logoIcon {
-  width: 35px;
-  height: auto;
-}
-
-.logoText {
-  display: none;
+  gap: 1.5rem;
 }
 
 .navLink {
@@ -85,10 +81,6 @@
 
 .navLink:hover {
   color: var(--pure-white);
-}
-
-.createAccount {
-  display: none;
 }
 
 /* IN PROGRESS */
@@ -105,10 +97,18 @@
   background-color: #101010;
 }
 
-@media all and (min-width: 850px) {
-  .createAccount,
-  .logoText {
-    display: block;
+/* media queries (screens larger than phone) */
+@media only screen and (min-width: 850px) {
+  .list {
+    flex-direction: row;
+  }
+
+  .searchForm {
+    flex: 1;
+  }
+
+  .navLinks {
+    justify-content: space-end;
   }
 
   .header {

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { League_Spartan } from "next/font/google";
+import { Inter } from "next/font/google"; // TODO: FIND FONTS
 import "@/_ui/global.css";
-import styles from "@/_ui/Body.module.css";
 import Header from "@/_ui/components/Header/Header";
+import styles from "@/_ui/Body.module.css";
 
-const leagueSpartan = League_Spartan({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Movie Meter",
+  title: "MOIST METER",
   description: "Rate your movies",
 };
 
@@ -18,9 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${leagueSpartan.className} ${styles.body}`}>
+      <body className={`${inter.className} ${styles.body}`}>
         <Header />
-        {/* <Login />  */}
         {children}
       </body>
     </html>
