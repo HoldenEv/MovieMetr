@@ -60,6 +60,7 @@ function Form() {
     <form className={styles.searchForm} onSubmit={handleSubmit}>
       <Dropdown
         open={open}
+        setOpen={setOpen}
         trigger={
           <button
             onClick={handleOpen}
