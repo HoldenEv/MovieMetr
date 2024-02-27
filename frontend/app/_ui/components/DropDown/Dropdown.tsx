@@ -1,4 +1,4 @@
-import { useRef, useEffect, Dispatch, SetStateAction } from "react";
+import { useRef, useEffect, Dispatch, SetStateAction, MouseEvent } from "react";
 import styles from "./Dropdown.module.css";
 
 interface DropdownProps {
@@ -8,11 +8,14 @@ interface DropdownProps {
   menu: React.ReactNode[];
 }
 
-const useOutsideClick = (callback) => {
-  const ref = useRef();
+type CallbackFunction = () => void;
+
+const useOutsideClick = (callback: CallbackFunction) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const handleClick = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+    const handleClick = (event: globalThis.MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         callback();
       }
     };
@@ -22,7 +25,7 @@ const useOutsideClick = (callback) => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, [ref]);
+  }, [callback, ref]);
 
   return ref;
 };
