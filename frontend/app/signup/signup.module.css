@@ -1,95 +1,70 @@
-.login {
+.formContainer {
   background-color: #22324a;
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  padding: 2.5rem;
 }
 
-.username {
-  padding-top: 1rem;
-  max-width: 300px;
+.head {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  padding-bottom: 0.6rem;
 }
 
-.email input,
-.username input,
-.password input,
-.repassword input {
-  width: 23rem;
+.line {
+  border-top: 1px solid #22324a;
+  opacity: 70%;
+  margin-bottom: 1.2rem;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.formInput {
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.15rem;
+  padding-left: 0.5rem;
+  min-height: 1.5rem;
+  min-width: 20rem;
   background-color: #d8c1c1;
-  border-radius: 6px;
-  font-size: 14px;
+  opacity: 80%;
+  font-size: 0.8rem;
+  transition: opacity 0.5s;
 }
 
-.email,
-.password,
-.repassword {
-  padding-top: 1rem;
-}
-
-.repassword {
-  padding-bottom: 0.5rem;
-}
-
-.emailText,
-.usernameText,
-.passwordText {
-  padding-bottom: 0.3%;
-  color: white;
-}
-
-.forgotPassword {
-  font-size: 10px;
-  cursor: pointer;
-  text-align: right;
+.formInput:focus {
+  opacity: 100%;
 }
 
 .loginBottomButtons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding-bottom: 0.7%;
-  padding-top: 2%;
-}
-
-.rememberMeButton,
-.createAccountButton,
-.emptySpace {
-  flex: 1;
-  text-align: center;
-}
-
-.clickButton {
-  position: sticky;
-  bottom: 10px;
+  padding-top: 1rem;
+  gap: 1.5rem;
 }
 
 .createAccountButton {
-  font-size: 15px;
-  margin-left: 25px;
-}
-
-.rememberMe {
-  font-size: 10px;
-}
-
-.createAccountButton {
+  cursor: pointer;
+  border: 2px solid white;
   border-radius: 100px;
   padding: 0.5rem;
-  border-width: 2px;
-  border-style: solid;
-  border-color: white;
+  color: white;
   background-color: var(--darker-blue);
-  cursor: pointer;
   transition:
     background-color 0.3s,
     color 0.3s;
-  justify-content: center;
 }
 
 .createAccountButton:hover,
-.rememberMeButton label:focus,
-.createAccountButton:focus,
-.loginButton:focus {
+.createAccountButton:focus {
   background-color: #364159;
 }
 

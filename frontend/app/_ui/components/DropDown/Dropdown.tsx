@@ -1,63 +1,58 @@
-import { useState } from "react";
+import { useRef, useEffect, Dispatch, SetStateAction, MouseEvent } from "react";
 import styles from "./Dropdown.module.css";
 
+/* interface for dropdown props types */
 interface DropdownProps {
-  activeButton: string;
-  setActiveButton: React.Dispatch<React.SetStateAction<string>>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  trigger: React.ReactNode;
+  menu: React.ReactNode[];
 }
 
+/* type for callback function */
+type CallbackFunction = () => void;
+
+/* custom hook for detecting outside click */
+const useOutsideClick = (callback: CallbackFunction) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (event: globalThis.MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback();
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [callback, ref]);
+
+  return ref;
+};
+
 export default function Dropdown({
-  activeButton,
-  setActiveButton,
+  open,
+  setOpen,
+  trigger,
+  menu,
 }: DropdownProps) {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = (event: any) => {
-    event.preventDefault();
-    setOpen(!open);
-  };
-
-  const handleClick = (category: string, event: any) => {
-    event.preventDefault();
-    setActiveButton(category);
+  const handleClickOutside = () => {
     setOpen(false);
   };
 
+  const ref = useOutsideClick(handleClickOutside);
+
   return (
-    <div className={styles.dropdown}>
-      <button
-        type="button"
-        onClick={handleOpen}
-        className={`${styles.menuItem} ${styles.activeItem}`}
-      >
-        {activeButton}
-      </button>
+    <div className={styles.dropdown} ref={ref}>
+      {trigger}
       {open ? (
         <ul className={styles.menu}>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("Movies", event)}
-            >
-              Movies
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("Shows", event)}
-            >
-              Shows
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.menuItem}
-              onClick={() => handleClick("People", event)}
-            >
-              People
-            </button>
-          </li>
+          {menu.map((menuItem: React.ReactNode, index: number) => (
+            <li key={index}>{menuItem}</li>
+          ))}
         </ul>
       ) : null}
     </div>
