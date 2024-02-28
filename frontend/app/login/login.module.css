@@ -23,18 +23,18 @@
   padding-bottom: 0.4%;
 }
 
-.username-text .password-text {
+.usernameText .passwordText {
   padding-bottom: 0.3%;
   color: white;
 }
 
-.forgot-password {
+.forgotPassword {
   font-size: 12px;
   cursor: pointer;
   text-align: right;
 }
 
-.login-bottom-buttons {
+.loginBottomButtons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,21 +42,21 @@
   padding-top: 2%;
 }
 
-.login-button {
+.loginButton {
   background-color: #191c2d;
   color: white;
   border-color: white;
 }
 
-.remember-me-button,
-.create-account-button,
-.login-button {
+.rememberMeButton,
+.createAccountButton,
+.loginButton {
   flex: 1;
   text-align: center;
 }
 
-.create-account-button,
-.login-button {
+.createAccountButton,
+.loginButton {
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
@@ -65,11 +65,11 @@
     color 0.3s;
 }
 
-.create-account-button:hover,
-.login-button:hover,
-.remember-me-button label:focus,
-.create-account-button:focus,
-.login-button:focus {
+.createAccountButton:hover,
+.loginButton:hover,
+.rememberMeButton label:focus,
+.createAccountButton:focus,
+.loginButton:focus {
   background-color: #364159;
 }
 
@@ -80,7 +80,7 @@
 
   .username,
   .password,
-  .login-bottom-buttons {
+  .loginBottomButtons {
     padding: 0.5rem;
   }
 }
