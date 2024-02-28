@@ -13,8 +13,10 @@
 }
 
 .inputContainer input {
+  border: none;
   margin-top: 0.3rem;
-  padding-left: 0.5rem;
+  padding: 0.2rem;
+
   min-width: 80%;
   width: 100%;
   background-color: #d8c1c1;
