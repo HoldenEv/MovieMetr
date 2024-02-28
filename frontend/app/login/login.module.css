@@ -1,35 +1,44 @@
-.login {
-  background-color: #22324a;
+.loginForm {
   display: flex;
   justify-content: center;
   padding: 2rem;
+  background-color: #22324a;
 }
 
-.username {
+.formItems {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  max-width: 300px;
+  min-width: 20rem;
+  width: 23rem;
 }
 
-.username input,
-.password input {
+.inputContainer input {
+  margin-top: 0.3rem;
+  padding-left: 0.5rem;
+  min-width: 80%;
   width: 100%;
   background-color: #d8c1c1;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
-.password {
-  padding-bottom: 0.4%;
+.inputContainer input:focus {
+  outline: none;
 }
 
-.usernameText .passwordText {
-  padding-bottom: 0.3%;
+.inputContainer {
+  margin-top: 0.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.inputText {
+  padding-top: 0.3%;
   color: white;
 }
 
 .forgotPassword {
-  font-size: 12px;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
   cursor: pointer;
   text-align: right;
 }
@@ -48,6 +57,15 @@
   border-color: white;
 }
 
+.rememberMeButton label {
+  font-size: 0.75rem;
+}
+
+.rememberMeButton [type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 0.5rem;
+}
+
 .rememberMeButton,
 .createAccountButton,
 .loginButton {
@@ -57,6 +75,7 @@
 
 .createAccountButton,
 .loginButton {
+  /* border: none; */
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
