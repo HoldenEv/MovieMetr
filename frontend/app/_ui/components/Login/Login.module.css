@@ -1,8 +1,14 @@
 .loginForm {
   display: flex;
   justify-content: center;
-  padding: 2rem;
-  background-color: #22324a;
+  /* padding: 2rem; */
+  background-color: #32425c;
+
+}
+
+.formContainer {
+  position: absolute;
+  width: 100vw;
 }
 
 .formItems {
@@ -12,13 +18,21 @@
   width: 23rem;
 }
 
+.closeButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* TODO
+.closeButton {
+} */
+
 .inputContainer input {
   border: none;
   margin-top: 0.3rem;
   padding: 0.2rem;
   min-width: 80%;
   border-radius: 8px;
-  opacity: 80%;
   font-size: 0.8rem;
   width: 100%;
   background-color: #d8c1c1;
@@ -28,7 +42,6 @@
 
 .inputContainer input:focus {
   outline: none;
-  opacity: 100%;
 }
 
 .inputContainer {

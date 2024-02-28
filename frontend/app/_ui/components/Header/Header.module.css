@@ -90,6 +90,7 @@
 
 .navLink {
   color: var(--light-grey);
+  cursor: pointer;
   font-weight: 550;
   text-decoration: none;
   letter-spacing: 1px;
