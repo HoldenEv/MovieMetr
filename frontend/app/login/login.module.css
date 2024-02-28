@@ -1,0 +1,110 @@
+.loginForm {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #22324a;
+}
+
+.formItems {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-width: 20rem;
+  width: 23rem;
+}
+
+.inputContainer input {
+  border: none;
+  margin-top: 0.3rem;
+  padding: 0.2rem;
+  min-width: 80%;
+  border-radius: 8px;
+  opacity: 80%;
+  font-size: 0.8rem;
+  width: 100%;
+  background-color: #d8c1c1;
+  font-size: 1rem;
+  transition: opacity 0.5s;
+}
+
+.inputContainer input:focus {
+  outline: none;
+  opacity: 100%;
+}
+
+.inputContainer {
+  margin-top: 0.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.inputText {
+  padding-top: 0.3%;
+  color: white;
+}
+
+.forgotPassword {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-align: right;
+}
+
+.loginBottomButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.7%;
+  padding-top: 2%;
+}
+
+.loginButton {
+  background-color: #191c2d;
+  color: white;
+  border-color: white;
+}
+
+.rememberMeButton label {
+  font-size: 0.75rem;
+}
+
+.rememberMeButton [type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 0.5rem;
+}
+
+.rememberMeButton,
+.createAccountButton,
+.loginButton {
+  flex: 1;
+  text-align: center;
+}
+
+.createAccountButton,
+.loginButton {
+  /* border: none; */
+  border-radius: 20px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.createAccountButton:hover,
+.loginButton:hover,
+.rememberMeButton label:focus,
+.createAccountButton:focus,
+.loginButton:focus {
+  background-color: #364159;
+}
+
+@media only screen and (max-width: 600px) {
+  .login {
+    padding: 1rem;
+  }
+
+  .username,
+  .password,
+  .loginBottomButtons {
+    padding: 0.5rem;
+  }
+}

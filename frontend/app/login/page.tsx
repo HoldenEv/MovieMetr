@@ -1,11 +1,13 @@
-import "./login.css";
+import styles from "./login.module.css";
 
 export default function Login() {
   return (
-    <div className="login">
-      <div>
-        <div className="username">
-          <p className="username-text">Username</p>
+    <form action="#" method="POST" className={styles.loginForm}>
+      <div className={styles.formItems}>
+        <div className={styles.inputContainer}>
+          <label htmlFor="username" className={styles.inputText}>
+            Username
+          </label>
           <input
             type="text"
             id="username"
@@ -14,8 +16,10 @@ export default function Login() {
             required
           />
         </div>
-        <div className="password">
-          <p className="password-text">Password</p>
+        <div className={styles.inputContainer}>
+          <label htmlFor="password" className={styles.inputText}>
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -23,29 +27,20 @@ export default function Login() {
             // placeholder="Password"
             required
           />
+          <p className={styles.forgotPassword}>
+            <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
+          </p>
         </div>
-        <p className="forgot-password">
-          <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
-        </p>
-        {/* <button className="login-button" type="submit">
-        Forgot Password?
-      </button> */}
-        <div className="login-bottom-buttons">
-          <div className="remember-me-button">
+        <div className={styles.loginBottomButtons}>
+          <div className={styles.rememberMeButton}>
             <input type="checkbox" id="rememberMe" name="rememberMe" />
             <label htmlFor="rememberMe">Remember Me</label>
           </div>
-          <p className="create-account-button">
-            <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
-          </p>
-          {/* <button className="create-account-button" type="submit">
-          Create Account
-        </button> */}
-          <button className="login-button" type="submit">
+          <button className={styles.loginButton} type="submit">
             Login In
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
