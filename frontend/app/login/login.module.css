@@ -16,16 +16,19 @@
   border: none;
   margin-top: 0.3rem;
   padding: 0.2rem;
-
   min-width: 80%;
+  border-radius: 8px;
+  opacity: 80%;
+  font-size: 0.8rem;
   width: 100%;
   background-color: #d8c1c1;
-  border-radius: 6px;
   font-size: 1rem;
+  transition: opacity 0.5s;
 }
 
 .inputContainer input:focus {
   outline: none;
+  opacity: 100%;
 }
 
 .inputContainer {
