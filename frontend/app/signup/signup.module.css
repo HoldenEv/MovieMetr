@@ -15,7 +15,6 @@
 
 .line {
   border-top: 1px solid #22324a;
-  opacity: 70%;
   margin-bottom: 1.2rem;
 }
 
@@ -34,14 +33,12 @@
   min-height: 1.5rem;
   min-width: 20rem;
   background-color: #d8c1c1;
-  opacity: 80%;
   font-size: 0.8rem;
   transition: opacity 0.5s;
 }
 
 .formInput:focus {
   outline: none;
-  opacity: 100%;
 }
 
 .loginBottomButtons {
