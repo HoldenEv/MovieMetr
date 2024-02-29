@@ -1,6 +1,12 @@
 import styles from "./Login.module.css";
+import Image from "next/image";
+import closeIcon from "@/_assets/close.svg";
 
-export default function Login({ setOpenState }) {
+interface LoginProps {
+  setOpenState: (state: boolean) => void;
+}
+
+export default function Login({ setOpenState }: LoginProps) {
   const handleClick = () => {
     setOpenState(false);
   };
@@ -11,7 +17,13 @@ export default function Login({ setOpenState }) {
         <div className={styles.formItems}>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
-              Close
+              <Image
+                priority
+                src={closeIcon}
+                width={30}
+                alt="Close login dropdown"
+                className={styles.closeIcon}
+              ></Image>
             </button>
           </div>
           <div className={styles.inputContainer}>
@@ -38,7 +50,9 @@ export default function Login({ setOpenState }) {
               required
             />
             <p className={styles.forgotPassword}>
-              <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
+              <a href="https://www.fortnite.com/?lang=en-US">
+                Forgot Password?
+              </a>
             </p>
           </div>
           <div className={styles.loginBottomButtons}>

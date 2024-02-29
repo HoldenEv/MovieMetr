@@ -1,13 +1,14 @@
 .loginForm {
   display: flex;
   justify-content: center;
-  /* padding: 2rem; */
+  padding: 0 2rem;
   background-color: #32425c;
-
 }
 
 .formContainer {
   position: absolute;
+  display: flex;
+  justify-content: flex-end;
   width: 100vw;
 }
 
@@ -23,9 +24,14 @@
   justify-content: flex-end;
 }
 
-/* TODO
 .closeButton {
-} */
+  border: none;
+  background-color: inherit;
+}
+
+.closeIcon {
+  cursor: pointer;
+}
 
 .inputContainer input {
   border: none;
@@ -113,6 +119,14 @@
 @media only screen and (max-width: 600px) {
   .login {
     padding: 1rem;
+  }
+
+  .loginForm {
+    width: 100%;
+  }
+
+  .formContainer {
+    justify-content: center;
   }
 
   .username,
