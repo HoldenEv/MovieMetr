@@ -1,8 +1,25 @@
 .formContainer {
   background-color: #22324a;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 2.5rem;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.closeButton {
+  border: none;
+  background-color: inherit;
+}
+
+.closeIcon {
+  cursor: pointer;
 }
 
 .head {
@@ -75,5 +92,14 @@
   .password,
   .loginBottomButtons {
     padding: 0.3rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
