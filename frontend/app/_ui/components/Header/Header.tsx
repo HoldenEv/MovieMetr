@@ -5,6 +5,7 @@ import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
+import Login from "../Login/Login";
 import searchIcon from "@/_assets/search.svg";
 import { search } from "@/_api/search";
 
@@ -98,6 +99,7 @@ function Form() {
         <Image
           priority
           src={searchIcon}
+          width={17}
           alt="Search for a movie"
           className={styles.searchIcon}
         ></Image>
@@ -107,32 +109,42 @@ function Form() {
 }
 
 export default function Header() {
+  const [loginOpen, setLoginOpen] = useState(false);
+  const handleOpen = () => {
+    setLoginOpen(!loginOpen);
+  };
+
   return (
-    <header className={styles.header}>
-      <nav>
-        <ul className={styles.list}>
-          <Form />
-          <div className={styles.navLinkContainer}>
-            <Link href="/" className={styles.navLink}>
-              HOME
-            </Link>
-            <Link href="/login" className={styles.navLink}>
-              SIGN IN
-            </Link>
-            <Link
-              href="/signup"
-              className={`${styles.navLink} ${styles.createAccount}`}
-            >
-              CREATE ACCOUNT
-            </Link>
+    <>
+      <header className={styles.header}>
+        <nav>
+          <ul className={styles.list}>
+            {loginOpen ? null : <Form />}
+            <div className={styles.navLinkContainer}>
+              <Link href="/" className={styles.navLink}>
+                HOME
+              </Link>
+              <a className={styles.navLink} onClick={handleOpen}>
+                SIGN IN
+              </a>
+              {loginOpen ? null : (
+                <Link
+                  href="/signup"
+                  className={`${styles.navLink} ${styles.createAccount}`}
+                >
+                  CREATE ACCOUNT
+                </Link>
+              )}
+            </div>
+          </ul>
+          <div className={styles.hamburger}>
+            <span className={styles.bar}></span>
+            <span className={styles.bar}></span>
+            <span className={styles.bar}></span>
           </div>
-        </ul>
-        <div className={styles.hamburger}>
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+      {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
+    </>
   );
 }
