@@ -1,8 +1,8 @@
 .loginForm {
   display: flex;
   justify-content: center;
-  padding: 0 2rem;
-  background-color: #32425c;
+  padding: 0 1.3rem;
+  background-color: #536077;
 }
 
 .formContainer {
@@ -13,7 +13,7 @@
 }
 
 .formItems {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-bottom: 1rem;
   min-width: 20rem;
   width: 23rem;
@@ -27,6 +27,7 @@
 .closeButton {
   border: none;
   background-color: inherit;
+  margin-bottom: -1.2rem;
 }
 
 .closeIcon {
@@ -36,13 +37,14 @@
 .inputContainer input {
   border: none;
   margin-top: 0.3rem;
-  padding: 0.2rem;
+  padding: 0.2rem 0.3rem;
+  padding-left: 0.8rem;
   min-width: 80%;
   border-radius: 8px;
-  font-size: 0.8rem;
   width: 100%;
-  background-color: #d8c1c1;
-  font-size: 1rem;
+  background-color: var(--light-grey);
+  font-weight: 300;
+  font-size: 0.9rem;
   transition: opacity 0.5s;
 }
 
@@ -52,7 +54,7 @@
 
 .inputContainer {
   margin-top: 0.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .inputText {
@@ -76,6 +78,7 @@
 }
 
 .loginButton {
+  border: none;
   background-color: #191c2d;
   color: white;
   border-color: white;

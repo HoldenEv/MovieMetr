@@ -68,8 +68,6 @@
 .searchIcon {
   position: absolute;
   z-index: 1;
-  width: 18px;
-  height: auto;
   top: 15%;
   right: 20px;
 }
@@ -118,7 +116,7 @@
 /* media queries (screens larger than phone) */
 @media only screen and (min-width: 850px) {
   .list {
-    min-height: 2rem;
+    min-height: 1.6rem;
     flex-direction: row;
     justify-content: right;
   }

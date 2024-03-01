@@ -100,6 +100,7 @@ function Form() {
         <Image
           priority
           src={searchIcon}
+          width={17}
           alt="Search for a movie"
           className={styles.searchIcon}
         ></Image>
@@ -133,9 +134,14 @@ export default function Header() {
               <a className={styles.navLink} onClick={handleOpen}>
                 SIGN IN
               </a>
-              <a className={styles.navLink} onClick={handleSignupClick}>
-                CREATE ACCOUNT
-              </a>
+              {loginOpen ? null : (
+                <Link
+                  href="/signup"
+                  className={`${styles.navLink} ${styles.createAccount}`}
+                >
+                  CREATE ACCOUNT
+                </Link>
+              )}
             </div>
           </ul>
           <div className={styles.hamburger}>
