@@ -126,12 +126,14 @@ export default function Header() {
               <a className={styles.navLink} onClick={handleOpen}>
                 SIGN IN
               </a>
-              <Link
-                href="/signup"
-                className={`${styles.navLink} ${styles.createAccount}`}
-              >
-                CREATE ACCOUNT
-              </Link>
+              {loginOpen ? null : (
+                <Link
+                  href="/signup"
+                  className={`${styles.navLink} ${styles.createAccount}`}
+                >
+                  CREATE ACCOUNT
+                </Link>
+              )}
             </div>
           </ul>
           <div className={styles.hamburger}>
