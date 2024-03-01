@@ -68,8 +68,6 @@
 .searchIcon {
   position: absolute;
   z-index: 1;
-  width: 18px;
-  height: auto;
   top: 15%;
   right: 20px;
 }

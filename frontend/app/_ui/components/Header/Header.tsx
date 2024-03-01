@@ -99,6 +99,7 @@ function Form() {
         <Image
           priority
           src={searchIcon}
+          width={17}
           alt="Search for a movie"
           className={styles.searchIcon}
         ></Image>
