@@ -5,8 +5,6 @@ import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
 import { League_Spartan } from "next/font/google";
 
-
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

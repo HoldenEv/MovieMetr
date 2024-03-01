@@ -2,12 +2,13 @@
   background-color: #22324a;
   padding-left: 20px;
   padding-right: 20px;
+  min-width: 414px;
 }
 
 .userinfo {
   display: flex;
-  justify-content: space-between;
-  padding-top: 5px;
+  justify-content: space-around;
+  max-width: 477px;
 }
 
 .profile-picture {
@@ -17,53 +18,59 @@
   object-fit: cover;
 }
 
-.photo-username{
-    text-align: center;
+.photo-username {
+  text-align: center;
 }
 
-.username-text{
-    padding-top: 5px;
+.username-text {
+  padding-top: 5px;
 }
 
-.username {
-  margin-top: 20px;
+.overview-bio{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
-
 .overview {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.bio{
+  font-size: x-small;
+  margin-left: 10px;
+  text-align: center;
 }
 
 .extensions {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .edit-profile,
-.share-profile{
-    width: 48%;
-    background-color: #191c2d;
-    color: white;
-    border-color: white;
-    border-radius: 5px;
+.share-profile {
+  width: 48%;
+  background-color: #191c2d;
+  color: white;
+  border-color: white;
+  border-radius: 5px;
 }
 
 .gallery {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    border-top: 1px solid #d9d9d9;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-top: 1px solid #d9d9d9;
 }
 
 .gallery-item {
   width: 30%;
 }
-
-

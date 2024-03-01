@@ -86,10 +86,10 @@
 }
 
 .login {
-   background-color: #22324A;
-   display: flex;
-   justify-content: center;
-   padding: 2rem;
+  background-color: #22324a;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .username {
@@ -98,9 +98,9 @@
 }
 
 .username input,
-.password input{
+.password input {
   /* width: 130%; */
-  background-color: #D8C1C1;
+  background-color: #d8c1c1;
   border-radius: 6px;
 }
 
@@ -122,7 +122,7 @@
   color: white;
 }
 
-.forgot-password{
+.forgot-password {
   font-size: 12px;
   cursor: pointer;
   text-align: right;
@@ -134,16 +134,14 @@
 }
 
 .remember-me-button {
-
 }
 
 .create-account-button {
-
 }
 
 .login-button {
   border-radius: 6px;
-  background-color: #191C2D;
+  background-color: #191c2d;
   color: white;
 }
 
