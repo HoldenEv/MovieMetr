@@ -25,7 +25,6 @@ router.get('/', (req : Request, res : Response) => { res.send('Nothin Here') });
 router.get('/profile', passport.authenticate('jwt', { session: false }), accountController.profile);
 router.post('/login', accountController.login);
 router.post('/register', accountController.register);
-
-
+router.post('/update', accountController.update);
 
 export default router;
