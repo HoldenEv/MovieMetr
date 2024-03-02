@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   padding: 0 1.3rem;
-  background-color: #536077;
+  background-color: var(--grey);
 }
 
 .formContainer {
@@ -59,7 +59,7 @@
 
 .inputText {
   padding-top: 0.3%;
-  color: white;
+  color: var(--pure-white);
 }
 
 .forgotPassword {
@@ -79,9 +79,10 @@
 
 .loginButton {
   border: none;
-  background-color: #191c2d;
-  color: white;
-  border-color: white;
+  /* background-color: #191c2d; */
+  background-color: var(--darker-blue);
+  color: var(--pure-white);
+  border-color: var(--pure-white);
 }
 
 .rememberMeButton label {
@@ -102,7 +103,6 @@
 
 .createAccountButton,
 .loginButton {
-  /* border: none; */
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
@@ -116,7 +116,7 @@
 .rememberMeButton label:focus,
 .createAccountButton:focus,
 .loginButton:focus {
-  background-color: #364159;
+  background-color: var(--darker-blue-highlight);
 }
 
 @media only screen and (max-width: 600px) {

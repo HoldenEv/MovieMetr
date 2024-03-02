@@ -13,18 +13,18 @@ export default function Signup({ setOpenState }: SignUpProps) {
 
   return (
     <form action="#" method="POST" className={styles.formContainer}>
-      <div className={styles.closeButtonContainer}>
-        <button onClick={handleClick} className={styles.closeButton}>
-          <Image
-            priority
-            src={closeIcon}
-            width={30}
-            alt="Close login dropdown"
-            className={styles.closeIcon}
-          ></Image>
-        </button>
-      </div>
       <div>
+        <div className={styles.closeButtonContainer}>
+          <button onClick={handleClick} className={styles.closeButton}>
+            <Image
+              priority
+              src={closeIcon}
+              width={30}
+              alt="Close login dropdown"
+              className={styles.closeIcon}
+            ></Image>
+          </button>
+        </div>
         <h1 className={styles.head}>Join MovieMetr</h1>
         <hr className={styles.line}></hr>
         <div className={styles.formRow}>
