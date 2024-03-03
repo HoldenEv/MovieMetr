@@ -7,6 +7,7 @@ export interface IUser extends Document {
 }
 
 const UserSchema = new Schema<IUser>({
+  //needs to be unique, will 
   username: {
     type: String,
     required: true,
@@ -17,6 +18,7 @@ const UserSchema = new Schema<IUser>({
     required: true,
     unique: true,
   },
+
 });
 
 UserSchema.plugin(passportLocalMongoose);
