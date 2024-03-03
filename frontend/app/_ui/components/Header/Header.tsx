@@ -149,7 +149,7 @@ export default function Header() {
         </nav>
       </header>
       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
-      {signupOpen ? <SignUp setOpenState={setSignupOpen} /> : null}
+      {signupOpen ? <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} /> : null}
     </>
   );
 }
