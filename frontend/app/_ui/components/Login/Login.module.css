@@ -79,7 +79,6 @@
 
 .loginButton {
   border: none;
-  /* background-color: #191c2d; */
   background-color: var(--darker-blue);
   color: var(--pure-white);
   border-color: var(--pure-white);
