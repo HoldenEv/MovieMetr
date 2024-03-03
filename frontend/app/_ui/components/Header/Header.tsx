@@ -126,7 +126,7 @@ export default function Header() {
       <header className={styles.header}>
         <nav>
           <ul className={styles.list}>
-            {loginOpen || signupOpen ? null : <Form />}
+            {loginOpen ? null : <Form />}
             <div className={styles.navLinkContainer}>
               <Link href="/" className={styles.navLink}>
                 HOME
@@ -149,7 +149,9 @@ export default function Header() {
         </nav>
       </header>
       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
-      {signupOpen ? <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} /> : null}
+      {signupOpen ? (
+        <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
+      ) : null}
     </>
   );
 }
