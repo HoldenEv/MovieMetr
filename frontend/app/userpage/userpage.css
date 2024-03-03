@@ -2,13 +2,14 @@
   background-color: #22324a;
   padding-left: 20px;
   padding-right: 20px;
-  min-width: 414px;
+  min-width: 100%;
 }
 
 .userinfo {
   display: flex;
   justify-content: space-around;
   max-width: 477px;
+  margin-bottom: 10px;
 }
 
 .profile-picture {
@@ -26,9 +27,10 @@
   padding-top: 5px;
 }
 
-.overview-bio{
+.overview-bio {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 .overview {
@@ -38,12 +40,14 @@
   max-width: 250px;
   margin-top: 20px;
   margin-bottom: 10px;
+  /* border: 2px solid gold; */
 }
 
-.bio{
+.bio {
   font-size: x-small;
   margin-left: 10px;
-  text-align: center;
+  text-align: left;
+  /* border: 2px solid greenyellow; */
 }
 
 .extensions {
@@ -60,17 +64,35 @@
   background-color: #191c2d;
   color: white;
   border-color: white;
+  border-width: 1.5px;
   border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.edit-profile:hover,
+.edit-profile:focus,
+.share-profile:hover,
+.share-profile:focus {
+  background-color: #22324a;
+  outline: none;
 }
 
 .gallery {
-  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  border-top: 1px solid #d9d9d9;
+  border-top: 3px solid #d9d9d9;
 }
 
 .gallery-item {
-  width: 30%;
+  width: 20%;
+}
+
+@media only screen and (min-width: 525px) {
+  .userinfo {
+    margin-left: 10%;
+  }
 }
