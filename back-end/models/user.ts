@@ -4,6 +4,9 @@ import passportLocalMongoose from 'passport-local-mongoose';
 export interface IUser extends Document {
   username: string;
   email: string;
+  profilePath: string;
+  bio: string;
+  favoriteMovies: string[];
 }
 
 const UserSchema = new Schema<IUser>({
@@ -17,7 +20,13 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-
+  profilePath: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
+  favoriteMovies: [{type:mongoose.Schema.Types.ObjectId, ref:'Movie'}]
 });
 
 UserSchema.plugin(passportLocalMongoose);

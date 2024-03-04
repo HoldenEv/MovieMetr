@@ -19,7 +19,7 @@ function Form() {
   /* on open, prevent any default event and set open state to 
   either closed or open */
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setOpen(!open);
@@ -29,7 +29,7 @@ function Form() {
   to category clicked close the dropdown */
   const handleClick = (
     category: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setActiveButton(category);
