@@ -42,4 +42,5 @@ ReviewSchema.virtual("username", {
     });
     
 const Review = mongoose.model("Review", ReviewSchema);
-module.exports = Review;
+
+export default Review;

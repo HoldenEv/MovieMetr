@@ -2,9 +2,14 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const GenreSchema = new Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
+    unique: true,
   }
   /*could add a list of movies that have this genre,would be alot of duplication
   since im embedding genres in the movie model we would have to check the genre list of each movie

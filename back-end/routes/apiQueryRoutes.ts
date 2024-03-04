@@ -7,7 +7,7 @@ import {
   searchTvShows,
   nowPlaying,
   popularMovies,
-} from "../apiPuller";
+} from "../middleware/apiPuller";
 const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/search", async (req: Request, res: Response) => {
   try {
     const name = req.query.name as string;
-    const page = req.query.page as string
+    const page = req.query.page as string;
     const category = req.query.category as string;
 
     let results: any = {};

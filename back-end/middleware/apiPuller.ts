@@ -57,8 +57,10 @@ const searchMovies = async (searchString: string, page: string) => {
   };
 
   try {
+    console.log(url);
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
+  
 
     /* map movie results data to our own array */
     const data: MovieData[] = response.data.results.map((movie: any) => ({
@@ -293,13 +295,49 @@ const getAllPersonMovies = async (id: string) => {
   };
   try {
     const response = await axios.get(url, options);
-    //just returns all data for now, decide what to do with it later
+    //returns all movies for now the person was in, in the form of cast objects
+    //not quite the same as the movie objects returned by the searchMovies function
     return response.data;
   } catch (error) {
     console.error("Error searching for person details", error);
     throw error;
   }
 };
+
+//getAllMoviePeople gets all people in a movie by id whos known_for_department is acting,directing,production,wrting
+//use this for now to trigger the database entry for all people whne a movie is added
+
+//Called by addMovie function in movieController
+
+const getAllMoviePeople = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/movie/" +
+    id +
+    "/credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //filter by department being acting, wrting, directing, production
+    const people = response.data.cast.filter((person: any) => {
+      return (
+        person.known_for_department === "Acting" ||
+        person.known_for_department === "Directing" ||
+        person.known_for_department === "Production" ||
+        person.known_for_department === "Writing"
+      );
+    });
+    return people.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+}
 
 
 export {
@@ -310,5 +348,6 @@ export {
   searchTvShows,
   nowPlaying,
   popularMovies,
-  getAllPersonMovies
+  getAllPersonMovies,
+  getAllMoviePeople
 };

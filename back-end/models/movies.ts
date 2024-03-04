@@ -24,7 +24,7 @@ const MovieSchema = new Schema({
         type: String,
         required: true,
     },
-    genres:[{type:mongoose.Schema.Types.ObjectId, ref:'Genre'}],
+    /*genres:[{type:mongoose.Schema.Types.ObjectId, ref:'Genre'}],*/
 
     //no reviews list because we can query reviews by movie id, 
     //and need to dsiplay reviews on feed page as weel, so need to be seperate from the movie model
