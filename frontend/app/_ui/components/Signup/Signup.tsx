@@ -37,16 +37,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       alert('Passwords do not match');
       return -1;
     }
-    if(password.length < 8){
+    if (password.length < 8) {
       alert('Password should be longer than 8 characters')
       return -1;
     }
-    if(!/\d/.test(password))
-    {
+    if (!/\d/.test(password)) {
       alert('Password must have at least one number')
       return -1;
     }
-    if(!/[A-Z]/.test(password)){
+    if (!/[A-Z]/.test(password)) {
       alert('Password must contain at least one capital letter')
       return -1
     }
