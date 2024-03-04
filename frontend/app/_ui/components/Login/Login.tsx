@@ -13,7 +13,7 @@ export default function Login({ setOpenState }: LoginProps) {
 
   return (
     <div className={styles.formContainer}>
-      <form action="#" method="POST" className={styles.loginForm}>
+      <form className={styles.loginForm}>
         <div className={styles.formItems}>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>

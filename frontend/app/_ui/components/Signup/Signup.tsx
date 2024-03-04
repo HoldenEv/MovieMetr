@@ -64,7 +64,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       overlayClassName={styles.modalOverlay}
       className={styles.modalOverlay}
     >
-      <form onSubmit={handleSubmit} action="#" method="POST" className={styles.formContainer}>
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         <div>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
