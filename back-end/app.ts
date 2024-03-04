@@ -2,7 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import authetication from "./routes/authenticationRoutes";
-import movieRoutes from "./routes/movieRoutes"
+import movieRoutes from "./routes/apiQueryRoutes"
 dotenv.config();
 
 const app = express();
