@@ -31,19 +31,37 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       [name]: value
     });
   };
+
+  const handlePassword = (password: string, confirmPassword: string) => {
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return -1;
+    }
+    if(password.length < 8){
+      alert('Password should be longer than 8 characters')
+      return -1;
+    }
+    if(!/\d/.test(password))
+    {
+      alert('Password must have at least one number')
+      return -1;
+    }
+    if(!/[A-Z]/.test(password)){
+      alert('Password must contain at least one capital letter')
+      return -1
+    }
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
+    if (handlePassword(formData.password, formData.confirmPassword) == -1) {
+      return
     }
+
 
     try {
       // Call the signUpUser function from signup.ts
       const response = await signUpUser(formData.email, formData.username, formData.password);
       console.log('Sign up successful:', response);
-      alert("Account Created")
       // Clear form data or perform any additional actions as needed
       setFormData({
         email: '',
@@ -64,7 +82,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       overlayClassName={styles.modalOverlay}
       className={styles.modalOverlay}
     >
-      <form onSubmit={handleSubmit} action="#" method="POST" className={styles.formContainer}>
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         <div>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
@@ -82,7 +100,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
           <div className={styles.formRow}>
             <label htmlFor="email">Email</label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
               value={formData.email}
