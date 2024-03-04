@@ -87,12 +87,11 @@
 
 .createAccountButton {
   cursor: pointer;
-  border: 2px solid var(--pure-white);
+  border: none;
   border-radius: 100px;
-  padding: 0.5rem;
+  padding: 0.7rem 1.2rem;
   color: var(--pure-white);
   background-color: var(--darker-blue);
-  color: var(--pure-white);
   transition:
     background-color 0.3s,
     color 0.3s;

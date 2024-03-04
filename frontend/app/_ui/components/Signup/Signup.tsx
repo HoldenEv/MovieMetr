@@ -32,7 +32,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               ></Image>
             </button>
           </div>
-          <h1 className={styles.head}>Join MovieMetr</h1>
+          <h1 className={styles.head}>Join MovieMeter</h1>
           <hr className={styles.line}></hr>
           <div className={styles.formRow}>
             <label htmlFor="email">Email</label>
