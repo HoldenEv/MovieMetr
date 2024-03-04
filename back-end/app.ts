@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 //app.use("/", routes);
 app.use("/authentication", authetication);
 app.use("/apiQueryRoutes", queryRoutes);
-app.use("/movieroutes", movieRoutes);
+app.use("/movieRoutes", movieRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
