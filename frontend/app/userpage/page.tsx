@@ -160,23 +160,29 @@ export default function Userpage() {
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <p>
-          A movie with a really interesting idea and with menacing aliens as
-          enemies. It was mostly fun to watch. Although, it could be a bit messy
-          and rushed sometimes, and had a certain exaggeration at parts.
-        </p>
-
-        <p>
-          A movie with a really interesting idea and with menacing aliens as
-          enemies. It was mostly fun to watch. Although, it could be a bit messy
-          and rushed sometimes, and had a certain exaggeration at parts.
-        </p>
-
-        <p>
-          A movie with a really interesting idea and with menacing aliens as
-          enemies. It was mostly fun to watch. Although, it could be a bit messy
-          and rushed sometimes, and had a certain exaggeration at parts.
-        </p>
+        <div className="gallery">
+          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
+            <p>
+              A movie with a really interesting idea and with menacing aliens as
+              enemies. It was mostly fun to watch. Although, it could be a bit messy
+              and rushed sometimes, and had a certain exaggeration at parts.
+            </p>
+          </Box>
+          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
+            <p>
+              A movie with a really interesting idea and with menacing aliens as
+              enemies. It was mostly fun to watch. Although, it could be a bit messy
+              and rushed sometimes, and had a certain exaggeration at parts.
+            </p>
+          </Box>
+          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
+            <p>
+              A movie with a really interesting idea and with menacing aliens as
+              enemies. It was mostly fun to watch. Although, it could be a bit messy
+              and rushed sometimes, and had a certain exaggeration at parts.
+            </p>
+          </Box>
+        </div>
       </CustomTabPanel>
     </div>
   );
