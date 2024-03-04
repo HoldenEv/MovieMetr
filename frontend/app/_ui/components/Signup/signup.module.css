@@ -23,6 +23,21 @@
   opacity: 0;
   animation: fadeIn 0.3s ease-in-out forwards;
 }
+.passwordReq{
+  color : white;
+  margin-top: 8px;
+  font-size: 0.7rem;
+}
+
+.passwordReq ul {
+  margin-top: 4px;
+  padding-left: 20px;
+  list-style-type: disc; /* Bullet style */
+}
+
+.passwordReq li {
+  margin-bottom: 2px;
+}
 
 .closeButton {
   border: none;

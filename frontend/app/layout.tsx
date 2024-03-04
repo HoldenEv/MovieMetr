@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"; // TODO: FIND FONTS
 import "@/_ui/global.css";
 import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
+import { League_Spartan } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
