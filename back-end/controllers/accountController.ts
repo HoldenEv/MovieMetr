@@ -43,7 +43,7 @@ const register = function (req : Request, res : Response) {
   );
 };
 
-const profile = function(req : any, res : Response) {
+const profile = function(req : Request, res : Response) {
   res.json({
     message: 'You made it to the secured profile',
     user: req.user,
@@ -51,8 +51,37 @@ const profile = function(req : any, res : Response) {
   })
 }
 
+const update = function(req : Request, res : Response) {
+   const userId = req.body.userId;
+
+   // Check if the ID is valid
+   if (!userId) {
+     return res.status(400).json({ message: "Invalid user ID" });
+   }
+
+   const updateFields = {
+     email: req.body.email,
+     username: req.body.username,
+   };
+   
+   // Find user by userId
+   User.findOneAndUpdate({ _id: userId }, updateFields, { new: true })
+     .then((updatedUser) => {
+       if (!updatedUser) {
+         return res.status(404).json({ message: "User not found" });
+       }
+ 
+       res.json({ message: "User updated successfully", user: updatedUser });
+     })
+     .catch((err) => {
+       console.error("Error:", err);
+       res.status(500).json({ message: "Internal Server Error" });
+     });
+}
+
 export default {
   login,
   register,
   profile,
+  update
 };

@@ -68,8 +68,6 @@
 .searchIcon {
   position: absolute;
   z-index: 1;
-  width: 18px;
-  height: auto;
   top: 15%;
   right: 20px;
 }
@@ -90,6 +88,7 @@
 
 .navLink {
   color: var(--light-grey);
+  cursor: pointer;
   font-weight: 550;
   text-decoration: none;
   letter-spacing: 1px;
@@ -117,7 +116,9 @@
 /* media queries (screens larger than phone) */
 @media only screen and (min-width: 850px) {
   .list {
+    min-height: 1.6rem;
     flex-direction: row;
+    justify-content: right;
   }
 
   .searchForm {
