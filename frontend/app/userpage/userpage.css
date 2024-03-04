@@ -17,6 +17,8 @@
   height: 200px;
   border-radius: 100px;
   object-fit: cover;
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 .photo-username {
