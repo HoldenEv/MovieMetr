@@ -3,7 +3,7 @@ import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import ReactModal from "react-modal";
 import { useState } from "react";
-import { signUpUser } from "@/_api/signup"; 
+import { signUpUser } from "@/_api/signup";
 
 
 interface SignUpProps {
@@ -41,8 +41,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
     try {
       // Call the signUpUser function from signup.ts
-      const response = await signUpUser(formData);
+      const response = await signUpUser(formData.email, formData.username, formData.password);
       console.log('Sign up successful:', response);
+      alert("Account Created")
       // Clear form data or perform any additional actions as needed
       setFormData({
         email: '',
@@ -84,6 +85,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               type="text"
               id="email"
               name="email"
+              value={formData.email}
               onChange={handleChange}
               required
               className={styles.formInput}
@@ -95,6 +97,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               type="text"
               id="username"
               name="username"
+              value={formData.username}
               onChange={handleChange}
               required
               className={styles.formInput}
@@ -106,6 +109,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               type="password"
               id="password"
               name="password"
+              value={formData.password}
               onChange={handleChange}
               required
               className={styles.formInput}
@@ -117,6 +121,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               type="password"
               id="confirmPassword"
               name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={handleChange}
               className={styles.formInput}
             />
