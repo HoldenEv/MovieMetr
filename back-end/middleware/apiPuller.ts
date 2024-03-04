@@ -7,7 +7,8 @@ const apiAccessToken: string | undefined = process.env.ACCESSTOKEN;
 //key can be used inline of http request, couldnt get it to work though
 const apiKey: string | undefined = process.env.APIKEY;
 
-/* interfaces for movie search data */
+/* interfaces for movie search data... will likely need to change/remove 
+these later based on what info we want to retreive*/
 interface MovieData {
   id: number;
   title: string;
@@ -40,25 +41,26 @@ interface ApiResponse {
   data: (MovieData | PersonData | ShowData)[];
 }
 
+
+
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string, page: string) => {
   /* configure url for TMDB movie search URL */
   const url: string =
-    "https://api.themoviedb.org/3/search/movie?api_key=" +
-    apiKey +
-    "&query=" +
-    searchString +
-    "&page=" +
-    page;
+    "https://api.themoviedb.org/3/search/movie?api_key=" +apiKey +"&query=" +searchString +"&page=" +page;
+
   const options = {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + apiAccessToken,
     },
   };
+
   try {
+    console.log(url);
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
+  
 
     /* map movie results data to our own array */
     const data: MovieData[] = response.data.results.map((movie: any) => ({
@@ -149,9 +151,9 @@ const searchTvShows = async (searchString: string, page: string) => {
     },
   };
   try {
-    /* make GET request to the configured url */
+    //make GET request to the configured url
     const response = await axios.get(url, options);
-    /* map show results to our own array */
+    // map show results to our own array
     const data: ShowData[] = response.data.results.map((show: any) => ({
       id: show.id,
       name: show.name,
@@ -159,7 +161,7 @@ const searchTvShows = async (searchString: string, page: string) => {
       summary: show.overview,
       startdate: show.first_air_date,
     }));
-    /* store page and result info */
+    // store page and result info
     const page: number = response.data.page;
     const total_pages: number = response.data.total_pages;
     const total_results: number = response.data.total_results;
@@ -275,6 +277,69 @@ const popularMovies = async () => {
   }
 };
 
+//getAllPersonMovies returns a list of all movies for a person by id
+// use this on actor page to display all movies they have been in
+//upon click of "see all movies" button... should query api
+//because of many less popular movies that may not be in our database
+const getAllPersonMovies = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/person/" +
+    id +
+    "/movie_credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //returns all movies for now the person was in, in the form of cast objects
+    //not quite the same as the movie objects returned by the searchMovies function
+    return response.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+};
+
+//getAllMoviePeople gets all people in a movie by id whos known_for_department is acting,directing,production,wrting
+//use this for now to trigger the database entry for all people whne a movie is added
+
+//Called by addMovie function in movieController
+
+const getAllMoviePeople = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/movie/" +
+    id +
+    "/credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //filter by department being acting, wrting, directing, production
+    const people = response.data.cast.filter((person: any) => {
+      return (
+        person.known_for_department === "Acting" ||
+        person.known_for_department === "Directing" ||
+        person.known_for_department === "Production" ||
+        person.known_for_department === "Writing"
+      );
+    });
+    return people.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+}
+
+
 export {
   searchMovies,
   movieById,
@@ -283,4 +348,6 @@ export {
   searchTvShows,
   nowPlaying,
   popularMovies,
+  getAllPersonMovies,
+  getAllMoviePeople
 };

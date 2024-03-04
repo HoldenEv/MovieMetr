@@ -8,19 +8,20 @@
 .userinfo {
   display: flex;
   justify-content: space-around;
-  max-width: 477px;
+  max-width: 600px;
   margin-bottom: 10px;
 }
 
 .profile-picture {
-  width: 160px;
-  height: 160px;
-  border-radius: 80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
   object-fit: cover;
 }
 
 .photo-username {
   text-align: center;
+  font-size: larger;
 }
 
 .username-text {
@@ -37,14 +38,13 @@
   display: flex;
   justify-content: space-around;
   text-align: center;
+  font-size: large;
   max-width: 250px;
   margin-top: 20px;
   margin-bottom: 10px;
-  /* border: 2px solid gold; */
 }
 
 .bio {
-  font-size: x-small;
   margin-left: 10px;
   text-align: left;
   /* border: 2px solid greenyellow; */

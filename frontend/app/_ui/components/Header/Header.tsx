@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
 import Login from "../Login/Login";
+import SignUp from "../Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { search } from "@/_api/search";
 
@@ -110,8 +111,14 @@ function Form() {
 
 export default function Header() {
   const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
+
   const handleOpen = () => {
     setLoginOpen(!loginOpen);
+  };
+
+  const handleSignupClick = () => {
+    setSignupOpen(!signupOpen);
   };
 
   return (
@@ -128,12 +135,9 @@ export default function Header() {
                 SIGN IN
               </a>
               {loginOpen ? null : (
-                <Link
-                  href="/signup"
-                  className={`${styles.navLink} ${styles.createAccount}`}
-                >
+                <a className={styles.navLink} onClick={handleSignupClick}>
                   CREATE ACCOUNT
-                </Link>
+                </a>
               )}
             </div>
           </ul>
@@ -145,6 +149,34 @@ export default function Header() {
         </nav>
       </header>
       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
+      {signupOpen ? (
+        <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
+      ) : null}
     </>
   );
 }
+
+// function AuthContainer() {
+//   const [isLoginOpen, setLoginOpen] = useState(false);
+//   const [isSignUpOpen, setSignUpOpen] = useState(false);
+
+//   const openLogin = () => {
+//     setLoginOpen(true);
+//     setSignUpOpen(false);
+//   };
+
+//   const openSignUp = () => {
+//     setSignUpOpen(true);
+//     setLoginOpen(false);
+//   };
+
+//   return (
+//     <div>
+//       <button onClick={openLogin}>Open Login</button>
+//       <button onClick={openSignUp}>Open Sign Up</button>
+
+//       {isLoginOpen && <Login setOpenState={setLoginOpen} />}
+//       {isSignUpOpen && <SignUp setOpenState={setSignUpOpen} />}
+//     </div>
+//   );
+// }
