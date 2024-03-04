@@ -43,7 +43,6 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       // Call the signUpUser function from signup.ts
       const response = await signUpUser(formData.email, formData.username, formData.password);
       console.log('Sign up successful:', response);
-      alert("Account Created")
       // Clear form data or perform any additional actions as needed
       setFormData({
         email: '',
