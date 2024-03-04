@@ -131,6 +131,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               required
               className={styles.formInput}
             />
+            <div className = {styles.passwordReq}>
+            <p>Password must meet the following requirements:</p>
+            <ul>
+              <li>At least 8 characters long</li>
+              <li>Contain at least one uppercase letter</li>
+              <li>Contain at least one number</li>
+            </ul>
+            </div>
+          
           </div>
           <div className={styles.formRow}>
             <label htmlFor="confirmPassword">Confirm Password</label>
