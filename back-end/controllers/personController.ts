@@ -1,5 +1,5 @@
 import Person from '../models/person';
-import { personById, getAllPersonMovies} from '../middleware/apiPuller';
+import { personById, getAllPersonMovies, getAllMoviePeople} from '../middleware/apiPuller';
 //if we want to add all movie a person was in to the database
 import Movie from '../models/movies';
 
@@ -13,7 +13,7 @@ const addPerson = async (personId: string) => {
         }
         //query the api for the person's details
         const person = await personById(personId);
-        //add the person to the database
+        //create the newPerson object
         const newPerson = new Person({
             _id: person.id,
             name: person.name,
@@ -24,6 +24,7 @@ const addPerson = async (personId: string) => {
             place_of_birth: person.place_of_birth,
             profile_path: person.profile_path,
         });
+        //add the person to the database
         await newPerson.save();
         return newPerson;
     } catch (error){
@@ -36,10 +37,11 @@ const addPerson = async (personId: string) => {
 const addMoviePeople = async (movieId: string) => {
     try{
         //query the api for all people related to the movie
-        const people = await getAllPersonMovies(movieId);
+        //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
+        const people = await getAllMoviePeople(movieId);
         //add each person to the database
         for (let person of people){
-            addPerson(person.id);
+            await addPerson(person.id);
         }
     } catch (error){
         console.error("Error adding people", error);
