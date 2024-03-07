@@ -46,7 +46,14 @@ describe("accountController", () => {
     });
 
     it("should return a 500 status when an error occurs", async () => {
-      mockedUser.findOne.mockRejectedValue(new Error("Mocked error"));
+      // mockedUser.findOne.mockImplementation(() => {
+      //   throw new Error("mock error");
+      // });
+      mockedUser.findOne.mockReturnValue({
+        exec: jest.fn().mockImplementation(() => {
+          throw new Error("Mock error");
+        }),
+      } as any);
 
       const req = { body: { username: "testuser" } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
