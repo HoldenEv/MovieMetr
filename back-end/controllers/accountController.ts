@@ -7,7 +7,7 @@ import jwt from "jwt-simple";
 //and not handle any of the http response codes or req/res in the controller
 //and instead handle that in the route, that way we can test the controller
 //and call the functions from other controllers
-const login = function (req: Request, res: Response) {
+const login = function (req: any, res: any) {
   User.findOne({ username: req.body.username }).exec()  
     .then((user: any) => {
       if (!user) {
