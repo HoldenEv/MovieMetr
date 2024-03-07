@@ -6,7 +6,7 @@ import jwt from "jwt-simple";
 const login = function (req: Request, res: Response) {
   User.findOne({ username: req.body.username }).exec()  
     .then((user: any) => {
-      if (!user) { 
+      if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
