@@ -37,16 +37,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       alert('Passwords do not match');
       return -1;
     }
-    if(password.length < 8){
+    if (password.length < 8) {
       alert('Password should be longer than 8 characters')
       return -1;
     }
-    if(!/\d/.test(password))
-    {
+    if (!/\d/.test(password)) {
       alert('Password must have at least one number')
       return -1;
     }
-    if(!/[A-Z]/.test(password)){
+    if (!/[A-Z]/.test(password)) {
       alert('Password must contain at least one capital letter')
       return -1
     }
@@ -132,6 +131,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               required
               className={styles.formInput}
             />
+            <div className = {styles.passwordReq}>
+            <p>Password must meet the following requirements:</p>
+            <ul>
+              <li>At least 8 characters long</li>
+              <li>Contain at least one uppercase letter</li>
+              <li>Contain at least one number</li>
+            </ul>
+            </div>
+          
           </div>
           <div className={styles.formRow}>
             <label htmlFor="confirmPassword">Confirm Password</label>

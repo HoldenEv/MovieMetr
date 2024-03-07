@@ -23,7 +23,6 @@ const personSchema = new Schema({
     },
     biography: {
         type: String,
-        required: true,
     },
     birthday: {
         type: String,
@@ -41,11 +40,7 @@ const personSchema = new Schema({
     department:{
         type: String,
         required: true,
-    },
-    //list of movies the person is known for, field from api search people, only a few movies
-    //then click a button to see more, which calls function to query all movies for person
-    //from apiPuller
-    known_for:[{type:mongoose.Schema.Types.ObjectId, ref:'Movie'}],
+    }
 });
 
 const Person = mongoose.model('Person', personSchema);

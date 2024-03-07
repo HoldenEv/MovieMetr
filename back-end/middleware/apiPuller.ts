@@ -332,7 +332,7 @@ const getAllMoviePeople = async (id: string) => {
         person.known_for_department === "Writing"
       );
     });
-    return people.data;
+    return people;
   } catch (error) {
     console.error("Error searching for person details", error);
     throw error;
