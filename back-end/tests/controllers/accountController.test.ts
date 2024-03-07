@@ -19,13 +19,10 @@ describe('accountController', () => {
       // We don't need a real token for testing nor do we want one for security reasons so we
       // can create a fake on
       jwt.encode = jest.fn().mockReturnValue('mocked-token');
-
       
       const req = { body: { username: 'testuser' } };
       const res = { json: jest.fn() };
-
       accountController.login(req, res);
-      
       expect(res.json).toHaveBeenCalledWith({ token: 'mocked-token' });
     });
 
