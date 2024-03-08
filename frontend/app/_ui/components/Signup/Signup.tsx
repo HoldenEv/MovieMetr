@@ -5,75 +5,75 @@ import ReactModal from "react-modal";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
 
-
 interface SignUpProps {
   isOpen: boolean;
   setOpenState: (state: boolean) => void;
 }
-
 
 export default function Signup({ isOpen, setOpenState }: SignUpProps) {
   const handleClick = () => {
     setOpenState(false);
   };
   const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: ''
-  })
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value)
+    console.log(name, value);
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handlePassword = (password: string, confirmPassword: string) => {
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      alert("Passwords do not match");
       return -1;
     }
     if (password.length < 8) {
-      alert('Password should be longer than 8 characters')
+      alert("Password should be longer than 8 characters");
       return -1;
     }
     if (!/\d/.test(password)) {
-      alert('Password must have at least one number')
+      alert("Password must have at least one number");
       return -1;
     }
     if (!/[A-Z]/.test(password)) {
-      alert('Password must contain at least one capital letter')
-      return -1
+      alert("Password must contain at least one capital letter");
+      return -1;
     }
-  }
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (handlePassword(formData.password, formData.confirmPassword) == -1) {
-      return
+      return;
     }
-
 
     try {
       // Call the signUpUser function from signup.ts
-      const response = await signUpUser(formData.email, formData.username, formData.password);
-      console.log('Sign up successful:', response);
+      const response = await signUpUser(
+        formData.email,
+        formData.username,
+        formData.password,
+      );
+      console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
       setFormData({
-        email: '',
-        username: '',
-        password: '',
-        confirmPassword: ''
+        email: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
       });
     } catch (error: any) {
-      console.error('Error signing up:', error.message);
+      console.error("Error signing up:", error.message);
       // Handle error, show error message, etc.
     }
-
-  }
+  };
 
   return (
     <ReactModal
@@ -131,15 +131,14 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               required
               className={styles.formInput}
             />
-            <div className = {styles.passwordReq}>
-            <p>Password must meet the following requirements:</p>
-            <ul>
-              <li>At least 8 characters long</li>
-              <li>Contain at least one uppercase letter</li>
-              <li>Contain at least one number</li>
-            </ul>
+            <div className={styles.passwordReq}>
+              <p>Password must meet the following requirements:</p>
+              <ul>
+                <li>At least 8 characters long</li>
+                <li>Contain at least one uppercase letter</li>
+                <li>Contain at least one number</li>
+              </ul>
             </div>
-          
           </div>
           <div className={styles.formRow}>
             <label htmlFor="confirmPassword">Confirm Password</label>

@@ -1,5 +1,5 @@
 "use client";
-import "./userpage.css";
+import styles from "./userpage.module.css";
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
@@ -50,26 +50,26 @@ export default function Userpage() {
   };
 
   return (
-    <div className="userpage">
-      <div className="userinfo">
-        <div className="photo-username">
+    <div className={styles.userPage}>
+      <div className={styles.userInfo}>
+        <div className={styles.photoUsername}>
           <Image
             priority
             src={profilePic}
             width={500}
             height={500}
             alt="Profile Picture"
-            className="profile-picture"
+            className={styles.profilePicture}
           />
-          <h2 className="username-text">username</h2>
+          <h2 className={styles.usernameText}>username</h2>
         </div>
-        <div className="overview-bio">
-          <div className="overview">
+        <div className={styles.overviewBio}>
+          <div className={styles.overview}>
             <p>300 films</p>
             <p>300 followers</p>
             <p>300 following</p>
           </div>
-          <p className="bio">
+          <p className={styles.bio}>
             Once upon a time there was a lovely princess. But she had an
             enchantment upon her of a fearful sort which could only be broken by
             loves first kiss. She was locked away in a castle guarded by a
@@ -79,11 +79,11 @@ export default function Userpage() {
             true love and true loves firstkiss. (laughs) Like thats ever gonna
             happen. What a load of - (toilet flush)
           </p>
-          <div className="extensions">
-            <button className="edit-profile" type="submit">
+          <div className={styles.extensions}>
+            <button className={styles.editProfile} type="submit">
               Edit Profile
             </button>
-            <button className="share-profile" type="submit">
+            <button className={styles.shareProfile} type="submit">
               Share Profile
             </button>
           </div>
@@ -120,66 +120,69 @@ export default function Userpage() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className="gallery">
+        <div className={styles.gallery}>
           <img
             src="https://m.media-amazon.com/images/I/71lqDylcvGL._AC_UF894,1000_QL80_.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <div className="gallery">
+        <div className={styles.gallery}>
           <img
             src="https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
           <img
             src="https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg"
-            className="gallery-item"
+            className={styles.galleryItem}
           />
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <div className="gallery">
+        <div className={styles.gallery}>
           <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
             <p>
               A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit messy
-              and rushed sometimes, and had a certain exaggeration at parts.
+              enemies. It was mostly fun to watch. Although, it could be a bit
+              messy and rushed sometimes, and had a certain exaggeration at
+              parts.
             </p>
           </Box>
           <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
             <p>
               A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit messy
-              and rushed sometimes, and had a certain exaggeration at parts.
+              enemies. It was mostly fun to watch. Although, it could be a bit
+              messy and rushed sometimes, and had a certain exaggeration at
+              parts.
             </p>
           </Box>
           <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
             <p>
               A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit messy
-              and rushed sometimes, and had a certain exaggeration at parts.
+              enemies. It was mostly fun to watch. Although, it could be a bit
+              messy and rushed sometimes, and had a certain exaggeration at
+              parts.
             </p>
           </Box>
         </div>
