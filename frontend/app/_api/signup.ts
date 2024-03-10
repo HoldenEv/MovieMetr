@@ -4,12 +4,14 @@ export const signUpUser = async (
   email: string,
   username: string,
   password: string,
+  confirmPassword: string
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({
       email: email,
       username: username,
       password: password,
+      confirmPassword: confirmPassword,
     });
 
     const response = await fetch(`${BASE_URL}/register`, {

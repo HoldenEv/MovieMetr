@@ -26,6 +26,12 @@ const validateRegisterInput = [
     .withMessage("Password must contain at least one uppercase letter")
     .matches(/[0-9]/)
     .withMessage("Password must contain at least one number"),
+  body("confirmPassword").custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error("Passwords do not match");
+    }
+    return true;
+  }),
 ];
 
 const validate = (req: Request, res: Response, next: Function) => {
