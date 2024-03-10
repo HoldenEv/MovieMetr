@@ -19,7 +19,13 @@ router.use(passport.initialize());
 const validateRegisterInput = [
   body("username").notEmpty(),
   body("email").isEmail(),
-  body("password").isLength({ min: 8 }).matches(/[A-Z]/).matches(/[0-9]/),
+  body("password")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain at least one uppercase letter")
+    .matches(/[0-9]/)
+    .withMessage("Password must contain at least one number"),
 ];
 
 const validate = (req: Request, res: Response, next: Function) => {
@@ -41,7 +47,6 @@ passport.use(
   )
 );
 passport.serializeUser(User.serializeUser());
-
 router.get(
   "/profile",
   passport.authenticate("jwt", { session: false }),
@@ -50,8 +55,8 @@ router.get(
 router.post("/login", accountController.login);
 router.post(
   "/register",
-  // validateRegisterInput,
-  // validate,
+  validateRegisterInput,
+  validate,
   accountController.register
 );
 router.post("/update", accountController.update);

@@ -14,8 +14,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Use the router
-//app.use("/", routes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript Express!");
 });
