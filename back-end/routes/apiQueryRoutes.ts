@@ -10,10 +10,6 @@ import {
 } from "../middleware/apiPuller";
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript Express!");
-});
-
 /*
   Search by either: 'movies', 'shows', 'people'. Calls various functions from 
   apiPuller.
