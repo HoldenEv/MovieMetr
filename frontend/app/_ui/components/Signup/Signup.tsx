@@ -22,6 +22,8 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
   });
 
   const [passwordValid, setPasswordValid] = useState({
+    userLength: true,
+    userSpecialChars: true,
     length: true,
     uppercase: true,
     number: true,
@@ -38,6 +40,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
   const handlePasswordValidation = () => {
     const valid = {
+      userLength:
+        formData.username.length >= 3 && formData.username.length <= 50,
+      userSpecialChars: /^[a-zA-Z0-9@./_-]*$/.test(formData.username),
       length: formData.password.length >= 8,
       uppercase: /[A-Z]/.test(formData.password),
       number: /\d/.test(formData.password),
@@ -59,7 +64,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword,
+        formData.confirmPassword
       );
       console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
@@ -73,28 +78,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       setOpenState(false);
       /* TODO: Set session logic */
     } catch (error: any) {
-      if (error.name === "BackendValidationError") {
-        // Handle error, show error message, etc.
-        const validationErrors = error.message;
-
-        // Update passwordValid state based on validationErrors
-        const updatedPasswordValid = {
-          length: !validationErrors.includes(
-            "Password must be at least 8 characters long",
-          ),
-          uppercase: !validationErrors.includes(
-            "Password must contain at least one uppercase letter",
-          ),
-          number: !validationErrors.includes(
-            "Password must contain at least one number",
-          ),
-          matches: !validationErrors.includes("Passwords do not match"),
-        };
-
-        setPasswordValid(updatedPasswordValid);
-      } else {
-        alert(error.message);
-      }
+      alert(error.message);
     }
   };
 
@@ -143,6 +127,24 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               required
               className={styles.formInput}
             />
+          </div>
+          <div className={styles.passwordReq}>
+            <p>Username must meet the following requirements:</p>
+            <ul>
+              <li
+                style={{ color: passwordValid.userLength ? "inherit" : "red" }}
+              >
+                At least 3 characters and at most 50 characters
+              </li>
+              <li
+                style={{
+                  color: passwordValid.userSpecialChars ? "inherit" : "red",
+                }}
+              >
+                Is composed of only letters and numbers, or special characters
+                (@./_-)
+              </li>
+            </ul>
           </div>
           <div className={styles.formRow}>
             <label htmlFor="password">Password</label>
