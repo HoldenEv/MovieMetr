@@ -10,15 +10,16 @@ export interface IUser extends Document {
 }
 
 const UserSchema = new Schema<IUser>({
-  //needs to be unique, will 
+  //needs to be unique
   username: {
     type: String,
     required: true,
-       
+    unique: true, 
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   profilePath: {
     type: String,
