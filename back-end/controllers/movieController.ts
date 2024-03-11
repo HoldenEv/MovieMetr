@@ -2,6 +2,7 @@ import Movie from '../models/movies';
 import Genre from '../models/genre';
 import MovieGenres from '../models/movieGenres';
 import { addMoviePeople } from './personController';
+import {addGenre,addMovieGenres} from './genreController';
 import { movieById,getAllPersonMovies } from '../middleware/apiPuller';
 
 /*when given a movie ID, query the TMDB API for the movie details
@@ -26,6 +27,7 @@ const addMovie = async (movieId : string) => {
             summary: movie.overview,
             image_path: movie.poster_path,
         });
+        //add the movie to the database
         await newMovie.save();
 
         //add all people(actors, directors, producers,writers) to the database
@@ -33,28 +35,14 @@ const addMovie = async (movieId : string) => {
         addMoviePeople(movieId);
 
         /*add genres to genre collection if not already there
-        should be only time to add a genre to the collection,
-        if not then move this to seperate function in genreController*/
+        calls addGenre from genreController*/
         for (let genre of movie.genres){
-            const genreId = genre.id;
-            const genreName = genre.name;
-            const genreCheck = await Genre.findOne({ _id: genreId });
-            if (!genreCheck){
-                const newGenre = new Genre({
-                    _id: genreId,
-                    name: genreName,
-                });
-                await newGenre.save();
-            }
+            addGenre(genre.id,genre.name);
         }
+
         //add genre-movie pairs to movieGenres collection
         for (let genre of movie.genres){
-            const genreId = genre.id;
-            const newMovieGenre = new MovieGenres({
-                movie_id: movie.id,
-                genre_id: genreId,
-            });
-            await newMovieGenre.save();
+            addMovieGenres(movieId,genre.id);
         }
         return newMovie;
 

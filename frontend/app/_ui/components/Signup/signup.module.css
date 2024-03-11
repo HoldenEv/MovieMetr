@@ -23,8 +23,8 @@
   opacity: 0;
   animation: fadeIn 0.3s ease-in-out forwards;
 }
-.passwordReq{
-  color : white;
+.passwordReq {
+  color: white;
   margin-top: 8px;
   font-size: 0.7rem;
 }

@@ -3,10 +3,14 @@ import  User  from "../models/user";
 import config from "../config";
 import jwt from "jwt-simple";
 
+// ideally we should refactor this code to use async/await, 
+//and not handle any of the http response codes or req/res in the controller
+//and instead handle that in the route, that way we can test the controller
+//and call the functions from other controllers
 const login = function (req: Request, res: Response) {
   User.findOne({ username: req.body.username }).exec()  
     .then((user: any) => {
-      if (!user) { 
+      if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
