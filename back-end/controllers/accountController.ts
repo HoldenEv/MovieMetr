@@ -1,44 +1,48 @@
-import  User  from "../models/user";
+import User from "../models/user";
 import config from "../config";
 import jwt from "jwt-simple";
 
 //responsible for logging in a user, takes in a username and returns a token
 //password verificationis not yet handled
 const loginUser = async (username: string) => {
-      const user = await User.findOne({ username: username }).exec();
-        if(!user) {
-        throw new Error("User not found");
-      }
+  const user = await User.findOne({ username: username }).exec();
+  if (!user) {
+    throw new Error("User not found");
+  }
 
+  var payload = {
+    id: user.id,
+    expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
+  };
 
-      var payload = {
-        id: user.id,
-        expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
-      };
+  if (!config.jwtSecret) {
+    // if it exists
+    // Pass { session: false } as an option to indicate that sessions are not needed
+    throw new Error("JWT Secret not found");
+  }
 
-      if (!config.jwtSecret) { // if it exists 
-        // Pass { session: false } as an option to indicate that sessions are not needed
-        throw new Error("JWT Secret not found");
-      }
-
-      const token = jwt.encode(payload, config.jwtSecret);
-      return { token: token };
+  const token = jwt.encode(payload, config.jwtSecret);
+  return { token: token };
 };
 
 /*registers a user, takes in an email, username, and password, 
 calls passport-local-mongoose's register function*/
-const registerUser = async(email: string, username: string, password: string) => {
+const registerUser = async (
+  email: string,
+  username: string,
+  password: string,
+) => {
   //check if username already exists in the database
-  if( await User.findOne({username: username }) != null){
+  if ((await User.findOne({ username: username })) != null) {
     throw new Error("Username already exists");
   }
   //check if email already exists in the database
-  if( await User.findOne({email: email }) != null){
+  if ((await User.findOne({ email: email })) != null) {
     throw new Error("Email already exists");
   }
-  const user= new User({ 
+  const user = new User({
     email: email,
-    username: username 
+    username: username,
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;
@@ -47,7 +51,11 @@ const registerUser = async(email: string, username: string, password: string) =>
 //generic update function, will be called by other update functions
 //takes in the user id and the fields to update, removes some code duplication
 const update = async (userId: string, updateFields: {}) => {
-  const updatedUser = await User.findOneAndUpdate({ _id: userId }, updateFields, { new: true });
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: userId },
+    updateFields,
+    { new: true },
+  );
   if (!updatedUser) {
     throw new Error("User not found");
   }
@@ -84,7 +92,6 @@ export {
   updateEmail,
   updateUsername,
   updateBio,
-  updateProfilePath
+  updateProfilePath,
 };
 //attempted to refactor the code to use async/await, but it was not working, so I left the original code in place
-

@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import passportLocalMongoose from 'passport-local-mongoose';
+import mongoose, { Schema, Document } from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
 
 export interface IUser extends Document {
   username: string;
@@ -14,7 +14,7 @@ const UserSchema = new Schema<IUser>({
   username: {
     type: String,
     required: true,
-    unique: true, 
+    unique: true,
   },
   email: {
     type: String,
@@ -27,10 +27,10 @@ const UserSchema = new Schema<IUser>({
   bio: {
     type: String,
   },
-  favoriteMovies: [{type:mongoose.Schema.Types.ObjectId, ref:'Movie'}]
+  favoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 UserSchema.plugin(passportLocalMongoose);
 
-const UserModel = mongoose.model<IUser>('User', UserSchema);
+const UserModel = mongoose.model<IUser>("User", UserSchema);
 export default UserModel;

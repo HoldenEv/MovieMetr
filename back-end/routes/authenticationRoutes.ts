@@ -32,8 +32,8 @@ passport.use(
       passwordField: "password",
       session: false,
     },
-    User.authenticate()
-  )
+    User.authenticate(),
+  ),
 );
 passport.serializeUser(User.serializeUser());
 
@@ -59,7 +59,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  }
+  },
 );
 
 //route to login a user, calls loginUser function from accountController
@@ -90,7 +90,7 @@ router.post(
       console.error("Error registering", error);
       res.status(500).send("Error registering");
     }
-  }
+  },
 );
 
 //route update a user's email, calls updateEmail function from accountController
