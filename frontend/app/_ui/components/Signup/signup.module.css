@@ -27,16 +27,13 @@
   color: white;
   margin-top: 8px;
   font-size: 0.7rem;
+  margin-bottom: 10px;
 }
 
 .passwordReq ul {
   margin-top: 4px;
   padding-left: 20px;
   list-style-type: disc; /* Bullet style */
-}
-
-.passwordReq li {
-  margin-bottom: 2px;
 }
 
 .closeButton {
