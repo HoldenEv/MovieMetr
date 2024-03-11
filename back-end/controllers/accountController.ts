@@ -28,6 +28,14 @@ const loginUser = async (username: string) => {
 /*registers a user, takes in an email, username, and password, 
 calls passport-local-mongoose's register function*/
 const registerUser = async(email: string, username: string, password: string) => {
+  //check if username already exists in the database
+  if( await User.findOne({username: username }) != null){
+    throw new Error("Username already exists");
+  }
+  //check if email already exists in the database
+  if( await User.findOne({email: email }) != null){
+    throw new Error("Email already exists");
+  }
   const user= new User({ 
     email: email,
     username: username 
@@ -35,13 +43,6 @@ const registerUser = async(email: string, username: string, password: string) =>
   const registeredUser = await User.register(user, password);
   return registeredUser;
 };
-
-const getProfile = (user: any,token: string) => ({
-  message: 'You made it to the secured profile',
-  user: user,
-  token: token
-});
-
 
 //generic update function, will be called by other update functions
 //takes in the user id and the fields to update, removes some code duplication
@@ -80,7 +81,6 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
 export {
   loginUser,
   registerUser,
-  getProfile,
   updateEmail,
   updateUsername,
   updateBio,

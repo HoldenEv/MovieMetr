@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import User from "../models/user";
-import {getProfile,loginUser,registerUser,updateBio,updateEmail,updateProfilePath,updateUsername} from "../controllers/accountController";
+import {loginUser,registerUser,updateBio,updateEmail,updateProfilePath,updateUsername} from "../controllers/accountController";
 const authenticationMiddleware = require("../middleware/authentication");
 const LocalStrategy = require("passport-local");
 const bodyParser = require("body-parser");
