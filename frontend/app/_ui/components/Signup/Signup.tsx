@@ -49,9 +49,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!handlePasswordValidation()) {
-      return;
-    }
+    // if (!handlePasswordValidation()) {
+    //   return;
+    // }
 
     try {
       // Call the signUpUser function from signup.ts
@@ -73,8 +73,28 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       setOpenState(false);
       /* TODO: Set session logic */
     } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      // Handle error, show error message, etc.
+      if (!error.message.includes("Internal server error")) {
+        // Handle error, show error message, etc.
+        const validationErrors = error.message;
+
+        // Update passwordValid state based on validationErrors
+        const updatedPasswordValid = {
+          length: !validationErrors.includes(
+            "Password must be at least 8 characters long"
+          ),
+          uppercase: !validationErrors.includes(
+            "Password must contain at least one uppercase letter"
+          ),
+          number: !validationErrors.includes(
+            "Password must contain at least one number"
+          ),
+          matches: !validationErrors.includes("Passwords do not match"),
+        };
+
+        setPasswordValid(updatedPasswordValid);
+      } else {
+        alert(error.message);
+      }
     }
   };
 

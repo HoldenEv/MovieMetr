@@ -23,7 +23,15 @@ export const signUpUser = async (
     });
 
     if (!response.ok) {
-      throw new Error("Failed to sign up");
+      if (response.status === 400) {
+        const responseData = await response.json();
+        const errorMessages = responseData.errors.map(
+          (error: any) => error.msg
+        );
+        throw new Error(errorMessages.join(", "));
+      } else {
+        throw new Error("Internal server error");
+      }
     }
 
     return await response.json();
