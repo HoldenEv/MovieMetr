@@ -49,9 +49,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (!handlePasswordValidation()) {
-    //   return;
-    // }
+    if (!handlePasswordValidation()) {
+      return;
+    }
 
     try {
       // Call the signUpUser function from signup.ts
