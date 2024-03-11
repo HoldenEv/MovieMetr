@@ -1,7 +1,7 @@
 import Movie from '../models/movies';
 import Genre from '../models/genre';
 import MovieGenres from '../models/movieGenres';
-import { addMoviePeople } from './personController';
+import { addAllMoviePeople } from './personController';
 import {addGenre,addMovieGenres} from './genreController';
 import { movieById,getAllPersonMovies } from '../middleware/apiPuller';
 
@@ -19,7 +19,6 @@ const addMovie = async (movieId : string) => {
         }
         //grabs all movie details from the API
         const movie = await movieById(movieId);
-        //grab all movie genres from the movie object
         const newMovie = new Movie({
             _id: movie.id,
             title: movie.title,
@@ -32,7 +31,7 @@ const addMovie = async (movieId : string) => {
 
         //add all people(actors, directors, producers,writers) to the database
         //defined in personController
-        addMoviePeople(movieId);
+        addAllMoviePeople(movieId);
 
         /*add genres to genre collection if not already there
         calls addGenre from genreController*/
