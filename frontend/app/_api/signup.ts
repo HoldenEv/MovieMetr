@@ -11,7 +11,7 @@ export const signUpUser = async (
   email: string,
   username: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({

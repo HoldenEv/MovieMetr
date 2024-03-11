@@ -70,13 +70,12 @@
   font-size: 0.9rem;
   flex-direction: column;
   gap: 0.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .formInput {
   border: none;
   border-radius: 8px;
-  margin-top: 0.15rem;
   padding-left: 0.5rem;
   min-height: 1.5rem;
   min-width: 20rem;
