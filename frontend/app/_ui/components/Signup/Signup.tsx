@@ -75,13 +75,13 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
     } catch (error: any) {
       console.error("Error signing up:", error.message);
       // Handle error, show error message, etc.
-      
     }
   };
 
   return (
     <ReactModal
       isOpen={isOpen}
+      ariaHideApp={false}
       overlayClassName={styles.modalOverlay}
       className={styles.modalOverlay}
     >
