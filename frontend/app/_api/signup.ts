@@ -1,5 +1,12 @@
 const BASE_URL: string = "http://localhost:3001/authentication";
 
+class BackendValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "BackendValidationError";
+  }
+}
+
 export const signUpUser = async (
   email: string,
   username: string,
@@ -28,7 +35,7 @@ export const signUpUser = async (
         const errorMessages = responseData.errors.map(
           (error: any) => error.msg
         );
-        throw new Error(errorMessages.join(", "));
+        throw new BackendValidationError(errorMessages.join(", "));
       } else {
         throw new Error("Internal server error");
       }

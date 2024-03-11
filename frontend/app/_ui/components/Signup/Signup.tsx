@@ -73,7 +73,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       setOpenState(false);
       /* TODO: Set session logic */
     } catch (error: any) {
-      if (!error.message.includes("Internal server error")) {
+      if (error.name === "BackendValidationError") {
         // Handle error, show error message, etc.
         const validationErrors = error.message;
 
