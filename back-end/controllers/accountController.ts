@@ -32,7 +32,7 @@ const login = function (req: any, res: any) {
     });
 };
 
-const register = function (req : Request, res : Response) {
+const register = function (req : any, res : any) {
   User.register(
     new User({ 
       email: req.body.email,
