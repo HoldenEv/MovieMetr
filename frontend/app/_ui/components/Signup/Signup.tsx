@@ -59,7 +59,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword
+        formData.confirmPassword,
       );
       console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
@@ -80,13 +80,13 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         // Update passwordValid state based on validationErrors
         const updatedPasswordValid = {
           length: !validationErrors.includes(
-            "Password must be at least 8 characters long"
+            "Password must be at least 8 characters long",
           ),
           uppercase: !validationErrors.includes(
-            "Password must contain at least one uppercase letter"
+            "Password must contain at least one uppercase letter",
           ),
           number: !validationErrors.includes(
-            "Password must contain at least one number"
+            "Password must contain at least one number",
           ),
           matches: !validationErrors.includes("Passwords do not match"),
         };

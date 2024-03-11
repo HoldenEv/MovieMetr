@@ -14,15 +14,15 @@ export default function Login({ setOpenState }: LoginProps) {
     setOpenState(false);
   };
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  })
+    username: "",
+    password: "",
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value)
+    console.log(name, value);
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,13 +30,10 @@ export default function Login({ setOpenState }: LoginProps) {
 
     try {
       // Call the signUpUser function from signup.ts
-      const response = await logInUser(
-        formData.username,
-        formData.password,
-      );
+      const response = await logInUser(formData.username, formData.password);
       const token = response;
       console.log("Sign up successful:", response);
-      
+
       // Clear form data or perform any additional actions as needed
       setFormData({
         username: "",
@@ -46,9 +43,7 @@ export default function Login({ setOpenState }: LoginProps) {
       console.error("Error signing up:", error.message);
       // Handle error, show error message, etc.
     }
-
-  }
-
+  };
 
   return (
     <div className={styles.formContainer}>

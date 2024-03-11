@@ -11,7 +11,7 @@ export const signUpUser = async (
   email: string,
   username: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({
@@ -33,7 +33,7 @@ export const signUpUser = async (
       if (response.status === 400) {
         const responseData = await response.json();
         const errorMessages = responseData.errors.map(
-          (error: any) => error.msg
+          (error: any) => error.msg,
         );
         throw new BackendValidationError(errorMessages.join(", "));
       } else {
