@@ -23,7 +23,6 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
@@ -60,7 +59,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword,
+        formData.confirmPassword
       );
       console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
@@ -70,6 +69,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         password: "",
         confirmPassword: "",
       });
+      /* Close the modal */
+      setOpenState(false);
+      /* TODO: Set session logic */
     } catch (error: any) {
       console.error("Error signing up:", error.message);
       // Handle error, show error message, etc.
