@@ -1,8 +1,4 @@
 import { Router, Request, Response } from "express";
-import {
-  validateRegisterInput,
-  validate,
-} from "../middleware/validators/authenticationValidators";
 import User from "../models/user";
 import {
   loginUser,
@@ -33,8 +29,8 @@ passport.use(
       passwordField: "password",
       session: false,
     },
-    User.authenticate(),
-  ),
+    User.authenticate()
+  )
 );
 passport.serializeUser(User.serializeUser());
 
@@ -60,7 +56,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  },
+  }
 );
 
 //route to login a user, calls loginUser function from accountController
@@ -77,22 +73,17 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 //route to register a user, calls registerUser function from accountController
-router.post(
-  "/register",
-  validateRegisterInput,
-  validate,
-  async (req: Request, res: Response) => {
-    try {
-      const { username, email, password } = req.body;
-      const result = await registerUser(email, username, password);
-      //currently returns the user object nice for testing
-      res.json(result);
-    } catch (error) {
-      console.error("Error registering", error);
-      res.status(500).send("Error registering");
-    }
-  },
-);
+router.post("/register", async (req: Request, res: Response) => {
+  try {
+    const { username, email, password } = req.body;
+    const result = await registerUser(username, email, password);
+    //currently returns the user object nice for testing
+    res.json(result);
+  } catch (error) {
+    console.error("Error registering", error);
+    res.status(500).send("Error registering");
+  }
+});
 
 //route update a user's email, calls updateEmail function from accountController
 //which takes a user id and new email in req body

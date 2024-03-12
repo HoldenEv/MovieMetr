@@ -30,15 +30,7 @@ export const signUpUser = async (
     });
 
     if (!response.ok) {
-      if (response.status === 400) {
-        const responseData = await response.json();
-        const errorMessages = responseData.errors.map(
-          (error: any) => error.msg,
-        );
-        throw new BackendValidationError(errorMessages.join(", "));
-      } else {
-        throw new Error("Internal server error");
-      }
+      throw new Error("Internal server error");
     }
 
     return await response.json();
