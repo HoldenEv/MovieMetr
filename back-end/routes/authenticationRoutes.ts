@@ -76,7 +76,7 @@ router.post("/login", async (req: Request, res: Response) => {
 router.post("/register", async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body;
-    const result = await registerUser(username, email, password);
+    const result = await registerUser(email, username, password);
     //currently returns the user object nice for testing
     res.json(result);
   } catch (error) {
