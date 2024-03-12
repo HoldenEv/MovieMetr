@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
 export interface IUser extends Document {
+  changePassword(oldPassword: string, newPassword: string, callback: (err: any) => void): void;
   username: string;
   email: string;
   profilePath: string;
@@ -33,4 +34,5 @@ const UserSchema = new Schema<IUser>({
 UserSchema.plugin(passportLocalMongoose);
 
 const UserModel = mongoose.model<IUser>("User", UserSchema);
+
 export default UserModel;
