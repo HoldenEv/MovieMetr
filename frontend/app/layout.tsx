@@ -4,6 +4,7 @@ import "@/_ui/global.css";
 import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
 import { League_Spartan } from "next/font/google";
+import Tabs from "@/_ui/components/Tabs/Tabs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${styles.body}`}>
         <Header />
+        <Tabs></Tabs>
         {children}
       </body>
+
     </html>
   );
 }

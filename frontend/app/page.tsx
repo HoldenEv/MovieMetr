@@ -1,4 +1,5 @@
 import styles from "@/ui/home.module.css";
+import Tabs from "@/_ui/components/Tabs/Tabs";
 
 export default function Home() {
   return (
