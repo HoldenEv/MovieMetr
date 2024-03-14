@@ -7,13 +7,19 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2 a little unstable
+import { experimentalStyled as styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 import profilePic from "@/_assets/sample_profile_pic.png";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
+// interface for the tabs
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
+
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -35,6 +41,8 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
+
+// each tab has a name - component pair
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
@@ -42,6 +50,16 @@ function a11yProps(index: number) {
   };
 }
 
+const Item = styled(Paper)(({ theme }) => ({
+  '& img': {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover', // Ensures the image covers the entire space without distortion
+  },
+}));
+
+
+// handle tab changes and other userPage canges
 export default function Userpage() {
   const [value, setValue] = useState(0);
 
@@ -121,42 +139,46 @@ export default function Userpage() {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <div className={styles.gallery}>
-          <img
-            src="https://m.media-amazon.com/images/I/71lqDylcvGL._AC_UF894,1000_QL80_.jpg"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg"
-            className={styles.galleryItem}
-          />
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} justifyContent="center">
+              {[
+                 "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                 "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
+                 "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
+                 "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg"
+              ].map((imageUrl, index) => (
+                <Grid key={index} xs={6} sm={3} md={2}>
+                    <img
+                      src={imageUrl}
+                      className={styles.galleryItem}
+                      style={{width: "100%", height: "100%", objectFit: "cover"}}
+                    />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <div className={styles.gallery}>
-          <img
-            src="https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg"
-            className={styles.galleryItem}
-          />
-          <img
-            src="https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg"
-            className={styles.galleryItem}
-          />
+          <Box sx={{ flexGrow: 1 }}>
+              <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} justifyContent="center">
+                {[
+                  "https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg",
+                  "https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg",
+                  "https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg",
+                  "https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg"
+                ].map((imageUrl, index) => (
+                  <Grid key={index} xs={6} sm={3} md={2}>
+                      <img
+                        src={imageUrl}
+                        className={styles.galleryItem}
+                        style={{width: "100%", height: "100%", objectFit: "cover"}}
+                      />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>

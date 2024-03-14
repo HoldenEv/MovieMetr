@@ -1,99 +1,99 @@
 .userPage {
-    background-color: #22324a;
-    padding-left: 20px;
-    padding-right: 20px;
-    min-width: 100%;
+  background-color: #22324a;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 100%;
 }
 
 .userInfo {
-    display: flex;
-    justify-content: space-around;
-    max-width: 600px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  max-width: 600px;
+  margin-bottom: 10px;
 }
 
 .profilePicture {
-    width: 200px;
-    height: 200px;
-    border-radius: 100px;
-    object-fit: cover;
-    margin-top: 10px;
-    margin-right: 5px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  object-fit: cover;
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 .photoUsername {
-    text-align: center;
-    font-size: larger;
+  text-align: center;
+  font-size: larger;
 }
 
 .usernameText {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 .overviewBio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .overview {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    font-size: large;
-    max-width: 250px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  font-size: large;
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .bio {
-    margin-left: 10px;
-    text-align: left;
+  margin-left: 10px;
+  text-align: left;
 }
 
 .extensions {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .editProfile,
 .shareProfile {
-    width: 48%;
-    background-color: #191c2d;
-    color: white;
-    border-color: white;
-    border-width: 1.5px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
+  width: 48%;
+  background-color: #191c2d;
+  color: white;
+  border-color: white;
+  border-width: 1.5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .editProfile:hover,
 .editProfile:focus,
 .shareProfile:hover,
 .shareProfile:focus {
-    background-color: #22324a;
-    outline: none;
+  background-color: #22324a;
+  outline: none;
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    border-top: 3px solid #d9d9d9;
-}
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-top: 3px solid #d9d9d9;
+} 
 
 .galleryItem {
-    width: 20%;
+  width: 20%;
 }
+
 @media only screen and (min-width: 525px) {
-    .userinfo {
-        margin-left: 10%;
-    }
+  .userInfo {
+    margin-left: 10%;
+  }
 }
-  
