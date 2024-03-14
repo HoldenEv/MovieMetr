@@ -7,6 +7,7 @@ import {
   updateEmail,
   updateProfilePath,
   updateUsername,
+  updatePassword,
 } from "../controllers/accountController";
 const authenticationMiddleware = require("../middleware/authentication");
 const LocalStrategy = require("passport-local");
@@ -75,7 +76,7 @@ router.post("/login", async (req: Request, res: Response) => {
 router.post("/register", async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body;
-    const result = await registerUser(username, email, password);
+    const result = await registerUser(email, username, password);
     //currently returns the user object nice for testing
     res.json(result);
   } catch (error) {
@@ -136,4 +137,16 @@ router.post("/updateProfilePath", async (req: Request, res: Response) => {
   }
 });
 
+//route to update a user's password, calls updatePassword function from accountController
+//takes a user id and new password in req body
+router.post("/updatePassword", async (req: Request, res: Response) => {
+  try {
+    const { userId, oldPassword,newPassword } = req.body;
+    const updatedUser = await updatePassword(userId, oldPassword,newPassword);
+    res.json({ message: "Password updated", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating password", error);
+    res.status(500).send("Error updating password");
+  }
+});
 export default router;

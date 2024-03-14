@@ -122,10 +122,8 @@
 @media only screen and (max-width: 600px) {
   .loginForm {
     padding: 1rem;
-  }
-
-  .loginForm {
     width: 100%;
+    border-radius: 0;
   }
 
   .formContainer {

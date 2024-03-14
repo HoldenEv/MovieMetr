@@ -86,6 +86,29 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
   return update(userId, updateFields);
 };
 
+//updates a users password
+//doesnt work rn, .changepassword doesnt work llike it should,
+//at least being called the way it is, needs to be fixed
+const updatePassword = async (userId: string, newPassword: string, oldPassword: string) => {
+  const user = await User.findById(userId).exec();
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return new Promise((resolve, reject) => {
+    user.changePassword(oldPassword, newPassword, (err) => {
+      if(err){
+        if(err.name === "IncorrectPasswordError"){
+          reject(new Error("Incorrect password"));
+        } else {
+          reject(new Error("Error updating password"));
+        }
+      }else{
+        resolve({message: "Password updated"});
+      }
+    });
+  });
+};
+
 export {
   loginUser,
   registerUser,
@@ -93,5 +116,6 @@ export {
   updateUsername,
   updateBio,
   updateProfilePath,
+  updatePassword,
 };
 //attempted to refactor the code to use async/await, but it was not working, so I left the original code in place
