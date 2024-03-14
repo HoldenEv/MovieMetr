@@ -1,27 +1,16 @@
 const BASE_URL: string = "http://localhost:3001/authentication";
 
-class BackendValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "BackendValidationError";
-  }
-}
-
-export const signUpUser = async (
-  email: string,
+export const logInUser = async (
   username: string,
   password: string,
-  confirmPassword: string,
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({
-      email: email,
       username: username,
       password: password,
-      confirmPassword: confirmPassword,
     });
 
-    const response = await fetch(`${BASE_URL}/register`, {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -30,7 +19,7 @@ export const signUpUser = async (
     });
 
     if (!response.ok) {
-      throw new Error("Internal server error");
+      throw new Error("Failed to sign up");
     }
 
     return await response.json();

@@ -1,8 +1,9 @@
 import express from "express";
+import { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import authetication from "./routes/authenticationRoutes";
-import queryRoutes from "./routes/apiQueryRoutes"
+import queryRoutes from "./routes/apiQueryRoutes";
 import movieRoutes from "./routes/movieRoutes";
 dotenv.config();
 
@@ -13,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Use the router
-//app.use("/", routes);
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello, TypeScript Express!");
+});
 app.use("/authentication", authetication);
 app.use("/apiQueryRoutes", queryRoutes);
 app.use("/movieRoutes", movieRoutes);

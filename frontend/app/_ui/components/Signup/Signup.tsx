@@ -21,36 +21,40 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
     confirmPassword: "",
   });
 
+  const [passwordValid, setPasswordValid] = useState({
+    userLength: true,
+    userSpecialChars: true,
+    length: true,
+    uppercase: true,
+    number: true,
+    matches: true,
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const handlePassword = (password: string, confirmPassword: string) => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return -1;
-    }
-    if (password.length < 8) {
-      alert("Password should be longer than 8 characters");
-      return -1;
-    }
-    if (!/\d/.test(password)) {
-      alert("Password must have at least one number");
-      return -1;
-    }
-    if (!/[A-Z]/.test(password)) {
-      alert("Password must contain at least one capital letter");
-      return -1;
-    }
+  const handlePasswordValidation = () => {
+    const valid = {
+      userLength:
+        formData.username.length >= 3 && formData.username.length <= 50,
+      userSpecialChars: /^[a-zA-Z0-9@./_-]*$/.test(formData.username),
+      length: formData.password.length >= 8,
+      uppercase: /[A-Z]/.test(formData.password),
+      number: /\d/.test(formData.password),
+      matches: formData.password === formData.confirmPassword,
+    };
+    setPasswordValid(valid);
+    return Object.values(valid).every((val) => val);
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (handlePassword(formData.password, formData.confirmPassword) == -1) {
+    if (!handlePasswordValidation()) {
       return;
     }
 
@@ -60,6 +64,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
+        formData.confirmPassword,
       );
       console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
@@ -69,15 +74,18 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         password: "",
         confirmPassword: "",
       });
+      /* Close the modal */
+      setOpenState(false);
+      /* TODO: Set session logic */
     } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      // Handle error, show error message, etc.
+      alert(error.message);
     }
   };
 
   return (
     <ReactModal
       isOpen={isOpen}
+      ariaHideApp={false}
       overlayClassName={styles.modalOverlay}
       className={styles.modalOverlay}
     >
@@ -120,6 +128,24 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               className={styles.formInput}
             />
           </div>
+          <div className={styles.passwordReq}>
+            <p>Username must meet the following requirements:</p>
+            <ul>
+              <li
+                style={{ color: passwordValid.userLength ? "inherit" : "red" }}
+              >
+                At least 3 characters and at most 50 characters
+              </li>
+              <li
+                style={{
+                  color: passwordValid.userSpecialChars ? "inherit" : "red",
+                }}
+              >
+                Is composed of only letters and numbers, or special characters
+                (@./_-)
+              </li>
+            </ul>
+          </div>
           <div className={styles.formRow}>
             <label htmlFor="password">Password</label>
             <input
@@ -134,9 +160,22 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
             <div className={styles.passwordReq}>
               <p>Password must meet the following requirements:</p>
               <ul>
-                <li>At least 8 characters long</li>
-                <li>Contain at least one uppercase letter</li>
-                <li>Contain at least one number</li>
+                <li
+                  style={{ color: passwordValid.matches ? "inherit" : "red" }}
+                >
+                  Passwords must match
+                </li>
+                <li style={{ color: passwordValid.length ? "inherit" : "red" }}>
+                  At least 8 characters long
+                </li>
+                <li
+                  style={{ color: passwordValid.uppercase ? "inherit" : "red" }}
+                >
+                  Contain at least one uppercase letter
+                </li>
+                <li style={{ color: passwordValid.number ? "inherit" : "red" }}>
+                  Contain at least one number
+                </li>
               </ul>
             </div>
           </div>

@@ -51,11 +51,11 @@ function a11yProps(index: number) {
 }
 
 const Item = styled(Paper)(({ theme }) => ({
-  '& img': {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover', // Ensures the image covers the entire space without distortion
-  },
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary
 }));
 
 
@@ -140,7 +140,7 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={0}>
         <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} justifyContent="center">
+            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center" >
               {[
                  "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
                  "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
@@ -162,7 +162,7 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={1}>
         <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
-              <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}} justifyContent="center">
+              <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center">
                 {[
                   "https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg",
                   "https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg",

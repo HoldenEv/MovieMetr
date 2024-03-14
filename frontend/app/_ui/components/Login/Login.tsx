@@ -1,6 +1,9 @@
 import styles from "./Login.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
+import { useState } from "react";
+import { format } from "path";
+import { logInUser } from "@/_api/login";
 
 interface LoginProps {
   setOpenState: (state: boolean) => void;
@@ -10,10 +13,41 @@ export default function Login({ setOpenState }: LoginProps) {
   const handleClick = () => {
     setOpenState(false);
   };
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      // Call the signUpUser function from signup.ts
+      const response = await logInUser(formData.username, formData.password);
+      const token = response;
+      console.log("Sign up successful:", response);
+
+      // Clear form data or perform any additional actions as needed
+      setFormData({
+        username: "",
+        password: "",
+      });
+    } catch (error: any) {
+      console.error("Error signing up:", error.message);
+      // Handle error, show error message, etc.
+    }
+  };
 
   return (
     <div className={styles.formContainer}>
-      <form className={styles.loginForm}>
+      <form onSubmit={handleSubmit} className={styles.loginForm}>
         <div className={styles.formItems}>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
@@ -34,6 +68,8 @@ export default function Login({ setOpenState }: LoginProps) {
               type="text"
               id="username"
               name="username"
+              value={formData.username}
+              onChange={handleChange}
               // placeholder="Username"
               required
             />
@@ -46,6 +82,8 @@ export default function Login({ setOpenState }: LoginProps) {
               type="password"
               id="password"
               name="password"
+              value={formData.password}
+              onChange={handleChange}
               // placeholder="Password"
               required
             />

@@ -41,13 +41,16 @@ interface ApiResponse {
   data: (MovieData | PersonData | ShowData)[];
 }
 
-
-
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string, page: string) => {
   /* configure url for TMDB movie search URL */
   const url: string =
-    "https://api.themoviedb.org/3/search/movie?api_key=" +apiKey +"&query=" +searchString +"&page=" +page;
+    "https://api.themoviedb.org/3/search/movie?api_key=" +
+    apiKey +
+    "&query=" +
+    searchString +
+    "&page=" +
+    page;
 
   const options = {
     headers: {
@@ -60,7 +63,6 @@ const searchMovies = async (searchString: string, page: string) => {
     console.log(url);
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
-  
 
     /* map movie results data to our own array */
     const data: MovieData[] = response.data.results.map((movie: any) => ({
@@ -311,10 +313,7 @@ const getAllPersonMovies = async (id: string) => {
 
 const getAllMoviePeople = async (id: string) => {
   const url =
-    "https://api.themoviedb.org/3/movie/" +
-    id +
-    "/credits?api_key=" +
-    apiKey;
+    "https://api.themoviedb.org/3/movie/" + id + "/credits?api_key=" + apiKey;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -337,8 +336,7 @@ const getAllMoviePeople = async (id: string) => {
     console.error("Error searching for person details", error);
     throw error;
   }
-}
-
+};
 
 export {
   searchMovies,
@@ -349,5 +347,5 @@ export {
   nowPlaying,
   popularMovies,
   getAllPersonMovies,
-  getAllMoviePeople
+  getAllMoviePeople,
 };

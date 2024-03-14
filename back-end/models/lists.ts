@@ -6,12 +6,12 @@ const ListEntrySchema = new Schema({
   itemType: {
     type: String,
     required: true,
-    enum: ["Movie", "TVshow"]
+    enum: ["Movie", "TVshow"],
   },
   item_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    refPath: "entries.itemType"
+    refPath: "entries.itemType",
   },
 });
 
@@ -26,7 +26,7 @@ const ListSchema = new Schema({
     ref: "User",
   },
   //an array of list entries, each entry is a movie or tvshow, the reference is determined by the itemType ref path
-  entries:[ListEntrySchema]
+  entries: [ListEntrySchema],
 });
 
 const List = mongoose.model("List", ListSchema);
