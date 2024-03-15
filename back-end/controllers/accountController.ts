@@ -4,24 +4,43 @@ import jwt from "jwt-simple";
 
 //responsible for logging in a user, takes in a username and returns a token
 //password verificationis not yet handled
-const loginUser = async (username: string) => {
+const loginUser = async (username: string,password:string) => {
   const user = await User.findOne({ username: username }).exec();
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Username not found");
   }
 
+  //handles password verification
+  const isAuthenticated = await new Promise((resolve, reject) => {
+    user.authenticate(password, (err,result) => {
+      if(err){
+        reject(err);
+      }else if(!result){
+        reject(new Error("Incorrect password"));
+      }else{
+        resolve(true);
+      }
+    });
+  });
+
+  if(!isAuthenticated){
+    throw new Error("Incorrect password");
+  }
+
+  //creates a payload with the user id and an expiration date of 7 days
   var payload = {
     id: user.id,
     expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
   };
-
+//checks if the jwt secret exists
   if (!config.jwtSecret) {
     // if it exists
     // Pass { session: false } as an option to indicate that sessions are not needed
     throw new Error("JWT Secret not found");
   }
-
+//creates the token, using the payload and the jwt secret
   const token = jwt.encode(payload, config.jwtSecret);
+  //returns the token
   return { token: token };
 };
 
@@ -89,7 +108,7 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
 //updates a users password
 //doesnt work rn, .changepassword doesnt work llike it should,
 //at least being called the way it is, needs to be fixed
-const updatePassword = async (userId: string, newPassword: string, oldPassword: string) => {
+const updatePassword = async (userId: string, oldPassword: string,newPassword: string ) => {
   const user = await User.findById(userId).exec();
   if (!user) {
     throw new Error("User not found");
