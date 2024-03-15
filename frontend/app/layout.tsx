@@ -8,13 +8,13 @@ import { League_Spartan } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MOIST METER",
+  title: "Movie Meter",
   description: "Rate your movies",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: Readonly <{
   children: React.ReactNode;
 }>) {
   return (
