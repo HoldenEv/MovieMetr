@@ -11,7 +11,6 @@ import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2 a little unst
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import profilePic from "@/_assets/sample_profile_pic.png";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 // interface for the tabs
 interface TabPanelProps {
@@ -110,7 +109,7 @@ export default function Userpage() {
           onChange={handleChange}
           centered
           TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
-          sx={{ borderBottom: 1, borderColor: "white" }}
+          sx={{ borderBottom: 1, borderColor: "white"}}
         >
           <Tab
             label="Favorites"

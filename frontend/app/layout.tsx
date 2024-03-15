@@ -8,7 +8,7 @@ import Tabs from "@/_ui/components/Tabs/Tabs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MOIST METER",
+  title: "MOVIE METER",
   description: "Rate your movies",
 };
 
@@ -24,6 +24,7 @@ export default function RootLayout({
         <Tabs></Tabs>
         {children}
       </body>
+
     </html>
   );
 }
