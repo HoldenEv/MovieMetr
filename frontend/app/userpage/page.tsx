@@ -88,14 +88,11 @@ export default function Userpage() {
             <p>300 following</p>
           </div>
           <p className={styles.bio}>
-            Once upon a time there was a lovely princess. But she had an
-            enchantment upon her of a fearful sort which could only be broken by
-            loves first kiss. She was locked away in a castle guarded by a
-            terrible fire-breathing dragon. Many brave knights had attempted to
-            free her from this dreadful prison, but non prevailed. She waited in
-            the dragons keep in the highest room of the tallest tower for her
-            true love and true loves firstkiss. (laughs) Like thats ever gonna
-            happen. What a load of - (toilet flush)
+            🎬 Lights, Camera, Action! 🍿
+            Fellow movie enthusiasts!
+            Catch me cozying up on the couch with a bucket of 
+            buttery popcorn and a never-ending stream of movies.🍿
+
           </p>
           <div className={styles.extensions}>
             <button className={styles.editProfile} type="submit">
@@ -113,6 +110,7 @@ export default function Userpage() {
           onChange={handleChange}
           centered
           TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
+          sx={{ borderBottom: 1, borderColor: "white" }}
         >
           <Tab
             label="Favorites"
@@ -212,16 +210,3 @@ export default function Userpage() {
     </div>
   );
 }
-
-// posssible way to make the array of gallery items clickable links
-// <div className="gallery">
-//         {galleryItems.map((item, index) => (
-//           <a key={index} href={`#link-${index}`} className="gallery-item">
-//             <img
-//               src={item}
-//               alt={`Gallery Item ${index + 1}`}
-//               className="gallery-item-img"
-//             />
-//           </a>
-//         ))}
-//       </div>
