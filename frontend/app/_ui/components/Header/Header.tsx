@@ -8,18 +8,19 @@ import Dropdown from "../DropDown/Dropdown";
 import Login from "../Login/Login";
 import SignUp from "../Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
-import { search } from "@/_api/search";
+import { useRouter } from "next/navigation";
 
 function Form() {
   /* what button is active: starts off with 'Movies' */
-  const [activeButton, setActiveButton] = useState("Movies");
+  const [activeButton, setActiveButton] = useState("Films");
   /* state of dropdown form (open/closed): starts on closed */
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   /* on open, prevent any default event and set open state to 
   either closed or open */
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
     setOpen(!open);
@@ -29,7 +30,7 @@ function Form() {
   to category clicked close the dropdown */
   const handleClick = (
     category: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
     setActiveButton(category);
@@ -45,14 +46,17 @@ function Form() {
       we are accessing */
       const formElement = event.target as HTMLFormElement;
       /* store the search text */
-      const inputText = formElement.search.value;
-      /* start by querying the first page */
-      const page = "1" as string;
-      /* call function to make the search */
-      const searchData = await search(activeButton, inputText, page);
+      let inputText = formElement.search.value;
+      /* if user has not entered anything, don't do anything on submit*/
+      if (inputText === "") {
+        return;
+      }
+      /* convert input text to lowercase, replace spaces with dashes */
+      inputText = inputText.replace(/\s+/g, "-").toLowerCase();
+      /* go to search page for searched item */
+      router.push(`/search/${activeButton.toLowerCase()}/${inputText}`);
       /* reset the value of the search bar */
       formElement.search.value = "";
-      console.log(searchData); //FOR DEBUGGING
     } catch (error) {
       console.error("Error getting results: ", error);
     }
@@ -73,11 +77,8 @@ function Form() {
           </button>
         }
         menu={[
-          <button
-            onClick={(event) => handleClick("Movies", event)}
-            key="movies"
-          >
-            Movies
+          <button onClick={(event) => handleClick("Films", event)} key="films">
+            Films
           </button>,
           <button onClick={(event) => handleClick("Shows", event)} key="shows">
             Shows
