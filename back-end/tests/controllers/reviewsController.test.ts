@@ -1,53 +1,54 @@
 import Movie from "../../models/movies";
 import Review from "../../models/reviews";
-import reviewController from "../../controllers/reviewsController";
-import addReview from "../../controllers/reviewsController";
+import { addReview } from "../../controllers/reviewsController";
 
 jest.mock("../../models/movies");
-const mockMovie = Movie as jest.Mocked<typeof Movie>;
+const mockedMovie = Movie as jest.Mocked<typeof Movie>;
 
 jest.mock("../../models/reviews");
-const mockReviews = Review as jest.Mocked<typeof Review>;
+const mockedReview = Review as jest.Mocked<typeof Review>;
 
-jest.mock("../../controllers/reviewsController");
-
-describe('Review Functions', () => {
+describe("Review Functions", () => {
   afterEach(() => {
     jest.clearAllMocks(); // Clear mock calls after each test
   });
 
-  describe('addReview', () => {
-    it('should add a review', async () => {
-      const mockSave = jest.fn(); // Mock save function
-      const MockReview = jest.fn().mockImplementation(() => ({
-        save: mockSave,
-      }));
-      const reviewString = 'Great movie!';
-      const rating = '5';
+  describe("addReview", () => {
+    it("should add a review and return the new review object", async () => {
+      const mockMovieId = "movieId";
+      const mockUserId = "userId";
+      const mockReviewString = "Great movie!";
+      const mockRating = "5";
 
-      const originalAddReview = reviewController.addReview;
-  
-      // Mock finding the movie
-      mockMovie.findOne.mockResolvedValueOnce(true);
-  
-      // Call the function
-      const result = await reviewController.addReview('movieId', 'userId', reviewString, rating);
-      // Check if new Review() is called with the correct arguments
-      expect(MockReview).toHaveBeenCalledWith({
-        movie_id: 'movieId',
-        user_id: 'userId',
-        review: reviewString,
-        rating: rating,
+      const mockMovie = { _id: mockMovieId };
+      // Mock Movie.findOne to return a movie (assuming movie exists)
+      mockedMovie.findOne = jest.fn().mockResolvedValueOnce(mockMovie);
+      // Mock Review.save to return the review object
+      const mockReviewObject = {
+        movie_id: mockMovieId,
+        user_id: mockUserId,
+        review: mockReviewString,
+        rating: mockRating,
         time: expect.any(Number),
-      });
-  
-      // Check if save() is called on the MockReview instance
-      expect(mockSave).toHaveBeenCalled();
-      
-      // Ensure that the result is truthy
-      expect(result).toBeTruthy();
+      };
+
+      mockedReview.create.mockResolvedValueOnce(mockReviewObject as any);
+
+      mockedReview.prototype.save = jest
+        .fn()
+        .mockResolvedValueOnce(mockReviewObject);
+
+      const result = await addReview(
+        mockMovieId,
+        mockUserId,
+        mockReviewString,
+        mockRating
+      );
+
+      expect(Movie.findOne).toHaveBeenCalledWith({ _id: mockMovieId });
+      expect(Review).toHaveBeenCalledWith(mockReviewObject); // Ensure Review constructor was called with the expected object
+      expect(Review.prototype.save).toHaveBeenCalled();
+      expect(result).toEqual(mockReviewObject);
     });
-  
-    // Add more test cases for error scenarios if needed
   });
 });
