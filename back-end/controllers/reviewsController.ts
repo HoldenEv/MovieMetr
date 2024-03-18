@@ -56,3 +56,11 @@ const getUserReviews = async (userId: string) => {
     }
 };
 
+export default {
+    addReview,
+    deleteReview,
+    getMovieReviews,
+    getUserReviews
+  
+};
+
