@@ -12,8 +12,7 @@ https://www.figma.com/file/6HzuRMbpORCYMu3xcAyC26/Basics?type=design&node-id=132
 
 <h2>Product Spec</h2>
 
-[Product Spec Link]([https://drive.google.com/file/d/1w8ixqDiPolhIjdwJ_SZ1-1zmniDGvoAK/view?usp=drive_link](https://docs.google.com/document/d/1GiZTrYeK-81qYEm9ERptx7ncoDHLdscM4p95Bmn0Tn8/edit?usp=sharing))  
-
+[Product Spec Link](https://docs.google.com/document/d/1GiZTrYeK-81qYEm9ERptx7ncoDHLdscM4p95Bmn0Tn8/edit?usp=sharing)  
 
 <h2>Demo Video</h2>
 
