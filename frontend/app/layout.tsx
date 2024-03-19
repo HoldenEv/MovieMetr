@@ -3,12 +3,12 @@ import { Inter } from "next/font/google"; // TODO: FIND FONTS
 import "@/_ui/global.css";
 import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
-import { League_Spartan } from "next/font/google";
+import Tabs from "@/_ui/components/Tabs/Tabs";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MOIST METER",
+  title: "MOVIE METER",
   description: "Rate your movies",
 };
 
@@ -19,10 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${styles.body}`}>
+      <body className={`${inter.className} ${styles.body}`} style={{ minWidth: '525px' }}>
         <Header />
+        <Tabs></Tabs>
         {children}
       </body>
+
     </html>
   );
 }

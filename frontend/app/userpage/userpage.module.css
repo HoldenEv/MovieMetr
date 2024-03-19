@@ -1,7 +1,7 @@
 .userPage {
   background-color: #22324a;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   min-width: 100%;
 }
 
@@ -39,6 +39,7 @@
 .overview {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   text-align: center;
   font-size: large;
   max-width: 250px;
@@ -46,15 +47,32 @@
   margin-bottom: 10px;
 }
 
+.overview > * {
+  border-right: 1px solid #ffffff80; /* Adjust opacity as needed */
+  padding-right: 10px;
+}
+
+/* Remove right border from last element */
+.overview > *:last-child {
+  border-right: none;
+}
+
 .bio {
   margin-left: 10px;
   text-align: left;
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limit number of lines to 4 */
+  -webkit-box-orient: vertical;
+  text-align: center;
 }
 
 .extensions {
   display: flex;
   justify-content: space-around;
   text-align: center;
+  max-width: 360px;
   width: 100%;
   margin-top: 20px;
 }
@@ -62,12 +80,14 @@
 .editProfile,
 .shareProfile {
   width: 48%;
-  background-color: #191c2d;
-  color: white;
-  border-color: white;
-  border-width: 1.5px;
   border-radius: 5px;
   cursor: pointer;
+  border: none;
+  background-color: var(--darker-blue);
+  color: var(--pure-white);
+  border-color: var(--pure-white);
+  padding: 10px;
+  font-size: 16px;
   transition:
     background-color 0.3s,
     color 0.3s;
@@ -77,22 +97,49 @@
 .editProfile:focus,
 .shareProfile:hover,
 .shareProfile:focus {
-  background-color: #22324a;
-  outline: none;
+  background-color: var(--darker-blue-highlight);
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  border-top: 3px solid #d9d9d9;
-}
+} 
 
 .galleryItem {
-  width: 20%;
+  border-radius: 8px;
+  border: 1px solid #687fa3;
 }
+
+@media only screen and (max-width: 525px) {
+  .userInfo {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+    align-items: center; 
+    text-align: center; 
+  }
+
+  .profilePicture {
+    margin-bottom: 10px; 
+  }
+
+  .overviewBio {
+    margin-top: 10px; 
+  }
+
+  .extensions {
+    margin-top: 20px; 
+  }
+
+  .editProfile,
+  .shareProfile {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+}
+
 @media only screen and (min-width: 525px) {
-  .userinfo {
+  .userInfo {
     margin-left: 10%;
   }
 }

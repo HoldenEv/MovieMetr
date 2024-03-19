@@ -4,7 +4,8 @@ import Movie from "../models/movies";
 
 const addGenre = async (genreId: string, genreName: string) => {
   try {
-    if ((await Genre.findOne({ _id: genreId })) != null) {
+    const existingGenre = await Genre.findOne({ _id: genreId });
+    if (!existingGenre) {
       const newGenre = new Genre({
         _id: genreId,
         name: genreName,

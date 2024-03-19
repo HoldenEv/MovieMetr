@@ -62,8 +62,8 @@ router.get(
 //route to login a user, calls loginUser function from accountController
 router.post("/login", async (req: Request, res: Response) => {
   try {
-    const { username } = req.body;
-    const result = await loginUser(username);
+    const { username,password } = req.body;
+    const result = await loginUser(username,password);
     //currently returns the user object nice for testing
     res.json(result);
   } catch (error) {
@@ -141,7 +141,7 @@ router.post("/updateProfilePath", async (req: Request, res: Response) => {
 //takes a user id and new password in req body
 router.post("/updatePassword", async (req: Request, res: Response) => {
   try {
-    const { userId, oldPassword,newPassword } = req.body;
+    const { userId,newPassword,oldPassword } = req.body;
     const updatedUser = await updatePassword(userId, oldPassword,newPassword);
     res.json({ message: "Password updated", user: updatedUser });
   } catch (error) {
