@@ -39,6 +39,18 @@ const deleteReview = async (reviewId: string) => {
   }
 };
 
+//gets a review by its id from the database
+const getReview = async (reviewId: string) => {
+  try {
+    const review = await Review.findOne({ _id: reviewId });
+    return review;
+  } catch (error) {
+    console.error("Error getting review", error);
+    return null;
+  }
+};
+
+
 //returns all reviews objects for a movie by its id
 const getMovieReviews = async (movieId: string) => {
   try {
@@ -60,3 +72,5 @@ const getUserReviews = async (userId: string) => {
     return null;
   }
 };
+
+export { addReview, deleteReview, getMovieReviews, getUserReviews,getReview };
