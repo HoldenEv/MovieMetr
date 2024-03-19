@@ -11,8 +11,6 @@
 https://www.figma.com/file/6HzuRMbpORCYMu3xcAyC26/Basics?type=design&node-id=132%3A2089&mode=design&t=4IrtGUZiXlCXrjd5-1
 
 <h2>Product Spec</h2>
-https://docs.google.com/document/d/1GiZTrYeK-81qYEm9ERptx7ncoDHLdscM4p95Bmn0Tn8/edit?usp=sharing
+Tech Spec: [Spec Link](https://docs.google.com/document/d/1GiZTrYeK-81qYEm9ERptx7ncoDHLdscM4p95Bmn0Tn8/edit?usp=sharing)
 
-Demo Video
-https://drive.google.com/file/d/1w8ixqDiPolhIjdwJ_SZ1-1zmniDGvoAK/view?usp=drive_link
-  
+Demo Video: [Demo](https://drive.google.com/file/d/1w8ixqDiPolhIjdwJ_SZ1-1zmniDGvoAK/view?usp=drive_link)  
