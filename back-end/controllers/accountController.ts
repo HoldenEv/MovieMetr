@@ -82,13 +82,13 @@ const update = async (userId: string, updateFields: {}) => {
 };
 
 //update a users email
-const updateEmail = async (userId: string, email: string) => {
+const updateEmail = async (userId: any, email: string) => {
   const updateFields = { email: email };
   return update(userId, updateFields);
 };
 
 //updates a users username
-const updateUsername = async (userId: string, username: string) => {
+const updateUsername = async (userId: any, username: string) => {
   const updateFields = { username: username };
   return update(userId, updateFields);
 };

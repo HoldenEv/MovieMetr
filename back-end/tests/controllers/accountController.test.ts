@@ -1,4 +1,10 @@
-import { loginUser }from "../../controllers/accountController";
+import { loginUser, 
+  registerUser, 
+  updateEmail, 
+  updateUsername,
+  updateBio, 
+  updatePassword,
+  updateProfilePath} from "../../controllers/accountController";
 const mongoose = require("mongoose");
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -56,3 +62,99 @@ test("loginUser - Incorrect password", async () => {
     expect(error.message).toBe("Incorrect password");
   }
 });
+
+test("registerUser - Successful registration", async () => {
+  const email = "test@example.com";
+  const username = "testUser";
+  const password = "testPassword";
+
+  const result = await registerUser(email, username, password);
+
+  // Assert that the registered user object is returned
+  expect(result).toBeDefined();
+  expect(result.email).toBe(email);
+  expect(result.username).toBe(username);
+});
+
+test("registerUser - Username already exists", async () => {
+  // Use a username that already exists in the database
+  const email = "new@example.com";
+  const existingUsername = "testName";
+  const password = "testPassword";
+
+  try {
+    await registerUser(email, existingUsername, password);
+    fail("Expected registerUser to throw an error for existing username");
+  } catch (error: any) {
+    // Assert that the error message is "Username already exists"
+    expect(error.message).toBe("Username already exists");
+  }
+});
+
+test("registerUser - Email already exists", async () => {
+  // Use an email that already exists in the database
+  const existingEmail = "test@example.com";
+  const username = "newUser";
+  const password = "testPassword";
+
+  try {
+    await registerUser(existingEmail, username, password);
+    fail("Expected registerUser to throw an error for existing email");
+  } catch (error: any) {
+    // Assert that the error message is "Email already exists"
+    expect(error.message).toBe("Email already exists");
+  }
+});
+
+test("updateEmail - Successful email update", async () => {
+  //const userId = new mongoose.Types.ObjectId();
+  const userId = "65fbaf1722d131a9dea2bb8e";
+  const newEmail = "newemail@example.com";
+
+  const result = await updateEmail(userId, newEmail);
+
+  // Assert that the message indicates successful update
+  expect(result.message).toBe("User updated successfully");
+  // Assert that the updated user object is returned
+  expect(result.user.email).toBe(newEmail);
+});
+
+test("updateUsername - Successful username update", async () => {
+  //const userId = new mongoose.Types.ObjectId();
+  const userId = "65fbaf1722d131a9dea2bb8e";
+  const newUsername = "newUsername";
+
+  const result = await updateUsername(userId, newUsername);
+
+  // Assert that the message indicates successful update
+  expect(result.message).toBe("User updated successfully");
+  // Assert that the updated user object is returned
+  expect(result.user.username).toBe(newUsername);
+});
+
+
+test("updateBio - Successful bio update", async () => {
+  const userId = "65fbaf1722d131a9dea2bb8e";
+  const newBio = "New bio for testing";
+
+  const result = await updateBio(userId, newBio);
+
+  // Assert that the message indicates successful update
+  expect(result.message).toBe("User updated successfully");
+  // Assert that the updated user object is returned
+  expect(result.user.bio).toBe(newBio);
+});
+
+test("updateProfilePath - Successful profile path update", async () => {
+  const userId = "65fbaf1722d131a9dea2bb8e";
+  const newProfilePath = "/path/to/new/profile.jpg";
+
+  const result = await updateProfilePath(userId, newProfilePath);
+
+  // Assert that the message indicates successful update
+  expect(result.message).toBe("User updated successfully");
+  // Assert that the updated user object is returned
+  expect(result.user.profilePath).toBe(newProfilePath);
+});
+
+
