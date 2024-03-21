@@ -17,3 +17,6 @@ https://www.figma.com/file/6HzuRMbpORCYMu3xcAyC26/Basics?type=design&node-id=132
 <h2>Demo Video</h2>
 
 [Demo Video Link](https://drive.google.com/file/d/1w8ixqDiPolhIjdwJ_SZ1-1zmniDGvoAK/view?usp=drive_link)  
+
+
+<img width="562" alt="Screenshot 2024-03-20 at 8 00 38 PM" src="https://github.com/HoldenEv/MovieMetr/assets/93685782/44d8775c-094c-44fd-8340-cae5bd2b1682">
