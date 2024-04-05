@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${styles.body}`} style={{ minWidth: '525px' }}>
         <Header />
-        <Tabs></Tabs>
+        {/* <Tabs></Tabs> */}
         {children}
       </body>
 

@@ -1,36 +1,31 @@
 "use client";
-
 import { search } from "@/_api/search";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import FilmSearchResult from "@/_ui/components/FilmSearchResult/FilmSearchResult";
+import styles from "./filmSearch.module.css";
 
 export default function Page({ params }: { params: { filmName: string } }) {
-  const [searchData, setSearchData] = useState<any>(null);
-  const [loading, setLoading] = useState<any>(true);
+  const [searchData, setSearchData] = useState<any>({
+    data: null,
+    loading: true,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await search("movies", params.filmName, "1");
-      setSearchData(data);
-      setLoading(false);
-      console.log(searchData);
+      setSearchData({ filmData: data, loading: false });
     };
     fetchData();
-  }, [loading]);
+  }, []);
 
   return (
     <div>
-      {searchData && (
-        <ul>
-          {searchData.data.map((result: any, index: number) => (
+      {!searchData.loading && (
+        <ul className={styles.resultsContainer}>
+          {searchData.filmData.data.map((result: any, index: number) => (
             <li key={index}>
-              {/* <Image
-                src={`http://image.tmdb.org/t/p/w500/${result.image}`}
-                width={100}
-                height={250}
-                alt="Poster for film"
-              /> */}
-              {result.title}
+              <FilmSearchResult filmData={result} />
+              {/* {searchData.filmData.data} */}
             </li>
           ))}
         </ul>

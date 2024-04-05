@@ -1,0 +1,12 @@
+.resultsContainer {
+  min-width: 37rem;
+  width: 45%;
+  margin: auto;
+}
+
+@media (max-width: 650px) {
+  .resultsContainer {
+    width: 100%;
+    margin: 0;
+  }
+}
