@@ -23,8 +23,9 @@ export default function Page({ params }: { params: { filmName: string } }) {
       {!searchData.loading && (
         <ul className={styles.resultsContainer}>
           {searchData.filmData.data.map((result: any, index: number) => (
-            <li key={index}>
+            <li key={index} className={styles.searchEntry}>
               <FilmSearchResult filmData={result} />
+              <hr />
               {/* {searchData.filmData.data} */}
             </li>
           ))}

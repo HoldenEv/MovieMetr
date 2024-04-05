@@ -2,17 +2,23 @@ import styles from "./FilmSearchResult.module.css";
 import Image from "next/image";
 
 export default function FilmSearchResult({ filmData }: { filmData: any }) {
+  const summary =
+    filmData.summary.length > 300
+      ? filmData.summary.slice(0, 300) + "..."
+      : filmData.summary;
   return (
     <div className={styles.searchResultContainer}>
       <Image
         src={`https://image.tmdb.org/t/p/w500${filmData.image}`}
-        width={500}
-        height={500}
-        alt={"poster for film"}
+        width={120}
+        height={179}
+        alt={`Poster for ${filmData.title}`}
+        className={styles.moviePoster}
       ></Image>
-      `<p>{filmData.image}</p>
-      <h2 className={styles.title}>{filmData.title}</h2>
-      <p>{filmData.summary}</p>
+      <div>
+        <h2 className={styles.title}>{filmData.title}</h2>
+        <p className={styles.summary}>{summary}</p>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,23 @@
 .searchResultContainer {
   background-color: #5e5e5e;
+  display: flex;
+  align-items: flex-start;
+}
+
+.moviePoster {
+  border: 1px solid #acabab;
+  border-radius: 3px;
+  margin-right: 25px;
+  display: inline;
 }
 
 .title {
   font-weight: 550;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.summary {
+  font-size: 0.9rem;
+  color: #ebe8e8;
 }
