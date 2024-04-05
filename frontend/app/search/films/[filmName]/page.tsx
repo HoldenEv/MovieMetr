@@ -26,7 +26,6 @@ export default function Page({ params }: { params: { filmName: string } }) {
             <li key={index} className={styles.searchEntry}>
               <FilmSearchResult filmData={result} />
               <hr />
-              {/* {searchData.filmData.data} */}
             </li>
           ))}
         </ul>

@@ -1,5 +1,7 @@
 .searchResultContainer {
-  background-color: #5e5e5e;
+  background-color: #7b7a7a;
+  border-radius: 5px;
+  padding: 10px;
   display: flex;
   align-items: flex-start;
 }
