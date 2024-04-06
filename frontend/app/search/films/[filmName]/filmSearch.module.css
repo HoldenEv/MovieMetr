@@ -9,6 +9,12 @@
   margin-bottom: 15px;
 }
 
+.divider {
+  border: 0;
+  background-color: #ccc;
+  height: 1px;
+}
+
 @media (max-width: 650px) {
   .resultsContainer {
     min-width: none;

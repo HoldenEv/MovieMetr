@@ -14,9 +14,10 @@ export default function Page({ params }: { params: { filmName: string } }) {
     const fetchData = async () => {
       const data = await search("movies", params.filmName, "1");
       setSearchData({ filmData: data, loading: false });
+      console.log(data);
     };
     fetchData();
-  }, []);
+  }, [params.filmName]);
 
   return (
     <div>
@@ -25,7 +26,7 @@ export default function Page({ params }: { params: { filmName: string } }) {
           {searchData.filmData.data.map((result: any, index: number) => (
             <li key={index} className={styles.searchEntry}>
               <FilmSearchResult filmData={result} />
-              <hr />
+              <hr className={styles.divider} />
             </li>
           ))}
         </ul>
