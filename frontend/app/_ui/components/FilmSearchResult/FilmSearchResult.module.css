@@ -3,6 +3,7 @@
   background-color: #5071a4df;
   display: flex;
   width: 100%;
+  padding: 6px;
 }
 
 .content {
