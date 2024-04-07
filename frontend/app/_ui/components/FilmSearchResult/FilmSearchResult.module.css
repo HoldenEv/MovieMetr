@@ -1,25 +1,61 @@
 .searchResultContainer {
-  background-color: #345e7f;
   border-radius: 5px;
-  padding: 10px;
+  background-color: #5071a4df;
   display: flex;
-  align-items: flex-start;
+  width: 100%;
+}
+
+.content {
+  word-wrap: break-word;
+  min-width: 80%;
+  width: 100%;
 }
 
 .moviePoster {
-  border: 1px solid #acabab;
-  border-radius: 3px;
-  margin-right: 25px;
-  display: inline;
+  border: 1px solid #48689e87;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.moviePoster:hover {
+  cursor: pointer;
+  background-color: #8ca5d1;
 }
 
 .title {
+  display: inline;
   font-weight: 550;
-  font-size: 1.2rem;
+}
+
+.title:hover {
+  cursor: pointer;
+  color: #c7dbff;
+}
+
+.titleContainer {
+  margin-bottom: 6px;
+}
+
+.alternateTitle {
+  display: inline;
+  font-style: italic;
+  color: #ccc;
+}
+
+.year {
+  color: #ccc;
   margin-bottom: 10px;
 }
 
 .summary {
+  color: #e7e7e7;
   font-size: 0.9rem;
-  color: #ebe8e8;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 650px) {
+  .searchResultContainer {
+    width: 100%;
+    margin: 0;
+  }
 }

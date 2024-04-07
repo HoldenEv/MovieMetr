@@ -1,24 +1,15 @@
-.resultsContainer {
-  min-width: 37rem;
-  width: 40%;
+.wrapper {
+  min-width: 35rem;
+  width: 60%;
   margin: auto;
-}
-
-.searchEntry {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.divider {
-  border: 0;
-  background-color: #ccc;
-  height: 1px;
+  padding: 0;
 }
 
 @media (max-width: 650px) {
-  .resultsContainer {
-    min-width: none;
+  .wrapper {
+    /* min-width: 20rem; */
     width: 100%;
+    /* max-width: 28rem; */
     margin: 0;
   }
 }

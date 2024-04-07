@@ -10,21 +10,24 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "MOIST METER",
   description: "Rate your movies",
+  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
   children,
-}: Readonly <{
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${styles.body}`} style={{ minWidth: '525px' }}>
-        <Header />
+      <body
+        className={`${inter.className} ${styles.body}`}
+        style={{ minWidth: "525px" }}
+      >
+        {/* <Header /> */}
         {/* <Tabs></Tabs> */}
         {children}
       </body>
-
     </html>
   );
 }

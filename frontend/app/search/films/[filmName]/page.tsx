@@ -20,7 +20,7 @@ export default function Page({ params }: { params: { filmName: string } }) {
   }, [params.filmName]);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       {!searchData.loading && (
         <ul className={styles.resultsContainer}>
           {searchData.filmData.data.map((result: any, index: number) => (
