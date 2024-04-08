@@ -26,10 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`}>
         <SideBar />
-        <div style={{
-          marginLeft: "130px",
-          paddingLeft: "15px"
-        }}>{children}</div>
+        <div className="maincontent">{children}</div>
       </body>
     </html>
   );

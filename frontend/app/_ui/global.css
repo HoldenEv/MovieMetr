@@ -149,3 +149,15 @@ a:visited {
 * {
   box-sizing: border-box;
 }
+
+.maincontent {
+  margin-left: 130px;
+  padding-left: 15px;
+}
+
+@media screen and (max-width: 700px) {
+  .maincontent {
+    margin-left: 0;
+    padding-left: 0;
+  }
+}

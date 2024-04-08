@@ -89,3 +89,31 @@
   border-bottom: 1rem;
   justify-content: center;
 }
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .sidebar ul li a span {
+    display: none;
+  }
+
+  .sidebar .top .logo {
+    display: none;
+  }
+
+  .sidebar ul li a .icon {
+    margin: auto;
+  }
+
+  .sidebar ul {
+    display: flex;
+  }
+
+  .sidebar:hover {
+    width: initial;
+  }
+}
