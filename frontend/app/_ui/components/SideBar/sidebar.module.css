@@ -51,16 +51,21 @@
 }
 
 .sidebar ul li a {
+  border-radius: 0.8rem;
   color: white;
   display: flex;
   align-items: center;
   text-decoration: none;
-  border-radius: 0.8rem;
 }
 
 .sidebar ul li a:hover {
   background-color: white;
   color: #12171e;
+  border: 1px solid rgba(255, 0, 157, 0.543);
+}
+
+.sidebar ul li a:hover .icon {
+  color: rgba(255, 95, 194, 0.787);
 }
 
 .sidebar ul li a .icon {
