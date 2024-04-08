@@ -64,7 +64,6 @@ export default function VerticalTabs() {
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{
-          borderRight: 1,
           bgcolor: "#22324a",
           minWidth: "50px",
           flex: "0 0 auto",

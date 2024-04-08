@@ -4,6 +4,7 @@ import "@/_ui/global.css";
 import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
 import Tabs from "@/_ui/components/Tabs/Tabs";
+import SideBar from "./_ui/components/SideBar/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,17 +15,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly <{
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${styles.body}`} style={{ minWidth: '525px' }}>
-        <Header />
-        <Tabs></Tabs>
+      <body
+        className={`${inter.className} ${styles.body}`}
+        style={{ minWidth: "525px" }}
+      >
+        <SideBar></SideBar>
+
         {children}
       </body>
-
     </html>
   );
 }
