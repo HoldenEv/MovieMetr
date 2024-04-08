@@ -1,7 +1,7 @@
 "use client";
 import styles from "./userpage.module.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -60,6 +60,21 @@ const Item = styled(Paper)(({ theme }) => ({
 
 // handle tab changes and other userPage canges
 export default function Userpage() {
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+
+  useEffect(() => {
+    // Fetch user's favorite movies and their image URLs
+    const fetchFavorites = async () => {
+      try {
+        const favorites = await getFavorites(); // Fetch favorites from backend
+        setFavoriteMovies(favorites);
+      } catch (error) {
+        console.error("Error fetching favorites", error);
+      }
+    };
+    fetchFavorites();
+  }, []);
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -137,7 +152,7 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={0}>
         <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center" >
+            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center" > {/*{favoriteMovies.map((imageUrl, index) */}
               {[
                  "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
                  "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
