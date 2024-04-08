@@ -62,6 +62,8 @@ const registerUser = async (
   const user = new User({
     email: email,
     username: username,
+    bio:username+ "hasn't set a bio yet.",
+    profilePath:"",
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;

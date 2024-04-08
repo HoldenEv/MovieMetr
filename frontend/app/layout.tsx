@@ -5,6 +5,7 @@ import styles from "@/_ui/Body.module.css";
 import type { Viewport } from "next";
 import Header from "@/_ui/components/Header/Header";
 import Tabs from "@/_ui/components/Tabs/Tabs";
+import SideBar from "./_ui/components/SideBar/Sidebar";
 
 export const viewport: Viewport = {
   themeColor: "black",
