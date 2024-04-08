@@ -8,6 +8,7 @@ import {
   updateProfilePath,
   updateUsername,
   updatePassword,
+  getUser,
 } from "../controllers/accountController";
 const authenticationMiddleware = require("../middleware/authentication");
 const LocalStrategy = require("passport-local");
@@ -149,4 +150,18 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
     res.status(500).send("Error updating password");
   }
 });
+
+//route takes a user id, grabs user object using getUser function from accountController
+router.get("/getUser", async (req: Request, res: Response) => {
+  try {
+    const userId = req.query.userId as string;
+    const user = await getUser(userId);
+    res.json(user);
+  } catch (error) {
+    console.error("Error getting user", error);
+    res.status(500).send("Error getting user");
+  }
+});
+
+
 export default router;
