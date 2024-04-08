@@ -1,12 +1,11 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 130px;
   z-index: 99999;
   background-color: #12171e;
-  /* border-radius: 0 .5rem .5rem 0; */
   padding: 0.4rem 0.8rem;
   transition: all 0.5s ease;
 }

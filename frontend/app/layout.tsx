@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/_ui/global.css";
-import styles from "@/_ui/Body.module.css";
 import type { Viewport } from "next";
 import SideBar from "./_ui/components/SideBar/Sidebar";
 
@@ -25,9 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${styles.body}`}>
+      <body className={`${inter.className}`}>
         <SideBar />
-        {children}
+        <div style={{
+          marginLeft: "130px",
+          paddingLeft: "15px"
+        }}>{children}</div>
       </body>
     </html>
   );
