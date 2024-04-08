@@ -7,9 +7,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2 a little unstable
-import { experimentalStyled as styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unstable
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 
 // interface for the tabs
@@ -18,7 +18,6 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
-
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -40,7 +39,6 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-
 // each tab has a name - component pair
 function a11yProps(index: number) {
   return {
@@ -50,13 +48,12 @@ function a11yProps(index: number) {
 }
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary
+  textAlign: "center",
+  color: theme.palette.text.secondary,
 }));
-
 
 // handle tab changes and other userPage canges
 export default function Userpage() {
@@ -87,11 +84,9 @@ export default function Userpage() {
             <p>300 following</p>
           </div>
           <p className={styles.bio}>
-            🎬 Lights, Camera, Action! 🍿
-            Fellow movie enthusiasts!
-            Catch me cozying up on the couch with a bucket of 
-            buttery popcorn and a never-ending stream of movies.🍿
-
+            🎬 Lights, Camera, Action! 🍿 Fellow movie enthusiasts! Catch me
+            cozying up on the couch with a bucket of buttery popcorn and a
+            never-ending stream of movies.🍿
           </p>
           <div className={styles.extensions}>
             <button className={styles.editProfile} type="submit">
@@ -109,7 +104,7 @@ export default function Userpage() {
           onChange={handleChange}
           centered
           TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
-          sx={{ borderBottom: 1, borderColor: "white"}}
+          sx={{ borderBottom: 1, borderColor: "white" }}
         >
           <Tab
             label="Favorites"
@@ -137,19 +132,28 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={0}>
         <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center" >
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              justifyContent="center"
+            >
               {[
-                 "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-                 "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
-                 "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
-                 "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg"
+                "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
+                "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
+                "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg",
               ].map((imageUrl, index) => (
                 <Grid key={index} xs={6} sm={3} md={2}>
-                    <img
-                      src={imageUrl}
-                      className={styles.galleryItem}
-                      style={{width: "100%", height: "100%", objectFit: "cover"}}
-                    />
+                  <img
+                    src={imageUrl}
+                    className={styles.galleryItem}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
                 </Grid>
               ))}
             </Grid>
@@ -159,23 +163,32 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={1}>
         <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
-              <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 1, md: 1}} justifyContent="center">
-                {[
-                  "https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg",
-                  "https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg",
-                  "https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg",
-                  "https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg"
-                ].map((imageUrl, index) => (
-                  <Grid key={index} xs={6} sm={3} md={2}>
-                      <img
-                        src={imageUrl}
-                        className={styles.galleryItem}
-                        style={{width: "100%", height: "100%", objectFit: "cover"}}
-                      />
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              justifyContent="center"
+            >
+              {[
+                "https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg",
+                "https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg",
+                "https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg",
+                "https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg",
+              ].map((imageUrl, index) => (
+                <Grid key={index} xs={6} sm={3} md={2}>
+                  <img
+                    src={imageUrl}
+                    className={styles.galleryItem}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>

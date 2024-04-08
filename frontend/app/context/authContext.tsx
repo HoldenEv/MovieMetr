@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface User {
-  // How should I be defining a user here should I call the schema 
+  // How should I be defining a user here should I call the schema
   username: string;
-  
 }
 
 interface AuthContextProps {
@@ -24,7 +23,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -34,12 +33,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = (userData: User) => {
-    
     setUser(userData);
   };
 
   const logout = () => {
-    
     setUser(null);
   };
 
@@ -49,4 +46,3 @@ export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
     </AuthContext.Provider>
   );
 };
-
