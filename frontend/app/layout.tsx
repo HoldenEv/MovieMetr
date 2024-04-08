@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // TODO: FIND FONTS
+import { Inter } from "next/font/google";
 import "@/_ui/global.css";
-import Header from "@/_ui/components/Header/Header";
 import styles from "@/_ui/Body.module.css";
+import type { Viewport } from "next";
+import Header from "@/_ui/components/Header/Header";
 import Tabs from "@/_ui/components/Tabs/Tabs";
+
+export const viewport: Viewport = {
+  themeColor: "black",
+  width: "device-width",
+  initialScale: 1,
+};
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MOIST METER",
   description: "Rate your movies",
-  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -20,10 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} ${styles.body}`}
-        style={{ minWidth: "525px" }}
-      >
+      <body className={`${inter.className} ${styles.body}`}>
         {/* <Header /> */}
         {/* <Tabs></Tabs> */}
         {children}

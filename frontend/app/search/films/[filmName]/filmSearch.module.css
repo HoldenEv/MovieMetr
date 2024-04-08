@@ -7,9 +7,12 @@
 
 @media (max-width: 650px) {
   .wrapper {
-    /* min-width: 20rem; */
+    width: 95%;
+    min-width: 0;
+    margin: auto;
+  }
+
+  .resultsContainer {
     width: 100%;
-    /* max-width: 28rem; */
-    margin: 0;
   }
 }

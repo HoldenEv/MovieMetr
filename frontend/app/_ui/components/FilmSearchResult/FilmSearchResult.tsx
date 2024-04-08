@@ -9,7 +9,7 @@ export default function FilmSearchResult({ filmData }: { filmData: any }) {
   return (
     <div className={styles.searchResultContainer}>
       <Image
-        src={`https://image.tmdb.org/t/p/w500${filmData.image}`}
+        src={`https://image.tmdb.org/t/p/original${filmData.image}`}
         width={70}
         height={100}
         alt={`Poster for ${filmData.title}`}
