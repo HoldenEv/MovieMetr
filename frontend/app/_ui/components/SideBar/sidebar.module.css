@@ -116,4 +116,9 @@
   .sidebar:hover {
     width: initial;
   }
+
+  .sidebar ul li a:hover {
+    border: none;
+    background-color: #12171e;
+  }
 }
