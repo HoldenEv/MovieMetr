@@ -149,4 +149,5 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
     res.status(500).send("Error updating password");
   }
 });
+
 export default router;
