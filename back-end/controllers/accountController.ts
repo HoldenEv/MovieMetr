@@ -130,6 +130,17 @@ const updatePassword = async (userId: string, oldPassword: string,newPassword: s
   });
 };
 
+//gets user all user info by user id
+const getUser = async (userId: string) => {
+  const user = await User.findById(userId).exec();
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+}
+
+  
+
 export {
   loginUser,
   registerUser,
@@ -138,5 +149,6 @@ export {
   updateBio,
   updateProfilePath,
   updatePassword,
+  getUser,
 };
 //attempted to refactor the code to use async/await, but it was not working, so I left the original code in place
