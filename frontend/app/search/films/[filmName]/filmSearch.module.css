@@ -1,0 +1,18 @@
+.wrapper {
+  min-width: 35rem;
+  width: 60%;
+  margin: auto;
+  padding: 0;
+}
+
+@media (max-width: 650px) {
+  .wrapper {
+    width: 95%;
+    min-width: 15rem;
+    margin: auto;
+  }
+
+  .resultsContainer {
+    width: 100%;
+  }
+}
