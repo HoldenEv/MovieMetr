@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import "@/_ui/global.css";
 import styles from "@/_ui/Body.module.css";
 import type { Viewport } from "next";
-import Header from "@/_ui/components/Header/Header";
-import Tabs from "@/_ui/components/Tabs/Tabs";
 import SideBar from "./_ui/components/SideBar/Sidebar";
 
 export const viewport: Viewport = {
@@ -28,8 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${styles.body}`}>
-        {/* <Header /> */}
-        {/* <Tabs></Tabs> */}
+        <SideBar />
         {children}
       </body>
     </html>
