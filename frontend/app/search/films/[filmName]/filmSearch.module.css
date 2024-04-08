@@ -8,7 +8,7 @@
 @media (max-width: 650px) {
   .wrapper {
     width: 95%;
-    min-width: 0;
+    min-width: 15rem;
     margin: auto;
   }
 
