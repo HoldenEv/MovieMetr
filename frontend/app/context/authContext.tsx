@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signUpUser } from "@/_api/signup";
-import { logInUser } from "@/_api/login";
+import { signUpUser } from "../_api/signup";
+import { logInUser } from "../_api/login";
 import { ReactNode } from 'react';
 
 const AuthContext = createContext({});
@@ -64,5 +64,3 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// give callers access to the context
-export const useAuth = () => useContext(AuthContext);

@@ -10,7 +10,7 @@ import SignUp from "../Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { useRouter } from "next/navigation";
 
-function Form() {
+export default function Header() {
   /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Films");
   /* state of dropdown form (open/closed): starts on closed */
@@ -20,7 +20,7 @@ function Form() {
   /* on open, prevent any default event and set open state to 
   either closed or open */
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setOpen(!open);
@@ -30,7 +30,7 @@ function Form() {
   to category clicked close the dropdown */
   const handleClick = (
     category: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setActiveButton(category);
@@ -110,52 +110,52 @@ function Form() {
   );
 }
 
-export default function Header() {
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [signupOpen, setSignupOpen] = useState(false);
+// export default function Header() {
+//   const [loginOpen, setLoginOpen] = useState(false);
+//   const [signupOpen, setSignupOpen] = useState(false);
 
-  const handleOpen = () => {
-    setLoginOpen(!loginOpen);
-  };
+//   const handleOpen = () => {
+//     setLoginOpen(!loginOpen);
+//   };
 
-  const handleSignupClick = () => {
-    setSignupOpen(!signupOpen);
-  };
+//   const handleSignupClick = () => {
+//     setSignupOpen(!signupOpen);
+//   };
 
-  return (
-    <>
-      <header className={styles.header}>
-        <nav>
-          <ul className={styles.list}>
-            {loginOpen ? null : <Form />}
-            <div className={styles.navLinkContainer}>
-              <Link href="/" className={styles.navLink}>
-                HOME
-              </Link>
-              <a className={styles.navLink} onClick={handleOpen}>
-                SIGN IN
-              </a>
-              {loginOpen ? null : (
-                <a className={styles.navLink} onClick={handleSignupClick}>
-                  CREATE ACCOUNT
-                </a>
-              )}
-            </div>
-          </ul>
-          <div className={styles.hamburger}>
-            <span className={styles.bar}></span>
-            <span className={styles.bar}></span>
-            <span className={styles.bar}></span>
-          </div>
-        </nav>
-      </header>
-      {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
-      {signupOpen ? (
-        <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
-      ) : null}
-    </>
-  );
-}
+//   return (
+//     <>
+//       <header className={styles.header}>
+//         <nav>
+//           <ul className={styles.list}>
+//             {loginOpen ? null : <Form />}
+//             <div className={styles.navLinkContainer}>
+//               <Link href="/" className={styles.navLink}>
+//                 HOME
+//               </Link>
+//               <a className={styles.navLink} onClick={handleOpen}>
+//                 SIGN IN
+//               </a>
+//               {loginOpen ? null : (
+//                 <a className={styles.navLink} onClick={handleSignupClick}>
+//                   CREATE ACCOUNT
+//                 </a>
+//               )}
+//             </div>
+//           </ul>
+//           <div className={styles.hamburger}>
+//             <span className={styles.bar}></span>
+//             <span className={styles.bar}></span>
+//             <span className={styles.bar}></span>
+//           </div>
+//         </nav>
+//       </header>
+//       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
+//       {signupOpen ? (
+//         <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
+//       ) : null}
+//     </>
+//   );
+// }
 
 // function AuthContainer() {
 //   const [isLoginOpen, setLoginOpen] = useState(false);
