@@ -19,7 +19,6 @@ interface TabPanelProps {
   value: number;
 }
 
-
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -39,7 +38,6 @@ function CustomTabPanel(props: TabPanelProps) {
     </div>
   );
 }
-
 
 // each tab has a name - component pair
 function a11yProps(index: number) {
