@@ -1,52 +1,68 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signUpUser } from "@/_api/signup";
+import { logInUser } from "@/_api/login";
+import { ReactNode } from 'react';
 
-interface User {
-  // How should I be defining a user here should I call the schema 
-  username: string;
-  
-}
-
-interface AuthContextProps {
-  user: User | null;
-  login: (userData: User) => void;
-  logout: () => void;
-}
+const AuthContext = createContext({});
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
 
-/* 
-  The reason we are using authContext is so that we can define our login state 
-*/
-export const useAuth = (): AuthContextProps => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+  const handleLogin = async () => {
+    console.log("handleLogin enter  user: " + value.username);
+    const token = await logInUser(value.username, value.password);
 
-export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
-  const { children } = props; // Destructuring props to access children
-  const [user, setUser] = useState<User | null>(null);
-
-  const login = (userData: User) => {
-    
-    setUser(userData);
+    console.log("handleLogin token: " + token);
+    if (token) {
+      setToken(token);
+      // load the profile page of the user that has signed in
+      navigate("/landing");
+    } else {
+      // if token is not valid we want to put the user in the homepage and not login
+      navigate("/")
+      alert("invalid login");
+    }
   };
 
-  const logout = () => {
-    
-    setUser(null);
+  const handleLogout = () => {
+    console.log("handleLogout");
+    setToken(null);
+    navigate("/");
+  };
+
+  const handleRegister = async () => {
+    console.log("handleRegister enter  user: " + value.username);
+    const token = await signUpUser(value.email, value.username, value.password, value.password);
+    console.log("handleRegister token: " + token);
+    if (token) {
+      setToken(token);
+      navigate("/landing");
+    } else {
+      alert("invalid login");
+    }
+  };
+
+  const value = {
+    token,
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    onLogin: handleLogin,
+    onLogout: handleLogout,
+    onRegister: handleRegister,
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ value }}>{children}</AuthContext.Provider>
   );
 };
 
+// give callers access to the context
+export const useAuth = () => useContext(AuthContext);
