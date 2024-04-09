@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import styles from "./Header.module.css";
+import styles from "./Search.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
@@ -10,7 +10,7 @@ import SignUp from "../Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { useRouter } from "next/navigation";
 
-export default function Header() {
+export default function Search() {
   /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Films");
   /* state of dropdown form (open/closed): starts on closed */
