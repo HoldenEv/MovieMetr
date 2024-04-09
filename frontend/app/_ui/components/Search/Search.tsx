@@ -63,50 +63,58 @@ export default function Search() {
   };
 
   return (
-    <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <Dropdown
-        open={open}
-        setOpen={setOpen}
-        trigger={
-          <button
-            onClick={handleOpen}
-            className={styles.activeItem}
-            type="button"
-          >
-            {activeButton}
-          </button>
-        }
-        menu={[
-          <button onClick={(event) => handleClick("Films", event)} key="films">
-            Films
-          </button>,
-          <button onClick={(event) => handleClick("Shows", event)} key="shows">
-            Shows
-          </button>,
-          <button
-            onClick={(event) => handleClick("People", event)}
-            key="people"
-          >
-            People
-          </button>,
-        ]}
-      />
-      <input
-        type="text"
-        placeholder="Search..."
-        className={styles.search}
-        name="search"
-      />
-      <button className={styles.searchButton} type="submit">
-        <Image
-          priority
-          src={searchIcon}
-          width={17}
-          alt="Search for a movie"
-          className={styles.searchIcon}
-        ></Image>
-      </button>
-    </form>
+    <div>
+      <form className={styles.searchForm} onSubmit={handleSubmit}>
+        <Dropdown
+          open={open}
+          setOpen={setOpen}
+          trigger={
+            <button
+              onClick={handleOpen}
+              className={styles.activeItem}
+              type="button"
+            >
+              {activeButton}
+            </button>
+          }
+          menu={[
+            <button
+              onClick={(event) => handleClick("Films", event)}
+              key="films"
+            >
+              Films
+            </button>,
+            <button
+              onClick={(event) => handleClick("Shows", event)}
+              key="shows"
+            >
+              Shows
+            </button>,
+            <button
+              onClick={(event) => handleClick("People", event)}
+              key="people"
+            >
+              People
+            </button>,
+          ]}
+        />
+        <input
+          type="text"
+          placeholder="Search..."
+          className={styles.search}
+          name="search"
+        />
+        <button className={styles.searchButton} type="submit">
+          <Image
+            priority
+            src={searchIcon}
+            width={17}
+            alt="Search for a movie"
+            className={styles.searchIcon}
+          ></Image>
+        </button>
+      </form>
+    </div>
   );
 }
 

@@ -22,12 +22,14 @@
 
 /* form */
 .searchForm {
+  color: rgba(37, 57, 103, 0.854);
   display: flex;
   align-items: center;
   position: relative;
   min-width: 0;
-  width: 80%;
-  min-height: 1.5rem;
+  width: 90%;
+  min-height: 1.8rem;
+  margin: 20px auto;
 }
 
 /* active button on search form */
@@ -35,7 +37,7 @@
   border: none;
   border-radius: 10px 0 0 10px;
   border-right: 1px solid black;
-  min-height: 1.5rem;
+  min-height: 1.8rem;
   width: 5rem;
   background-color: var(--medium-grey);
   color: black;
@@ -69,7 +71,7 @@
   position: absolute;
   z-index: 1;
   top: 15%;
-  right: 20px;
+  right: 10px;
 }
 
 .searchButton {
@@ -99,11 +101,6 @@
   color: var(--pure-white);
 }
 
-/* IN PROGRESS */
-.hamburger {
-  display: none;
-}
-
 .bar {
   display: block;
   width: 25px;
@@ -131,5 +128,11 @@
 
   .header {
     padding: 0.7rem 1rem;
+  }
+}
+
+@media only screen and (min-width: 350px) {
+  .searchIcon {
+    right: 20px;
   }
 }
