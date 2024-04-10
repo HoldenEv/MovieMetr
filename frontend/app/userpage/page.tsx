@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unstable
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import profilePic from "@/_assets/sample_profile_pic.png";
+import profilePic from "../_assets/sample_profile_pic.png";
 
 // interface for the tabs
 interface TabPanelProps {
