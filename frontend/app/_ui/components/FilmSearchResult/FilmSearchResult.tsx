@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function FilmSearchResult({ filmData }: { filmData: any }) {
   const summary =
-    filmData.summary.length > 150
-      ? filmData.summary.slice(0, 150) + "..."
+    filmData.summary.length > 200
+      ? filmData.summary.slice(0, 200) + "..."
       : filmData.summary;
   return (
     <div className={styles.searchResultContainer}>
       <Image
         src={`https://image.tmdb.org/t/p/original${filmData.image}`}
-        width={70}
-        height={100}
+        width={100.8}
+        height={144}
         alt={`Poster for ${filmData.title}`}
         className={styles.moviePoster}
       ></Image>
