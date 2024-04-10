@@ -22,7 +22,7 @@
 
 /* form */
 .searchForm {
-  color: rgba(37, 57, 103, 0.854);
+  color: rgba(6, 25, 69, 0.854);
   display: flex;
   align-items: center;
   position: relative;
@@ -35,25 +35,27 @@
 /* active button on search form */
 .activeItem {
   border: none;
-  border-radius: 10px 0 0 10px;
-  border-right: 1px solid black;
+  border-radius: 3px 0 0 3px;
+  border: 1px solid #FF5EFF;
   min-height: 1.8rem;
   width: 5rem;
-  background-color: var(--medium-grey);
-  color: black;
+  background-color: #566d79;
+  color: #e7e7e7;
   font-weight: bold;
 }
 
 .activeItem:hover {
   cursor: pointer;
-  background-color: #a9a9a9;
+  background-color: #637d8a;
 }
 
 /* search input */
 .search {
-  background-color: var(--light-grey);
-  border: none;
-  border-radius: 0 10px 10px 0;
+  background-color: #566d79;
+  color: white;
+  border: 1px solid #FF5EFF;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
   align-self: stretch;
   min-width: 75%;
   width: 100%;

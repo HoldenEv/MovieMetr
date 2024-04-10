@@ -7,17 +7,7 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div
-        style={{
-          backgroundColor: "rgba(37, 57, 103, 0.854);",
-          paddingTop: "5px",
-          marginLeft: "-20px;",
-          marginBottom: "10px",
-        }}
-      >
-        <Search />
-        <hr style={{ border: "0", height: "2px", background: "#333" }} />
-      </div>
+      <Search />
 
       <section>{children}</section>
     </>
