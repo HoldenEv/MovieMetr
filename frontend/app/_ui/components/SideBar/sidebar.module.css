@@ -97,6 +97,8 @@
     width: 100%;
     height: auto;
     position: relative;
+    border-right: none;
+    border-bottom: 1px solid #60ecec;
   }
 
   .sidebar ul li a span {
