@@ -154,6 +154,7 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
 //route takes a user id, grabs user object using getUser function from accountController
 router.get("/getUser", async (req: Request, res: Response) => {
   try {
+    //may need to chnage in all routes based on where in the req the user id is
     const userId = req.query.userId as string;
     const user = await getUser(userId);
     res.json(user);
