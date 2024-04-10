@@ -5,6 +5,13 @@
   padding: 0;
 }
 
+.totalResults {
+  font-style: italic;
+  color: #92949c;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
 @media (max-width: 650px) {
   .wrapper {
     width: 95%;
