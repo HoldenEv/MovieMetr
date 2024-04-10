@@ -102,6 +102,7 @@ export default function Search() {
           type="text"
           placeholder="Search..."
           className={styles.search}
+          autoComplete="off"
           name="search"
         />
         <button className={styles.searchButton} type="submit">
