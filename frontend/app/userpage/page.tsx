@@ -1,7 +1,7 @@
 "use client";
 import styles from "./userpage.module.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useContext} from "react";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,6 +11,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unst
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "../_assets/sample_profile_pic.png";
+
 
 // interface for the tabs
 interface TabPanelProps {

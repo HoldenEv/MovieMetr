@@ -6,8 +6,12 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
 import Logo from "@/_assets/logo2.png";
 import Image from "next/image";
+import { useAuth } from "../../../context/authContext"
+
 
 export default function SideBar() {
+  const value = useAuth();
+
   return (
       <div className={styles.sidebar}>
         <div className={styles.top}>

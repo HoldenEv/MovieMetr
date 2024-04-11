@@ -4,7 +4,19 @@ import { signUpUser } from "../_api/signup";
 import { logInUser } from "../_api/login";
 import { ReactNode } from 'react';
 
-const AuthContext = createContext({});
+// Define the type for the context value
+interface AuthContextType {
+  token: string | null;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  onLogin: () => Promise<void>;
+  onLogout: () => void;
+  onRegister: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -12,7 +24,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
 
   const handleLogin = async () => {
     console.log("handleLogin enter  user: " + value.username);
@@ -33,7 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const handleLogout = () => {
     console.log("handleLogout");
     setToken(null);
-    navigate("/");
+    navigate("/home");
   };
 
   const handleRegister = async () => {
@@ -48,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const value = {
+  const value: AuthContextType = {
     token,
     username: "",
     email: "",
@@ -60,6 +72,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ value }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  // if (!context) {
+  //   throw new Error("useAuth must be used within an AuthProvider");
+  // }
+  return context;
 };
