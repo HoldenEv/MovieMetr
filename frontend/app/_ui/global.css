@@ -100,9 +100,12 @@ nav,
 section {
   display: block;
 }
+
 body {
   color: var(--pure-white);
-  background-color: #091824;
+  background: rgb(9,24,36);
+  background: linear-gradient(0deg, rgba(9,24,36,1) 37%, rgba(0,0,0,1) 100%);
+  background-attachment: fixed;
   line-height: 1;
   width: 100%;
 }
@@ -155,10 +158,19 @@ a:visited {
   padding-left: 15px;
 }
 
-.MuiPagination-root {
-  button {
+.MuiPagination-root button {
+<<<<<<< HEAD
     color: #ccc !important;
- }
+    border-color: white;
+
+=======
+  color: #ccc !important;
+  border-color: #505050;
+}
+
+.MuiPaginationItem-ellipsis {
+  color: #ccc !important;
+>>>>>>> 10757244447c0f3cb5f7bb0a106a5ebaa180afd8
 }
 
 @media screen and (max-width: 700px) {

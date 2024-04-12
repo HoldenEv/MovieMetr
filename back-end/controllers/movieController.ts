@@ -5,9 +5,13 @@ import { addAllMoviePeople } from "./personController";
 import { addGenre, addMovieGenres } from "./genreController";
 import { movieById, getAllPersonMovies } from "../middleware/apiPuller";
 
-/*when given a movie ID, query the TMDB API for the movie details
-then add the movie to the database, including all related fields
-This function could have the genre operations split into seperate functions,
+/**
+ * when given a movie ID, query the TMDB API for the movie details
+ * then add the movie to the database, including all related fields
+ * @param movieId 
+ * @returns Null if failed, or the movie object if successful
+ */
+/*This function could have the genre operations split into seperate functions,
 especially if there are other instances they may need to be used, 
 just cant think of any rn*/
 const addMovie = async (movieId: string) => {
