@@ -54,7 +54,7 @@ export default function Search() {
       /* convert input text to lowercase, replace spaces with dashes */
       inputText = inputText.replace(/\s+/g, "-").toLowerCase();
       /* go to search page for searched item */
-      router.push(`/search/${activeButton.toLowerCase()}/${inputText}`);
+      router.push(`/search/${activeButton.toLowerCase()}/${inputText}/page/1`);
       /* reset the value of the search bar */
       formElement.search.value = "";
     } catch (error) {
