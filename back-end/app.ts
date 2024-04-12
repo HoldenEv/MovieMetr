@@ -5,6 +5,7 @@ import cors from "cors";
 import authetication from "./routes/authenticationRoutes";
 import queryRoutes from "./routes/apiQueryRoutes";
 import movieRoutes from "./routes/movieRoutes";
+import listRoutes from "./routes/listRoutes";
 dotenv.config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/authentication", authetication);
 app.use("/apiQueryRoutes", queryRoutes);
 app.use("/movieRoutes", movieRoutes);
+app.use("/listRoutes", listRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

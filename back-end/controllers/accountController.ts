@@ -130,6 +130,20 @@ const updatePassword = async (userId: string, oldPassword: string,newPassword: s
   });
 };
 
+//update all user info except, password
+const updateUser = async (userId: string, email: string, username: string, bio: string, profilePath: string) => {
+  const user = await User.findById(userId).exec();
+  if (!user) {
+    throw new Error("User not found");
+  }
+  user.email = email;
+  user.username = username;
+  user.bio = bio;
+  user.profilePath = profilePath;
+  return user.save();
+}
+
+
 //gets user all user info by user id
 const getUser = async (userId: string) => {
   const user = await User.findById(userId).exec();
@@ -150,5 +164,6 @@ export {
   updateProfilePath,
   updatePassword,
   getUser,
+  updateUser
 };
 //attempted to refactor the code to use async/await, but it was not working, so I left the original code in place
