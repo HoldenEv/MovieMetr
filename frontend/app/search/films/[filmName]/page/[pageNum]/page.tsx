@@ -3,8 +3,10 @@ import { search } from "@/_api/search";
 import { useEffect, useState } from "react";
 import FilmSearchResult from "@/_ui/components/FilmSearchResult/FilmSearchResult";
 import styles from "./filmSearch.module.css";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 
 export default function Page({
@@ -35,6 +37,9 @@ export default function Page({
     router.push(`/search/films/${params.filmName}/page/${value}`);
   };
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <div className={styles.wrapper}>
       {!searchData.loading && (
@@ -56,6 +61,7 @@ export default function Page({
           <Stack alignItems="center" margin="30px">
             <Pagination
               color={"primary"}
+              size={matches ? "medium" : "small"}
               count={searchData.filmData.total_pages}
               onChange={handlePageChange}
               page={parseInt(params.pageNum)}
