@@ -8,6 +8,7 @@ import {
   updateProfilePath,
   updateUsername,
   updatePassword,
+  updateUser,
   getUser,
 } from "../controllers/accountController";
 const authenticationMiddleware = require("../middleware/authentication");
@@ -148,6 +149,19 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error updating password", error);
     res.status(500).send("Error updating password");
+  }
+});
+
+//route to update all user fields in one go, calls updateUser function from accountController
+//needs a user id, email, username, bio, and profilePath in req body
+router.post("/updateUser", async (req: Request, res: Response) => {
+  try {
+    const { userId, email, username, bio, profilePath } = req.body;
+    const updatedUser = await updateUser(userId, email, username, bio, profilePath);
+    res.json({ message: "User updated", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating user", error);
+    res.status(500).send("Error updating user");
   }
 });
 
