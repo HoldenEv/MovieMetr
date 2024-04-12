@@ -14,12 +14,12 @@
 
 .menu > li {
   margin: 0;
-  background-color: var(--light-grey);
+  background-color: #566d79;
   color: black;
 }
 
 .menu > li:hover {
-  background-color: var(--white-hover);
+  background-color: #68808d;
 }
 
 .menu > li > button {
@@ -27,7 +27,7 @@
   height: 100%;
   text-align: left;
   background: none;
-  color: inherit;
+  color: #e7e7e7;
   border: none;
   padding: 5px;
   font-weight: 500;

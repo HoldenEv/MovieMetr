@@ -102,7 +102,7 @@ section {
 }
 body {
   color: var(--pure-white);
-  background-color: #2e4567;
+  background-color: #091824;
   line-height: 1;
   width: 100%;
 }
@@ -153,6 +153,12 @@ a:visited {
 .maincontent {
   margin-left: 130px;
   padding-left: 15px;
+}
+
+.MuiPagination-root {
+  button {
+    color: #ccc !important;
+ }
 }
 
 @media screen and (max-width: 700px) {
