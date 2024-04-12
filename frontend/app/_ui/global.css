@@ -159,18 +159,12 @@ a:visited {
 }
 
 .MuiPagination-root button {
-<<<<<<< HEAD
-    color: #ccc !important;
-    border-color: white;
-
-=======
   color: #ccc !important;
   border-color: #505050;
 }
 
 .MuiPaginationItem-ellipsis {
   color: #ccc !important;
->>>>>>> 10757244447c0f3cb5f7bb0a106a5ebaa180afd8
 }
 
 @media screen and (max-width: 700px) {
