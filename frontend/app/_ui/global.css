@@ -155,10 +155,13 @@ a:visited {
   padding-left: 15px;
 }
 
-.MuiPagination-root {
-  button {
-    color: #ccc !important;
- }
+.MuiPagination-root button {
+  color: #ccc !important;
+  border-color: #505050;
+}
+
+.MuiPaginationItem-ellipsis {
+  color: #ccc !important;
 }
 
 @media screen and (max-width: 700px) {
