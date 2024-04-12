@@ -22,14 +22,18 @@ export default function Page({ params }: { params: { filmName: string } }) {
   return (
     <div className={styles.wrapper}>
       {!searchData.loading && (
-        <ul className={styles.resultsContainer}>
-          {searchData.filmData.data.map((result: any, index: number) => (
-            <li key={index} className={styles.searchEntry}>
-              <FilmSearchResult filmData={result} />
-              <hr className={styles.divider} />
-            </li>
-          ))}
-        </ul>
+        <>
+          <h2 className={styles.totalResults}>{searchData.filmData.total_results} films found for &quot;{params.filmName}&quot;</h2>
+          <hr className={styles.divider} />
+          <ul className={styles.resultsContainer}>
+            {searchData.filmData.data.map((result: any, index: number) => (
+              <li key={index} className={styles.searchEntry}>
+                <FilmSearchResult filmData={result} />
+                <hr className={styles.divider} />
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   );
