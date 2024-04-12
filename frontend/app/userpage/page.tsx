@@ -1,7 +1,7 @@
 "use client";
 import styles from "./userpage.module.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,12 +11,20 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unst
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
+import axios from "axios";
 
 // interface for the tabs
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+interface User {
+  username: string;
+  email: string;
+  profilepath: string;
+  bio: String;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -58,10 +66,24 @@ const Item = styled(Paper)(({ theme }) => ({
 // handle tab changes and other userPage canges
 export default function Userpage() {
   const [value, setValue] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    // replace 'userId' with the actual user id
+    // make base URL 
+    const userId = '66144b298785154f407541ca'
+    axios.get("http://localhost:3001/authentication/getUser", { params: { userId } })
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching user data", error);
+      });
+    }, []);
 
   return (
     <div className={styles.userPage}>
@@ -69,13 +91,13 @@ export default function Userpage() {
         <div className={styles.photoUsername}>
           <Image
             priority
-            src={profilePic}
+            src={profilePic} // src={user?.profilePic || profilePic}
             width={500}
             height={500}
             alt="Profile Picture"
             className={styles.profilePicture}
           />
-          <h2 className={styles.usernameText}>username</h2>
+          <h2 className={styles.usernameText}>{user?.username}</h2>
         </div>
         <div className={styles.overviewBio}>
           <div className={styles.overview}>
@@ -84,9 +106,7 @@ export default function Userpage() {
             <p>300 following</p>
           </div>
           <p className={styles.bio}>
-            🎬 Lights, Camera, Action! 🍿 Fellow movie enthusiasts! Catch me
-            cozying up on the couch with a bucket of buttery popcorn and a
-            never-ending stream of movies.🍿
+          {user?.bio}
           </p>
           <div className={styles.extensions}>
             <button className={styles.editProfile} type="submit">
@@ -148,6 +168,7 @@ export default function Userpage() {
                   <img
                     src={imageUrl}
                     className={styles.galleryItem}
+                    alt={`Poster for films`}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -179,6 +200,7 @@ export default function Userpage() {
                   <img
                     src={imageUrl}
                     className={styles.galleryItem}
+                    alt={`Poster for films`}
                     style={{
                       width: "100%",
                       height: "100%",
