@@ -10,6 +10,10 @@ import {
   updatePassword,
   updateUser,
   getUser,
+  followUser,
+  unfollowUser,
+  getFollowing,
+  getFollowers,
 } from "../controllers/accountController";
 const authenticationMiddleware = require("../middleware/authentication");
 const LocalStrategy = require("passport-local");
@@ -86,6 +90,8 @@ router.post("/register", async (req: Request, res: Response) => {
     res.status(500).send("Error registering");
   }
 });
+
+//ROUTES FOR USER PROFILE UPDATES--------------------------------------------
 
 //route update a user's email, calls updateEmail function from accountController
 //which takes a user id and new email in req body
@@ -175,6 +181,59 @@ router.get("/getUser", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error getting user", error);
     res.status(500).send("Error getting user");
+  }
+});
+
+
+
+
+//ROUTES FOR FOLLOWING LOGIC---------------------------------------------
+
+//route to follow a user, calls followUser function from accountController
+router.post("/followUser", async (req: Request, res: Response) => {
+  try {
+    const { userId, followId } = req.body;
+    const updatedUser = await followUser(userId, followId);
+    res.json({ message: "User followed", user: updatedUser });
+  } catch (error) {
+    console.error("Error following user", error);
+    res.status(500).send("Error following user");
+  }
+});
+
+//route to unfollow a user, calls unfollowUser function from accountController
+router.post("/unfollowUser", async (req: Request, res: Response) => {
+  try {
+    const { userId, followId } = req.body;
+    const updatedUser = await unfollowUser(userId, followId);
+    res.json({ message: "User unfollowed", user: updatedUser });
+  } catch (error) {
+    console.error("Error unfollowing user", error);
+    res.status(500).send("Error unfollowing user");
+  }
+});
+
+//route to get a user's following list, calls getFollowing function from accountController
+router.get("/getFollowing", async (req: Request, res: Response) => {
+  try {
+    const userId = req.query.userId as string;
+    const following = await getFollowing(userId);
+    res.json(following);
+  } catch (error) {
+    console.error("Error getting following", error);
+    res.status(500).send("Error getting following");
+  }
+});
+
+//route to get a user's followers list, calls getFollowers function from accountController
+router.get("/getFollowers", async (req: Request, res: Response) => {
+  try {
+    const userId = req.query.userId as string;
+    const followers = await getFollowers(userId);
+    res.json(followers);
+  } catch (error) {
+    console.error("Error getting followers", error);
+    res.status(500).send("Error getting followers");
   }
 });
 

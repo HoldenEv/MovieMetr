@@ -9,7 +9,7 @@ const ListEntrySchema = new Schema({
     enum: ["Movie", "TVshow"],
   },
   item_id: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
     refPath: "entries.itemType",
   },

@@ -62,7 +62,7 @@ const registerUser = async (
   const user = new User({
     email: email,
     username: username,
-    bio:username+ "hasn't set a bio yet.",
+    bio:username+ " hasn't set a bio yet.",
     profilePath:"",
   });
   const registeredUser = await User.register(user, password);
@@ -153,6 +153,106 @@ const getUser = async (userId: string) => {
   return user;
 }
 
+
+//FOLLOWING AND FOLLOWERS FUNCTIONS
+
+/**
+ * Follow a user, given the user id of the user and the user id of the user to follow
+ * Also adds the user to the followee's followers list
+ * @param userId the user id of the follower
+ * @param followId the user id of the user to follow
+ * @returns the updated user object
+ * 
+ */
+const followUser = async (userId: string, followId: string) => {
+  const user = await User.findById(userId).exec();
+  const follow = await User.findById(followId).exec();
+  //one error for both users for now
+  if(!user || !follow){
+    throw new Error("User not found");
+  }
+  //check if user is already following the followee
+  //may need to adjust because of the way following is stored as object ids
+  //not strings
+  if(user.following.includes(followId)){
+    throw new Error("Already following user");
+  }
+  user.following.push(followId);
+  follow.followers.push(userId);
+  await user.save();
+  await follow.save();
+  return user;
+} 
+
+/**
+ * Unfollow a user, given the user id of the user and the user id of the user to unfollow
+ * Also removes the user from the followee's followers list
+ * @param userId the user id of the follower
+ * @param followId the user id of the user to unfollow
+ * @returns the updated user object
+ * 
+ */
+const unfollowUser = async (userId: string, followId: string) => {
+  const user = await User.findById(userId).exec();
+  const follow = await User.findById(followId).exec();
+  //one error for both
+  if(!user || !follow){
+    throw new Error("User not found");
+  }
+  //check if user is already following the followee
+  //may need to adjust because of the way following is stored as object ids
+  if(!user.following.includes(followId)){
+    throw new Error("Not following user");
+  }
+  //remove the followee from the user's following list and the user from the followee's followers list
+  user.following = user.following.filter((id: string) => id !== followId);
+  follow.followers = follow.followers.filter((id: string) => id !== userId);
+  await user.save();
+  await follow.save();
+  return user;
+}
+
+/**
+ * Get all users that a user is following
+ * @param userId the user id of the user
+ * @returns an array of user objects
+ */
+const getFollowing = async (userId: string) => {
+  try{
+    const user = await User.findById(userId).exec();
+    if(!user){
+      throw new Error("User not found");
+    }
+    //get all users that the user is following
+    //may need to adjust because of the way following is stored
+    const following = await User.find({ _id: { $in: user.following } }).exec();
+    return following;
+  } catch (error) {
+    console.error("Error getting user's following list", error);
+    return null;
+  }
+}
+
+/**
+ * Get all users that are following a user
+ * @param userId the user id of the user
+ * @returns an array of user objects
+ */
+const getFollowers = async (userId: string) => {
+  try{
+    const user = await User.findById(userId).exec();
+    if(!user){
+      throw new Error("User not found");
+    }
+    //get all users that are following the user
+    //may need to adjust because of the way followers is stored
+    const followers = await User.find({ _id: { $in: user.followers } }).exec();
+    return followers;
+  } catch (error) {
+    console.error("Error getting users followers list", error);
+    return null;
+  }
+}
   
 
 export {
@@ -164,6 +264,10 @@ export {
   updateProfilePath,
   updatePassword,
   getUser,
-  updateUser
+  updateUser,
+  followUser,
+  unfollowUser,
+  getFollowing,
+  getFollowers,
 };
 //attempted to refactor the code to use async/await, but it was not working, so I left the original code in place
