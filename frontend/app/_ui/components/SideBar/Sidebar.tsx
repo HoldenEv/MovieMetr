@@ -6,8 +6,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
 import Logo from "@/_assets/logo2.png";
 import Image from "next/image";
-import { useAuth } from "../../../context/authContext"
-
+import { useAuth } from "@/context/authContext";
 
 export default function SideBar() {
   const value = useAuth();
@@ -47,6 +46,8 @@ export default function SideBar() {
               <span className={styles.navitem}>Explore</span>
             </a>
           </li>
+
+        {(value !== undefined && value.token !== undefined) && (
           <li>
             <a href="/userpage">
               <div className={styles.icon}>
@@ -55,6 +56,16 @@ export default function SideBar() {
               <span className={styles.navitem}>Profile</span>
             </a>
           </li>
+        ) || (
+          <li>
+            <a href="/login">
+              <div className={styles.icon}>
+                <ProfileIcon></ProfileIcon>
+              </div>
+              <span className={styles.navitem}>Sign In</span>
+            </a>
+          </li>
+        )}
         </ul>
       </div>
   );

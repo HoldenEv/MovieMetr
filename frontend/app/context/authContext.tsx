@@ -1,85 +1,78 @@
+"use client"
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { signUpUser } from "../_api/signup";
 import { logInUser } from "../_api/login";
 import { ReactNode } from 'react';
+//import { setTokenCookie } from "../actions/cookieActions";
+const TOKEN_KEY = "JWT_AUTH_TOKEN";
+const INVALID_TOKEN = "INVALID_TOKEN";
 
-// Define the type for the context value
-interface AuthContextType {
-  token: string | null;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  onLogin: () => Promise<void>;
-  onLogout: () => void;
-  onRegister: () => Promise<void>;
-}
+const AuthContext = createContext({
+  token: "",
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  handleLogin: (user : string, pass : string) => {},
+  handleLogout: (user : string, pass : string) => {},
+  handleRegister: (user : string, pass : string, email : string) => {}
+});
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
+  const router = useRouter();
+  const [token, setToken] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const navigate = useNavigate();
-  const [token, setToken] = useState<string | null>(null);
+  const handleLogin = async (user : string, pass : string) => {
+    console.log("made it into login")
+    setUsername(user);
+    setPassword(pass);
 
-  const handleLogin = async () => {
-    console.log("handleLogin enter  user: " + value.username);
-    const token = await logInUser(value.username, value.password);
-
+    console.log("handleLogin enter  user: " + username);
+    const token = await logInUser(username, password);
+    
     console.log("handleLogin token: " + token);
     if (token) {
       setToken(token);
       // load the profile page of the user that has signed in
-      navigate("/landing");
+      localStorage.setItem(TOKEN_KEY, token);
+      //setTokenCookie(token);
+      router.push("/profile");
     } else {
       // if token is not valid we want to put the user in the homepage and not login
-      navigate("/")
+      router.push("/")
       alert("invalid login");
     }
   };
 
   const handleLogout = () => {
     console.log("handleLogout");
-    setToken(null);
-    navigate("/home");
+    setToken(INVALID_TOKEN);
+    router.push("/home");
   };
 
-  const handleRegister = async () => {
-    console.log("handleRegister enter  user: " + value.username);
-    const token = await signUpUser(value.email, value.username, value.password, value.password);
+  const handleRegister = async (user : string, pass : string, email : string) => {
+    console.log("handleRegister enter  user: " + username);
+    const token = await signUpUser(email, username, password, password);
     console.log("handleRegister token: " + token);
     if (token) {
       setToken(token);
-      navigate("/landing");
+      router.push("/login");
     } else {
       alert("invalid login");
     }
   };
 
-  const value: AuthContextType = {
-    token,
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    onLogin: handleLogin,
-    onLogout: handleLogout,
-    onRegister: handleRegister,
-  };
 
   return (
-    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister }}>{children}</AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  // if (!context) {
-  //   throw new Error("useAuth must be used within an AuthProvider");
-  // }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);

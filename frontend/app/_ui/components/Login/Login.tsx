@@ -13,11 +13,14 @@ export default function Login({ setOpenState }: LoginProps) {
   const handleClick = () => {
     setOpenState(false);
   };
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
     const { name, value } = e.target;
     console.log(name, value);
     setFormData({
@@ -25,6 +28,7 @@ export default function Login({ setOpenState }: LoginProps) {
       [name]: value,
     });
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -43,7 +47,7 @@ export default function Login({ setOpenState }: LoginProps) {
       console.error("Error signing up:", error.message);
       // Handle error, show error message, etc.
     }
-  };
+  };  
 
   return (
     <div className={styles.formContainer}>
