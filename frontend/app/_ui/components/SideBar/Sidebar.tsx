@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useAuth } from "@/context/authContext";
 
 export default function SideBar() {
-  const value = useAuth();
+  const { token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister } = useAuth();
 
   return (
       <div className={styles.sidebar}>
@@ -47,25 +47,26 @@ export default function SideBar() {
             </a>
           </li>
 
-        {(value !== undefined && value.token !== undefined) && (
-          <li>
-            <a href="/userpage">
-              <div className={styles.icon}>
-                <ProfileIcon></ProfileIcon>
-              </div>
-              <span className={styles.navitem}>Profile</span>
-            </a>
-          </li>
-        ) || (
-          <li>
-            <a href="/login">
-              <div className={styles.icon}>
-                <ProfileIcon></ProfileIcon>
-              </div>
-              <span className={styles.navitem}>Sign In</span>
-            </a>
-          </li>
-        )}
+          {token ? (
+            <li>
+              <a href="/userpage">
+                <div className={styles.icon}>
+                  <ProfileIcon></ProfileIcon>
+                </div>
+                <span className={styles.navitem}>Profile</span>
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/login">
+                <div className={styles.icon}>
+                  <ProfileIcon></ProfileIcon>
+                </div>
+                <span className={styles.navitem}>Sign In</span>
+              </a>
+              
+            </li>
+          )}
         </ul>
       </div>
   );

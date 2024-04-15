@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
       // load the profile page of the user that has signed in
       localStorage.setItem(TOKEN_KEY, token);
       //setTokenCookie(token);
-      router.push("/profile");
+      router.push("/userpage");
     } else {
       // if token is not valid we want to put the user in the homepage and not login
       router.push("/")
@@ -71,7 +71,9 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
 
 
   return (
-    <AuthContext.Provider value={{ token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
