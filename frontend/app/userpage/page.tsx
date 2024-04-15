@@ -12,6 +12,16 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
+import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+
+
+interface User {
+  username: string;
+  email: string;
+  profilepath: string;
+  bio: String;
+}
+
 
 // interface for the tabs
 interface TabPanelProps {
@@ -20,12 +30,6 @@ interface TabPanelProps {
   value: number;
 }
 
-interface User {
-  username: string;
-  email: string;
-  profilepath: string;
-  bio: String;
-}
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -67,23 +71,32 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Userpage() {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
+  const openEditProfileModal = () => {
+    setIsEditProfileOpen(true);
+  };
+
+  const closeEditProfileModal = () => {
+    setIsEditProfileOpen(false);
+  };
+
   useEffect(() => {
-    // replace 'userId' with the actual user id
-    // make base URL 
-    const userId = '66144b298785154f407541ca'
-    axios.get("http://localhost:3001/authentication/getUser", { params: { userId } })
-      .then(response => {
-        setUser(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching user data", error);
-      });
-    }, []);
+    const userId = '66144b298785154f407541ca';
+    fetchUser(userId); // Fetch user data on mount
+  }, []);
+
+  const fetchUser = (userId: string) => {
+    // Make API call to fetch user data
+    fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
+      .then(response => response.json())
+      .then(data => setUser(data))
+      .catch(error => console.error("Error fetching user data", error));
+  };
 
   return (
     <div className={styles.userPage}>
@@ -109,13 +122,20 @@ export default function Userpage() {
           {user?.bio}
           </p>
           <div className={styles.extensions}>
-            <button className={styles.editProfile} type="submit">
-              Edit Profile
+            <button className={styles.editProfile}
+              onClick={openEditProfileModal}>Edit Profile
             </button>
             <button className={styles.shareProfile} type="submit">
               Share Profile
             </button>
           </div>
+          {isEditProfileOpen && (
+            <EditProfileModal
+              isOpen={isEditProfileOpen}
+              onClose={closeEditProfileModal}
+              userId={'66144b298785154f407541ca'}
+            />
+          )}
         </div>
       </div>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

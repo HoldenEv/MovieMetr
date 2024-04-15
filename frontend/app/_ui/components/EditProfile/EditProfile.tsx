@@ -1,24 +1,24 @@
-import styles from "./editProfileModal.module.css";
-import Image from "next/image";
-import closeIcon from "@/_assets/close.svg";
+import React, { useState } from "react";
 import ReactModal from "react-modal";
-import { useState } from "react";
+import { updateUser } from "@/_api/editprofile";
+import styles from "./editprofile.module.css";
 
 interface EditProfileModalProps {
   isOpen: boolean;
-  setOpenState: (state: boolean) => void;
+  onClose: () => void;
+  userId: string; // Assuming you have access to the user's ID
 }
 
-export default function EditProfileModal({ isOpen, setOpenState }: EditProfileModalProps) {
-  const handleClick = () => {
-    setOpenState(false);
-  };
-
+const EditProfileModal: React.FC<EditProfileModalProps> = ({
+  isOpen,
+  onClose,
+  userId,
+}) => {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
     bio: "",
-    profilePic: "",
+    // Add more fields as needed
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,37 +29,23 @@ export default function EditProfileModal({ isOpen, setOpenState }: EditProfileMo
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Call a function to update the user profile with formData
-    // Example: updateUserProfile(formData)
-    // Close the modal after updating profile
-    setOpenState(false);
+    try {
+      const response = await updateUser(userId, formData);
+      console.log("Profile updated:", response);
+      onClose(); 
+    } catch (error: any) {
+      console.error("Error updating profile:", error.message);
+    }
   };
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      ariaHideApp={false}
-      overlayClassName={styles.modalOverlay}
-      className={styles.modalContainer}
-    >
-      <form onSubmit={handleSubmit} className={styles.formContainer}>
-        <div>
-          <div className={styles.closeButtonContainer}>
-            <button onClick={handleClick} className={styles.closeButton}>
-              <Image
-                priority
-                src={closeIcon}
-                width={30}
-                alt="Close edit profile modal"
-                className={styles.closeIcon}
-              ></Image>
-            </button>
-          </div>
-          <h1 className={styles.head}>Edit Profile</h1>
-          <div className={styles.formRow}>
-            <label htmlFor="email">Email</label>
+    <ReactModal isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false}>
+      <div className={styles.modalOverlay}>
+        <div className={styles.formContainer}>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
@@ -69,9 +55,8 @@ export default function EditProfileModal({ isOpen, setOpenState }: EditProfileMo
               required
               className={styles.formInput}
             />
-          </div>
-          <div className={styles.formRow}>
-            <label htmlFor="username">Username</label>
+
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               id="username"
@@ -81,35 +66,25 @@ export default function EditProfileModal({ isOpen, setOpenState }: EditProfileMo
               required
               className={styles.formInput}
             />
-          </div>
-          <div className={styles.formRow}>
-            <label htmlFor="bio">Bio</label>
+
+            <label htmlFor="bio">Bio:</label>
             <textarea
               id="bio"
               name="bio"
               value={formData.bio}
               onChange={handleChange}
-              className={styles.formTextarea}
-            />
-          </div>
-          <div className={styles.formRow}>
-            <label htmlFor="profilePic">Profile Picture URL</label>
-            <input
-              type="text"
-              id="profilePic"
-              name="profilePic"
-              value={formData.profilePic}
-              onChange={handleChange}
               className={styles.formInput}
             />
-          </div>
-          <div className={styles.loginBottomButtons}>
-            <button className={styles.updateProfileButton} type="submit">
-              Update Profile
-            </button>
-          </div>
+
+            <div className={styles.loginBottomButtons}>
+              <button type="submit" className={styles.createAccountButton}>Save Changes</button>
+              <button type="button" onClick={onClose} className={styles.createAccountButton}>Cancel</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </ReactModal>
   );
-}
+};
+
+export default EditProfileModal;
