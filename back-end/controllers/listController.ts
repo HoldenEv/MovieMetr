@@ -4,6 +4,9 @@ import Movie from "../models/movies";
 import Tvshow from "../models/TVshows";
 import { addMovie } from "./movieController";
 
+//should add a trigger to create watched, favorites, and wishlists for each user when they are created
+//trigger would be called upon user creation/registration
+
 //adds a new list to the database, takes a list name and user id
 const addList = async (name: string, userId: string) => {
   try {
