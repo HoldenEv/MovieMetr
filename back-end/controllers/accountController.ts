@@ -155,6 +155,12 @@ const getUser = async (userId: string) => {
 
 
 //FOLLOWING AND FOLLOWERS FUNCTIONS
+//will need to modify the followers in user model and 
+//some controller functions to allow for the ability for a user to follow person objects
+
+//could create a object or add a check to see if the id is a userId and personId
+//then call the correct function to bring up either a user page or person page
+//like how it is done with spotify followers and following
 
 /**
  * Follow a user, given the user id of the user and the user id of the user to follow
