@@ -10,15 +10,26 @@ const TVshowSchema = new Schema({
     type: String,
     required: true,
   },
-  overview: {
+  summary: {
     type: String,
     required: true,
   },
-  poster_path: {
+  image_path: {
     type: String,
+    required: true,
   },
-  //list of genre ids
-  genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
+  year: {
+    type: String,
+    required: true,
+  },
+  seasons: {
+    type: Number,
+    required: true,
+  },
+  episodes: {
+    type: Number,
+    required: true,
+  },
 });
 
 const TVshow = mongoose.model("TVshow", TVshowSchema);
