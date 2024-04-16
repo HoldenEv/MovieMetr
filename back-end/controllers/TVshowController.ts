@@ -20,11 +20,6 @@ const addTVshow = async (TVshowId: string) => {
     }
     //grabs all TVshow details from the API
     const show = await TVshowById(TVshowId);
-    console.log(show.id);
-    console.log(show.name);
-    console.log(show.first_air_date);
-    console.log(show.overview);
-    console.log(show.poster_path);
     const newTVshow = new TVshow({
       _id: show.id,
       title: show.name,

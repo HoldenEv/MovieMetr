@@ -110,9 +110,6 @@ const addAllTVPeople = async (TVshowId: string) => {
     //query the api for all people related to the TV show
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllTVPeople(TVshowId);
-    for(let person of people){
-      console.log(person.id);
-    }
     //add each person to the database
     for (let person of people) {
       //check if person is already in the database

@@ -385,7 +385,6 @@ const getAllTVPeople = async (TVshowId: string) => {
   };
   try {
     const response = await axios.get(url, options);
-    console.log("TVshow people: "+ response.data.cast);
     //filter by department being acting, wrting, directing, production
     //right now only looking through cast, not crew, add crew later for more comprehensive search
     const people = response.data.cast.filter((person: any) => {
@@ -396,10 +395,6 @@ const getAllTVPeople = async (TVshowId: string) => {
         person.known_for_department === "Writing"
       );
     });
-    console.log("People in TVshow: "+ people);
-    for(let person of people){
-      console.log(person.id);
-    }
     return people;
   } catch (error) {
     console.error("Error searching for person details", error);
