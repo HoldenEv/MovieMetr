@@ -1,11 +1,10 @@
 "use client"
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
 import { signUpUser } from "../_api/signup";
 import { logInUser } from "../_api/login";
 import { ReactNode } from 'react';
-//import { setTokenCookie } from "../actions/cookieActions";
+import { setTokenCookie } from "../actions/cookieActions";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";
 const INVALID_TOKEN = "INVALID_TOKEN";
 
@@ -28,7 +27,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-
   const handleLogin = async (user : string, pass : string) => {
     console.log("made it into login")
     setUsername(user);
@@ -41,8 +39,8 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     if (token) {
       setToken(token);
       // load the profile page of the user that has signed in
-      localStorage.setItem(TOKEN_KEY, token);
-      //setTokenCookie(token);
+      setTokenCookie(token);
+      //localStorage.setItem(TOKEN_KEY, token);
       router.push("/userpage");
     } else {
       // if token is not valid we want to put the user in the homepage and not login
@@ -68,7 +66,6 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
       alert("invalid login");
     }
   };
-
 
   return (
     <AuthContext.Provider value={{ token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister }}>
