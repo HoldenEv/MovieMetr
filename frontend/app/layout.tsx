@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/_ui/global.css";
 import type { Viewport } from "next";
 import SideBar from "./_ui/components/SideBar/Sidebar";
+import React from "react";
 
 export const viewport: Viewport = {
   themeColor: "black",
