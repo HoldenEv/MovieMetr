@@ -8,6 +8,9 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { ClassNames } from "@emotion/react";
 
 export default function Page({
   params,
@@ -18,6 +21,8 @@ export default function Page({
     searchResultData: null,
     loading: true,
   });
+
+  const [showSearchOptions, setShowSearchOptions] = useState<boolean>(false);
 
   // called whenever a search is made or a page is changed
   useEffect(() => {
@@ -44,7 +49,7 @@ export default function Page({
     ) {
       fetchData();
     } else {
-    // otherwise, set the search data to an empty array
+      // otherwise, set the search data to an empty array
       setSearchData({
         searchResultData: { data: [], total_results: 0 },
         loading: false,
@@ -65,6 +70,14 @@ export default function Page({
     router.push(`/search/${params.type}/${params.name}/page/${value}`);
   };
 
+  const handleClick = (type: string) => {
+    router.push(`/search/${type}/${params.name}/page/1`);
+  };
+
+  const handleArrowClick = () => {
+    setShowSearchOptions(!showSearchOptions);
+  };
+
   /*
     this is used to determine if we should use the medium or small pagination size
     depending on the screen size
@@ -76,20 +89,56 @@ export default function Page({
     <div className={styles.wrapper}>
       {!searchData.loading && (
         <>
-          {params.type === "films" ||
-          params.type === "shows" ||
-          params.type === "people" ? (
-            <h2 className={styles.totalResults}>
-              {searchData.searchResultData.total_results} {params.type} found
-              for &quot;
-              {params.name.replace(/\%2B/g, " ").toUpperCase()}&quot;
-            </h2>
-          ) : (
-            <h2 className={styles.totalResults}>
-              Invalid search category, &quot;{params.type}&quot;
-            </h2>
+          <div className={styles.resultsInfoContainer}>
+            {params.type === "films" ||
+            params.type === "shows" ||
+            params.type === "people" ? (
+              <h2 className={styles.totalResults}>
+                {searchData.searchResultData.total_results} {params.type} found
+                for &quot;
+                {params.name.replace(/\%2B/g, " ").toUpperCase()}&quot;
+              </h2>
+            ) : (
+              <h2 className={styles.totalResults}>
+                Invalid search category, &quot;{params.type}&quot;
+              </h2>
+            )}
+            {showSearchOptions ? (
+              <ArrowDropUpIcon
+                className={styles.arrow}
+                fontSize="medium"
+                onClick={handleArrowClick}
+              />
+            ) : (
+              <ArrowDropDownIcon
+                className={styles.arrow}
+                fontSize="medium"
+                onClick={handleArrowClick}
+              />
+            )}
+          </div>
+          {showSearchOptions && (
+            <div className={styles.categoryButtonContainer}>
+              <button
+                className={`${styles.categoryButton} ${params.type === "films" ? styles.activeCategoryButton : ""}`}
+                onClick={() => handleClick("films")}
+              >
+                FILMS
+              </button>
+              <button
+                className={`${styles.categoryButton} ${params.type === "shows" ? styles.activeCategoryButton : ""}`}
+                onClick={() => handleClick("shows")}
+              >
+                SHOWS
+              </button>
+              <button
+                className={`${styles.categoryButton} ${params.type === "people" ? styles.activeCategoryButton : ""}`}
+                onClick={() => handleClick("people")}
+              >
+                PEOPLE
+              </button>
+            </div>
           )}
-
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
             {searchData.searchResultData.data.map(
