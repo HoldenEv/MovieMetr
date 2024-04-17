@@ -10,7 +10,6 @@ import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { ClassNames } from "@emotion/react";
 
 export default function Page({
   params,
