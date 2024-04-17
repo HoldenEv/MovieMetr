@@ -12,10 +12,16 @@ export default function SearchResult({
   type: string;
   data: any;
 }) {
-  const summary =
-    data.summary.length > 200
-      ? data.summary.slice(0, 200) + "..."
-      : data.summary;
+  let summary;
+  if (type === "films" || type === "shows") {
+    summary =
+      data.summary.length > 200
+        ? data.summary.slice(0, 200) + "..."
+        : data.summary;
+  } else {
+    summary = "";
+  }
+    
   return (
     <div className={styles.searchResultContainer}>
       <Image
