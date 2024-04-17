@@ -115,6 +115,10 @@ const searchByPeople = async (searchString: string, page: string) => {
     const data: PersonData[] = response.data.results.map((person: any) => ({
       id: person.id,
       name: person.name,
+      known_for_department: person.known_for_department,
+      known_for: person.known_for
+        .filter((movie: any) => movie.id && movie.title)
+        .map((movie: any) => ({ id: movie.id, title: movie.title })),
       image: person.profile_path,
     }));
     /* store page and result info */
@@ -160,6 +164,7 @@ const searchTvShows = async (searchString: string, page: string) => {
       id: show.id,
       name: show.name,
       image: show.poster_path,
+      original_name: show.original_name,
       summary: show.overview,
       startdate: show.first_air_date,
     }));
@@ -184,7 +189,7 @@ const searchTvShows = async (searchString: string, page: string) => {
 
 /**
  * gets all movie details by its id
- * @param id 
+ * @param id
  * @returns all the movie details as json object in response
  */
 const movieById = async (id: string) => {
@@ -213,14 +218,11 @@ const movieById = async (id: string) => {
 /**
  * gets all TVshow details by its id
  * @param TVshowId - the id of the TVshow to get
- * @returns 
+ * @returns
  */
 const TVshowById = async (TVshowId: string) => {
   const url =
-    "https://api.themoviedb.org/3/tv/" + 
-    TVshowId + 
-    "?api_key=" + 
-    apiKey;
+    "https://api.themoviedb.org/3/tv/" + TVshowId + "?api_key=" + apiKey;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -334,8 +336,6 @@ const getAllPersonMovies = async (id: string) => {
   }
 };
 
-
-
 //getAllMoviePeople gets all people in a movie by id whos known_for_department is acting,directing,production,wrting
 //use this for now to trigger the database entry for all people whne a movie is added
 
@@ -376,7 +376,10 @@ const getAllMoviePeople = async (id: string) => {
  */
 const getAllTVPeople = async (TVshowId: string) => {
   const url =
-    "https://api.themoviedb.org/3/tv/" + TVshowId + "/credits?api_key=" + apiKey;
+    "https://api.themoviedb.org/3/tv/" +
+    TVshowId +
+    "/credits?api_key=" +
+    apiKey;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -429,7 +432,6 @@ const getAllPersonTVshows = async (id: string) => {
     throw error;
   }
 };
-
 
 export {
   searchMovies,

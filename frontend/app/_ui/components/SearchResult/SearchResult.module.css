@@ -6,8 +6,39 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   word-wrap: break-word;
   width: 100%;
+  padding-bottom: 15px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.notableWorksLabel {
+  color: #ececec;
+  display: inline;
+  font-size: 370;
+  margin-bottom: 6px;
+}
+
+.knownForContainer {
+  margin-top: 1.2rem;
+}
+
+.knownForWork {
+  color: #ccc;
+  text-decoration: underline;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.knownForWork:hover {
+  cursor: pointer;
+  color: #afe8e8;
 }
 
 .moviePoster {
