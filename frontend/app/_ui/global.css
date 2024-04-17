@@ -100,9 +100,12 @@ nav,
 section {
   display: block;
 }
+
 body {
   color: var(--pure-white);
-  background-color: #2e4567;
+  background: rgb(9,24,36);
+  background: linear-gradient(0deg, rgba(9,24,36,1) 37%, rgba(0,0,0,1) 100%);
+  background-attachment: fixed;
   line-height: 1;
   width: 100%;
 }
@@ -153,6 +156,15 @@ a:visited {
 .maincontent {
   margin-left: 130px;
   padding-left: 15px;
+}
+
+.MuiPagination-root button {
+  color: #ccc !important;
+  border-color: #505050;
+}
+
+.MuiPaginationItem-ellipsis {
+  color: #ccc !important;
 }
 
 @media screen and (max-width: 700px) {

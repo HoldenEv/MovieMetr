@@ -182,9 +182,11 @@ const searchTvShows = async (searchString: string, page: string) => {
   }
 };
 
-/*
-    Returns details for movie given a TMDB id, including cast info.
-*/
+/**
+ * gets all movie details by its id
+ * @param id 
+ * @returns all the movie details as json object in response
+ */
 const movieById = async (id: string) => {
   const url =
     "https://api.themoviedb.org/3/movie/" +
@@ -204,6 +206,32 @@ const movieById = async (id: string) => {
     return response.data;
   } catch (error) {
     console.error("Error searching for movie details", error);
+    throw error;
+  }
+};
+
+/**
+ * gets all TVshow details by its id
+ * @param TVshowId - the id of the TVshow to get
+ * @returns 
+ */
+const TVshowById = async (TVshowId: string) => {
+  const url =
+    "https://api.themoviedb.org/3/tv/" + 
+    TVshowId + 
+    "?api_key=" + 
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    return response.data;
+  } catch (error) {
+    console.error("Error searching for TVshow details", error);
     throw error;
   }
 };
@@ -306,6 +334,8 @@ const getAllPersonMovies = async (id: string) => {
   }
 };
 
+
+
 //getAllMoviePeople gets all people in a movie by id whos known_for_department is acting,directing,production,wrting
 //use this for now to trigger the database entry for all people whne a movie is added
 
@@ -323,6 +353,7 @@ const getAllMoviePeople = async (id: string) => {
   try {
     const response = await axios.get(url, options);
     //filter by department being acting, wrting, directing, production
+    //right now only looking through cast, not crew, add crew later for more comprehensive search
     const people = response.data.cast.filter((person: any) => {
       return (
         person.known_for_department === "Acting" ||
@@ -338,6 +369,68 @@ const getAllMoviePeople = async (id: string) => {
   }
 };
 
+/**
+ * get all TVshow people given a TVshow id
+ * @param TVshowId
+ * @returns all people related to the TVshow
+ */
+const getAllTVPeople = async (TVshowId: string) => {
+  const url =
+    "https://api.themoviedb.org/3/tv/" + TVshowId + "/credits?api_key=" + apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //filter by department being acting, wrting, directing, production
+    //right now only looking through cast, not crew, add crew later for more comprehensive search
+    const people = response.data.cast.filter((person: any) => {
+      return (
+        person.known_for_department === "Acting" ||
+        person.known_for_department === "Directing" ||
+        person.known_for_department === "Production" ||
+        person.known_for_department === "Writing"
+      );
+    });
+    return people;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+};
+
+/**
+ * getAllPersonTVshows gets all TVshows for a person by their id
+ * @param id
+ * @returns all TVshows the person was in
+ */
+const getAllPersonTVshows = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/person/" +
+    id +
+    "/tv_credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //returns all TVshows for now the person was in, in the form of cast objects
+    //not quite the same as the TVshow objects returned by the searchTvShows function
+    return response.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+};
+
+
 export {
   searchMovies,
   movieById,
@@ -348,4 +441,7 @@ export {
   popularMovies,
   getAllPersonMovies,
   getAllMoviePeople,
+  TVshowById,
+  getAllTVPeople,
+  getAllPersonTVshows,
 };

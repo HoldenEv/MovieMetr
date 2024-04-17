@@ -1,6 +1,7 @@
 import Person from "../models/person";
 import MoviePeople from "../models/moviePeople";
-import { personById, getAllMoviePeople } from "../middleware/apiPuller";
+import TVPeople from "../models/TVshowPeople";
+import { personById, getAllMoviePeople,getAllTVPeople } from "../middleware/apiPuller";
 //if we want to add all movie a person was in to the database
 import Movie from "../models/movies";
 
@@ -56,6 +57,28 @@ const addMoviePerson = async (
   }
 };
 
+//creates a TVPeople object in db given a personId and TVshowId
+const addTVPerson = async (
+  personId: string,
+  TVshowId: string,
+  department: string,
+) => {
+  try {
+    //create the newTVPerson object
+    const newTVPerson = new TVPeople({
+      person_id: personId,
+      TVshow_id: TVshowId,
+      department: department,
+    });
+    //add the TVPerson to the database
+    await newTVPerson.save();
+    return newTVPerson;
+  } catch (error) {
+    console.error("Error adding TVPerson", error);
+    return null;
+  }
+};
+
 //adds all people(writer,actor,producer,director) related to a movie to the database
 const addAllMoviePeople = async (movieId: string) => {
   try {
@@ -78,6 +101,31 @@ const addAllMoviePeople = async (movieId: string) => {
   }
 };
 
+/**
+ * adds all people related to a TV show to the database
+ * @param TVshowId 
+ */
+const addAllTVPeople = async (TVshowId: string) => {
+  try {
+    //query the api for all people related to the TV show
+    //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
+    const people = await getAllTVPeople(TVshowId);
+    //add each person to the database
+    for (let person of people) {
+      //check if person is already in the database
+      if ((await Person.findOne({ _id: person.id })) == null) {
+        await addPerson(person.id);
+      }
+      //add the person to the moviePeople collection
+      //no need to check only called upon insertion of a new movie
+      //pairing is guarunteed unique
+      await addTVPerson(person.id, TVshowId, person.known_for_department);
+    }
+  } catch (error) {
+    console.error("Error adding people", error);
+  }
+};
+
 //deletes a person from the database by their id
 const deletePerson = async (personId: string) => {
   try {
@@ -89,4 +137,4 @@ const deletePerson = async (personId: string) => {
   }
 };
 
-export { addPerson, addAllMoviePeople, deletePerson };
+export { addPerson, addAllMoviePeople, deletePerson, addAllTVPeople};

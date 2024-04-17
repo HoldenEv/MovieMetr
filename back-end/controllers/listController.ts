@@ -4,9 +4,19 @@ import Movie from "../models/movies";
 import Tvshow from "../models/TVshows";
 import { addMovie } from "./movieController";
 
+//should add a trigger to create watched, favorites, and wishlists for each user when they are created
+//trigger would be called upon user creation/registration
+
 //adds a new list to the database, takes a list name and user id
 const addList = async (name: string, userId: string) => {
   try {
+
+    //check if user exists
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      console.error("Error adding list: User not found");
+      return null;
+    }
     const newList = new List({
       name: name,
       user_id: userId,
@@ -47,9 +57,52 @@ const addMovieToList = async (listId: string, movieId: string) => {
        addMovie(movieId);
     }
     //check if movie is already in list
-    if (list.movies.includes(movieId)){
+    if(list.entries.some((entry: any) => entry.item_id === movieId)){
       console.error("Error adding movie to list: Movie already in list");
       return null;
     }
-    //add movie to list
-    
+    //create new entry object
+    const newEntry = {
+      itemType: 'Movie',
+      item_id: movieId,
+    };
+    //add entry to list
+    list.entries.push(newEntry);
+    await list.save();
+    return list;
+    } catch (error) {
+    console.error("Error adding movie to list", error);
+    return null;
+    }
+}
+
+//get all lists for a userId
+const getUserLists = async (userId: string) => {
+  try {
+    //check if user exists
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      console.error("Error getting lists: User not found");
+      return null;
+    }
+    const lists = await List.find({ user_id: userId });
+    return lists;
+    } catch (error) {
+      console.error("Error getting lists", error);
+      return null;
+    }
+}
+
+//gets a list by its id
+const getList = async (listId: string) => {
+  try {
+    const list = await List.findOne({ _id: listId });
+    return list;
+    } catch (error) {
+    console.error("Error getting list", error);
+    return null;
+    }
+}
+
+export { addList, deleteList, addMovieToList, getUserLists, getList};
+

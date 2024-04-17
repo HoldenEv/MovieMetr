@@ -1,7 +1,7 @@
 "use client";
 import styles from "./userpage.module.css";
 import React from "react";
-import { useState, useContext} from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -10,7 +10,17 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unstable
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import profilePic from "../_assets/sample_profile_pic.png";
+import profilePic from "@/_assets/sample_profile_pic.png";
+import axios from "axios";
+import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+
+
+interface User {
+  username: string;
+  email: string;
+  profilepath: string;
+  bio: String;
+}
 
 
 // interface for the tabs
@@ -19,6 +29,7 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -59,9 +70,32 @@ const Item = styled(Paper)(({ theme }) => ({
 // handle tab changes and other userPage canges
 export default function Userpage() {
   const [value, setValue] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const openEditProfileModal = () => {
+    setIsEditProfileOpen(true);
+  };
+
+  const closeEditProfileModal = () => {
+    setIsEditProfileOpen(false);
+  };
+
+  useEffect(() => {
+    const userId = '66144b298785154f407541ca';
+    fetchUser(userId); // Fetch user data on mount
+  }, []);
+
+  const fetchUser = (userId: string) => {
+    // Make API call to fetch user data
+    fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
+      .then(response => response.json())
+      .then(data => setUser(data))
+      .catch(error => console.error("Error fetching user data", error));
   };
 
   return (
@@ -70,13 +104,13 @@ export default function Userpage() {
         <div className={styles.photoUsername}>
           <Image
             priority
-            src={profilePic}
+            src={profilePic} // src={user?.profilePic || profilePic}
             width={500}
             height={500}
             alt="Profile Picture"
             className={styles.profilePicture}
           />
-          <h2 className={styles.usernameText}>username</h2>
+          <h2 className={styles.usernameText}>{user?.username}</h2>
         </div>
         <div className={styles.overviewBio}>
           <div className={styles.overview}>
@@ -85,18 +119,23 @@ export default function Userpage() {
             <p>300 following</p>
           </div>
           <p className={styles.bio}>
-            🎬 Lights, Camera, Action! 🍿 Fellow movie enthusiasts! Catch me
-            cozying up on the couch with a bucket of buttery popcorn and a
-            never-ending stream of movies.🍿
+          {user?.bio}
           </p>
           <div className={styles.extensions}>
-            <button className={styles.editProfile} type="submit">
-              Edit Profile
+            <button className={styles.editProfile}
+              onClick={openEditProfileModal}>Edit Profile
             </button>
             <button className={styles.shareProfile} type="submit">
               Share Profile
             </button>
           </div>
+          {isEditProfileOpen && (
+            <EditProfileModal
+              isOpen={isEditProfileOpen}
+              onClose={closeEditProfileModal}
+              userId={'66144b298785154f407541ca'}
+            />
+          )}
         </div>
       </div>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -149,6 +188,7 @@ export default function Userpage() {
                   <img
                     src={imageUrl}
                     className={styles.galleryItem}
+                    alt={`Poster for films`}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -180,6 +220,7 @@ export default function Userpage() {
                   <img
                     src={imageUrl}
                     className={styles.galleryItem}
+                    alt={`Poster for films`}
                     style={{
                       width: "100%",
                       height: "100%",

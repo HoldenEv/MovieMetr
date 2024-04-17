@@ -19,7 +19,6 @@ export default function Login() {
     //if (value !== undefined && value.token !== undefined) {
   };
 
- 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
   };
