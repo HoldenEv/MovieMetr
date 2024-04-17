@@ -1,0 +1,63 @@
+.searchResultContainer {
+  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  padding: 6px;
+}
+
+.content {
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.moviePoster {
+  border: 2px solid #438b8b64;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.moviePoster:hover {
+  cursor: pointer;
+  border: 2px solid #60ecec;
+}
+
+.title {
+  display: inline;
+  font-size: 1.2rem;
+  font-weight: 550;
+}
+
+.title:hover {
+  cursor: pointer;
+  color: #60ecec;
+}
+
+.titleContainer {
+  margin-bottom: 6px;
+}
+
+.alternateTitle {
+  display: inline;
+  font-style: italic;
+  color: #ccc;
+}
+
+.year {
+  color: #ccc;
+  font-size: 370;
+  margin-bottom: 6px;
+}
+
+.summary {
+  color: #e7e7e7;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-weight: 350;
+}
+
+@media (max-width: 650px) {
+  .searchResultContainer {
+    align-items: center;
+    width: 100%;
+  }
+}

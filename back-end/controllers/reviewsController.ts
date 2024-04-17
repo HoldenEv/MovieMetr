@@ -1,5 +1,7 @@
 import Review from "../models/reviews";
 import Movie from "../models/movies";
+import User from "../models/user";
+import { addMovie } from "./movieController";
 
 //adds a new review to the database, takes in the movie id, user id, review text, and rating
 const addReview = async (
@@ -9,9 +11,18 @@ const addReview = async (
   rating: string,
 ) => {
   try {
+    //check if movie in db, if not adds it
     if ((await Movie.findOne({ _id: movieId })) == null) {
-      console.error("Error adding review: Movie not in dtabase");
-      return null;
+      addMovie(movieId);
+    }
+    //check is user exists
+    if ((await User.findOne({ _id: userId })) == null) {
+        console.error("Error adding review: User not in database");
+        return null;
+    }
+    if(reviewString == null){
+        console.error("Error adding review: Review string is null");
+        return null;
     }
     const newReview = new Review({
       movie_id: movieId,

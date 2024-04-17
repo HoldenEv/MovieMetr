@@ -1,6 +1,7 @@
 import MovieGenres from "../models/movieGenres";
 import Genre from "../models/genre";
 import Movie from "../models/movies";
+import TVshowGenres from "../models/TVshowGenres";
 
 //adds a genre to the database
 const addGenre = async (genreId: string, genreName: string) => {
@@ -21,6 +22,7 @@ const addGenre = async (genreId: string, genreName: string) => {
   }
 };
 //adds a movie genre pairing to the database
+//could add genre check here
 const addMovieGenres = async (movieId: string, genreId: string) => {
   try {
     const newMovieGenre = new MovieGenres({
@@ -30,6 +32,19 @@ const addMovieGenres = async (movieId: string, genreId: string) => {
     await newMovieGenre.save();
   } catch (error) {
     console.error("Error adding movie genre", error);
+  }
+};
+
+//adds a tv genre pairing to the database
+const addTVshowGenres = async (TVshowId: string, genreId: string) => {
+  try {
+    const newTvGenre = new TVshowGenres({
+      TVshow_id: TVshowId,
+      genre_id: genreId,
+    });
+    await newTvGenre.save();
+  } catch (error) {
+    console.error("Error adding tv genre", error);
   }
 };
 
@@ -70,4 +85,4 @@ const deleteMovieGenre = async (movieId: string, genreId: string) => {
 //gets a list of all genres of a certain movie by movie id
 
 
-export { addGenre, addMovieGenres,getGenre,deleteGenre,deleteMovieGenre };
+export { addGenre, addMovieGenres,getGenre,deleteGenre,deleteMovieGenre, addTVshowGenres };

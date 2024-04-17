@@ -3,7 +3,7 @@ export async function search(category: string, search: string, page: string) {
   category = category.toLowerCase();
   /* search based on category and title/name */
   const response = await fetch(
-    `http://localhost:3001/apiQueryRoutes/search?category=${category}&name=${search}&page=${page}`
+    `http://localhost:3001/apiQueryRoutes/search?category=${category}&name=${search}&page=${page}`,
   );
   /* throw error if response is not okay */
   if (!response.ok) {

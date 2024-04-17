@@ -41,6 +41,24 @@ router.delete("/deleteMovie", async (req: Request, res: Response) => {
   }
 });
 
+//route to get movie from database by its id
+router.get("/getMovie", async (req: Request, res: Response) => {
+  try {
+    const movieId = req.query.movieId as string;
+    const movie = await getMovie(movieId);
+    if (movie) {
+      res.json(movie);
+    } else {
+      res.status(500).send("Error getting movie");
+    }
+  } catch (error) {
+    console.error("Error getting movie", error);
+    res.status(500).send("Error getting movie");
+  }
+});
+
+
+//TEST ROUTES, can delete later----------------------------------------------
 //test route to add genre to db by id and name
 router.post("/test", async (req: Request, res: Response) => {
   try {
