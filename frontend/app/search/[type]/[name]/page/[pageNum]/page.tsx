@@ -15,7 +15,7 @@ export default function Page({
   params: { type: string; name: string; pageNum: string };
 }) {
   const [searchData, setSearchData] = useState<any>({
-    data: null,
+    searchResultData: null,
     loading: true,
   });
 
@@ -26,7 +26,7 @@ export default function Page({
         type = "movies";
       }
       const data = await search(type, params.name, params.pageNum);
-      setSearchData({ filmData: data, loading: false });
+      setSearchData({ searchResultData: data, loading: false });
       console.log(data);
     };
     if (
@@ -37,7 +37,7 @@ export default function Page({
       fetchData();
     } else {
       setSearchData({
-        filmData: { data: [], total_results: 0 },
+        searchResultData: { data: [], total_results: 0 },
         loading: false,
       });
     }
@@ -63,7 +63,7 @@ export default function Page({
           params.type === "shows" ||
           params.type === "people" ? (
             <h2 className={styles.totalResults}>
-              {searchData.filmData.total_results} {params.type} found for &quot;
+              {searchData.searchResultData.total_results} {params.type} found for &quot;
               {params.name}&quot;
             </h2>
           ) : (
@@ -72,7 +72,7 @@ export default function Page({
 
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
-            {searchData.filmData.data.map((result: any, index: number) => (
+            {searchData.searchResultData.data.map((result: any, index: number) => (
               <li key={index} className={styles.searchEntry}>
                 <SearchResult type={params.type} data={result} />
                 <hr className={styles.divider} />
@@ -84,7 +84,7 @@ export default function Page({
             <Pagination
               color={"primary"}
               size={matches ? "medium" : "small"}
-              count={searchData.filmData.total_pages}
+              count={searchData.searchResultData.total_pages}
               onChange={handlePageChange}
               page={parseInt(params.pageNum)}
               variant="outlined"
