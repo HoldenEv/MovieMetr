@@ -26,6 +26,7 @@ export default function SearchResult({
   return (
     <div className={styles.searchResultContainer}>
       <Image
+        // use our own "not found" image if source is not found from TMDB 
         src={data.image ? `https://image.tmdb.org/t/p/original${data.image}` : notfound}
         width={100.8}
         height={144}
