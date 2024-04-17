@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function FilmsPage() {
+export default function SearchWithNoNameOrPage() {
   redirect("/search");
 }

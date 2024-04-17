@@ -1,8 +1,8 @@
 "use client";
 import { search } from "@/_api/search";
 import { useEffect, useState } from "react";
-import FilmSearchResult from "@/_ui/components/FilmSearchResult/FilmSearchResult";
-import styles from "./filmSearch.module.css";
+import FilmSearchResult from "@/_ui/components/SearchResult/SearchResult";
+import styles from "./search.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 export default function Page({
   params,
 }: {
-  params: { filmName: string; pageNum: string };
+  params: { type: string; name: string; pageNum: string };
 }) {
   const [searchData, setSearchData] = useState<any>({
     data: null,
@@ -21,12 +21,16 @@ export default function Page({
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await search("movies", params.filmName, params.pageNum);
+      let type = params.type;
+      if (params.type === "films") {
+        type = "movies";
+      }
+      const data = await search(type, params.name, params.pageNum);
       setSearchData({ filmData: data, loading: false });
       console.log(data);
     };
     fetchData();
-  }, [params.filmName, params.pageNum]);
+  }, [params.name, params.pageNum, params.type]);
 
   const router = useRouter();
 
@@ -34,7 +38,9 @@ export default function Page({
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    router.push(`/search/films/${params.filmName}/page/${value}`);
+    router.push(
+      `/search/${params.type}/${params.name}/page/${value}`
+    );
   };
 
   const theme = useTheme();
@@ -45,14 +51,14 @@ export default function Page({
       {!searchData.loading && (
         <>
           <h2 className={styles.totalResults}>
-            {searchData.filmData.total_results} films found for &quot;
-            {params.filmName}&quot;
+            {searchData.filmData.total_results} {params.type} found for &quot;
+            {params.name}&quot;
           </h2>
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
             {searchData.filmData.data.map((result: any, index: number) => (
               <li key={index} className={styles.searchEntry}>
-                <FilmSearchResult filmData={result} />
+                <FilmSearchResult type={params.type} data={result} />
                 <hr className={styles.divider} />
               </li>
             ))}
