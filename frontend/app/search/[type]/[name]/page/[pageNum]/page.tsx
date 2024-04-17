@@ -19,16 +19,24 @@ export default function Page({
     loading: true,
   });
 
+  // called whenever a search is made or a page is changed
   useEffect(() => {
+    /*
+      fetches search data for corresponding search category,
+      name and page number
+    */
     const fetchData = async () => {
       let type = params.type;
+      /* our API checks that the category is "movies", so if the
+       category is "films", we need to change it */
       if (params.type === "films") {
         type = "movies";
       }
       const data = await search(type, params.name, params.pageNum);
       setSearchData({ searchResultData: data, loading: false });
-      console.log(data);
+      console.log(data); // FOR  DEBUGGING
     };
+    // if the search category is valid, fetch data
     if (
       params.type === "films" ||
       params.type === "shows" ||
@@ -36,6 +44,7 @@ export default function Page({
     ) {
       fetchData();
     } else {
+    // otherwise, set the search data to an empty array
       setSearchData({
         searchResultData: { data: [], total_results: 0 },
         loading: false,
@@ -45,6 +54,10 @@ export default function Page({
 
   const router = useRouter();
 
+  /* 
+    since we are fetching data when params.pageNum changes, all
+    we need to do to render new data on page change is update the URL
+  */
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -52,6 +65,10 @@ export default function Page({
     router.push(`/search/${params.type}/${params.name}/page/${value}`);
   };
 
+  /*
+    this is used to determine if we should use the medium or small pagination size
+    depending on the screen size
+  */
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
