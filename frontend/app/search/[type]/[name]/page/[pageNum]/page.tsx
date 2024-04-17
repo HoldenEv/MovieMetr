@@ -80,21 +80,26 @@ export default function Page({
           params.type === "shows" ||
           params.type === "people" ? (
             <h2 className={styles.totalResults}>
-              {searchData.searchResultData.total_results} {params.type} found for &quot;
-              {params.name}&quot;
+              {searchData.searchResultData.total_results} {params.type} found
+              for &quot;
+              {params.name.replace(/\%2B/g, " ").toUpperCase()}&quot;
             </h2>
           ) : (
-            <h2 className={styles.totalResults}>Invalid search category, &quot;{params.type}&quot;</h2>
+            <h2 className={styles.totalResults}>
+              Invalid search category, &quot;{params.type}&quot;
+            </h2>
           )}
 
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
-            {searchData.searchResultData.data.map((result: any, index: number) => (
-              <li key={index} className={styles.searchEntry}>
-                <SearchResult type={params.type} data={result} />
-                <hr className={styles.divider} />
-              </li>
-            ))}
+            {searchData.searchResultData.data.map(
+              (result: any, index: number) => (
+                <li key={index} className={styles.searchEntry}>
+                  <SearchResult type={params.type} data={result} />
+                  <hr className={styles.divider} />
+                </li>
+              )
+            )}
           </ul>
 
           <Stack alignItems="center" margin="30px">
