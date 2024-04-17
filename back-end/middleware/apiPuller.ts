@@ -115,6 +115,10 @@ const searchByPeople = async (searchString: string, page: string) => {
     const data: PersonData[] = response.data.results.map((person: any) => ({
       id: person.id,
       name: person.name,
+      known_for_department: person.known_for_department,
+      known_for: person.known_for
+        .filter((movie: any) => movie.id && movie.title)
+        .map((movie: any) => ({ id: movie.id, title: movie.title })),
       image: person.profile_path,
     }));
     /* store page and result info */
