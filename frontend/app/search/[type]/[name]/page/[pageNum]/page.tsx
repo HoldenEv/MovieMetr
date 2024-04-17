@@ -1,7 +1,7 @@
 "use client";
 import { search } from "@/_api/search";
 import { useEffect, useState } from "react";
-import FilmSearchResult from "@/_ui/components/SearchResult/SearchResult";
+import SearchResult from "@/_ui/components/SearchResult/SearchResult";
 import styles from "./search.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Pagination from "@mui/material/Pagination";
@@ -29,7 +29,18 @@ export default function Page({
       setSearchData({ filmData: data, loading: false });
       console.log(data);
     };
-    fetchData();
+    if (
+      params.type === "films" ||
+      params.type === "shows" ||
+      params.type === "people"
+    ) {
+      fetchData();
+    } else {
+      setSearchData({
+        filmData: { data: [], total_results: 0 },
+        loading: false,
+      });
+    }
   }, [params.name, params.pageNum, params.type]);
 
   const router = useRouter();
@@ -38,9 +49,7 @@ export default function Page({
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    router.push(
-      `/search/${params.type}/${params.name}/page/${value}`
-    );
+    router.push(`/search/${params.type}/${params.name}/page/${value}`);
   };
 
   const theme = useTheme();
@@ -50,15 +59,22 @@ export default function Page({
     <div className={styles.wrapper}>
       {!searchData.loading && (
         <>
-          <h2 className={styles.totalResults}>
-            {searchData.filmData.total_results} {params.type} found for &quot;
-            {params.name}&quot;
-          </h2>
+          {params.type === "films" ||
+          params.type === "shows" ||
+          params.type === "people" ? (
+            <h2 className={styles.totalResults}>
+              {searchData.filmData.total_results} {params.type} found for &quot;
+              {params.name}&quot;
+            </h2>
+          ) : (
+            <h2 className={styles.totalResults}>Invalid search category, &quot;{params.type}&quot;</h2>
+          )}
+
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
             {searchData.filmData.data.map((result: any, index: number) => (
               <li key={index} className={styles.searchEntry}>
-                <FilmSearchResult type={params.type} data={result} />
+                <SearchResult type={params.type} data={result} />
                 <hr className={styles.divider} />
               </li>
             ))}
