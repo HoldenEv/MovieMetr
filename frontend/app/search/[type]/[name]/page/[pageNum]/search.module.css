@@ -25,7 +25,12 @@
 }
 
 .categoryButton:hover {
+  background-color: #727171;
   cursor: pointer;
+}
+
+.activeCategoryButton {
+  background-color: #26272d;
 }
 
 .totalResults {

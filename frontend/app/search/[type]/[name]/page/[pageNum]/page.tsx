@@ -22,7 +22,7 @@ export default function Page({
     loading: true,
   });
 
-  const [showSearchOptions, setShowSearchOptions] = useState<boolean>(true);
+  const [showSearchOptions, setShowSearchOptions] = useState<boolean>(false);
 
   // called whenever a search is made or a page is changed
   useEffect(() => {
@@ -120,19 +120,19 @@ export default function Page({
           {showSearchOptions && (
             <div className={styles.categoryButtonContainer}>
               <button
-                className={styles.categoryButton}
+                className={`${styles.categoryButton} ${params.type === "films" ? styles.activeCategoryButton : ""}`}
                 onClick={() => handleClick("films")}
               >
                 FILMS
               </button>
               <button
-                className={styles.categoryButton}
+                className={`${styles.categoryButton} ${params.type === "shows" ? styles.activeCategoryButton : ""}`}
                 onClick={() => handleClick("shows")}
               >
                 SHOWS
               </button>
               <button
-                className={styles.categoryButton}
+                className={`${styles.categoryButton} ${params.type === "people" ? styles.activeCategoryButton : ""}`}
                 onClick={() => handleClick("people")}
               >
                 PEOPLE
