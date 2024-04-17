@@ -5,6 +5,10 @@ export default function SearchResult({
   type,
   data,
 }: {
+  /* 
+  not declaring the types directly here so that we can gracefully
+  handle invalid category params in a URL 
+  */
   type: string;
   data: any;
 }) {
