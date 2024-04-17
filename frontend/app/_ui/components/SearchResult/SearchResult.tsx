@@ -21,7 +21,7 @@ export default function SearchResult({
   } else {
     summary = "";
   }
-    
+
   return (
     <div className={styles.searchResultContainer}>
       <Image
@@ -37,8 +37,9 @@ export default function SearchResult({
             {type === "films" ? data.title : data.name}
           </h2>
           <h3 className={styles.alternateTitle}>
-            {type === "films" && data.original_title !== data.title
-              ? ` \u2022 [${data.original_title}]`
+            {(type === "films" && data.original_title !== data.title) ||
+            (type === "shows" && data.original_name !== data.name)
+              ? ` \u2022 [${type === "films" ? data.original_title : data.original_name}]`
               : ""}
           </h3>
         </div>
