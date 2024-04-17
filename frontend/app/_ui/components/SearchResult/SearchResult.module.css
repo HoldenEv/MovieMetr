@@ -19,7 +19,9 @@
 }
 
 .notableWorksLabel {
-  color: #ccc;
+  color: #ececec;
+  display: inline;
+  font-size: 370;
   margin-bottom: 6px;
 }
 
