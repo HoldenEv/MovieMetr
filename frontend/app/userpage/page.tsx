@@ -14,6 +14,16 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 
+// {user && (
+//   <div>
+//     <Image
+//       priority
+//       src={user.profilepath} // Assuming user object contains profile picture path
+//       width={500}
+//       height={500}
+//       alt="Profile Picture"
+//     />
+
 
 interface User {
   username: string;

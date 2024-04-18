@@ -85,7 +85,6 @@
   border: none;
   background-color: var(--darker-blue);
   color: var(--pure-white);
-  border-color: var(--pure-white);
   padding: 10px;
   font-size: 16px;
   transition:
@@ -94,10 +93,13 @@
 }
 
 .editProfile:hover,
-.editProfile:focus,
-.shareProfile:hover,
-.shareProfile:focus {
+.shareProfile:hover {
   background-color: var(--darker-blue-highlight);
+}
+
+.editProfile:active,
+.shareProfile:active {
+  background-color: var(--darker-blue); /* Change back to original color on click */
 }
 
 .gallery {
