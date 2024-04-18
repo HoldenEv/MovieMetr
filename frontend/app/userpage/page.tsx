@@ -14,14 +14,12 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 
-
 interface User {
   username: string;
   email: string;
   profilepath: string;
   bio: String;
 }
-
 
 // interface for the tabs
 interface TabPanelProps {
