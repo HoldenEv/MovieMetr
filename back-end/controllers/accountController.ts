@@ -5,6 +5,7 @@ import jwt from "jwt-simple";
 //responsible for logging in a user, takes in a username and returns a token
 //password verificationis not yet handled
 const loginUser = async (username: string,password:string) => {
+  console.log("usuername: ", username)
   const user = await User.findOne({ username: username }).exec();
   if (!user) {
     throw new Error("Username not found");
