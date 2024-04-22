@@ -14,6 +14,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
   const handleClick = () => {
     setOpenState(false);
   };
+  
   const [formData, setFormData] = useState({
     email: "",
     username: "",
