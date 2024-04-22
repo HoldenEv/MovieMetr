@@ -86,7 +86,7 @@ export default function Userpage() {
   };
 
   useEffect(() => {
-    const userId = '66144b298785154f407541ca';
+    const userId = '662031400e351377c31953ee';
     fetchUser(userId); // Fetch user data on mount
   }, []);
 
@@ -133,7 +133,7 @@ export default function Userpage() {
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={'66144b298785154f407541ca'}
+              userId={'662031400e351377c31953ee'}
             />
           )}
         </div>
