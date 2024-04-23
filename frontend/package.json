@@ -18,7 +18,8 @@
     "next-auth": "^4.24.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-modal": "^3.16.1"
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",

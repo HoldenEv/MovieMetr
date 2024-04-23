@@ -1,6 +1,6 @@
 "use client"
 import "./login.css";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useAuth } from "../context/authContext";
 import { BrowserRouter as Router } from 'react-router-dom';
 import React from "react";
@@ -11,14 +11,19 @@ export default function Login() {
 
   const { token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister } = useAuth();
 
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault(); // Prevent page from reloading
-    console.log("made it into handle submit");
-    console.log("username: " +  username, "password: " + password);
-    return handleLogin(user, pass);
-    //if (value !== undefined && value.token !== undefined) {
+    // You can remove the return statement if handleLogin doesn't return anything
+    setUsername(user)
+    setPassword(pass)
+    handleLogin(user, pass);
   };
+  
+  useEffect(() => {
+    // This effect will run whenever `user` or `pass` changes
+    console.log("username changed: " + user, "password changed: " + pass);
+  }, [user, pass]);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);

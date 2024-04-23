@@ -3,10 +3,32 @@ import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUpUser } from "../_api/signup";
 import { logInUser } from "../_api/login";
+import { getProfileFromToken } from "../_api/profile";
 import { ReactNode } from 'react';
 import { setTokenCookie } from "../actions/cookieActions";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";
 const INVALID_TOKEN = "INVALID_TOKEN";
+const EXPIRATION_KEY = 'expiration';
+
+// Store data with expiration time
+function setWithExpiration(key: string, data: any, expirationMinutes: number) {
+  const expiration = new Date();
+  expiration.setMinutes(expiration.getMinutes() + expirationMinutes);
+  localStorage.setItem(key, JSON.stringify(data));
+  localStorage.setItem(EXPIRATION_KEY, expiration.getTime().toString());
+}
+
+// Retrieve data with expiration check
+function getWithExpiration(key: string): any | null {
+  const expiration = localStorage.getItem(EXPIRATION_KEY);
+  if (!expiration) return null;
+  if (Date.now() > parseInt(expiration)) {
+    localStorage.removeItem(key);
+    localStorage.removeItem(EXPIRATION_KEY);
+    return null; // Data has expired
+  }
+  return JSON.parse(localStorage.getItem(key) || '');
+}
 
 const AuthContext = createContext({
   token: "",
@@ -28,19 +50,16 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const [email, setEmail] = useState<string>("");
 
   const handleLogin = async (user : string, pass : string) => {
-    console.log("made it into login")
     setUsername(user);
     setPassword(pass);
-
-    console.log("handleLogin enter  user: " + username);
-    const token = await logInUser(username, password);
-    
-    console.log("handleLogin token: " + token);
+    const token = await logInUser(user, pass);    
     if (token) {
       setToken(token);
-      // load the profile page of the user that has signed in
-      setTokenCookie(token);
-      //localStorage.setItem(TOKEN_KEY, token);
+      // this will locally store a token for 30 minutes
+      setWithExpiration("token", token, 30);
+      console.log(token);
+      console.log(getProfileFromToken(token));
+
       router.push("/userpage");
     } else {
       // if token is not valid we want to put the user in the homepage and not login
@@ -52,7 +71,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const handleLogout = () => {
     console.log("handleLogout");
     setToken(INVALID_TOKEN);
-    router.push("/home");
+    router.push("/");
   };
 
   const handleRegister = async (user : string, pass : string, email : string) => {

@@ -1,9 +1,6 @@
 const BASE_URL: string = "http://localhost:3001/authentication";
 
-export const logInUser = async (
-  username: string,
-  password: string,
-): Promise<any> => {
+export const logInUser = async (username : string, password : string): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({
       username: username,

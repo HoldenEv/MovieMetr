@@ -1,7 +1,7 @@
 "use client";
 import styles from "./userpage.module.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,9 +11,9 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unst
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
-import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
-
+import { getProfileFromToken } from "@/_api/profile";
+import isAuth from "@/protected/protectedRoute";
 
 interface User {
   username: string;
@@ -22,14 +22,12 @@ interface User {
   bio: String;
 }
 
-
 // interface for the tabs
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
-
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -67,11 +65,23 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-// handle tab changes and other userPage canges
-export default function Userpage() {
+const Userpage = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+
+  var tokenData : any = undefined;
+  var id : any = undefined;
+  if (typeof window !== 'undefined') {
+    tokenData = localStorage.getItem('token');
+    if (!tokenData) {
+      console.log("not token")
+    } else {
+      const tokenObject = JSON.parse(tokenData);
+      console.log("Protected Route token" + tokenObject.token);
+      const decodedToken = getProfileFromToken(tokenObject.token);   
+    }
+  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -83,19 +93,6 @@ export default function Userpage() {
 
   const closeEditProfileModal = () => {
     setIsEditProfileOpen(false);
-  };
-
-  useEffect(() => {
-    const userId = '66144b298785154f407541ca';
-    fetchUser(userId); // Fetch user data on mount
-  }, []);
-
-  const fetchUser = (userId: string) => {
-    // Make API call to fetch user data
-    fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => setUser(data))
-      .catch(error => console.error("Error fetching user data", error));
   };
 
   return (
@@ -264,3 +261,7 @@ export default function Userpage() {
     </div>
   );
 }
+
+const ProtectedUserpage = isAuth(Userpage);
+
+export default ProtectedUserpage;
