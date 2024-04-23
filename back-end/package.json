@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@types/express-session": "^1.17.10",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
