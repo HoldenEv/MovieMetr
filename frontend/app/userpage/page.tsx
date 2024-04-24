@@ -14,16 +14,6 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 
-// {user && (
-//   <div>
-//     <Image
-//       priority
-//       src={user.profilepath} // Assuming user object contains profile picture path
-//       width={500}
-//       height={500}
-//       alt="Profile Picture"
-//     />
-
 
 interface User {
   username: string;
@@ -32,12 +22,18 @@ interface User {
   bio: String;
 }
 
-
 // interface for the tabs
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+// interface for the Movielists
+interface List {
+  _id: string;
+  name: string;
+  entries: { itemType: string; item_id: string }[];
 }
 
 
@@ -69,19 +65,13 @@ function a11yProps(index: number) {
   };
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 // handle tab changes and other userPage canges
 export default function Userpage() {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [lists, setLists] = useState<List[]>([]);
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -96,8 +86,9 @@ export default function Userpage() {
   };
 
   useEffect(() => {
-    const userId = '66144b298785154f407541ca';
+    const userId = '662031400e351377c31953ee';
     fetchUser(userId); // Fetch user data on mount
+    fetchLists(userId); //Fetch list data on mount
   }, []);
 
   const fetchUser = (userId: string) => {
@@ -106,7 +97,19 @@ export default function Userpage() {
       .then(response => response.json())
       .then(data => setUser(data))
       .catch(error => console.error("Error fetching user data", error));
+
   };
+  
+  const fetchLists = (userId: string) => {
+    // Make API call to fetch user's lists
+    axios.get(`http://localhost:3001/listsRoutes/getLists?userId=${userId}`)
+      .then(response => {
+        console.log("Fetched lists:", response.data)
+        setLists(response.data);
+      })
+      .catch(error => console.error("Error fetching user's lists", error));
+  };
+
 
   return (
     <div className={styles.userPage}>
@@ -143,7 +146,7 @@ export default function Userpage() {
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={'66144b298785154f407541ca'}
+              userId={'662031400e351377c31953ee'}
             />
           )}
         </div>
@@ -157,7 +160,7 @@ export default function Userpage() {
           sx={{ borderBottom: 1, borderColor: "white" }}
         >
           <Tab
-            label="Favorites"
+            label="Movie List"
             {...a11yProps(0)}
             sx={{
               color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
@@ -188,23 +191,18 @@ export default function Userpage() {
               columnSpacing={{ xs: 1, sm: 1, md: 1 }}
               justifyContent="center"
             >
-              {[
-                "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-                "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
-                "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
-                "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg",
-              ].map((imageUrl, index) => (
+              {lists.map((list, index) => (
                 <Grid key={index} xs={6} sm={3} md={2}>
-                  <img
-                    src={imageUrl}
-                    className={styles.galleryItem}
-                    alt={`Poster for films`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
+                  <div>
+                    <h3>{list.name}</h3>
+                    <ul>
+                      {list.entries.map((entry, index) => (
+                        <li key={index}>
+                          {entry.item_id}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </Grid>
               ))}
             </Grid>
