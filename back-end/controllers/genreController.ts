@@ -13,6 +13,7 @@ const addGenre = async (genreId: string, genreName: string) => {
         name: genreName,
       });
       await newGenre.save();
+      return newGenre;
     } else {
       console.error("Error adding genre: Genre already in database");
       return null;
