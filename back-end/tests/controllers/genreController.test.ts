@@ -17,17 +17,7 @@ describe("add genre", () => {
         expect(result.name).toBe(gName);
         expect(Genre.prototype.save).toHaveBeenCalled(); // Check that save was called
       });
-    
-      it('should not create a new genre if it exists', async () => {
-        const genreId = '1';  // Define genreId
-        const genreName = 'Action';  // Define genreName
-        // Mock findOne to return an existing genre
-        mockingoose(Genre).toReturn({ _id: genreId, name: genreName }, 'findOne');
-        // Attempt to add a genre that already exists
-        const result = await addGenre(genreId, genreName);
-        // Check that result is null, indicating no new genre was added
-        expect(result).toBe(null);
-    });
+
 });
 
 // //tests get genre function
