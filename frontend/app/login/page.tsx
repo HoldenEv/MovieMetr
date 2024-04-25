@@ -22,7 +22,6 @@ export default function Login() {
   
   useEffect(() => {
     // This effect will run whenever `user` or `pass` changes
-    console.log("username changed: " + user, "password changed: " + pass);
   }, [user, pass]);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +43,7 @@ export default function Login() {
                 type="text"
                 id="username"
                 name="username"
+                autoComplete="username"
                 value={user} // Set value to username state
                 onChange={handleUsernameChange} // Handle input change
                 required
@@ -55,6 +55,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 name="password"
+                autoComplete="current-password"
                 value={pass} // Set value to password state
                 onChange={handlePasswordChange} // Handle input change
                 required

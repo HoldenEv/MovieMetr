@@ -5,7 +5,6 @@ import { signUpUser } from "../_api/signup";
 import { logInUser } from "../_api/login";
 import { getProfileFromToken } from "../_api/profile";
 import { ReactNode } from 'react';
-import { setTokenCookie } from "../actions/cookieActions";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";
 const INVALID_TOKEN = "INVALID_TOKEN";
 const EXPIRATION_KEY = 'expiration';
@@ -43,6 +42,8 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const router = useRouter();
+  //const navigate = useNavigate();
+
   const [token, setToken] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -55,12 +56,15 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     const token = await logInUser(user, pass);    
     if (token) {
       setToken(token);
+      //setTokenCookie(token);
       // this will locally store a token for 30 minutes
       setWithExpiration("token", token, 30);
       console.log(token);
-      console.log(getProfileFromToken(token));
-
+      //console.log(getProfileFromToken(token));
+      //router.refresh();
+      //navigate("/userpage");
       router.push("/userpage");
+      router.push("/");
     } else {
       // if token is not valid we want to put the user in the homepage and not login
       router.push("/")
@@ -87,6 +91,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   };
 
   return (
+
     <AuthContext.Provider value={{ token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister }}>
       {children}
     </AuthContext.Provider>
