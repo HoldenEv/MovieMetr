@@ -21,7 +21,6 @@ export default function SideBar() {
         const tokenData = localStorage.getItem("token");
         if (tokenData) {
           const tokenObject = JSON.parse(tokenData);
-          console.log("Token: ", tokenObject);
           setToken(tokenObject);
           router.push(pathname);
       }

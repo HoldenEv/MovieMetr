@@ -6,7 +6,6 @@ import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2"; 
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
@@ -14,7 +13,6 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
-import { redirect } from "react-router-dom";
 
 interface User {
   username: string;
@@ -41,11 +39,11 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+      <div>
+        <Box sx={{ p: 3, display: value === index ? 'block' : 'none' }}>
+          <div>{children}</div>
         </Box>
-      )}
+      </div>
     </div>
   );
 }
@@ -70,6 +68,28 @@ const Userpage = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+
+  // this basically is just letting computer know we are in a browser window
+  // 
+  if (typeof window !== "undefined") {
+    useEffect(() => {    
+        const tokenData = localStorage.getItem("token");
+        if (tokenData) {
+          // This allows us to parse the token in a usable
+          const tokenObject = JSON.parse(tokenData);
+          // Hit our profile route 
+          getProfileFromToken(tokenObject.token)
+          // this allows us to unpack the promise we get from the profile route
+                .then(response => {
+                    const id = response.user.id;
+                    console.log("HERE IS THE USER's ID : " + id);
+                })
+                .catch(error => {
+                    console.error("Error fetching user ID: ", error);
+                });
+      }
+    }, []);
+  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -252,17 +272,3 @@ const Userpage = () => {
 
 export default isAuth(Userpage);
 
- // useEffect(() => {
-  //   // Check if running in the browser
-  //   if (typeof window !== "undefined") {
-  //     const tokenData = localStorage.getItem("token");
-  //     if (!tokenData) {
-  //       console.log("not token");
-  //       redirect("/");
-  //     } else {
-  //       const tokenObject = JSON.parse(tokenData);
-  //       console.log("Protected Route token" + tokenObject.token);
-  //       const decodedToken = getProfileFromToken(tokenObject.token);
-  //     }
-  //   }
-  // }, []);
