@@ -3,16 +3,13 @@ import styles from "./userpage.module.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Tabs, Tab, Box, Typography } from '@mui/material';
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unstable
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+import { getUserLists, getListInfo, getMovieInfo } from "@/_api/lists";
+import notfound from "@/_assets/NOTFOUND.png";
 
 
 interface User {
@@ -29,13 +26,11 @@ interface TabPanelProps {
   value: number;
 }
 
-// interface for the Movielists
-interface List {
+interface MovieList {
   _id: string;
   name: string;
-  entries: { itemType: string; item_id: string }[];
+  entries: { itemType: string; item_id: string; imageUrl?: string }[];
 }
-
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -50,7 +45,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -70,7 +65,8 @@ export default function Userpage() {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const [lists, setLists] = useState<List[]>([]);
+  const [userLists, setUserLists] = useState<MovieList[]>([]);
+  const [movieInfo, setMovieInfo] = useState(null);
 
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -88,7 +84,7 @@ export default function Userpage() {
   useEffect(() => {
     const userId = '662031400e351377c31953ee';
     fetchUser(userId); // Fetch user data on mount
-    fetchLists(userId); //Fetch list data on mount
+    fetchUserListsData(userId);
   }, []);
 
   const fetchUser = (userId: string) => {
@@ -97,20 +93,29 @@ export default function Userpage() {
       .then(response => response.json())
       .then(data => setUser(data))
       .catch(error => console.error("Error fetching user data", error));
-
-  };
-  
-  const fetchLists = (userId: string) => {
-    // Make API call to fetch user's lists
-    axios.get(`http://localhost:3001/listsRoutes/getLists?userId=${userId}`)
-      .then(response => {
-        console.log("Fetched lists:", response.data)
-        setLists(response.data);
-      })
-      .catch(error => console.error("Error fetching user's lists", error));
   };
 
+  const fetchUserListsData = async (userId: string) => {
+    try {
+      const lists = await getUserLists(userId);
+      console.log("user lists:", lists);
+      for (let list of lists) {
+        console.log("list:", list);
+        for (let entry of list.entries) {
+          const movieInfo = await getMovieInfo(entry.item_id);
+          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`
+          setMovieInfo(movieInfo)
+        }
+      }
+      
+      setUserLists(lists);
 
+    } catch (error) {
+      console.error("Error fetching user lists", error);
+    }
+  };
+
+ 
   return (
     <div className={styles.userPage}>
       <div className={styles.userInfo}>
@@ -160,7 +165,7 @@ export default function Userpage() {
           sx={{ borderBottom: 1, borderColor: "white" }}
         >
           <Tab
-            label="Movie List"
+            label="Movie Lists"
             {...a11yProps(0)}
             sx={{
               color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
@@ -183,30 +188,34 @@ export default function Userpage() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className={styles.gallery}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
-              justifyContent="center"
-            >
-              {lists.map((list, index) => (
-                <Grid key={index} xs={6} sm={3} md={2}>
-                  <div>
-                    <h3>{list.name}</h3>
-                    <ul>
-                      {list.entries.map((entry, index) => (
-                        <li key={index}>
-                          {entry.item_id}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
+        <div >
+          <h1>User Lists</h1>
+          {userLists.map((list) => (
+            <div key={list._id}>
+              <h2>{list.name}</h2>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} justifyContent="center">
+                    {list.entries.map((entry, index) => (
+                      <Grid key={index} xs={6} sm={3} md={2}>
+                        {entry.imageUrl ? (
+                          <img
+                            src={entry.imageUrl}
+                            alt={entry.item_id}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        ) : (
+                          entry.item_id
+                        )}
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
+            </div>
+          ))}
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>

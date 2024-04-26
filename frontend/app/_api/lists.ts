@@ -1,4 +1,5 @@
 const BASE_URL: string = "http://localhost:3001/listRoutes";
+const BASE_URL_2: string = "http://localhost:3001/movieRoutes";
 
 /**
  * returnsa json object with all list_ids for a userId
@@ -7,7 +8,7 @@ const BASE_URL: string = "http://localhost:3001/listRoutes";
  */
 export const getUserLists = async (userId: string): Promise<any> => {
   try {
-    const response = await fetch(`${BASE_URL}/getUserLists?userId=${userId}`, {
+    const response = await fetch(`${BASE_URL}/getLists?userId=${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +46,44 @@ export const getListInfo = async (listId: string): Promise<any> => {
     return await response.json();
   } catch (error: any) {
     console.error("Error getting list:", error.message);
+    throw error;
+  }
+};
+
+
+// error check for movie that is not in db
+export const getMovieInfo = async (movieId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL_2}/getMovie?movieId=${movieId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error getting movie:", error.message);
+    throw error;
+  }
+};
+
+export const addMovieToList = async (listId: string, movieId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/addMovieToList?listId=${listId}&movieId=${movieId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error adding movie to list:", error.message);
     throw error;
   }
 };
