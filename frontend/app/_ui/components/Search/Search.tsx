@@ -55,8 +55,6 @@ export default function Search() {
       inputText = inputText.replace(/\s+/g, "+").toLowerCase();
       /* go to search page for searched item */
       router.push(`/search/${activeButton.toLowerCase()}/${inputText}/page/1`);
-      /* reset the value of the search bar */
-      formElement.search.value = "";
     } catch (error) {
       console.error("Error getting results: ", error);
     }
@@ -118,75 +116,3 @@ export default function Search() {
     </div>
   );
 }
-
-// export default function Header() {
-//   const [loginOpen, setLoginOpen] = useState(false);
-//   const [signupOpen, setSignupOpen] = useState(false);
-
-//   const handleOpen = () => {
-//     setLoginOpen(!loginOpen);
-//   };
-
-//   const handleSignupClick = () => {
-//     setSignupOpen(!signupOpen);
-//   };
-
-//   return (
-//     <>
-//       <header className={styles.header}>
-//         <nav>
-//           <ul className={styles.list}>
-//             {loginOpen ? null : <Form />}
-//             <div className={styles.navLinkContainer}>
-//               <Link href="/" className={styles.navLink}>
-//                 HOME
-//               </Link>
-//               <a className={styles.navLink} onClick={handleOpen}>
-//                 SIGN IN
-//               </a>
-//               {loginOpen ? null : (
-//                 <a className={styles.navLink} onClick={handleSignupClick}>
-//                   CREATE ACCOUNT
-//                 </a>
-//               )}
-//             </div>
-//           </ul>
-//           <div className={styles.hamburger}>
-//             <span className={styles.bar}></span>
-//             <span className={styles.bar}></span>
-//             <span className={styles.bar}></span>
-//           </div>
-//         </nav>
-//       </header>
-//       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
-//       {signupOpen ? (
-//         <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
-//       ) : null}
-//     </>
-//   );
-// }
-
-// function AuthContainer() {
-//   const [isLoginOpen, setLoginOpen] = useState(false);
-//   const [isSignUpOpen, setSignUpOpen] = useState(false);
-
-//   const openLogin = () => {
-//     setLoginOpen(true);
-//     setSignUpOpen(false);
-//   };
-
-//   const openSignUp = () => {
-//     setSignUpOpen(true);
-//     setLoginOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={openLogin}>Open Login</button>
-//       <button onClick={openSignUp}>Open Sign Up</button>
-
-//       {isLoginOpen && <Login setOpenState={setLoginOpen} />}
-//       {isSignUpOpen && <SignUp setOpenState={setSignUpOpen} />}
-//     </div>
-//   );
-// }
