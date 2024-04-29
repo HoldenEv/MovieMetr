@@ -34,7 +34,7 @@ const addTVshow = async (TVshowId: string) => {
 
     //add all people(actors, directors, producers,writers) to the database
     //defined in personController
-    addAllTVPeople(TVshowId);
+    (TVshowId);
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/

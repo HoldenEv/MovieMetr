@@ -195,13 +195,10 @@ const searchTvShows = async (searchString: string, page: string) => {
  * @returns all the movie details as json object in response
  */
 const movieById = async (id: string) => {
-  // if(getMovie(id) != null){
-  //   // return getMovie(id);
-  //   console.log(getMovie(id));
-  // }
-  const movie = await getMovie(id);
-  if (movie != null) {
-    return movie;
+  console.log (id);
+  if(await getMovie(id) != null){
+    console.log(getMovie(id));
+    return getMovie(id);
   }
 
 

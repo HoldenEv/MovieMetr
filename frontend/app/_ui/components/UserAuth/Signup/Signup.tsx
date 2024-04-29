@@ -1,4 +1,4 @@
-import styles from "./signup.module.css";
+import styles from "../Auth.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import ReactModal from "react-modal";
@@ -14,6 +14,8 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
   const handleClick = () => {
     setOpenState(false);
   };
+
+  const [error, setError] = useState<string>("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -61,13 +63,12 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
     try {
       // Call the signUpUser function from signup.ts
-      const response = await signUpUser(
+      await signUpUser(
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword,
+        formData.confirmPassword
       );
-      console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
       setFormData({
         email: "",
@@ -77,9 +78,13 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       });
       /* Close the modal */
       setOpenState(false);
-      /* TODO: Set session logic */
     } catch (error: any) {
-      alert(error.message);
+      if (error.message) {
+        setError(error.message);
+        return;
+      } else {
+        setError("An error occured. Please try again later.");
+      }
     }
   };
 
@@ -98,12 +103,12 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
                 priority
                 src={closeIcon}
                 width={30}
-                alt="Close login dropdown"
+                alt="Close create account modal"
                 className={styles.closeIcon}
               ></Image>
             </button>
           </div>
-          <h1 className={styles.head}>Join MovieMeter</h1>
+          <h1 className={styles.head}>JOIN MOVIEMETER</h1>
           <hr className={styles.line}></hr>
           <div className={styles.formRow}>
             <label htmlFor="email">Email</label>
@@ -133,13 +138,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
             <p>Username must meet the following requirements:</p>
             <ul>
               <li
-                style={{ color: passwordValid.userLength ? "inherit" : "red" }}
+                style={{
+                  color: passwordValid.userLength ? "inherit" : "#eb7673",
+                }}
               >
                 At least 3 characters and at most 50 characters
               </li>
               <li
                 style={{
-                  color: passwordValid.userSpecialChars ? "inherit" : "red",
+                  color: passwordValid.userSpecialChars ? "inherit" : "#eb7673",
                 }}
               >
                 Is composed of only letters and numbers, or special characters
@@ -162,19 +169,31 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               <p>Password must meet the following requirements:</p>
               <ul>
                 <li
-                  style={{ color: passwordValid.matches ? "inherit" : "red" }}
+                  style={{
+                    color: passwordValid.matches ? "inherit" : "#eb7673",
+                  }}
                 >
                   Passwords must match
                 </li>
-                <li style={{ color: passwordValid.length ? "inherit" : "red" }}>
+                <li
+                  style={{
+                    color: passwordValid.length ? "inherit" : "#eb7673",
+                  }}
+                >
                   At least 8 characters long
                 </li>
                 <li
-                  style={{ color: passwordValid.uppercase ? "inherit" : "red" }}
+                  style={{
+                    color: passwordValid.uppercase ? "inherit" : "#eb7673",
+                  }}
                 >
                   Contain at least one uppercase letter
                 </li>
-                <li style={{ color: passwordValid.number ? "inherit" : "red" }}>
+                <li
+                  style={{
+                    color: passwordValid.number ? "inherit" : "#eb7673",
+                  }}
+                >
                   Contain at least one number
                 </li>
               </ul>
@@ -191,9 +210,12 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               className={styles.formInput}
             />
           </div>
+          {error && (
+            <p style={{ color: "#eb7673", fontSize: "0.85rem" }}>{error}</p>
+          )}
           <div className={styles.loginBottomButtons}>
             <button className={styles.createAccountButton} type="submit">
-              Create Account
+              SIGN UP
             </button>
           </div>
         </div>

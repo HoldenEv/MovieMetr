@@ -9,28 +9,28 @@ import Image from "next/image";
 
 export default function SideBar() {
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.top}>
-        <div className={styles.logo}>
-          <Image src={Logo} alt="logo" width={100} height={80} />
-          {/* <span>MovieMeter</span>   */}
+      <div className={styles.sidebar}>
+        <div className={styles.top}>
+          <div className={styles.logo}>
+            <Image src={Logo} alt="logo" width={100} height={80} />
+            {/* <span>MovieMeter</span>   */}
+          </div>
         </div>
-      </div>
 
-      <ul>
-        <li>
-          <a href="/">
-            <div className={styles.icon}>
-              <HomeIcon></HomeIcon>
-            </div>
-            <span className={styles.navitem}>Home</span>
-          </a>
-        </li>
-        <li>
-          <a href="/search">
-            <div className={styles.icon}>
-              <SearchIcon></SearchIcon>
-            </div>
+        <ul>
+          <li>
+            <a href="/">
+              <div className={styles.icon}>
+                <HomeIcon></HomeIcon>
+              </div>
+              <span className={styles.navitem}>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/search">
+              <div className={styles.icon}>
+                <SearchIcon></SearchIcon>
+              </div>
 
             <span className={styles.navitem}>Search</span>
           </a>
