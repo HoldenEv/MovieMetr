@@ -138,13 +138,15 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
             <p>Username must meet the following requirements:</p>
             <ul>
               <li
-                style={{ color: passwordValid.userLength ? "inherit" : "red" }}
+                style={{
+                  color: passwordValid.userLength ? "inherit" : "#eb7673",
+                }}
               >
                 At least 3 characters and at most 50 characters
               </li>
               <li
                 style={{
-                  color: passwordValid.userSpecialChars ? "inherit" : "red",
+                  color: passwordValid.userSpecialChars ? "inherit" : "#eb7673",
                 }}
               >
                 Is composed of only letters and numbers, or special characters
@@ -168,28 +170,28 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               <ul>
                 <li
                   style={{
-                    color: passwordValid.matches ? "inherit" : "#f2150f",
+                    color: passwordValid.matches ? "inherit" : "#eb7673",
                   }}
                 >
                   Passwords must match
                 </li>
                 <li
                   style={{
-                    color: passwordValid.length ? "inherit" : "#f2150f",
+                    color: passwordValid.length ? "inherit" : "#eb7673",
                   }}
                 >
                   At least 8 characters long
                 </li>
                 <li
                   style={{
-                    color: passwordValid.uppercase ? "inherit" : "#f2150f",
+                    color: passwordValid.uppercase ? "inherit" : "#eb7673",
                   }}
                 >
                   Contain at least one uppercase letter
                 </li>
                 <li
                   style={{
-                    color: passwordValid.number ? "inherit" : "#f2150f",
+                    color: passwordValid.number ? "inherit" : "#eb7673",
                   }}
                 >
                   Contain at least one number
@@ -208,7 +210,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               className={styles.formInput}
             />
           </div>
-          {error && <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>}
+          {error && (
+            <p style={{ color: "#eb7673", fontSize: "0.85rem" }}>{error}</p>
+          )}
           <div className={styles.loginBottomButtons}>
             <button className={styles.createAccountButton} type="submit">
               Create Account
