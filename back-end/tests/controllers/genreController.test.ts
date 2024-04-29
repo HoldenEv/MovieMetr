@@ -4,7 +4,7 @@ import { addGenre, addMovieGenres, getGenre,deleteGenre,deleteMovieGenre,addTVsh
 //connect to the db before all tests
 describe("add genre", () => {
     beforeAll(async () => {
-       // mockingoose.resetAll();
+       mockingoose.resetAll();
     });
     it('should create a new genre if it does not exist', async () => {
         mockingoose(Genre).toReturn(null, 'findOne'); // Simulate no genre found
@@ -17,6 +17,9 @@ describe("add genre", () => {
         expect(result.name).toBe(gName);
         expect(Genre.prototype.save).toHaveBeenCalled(); // Check that save was called
       });
+
+      //test if addGenre returns a genre if it already exists
+      
 
 });
 
