@@ -1,6 +1,6 @@
 import styles from "../Auth.module.css";
 import Image from "next/image";
-import closeIcon from "@/_assets/close.svg";
+import CloseIcon from '@mui/icons-material/Close';
 import ReactModal from "react-modal";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
@@ -99,13 +99,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         <div>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
-              <Image
-                priority
-                src={closeIcon}
-                width={30}
-                alt="Close create account modal"
-                className={styles.closeIcon}
-              ></Image>
+              <CloseIcon className={styles.closeIcon}/>
             </button>
           </div>
           <h1 className={styles.head}>JOIN MOVIEMETER</h1>
