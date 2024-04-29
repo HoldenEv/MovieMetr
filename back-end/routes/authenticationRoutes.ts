@@ -68,8 +68,8 @@ router.get(
 //route to login a user, calls loginUser function from accountController
 router.post("/login", async (req: Request, res: Response) => {
   try {
-    const { username,password } = req.body;
-    const result = await loginUser(username,password);
+    const { username, password } = req.body;
+    const result = await loginUser(username, password);
     //currently returns the user object nice for testing
     res.json(result);
   } catch (error) {
@@ -85,9 +85,9 @@ router.post("/register", async (req: Request, res: Response) => {
     const result = await registerUser(email, username, password);
     //currently returns the user object nice for testing
     res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error registering", error);
-    res.status(500).send("Error registering");
+    res.status(409).send({ message: error.message });
   }
 });
 
@@ -149,8 +149,8 @@ router.post("/updateProfilePath", async (req: Request, res: Response) => {
 //takes a user id and new password in req body
 router.post("/updatePassword", async (req: Request, res: Response) => {
   try {
-    const { userId,newPassword,oldPassword } = req.body;
-    const updatedUser = await updatePassword(userId, oldPassword,newPassword);
+    const { userId, newPassword, oldPassword } = req.body;
+    const updatedUser = await updatePassword(userId, oldPassword, newPassword);
     res.json({ message: "Password updated", user: updatedUser });
   } catch (error) {
     console.error("Error updating password", error);
@@ -163,7 +163,13 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
 router.post("/updateUser", async (req: Request, res: Response) => {
   try {
     const { userId, email, username, bio, profilePath } = req.body;
-    const updatedUser = await updateUser(userId, email, username, bio, profilePath);
+    const updatedUser = await updateUser(
+      userId,
+      email,
+      username,
+      bio,
+      profilePath
+    );
     res.json({ message: "User updated", user: updatedUser });
   } catch (error) {
     console.error("Error updating user", error);
@@ -183,9 +189,6 @@ router.get("/getUser", async (req: Request, res: Response) => {
     res.status(500).send("Error getting user");
   }
 });
-
-
-
 
 //ROUTES FOR FOLLOWING LOGIC---------------------------------------------
 
@@ -236,6 +239,5 @@ router.get("/getFollowers", async (req: Request, res: Response) => {
     res.status(500).send("Error getting followers");
   }
 });
-
 
 export default router;

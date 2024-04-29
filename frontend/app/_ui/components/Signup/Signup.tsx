@@ -14,7 +14,9 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
   const handleClick = () => {
     setOpenState(false);
   };
-  
+
+  const [error, setError] = useState<string>("");
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -61,13 +63,12 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
 
     try {
       // Call the signUpUser function from signup.ts
-      const response = await signUpUser(
+      await signUpUser(
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword,
+        formData.confirmPassword
       );
-      console.log("Sign up successful:", response);
       // Clear form data or perform any additional actions as needed
       setFormData({
         email: "",
@@ -77,9 +78,13 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
       });
       /* Close the modal */
       setOpenState(false);
-      /* TODO: Set session logic */
     } catch (error: any) {
-      alert(error.message);
+      if (error.message) {
+        setError(error.message);
+        return;
+      } else {
+        setError("An error occured. Please try again later.");
+      }
     }
   };
 
@@ -162,19 +167,31 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               <p>Password must meet the following requirements:</p>
               <ul>
                 <li
-                  style={{ color: passwordValid.matches ? "inherit" : "red" }}
+                  style={{
+                    color: passwordValid.matches ? "inherit" : "#f2150f",
+                  }}
                 >
                   Passwords must match
                 </li>
-                <li style={{ color: passwordValid.length ? "inherit" : "red" }}>
+                <li
+                  style={{
+                    color: passwordValid.length ? "inherit" : "#f2150f",
+                  }}
+                >
                   At least 8 characters long
                 </li>
                 <li
-                  style={{ color: passwordValid.uppercase ? "inherit" : "red" }}
+                  style={{
+                    color: passwordValid.uppercase ? "inherit" : "#f2150f",
+                  }}
                 >
                   Contain at least one uppercase letter
                 </li>
-                <li style={{ color: passwordValid.number ? "inherit" : "red" }}>
+                <li
+                  style={{
+                    color: passwordValid.number ? "inherit" : "#f2150f",
+                  }}
+                >
                   Contain at least one number
                 </li>
               </ul>
@@ -191,6 +208,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               className={styles.formInput}
             />
           </div>
+          {error && <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>}
           <div className={styles.loginBottomButtons}>
             <button className={styles.createAccountButton} type="submit">
               Create Account
