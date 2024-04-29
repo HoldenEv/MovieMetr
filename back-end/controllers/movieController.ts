@@ -16,6 +16,7 @@ just cant think of any rn*/
  */
 const addMovie = async (movieId: string) => {
   try {
+   
     //checks if movie is already in the database
     if ((await Movie.findOne({ _id: movieId })) != null) {
       console.error("Error adding movie: Movie already in database");
@@ -23,6 +24,7 @@ const addMovie = async (movieId: string) => {
     }
     //grabs all movie details from the API
     const movie = await movieById(movieId);
+    
     const newMovie = new Movie({
       _id: movie.id,
       title: movie.title,
