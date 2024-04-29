@@ -4,8 +4,9 @@ import { useState, useEffect} from "react";
 import { useAuth } from "../context/authContext";
 import { BrowserRouter as Router } from 'react-router-dom';
 import React from "react";
+import isLoginIn from "@/protected/signedIn";
 
-export default function Login() {
+const Login = () => {
   const [user, setUsername] = useState("");
   const [pass, setPassword] = useState("");
 
@@ -82,3 +83,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login

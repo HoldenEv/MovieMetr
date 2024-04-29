@@ -68,6 +68,7 @@ const Userpage = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [id, setId] = useState(null);
 
   // this basically is just letting computer know we are in a browser window
   // 
@@ -138,7 +139,7 @@ const Userpage = () => {
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={'66144b298785154f407541ca'}
+              userId={''}
             />
           )}
         </div>
