@@ -1,5 +1,6 @@
 const BASE_URL: string = "http://localhost:3001/listRoutes";
 const BASE_URL_2: string = "http://localhost:3001/movieRoutes";
+const BASE_URL_3: string = "http://localhost:3001/authentication";
 
 /**
  * returnsa json object with all list_ids for a userId
@@ -84,6 +85,25 @@ export const addMovieToList = async (listId: string, movieId: string): Promise<a
     return await response.json();
   } catch (error: any) {
     console.error("Error adding movie to list:", error.message);
+    throw error;
+  }
+};
+
+
+export const addList = async (listName: string, userId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/addList?name=${listName}&userId=${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error adding list:", error.message);
     throw error;
   }
 };

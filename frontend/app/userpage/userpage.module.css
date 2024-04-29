@@ -102,16 +102,54 @@
   background-color: var(--darker-blue); /* Change back to original color on click */
 }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+.addMovieList {
+  border: none;
+  background-color: var(--darker-blue);
+  color: var(--pure-white);
+  border-color: var(--pure-white);
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  flex: 1;
 }
 
-.galleryItem {
-  border-radius: 8px;
-  border: 1px solid #687fa3;
+.addMovieList:hover,
+.addMovieList:focus {
+  background-color: var(--darker-blue-highlight);
 }
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px; /* Add some padding */
+  margin: 10px 0; /* Add vertical margin */
+}
+
+.horizontalScroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.imageItem {
+  flex: 0 0 auto;
+  width: 200px; 
+  margin-right: 10px;
+  border: 2px solid #438b8b64;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.imageItem:hover {
+  cursor: pointer;
+  border: 2px solid #60ecec;
+}
+
+
+
 
 @media only screen and (max-width: 525px) {
   .userInfo {
