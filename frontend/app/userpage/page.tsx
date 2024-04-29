@@ -3,25 +3,20 @@ import styles from "./userpage.module.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2 a little unstable
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import { Tabs, Tab, Box, Divider} from '@mui/material';
 import profilePic from "@/_assets/sample_profile_pic.png";
-import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+import { getUserLists, getListInfo, getMovieInfo, addList } from "@/_api/lists";
+import notfound from "@/_assets/NOTFOUND.png";
 
 
 interface User {
+  _id: string;
   username: string;
   email: string;
   profilepath: string;
   bio: String;
 }
-
 
 // interface for the tabs
 interface TabPanelProps {
@@ -30,6 +25,11 @@ interface TabPanelProps {
   value: number;
 }
 
+interface MovieList {
+  _id: string;
+  name: string;
+  entries: { itemType: string; item_id: string; imageUrl?: string }[];
+}
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -44,7 +44,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -59,19 +59,15 @@ function a11yProps(index: number) {
   };
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 // handle tab changes and other userPage canges
 export default function Userpage() {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [userLists, setUserLists] = useState<MovieList[]>([]);
+  const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
+  const [newListName, setNewListName] = useState('');
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -85,9 +81,20 @@ export default function Userpage() {
     setIsEditProfileOpen(false);
   };
 
+  const handleCreateListClick = () => {
+    setIsCreateListFormVisible(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsCreateListFormVisible(false);
+    setNewListName('');
+  };
+
+
   useEffect(() => {
     const userId = '662031400e351377c31953ee';
     fetchUser(userId); // Fetch user data on mount
+    fetchUserListsData(userId);
   }, []);
 
   const fetchUser = (userId: string) => {
@@ -98,6 +105,35 @@ export default function Userpage() {
       .catch(error => console.error("Error fetching user data", error));
   };
 
+  const fetchUserListsData = async (userId: string) => {
+    try {
+      const lists = await getUserLists(userId);
+      for (let list of lists) {
+        for (let entry of list.entries) {
+          const movieInfo = await getMovieInfo(entry.item_id);
+          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`
+        }
+      }
+      
+      setUserLists(lists);
+
+    } catch (error) {
+      console.error("Error fetching user lists", error);
+    }
+  };
+
+  const handleCreateListSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (user) {
+      const newList = await addList(newListName, user._id); // Replace with your API function and user ID
+      setUserLists([...userLists, newList]);
+    }
+    setIsCreateListFormVisible(false);
+    setNewListName('');
+  };
+  
+
+ 
   return (
     <div className={styles.userPage}>
       <div className={styles.userInfo}>
@@ -147,7 +183,7 @@ export default function Userpage() {
           sx={{ borderBottom: 1, borderColor: "white" }}
         >
           <Tab
-            label="Favorites"
+            label="Movie Lists"
             {...a11yProps(0)}
             sx={{
               color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
@@ -170,39 +206,59 @@ export default function Userpage() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className={styles.gallery}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
-              justifyContent="center"
-            >
-              {[
-                "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
-                "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
-                "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
-                "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg",
-              ].map((imageUrl, index) => (
-                <Grid key={index} xs={6} sm={3} md={2}>
-                  <img
-                    src={imageUrl}
-                    className={styles.galleryItem}
-                    alt={`Poster for films`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+        <div className={styles.MovieLists}>
+          <div className={styles.MovieButtons}>
+            <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
+              {isCreateListFormVisible && (
+                <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
+                  <input
+                    type="text"
+                    value={newListName}
+                    onChange={(e) => setNewListName(e.target.value)}
                   />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
+                  <button type="submit">Submit</button>
+                  <button type="button" onClick={handleCancelClick}>Cancel</button>
+                </form>
+              )}
+            </div>
+            {userLists.map((list) => (
+              <div key={list._id} className={styles.listContainer}>
+                <h2>{list.name}</h2>
+                <div className={styles.horizontalScroll}>
+                  {list.entries.map((entry, index) => (
+                    <div key={index} className={styles.imageItem}>
+                      {entry.imageUrl ? (
+                        <img
+                          src={entry.imageUrl}
+                          alt={entry.item_id}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        entry.item_id
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
         </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <div className={styles.gallery}>
+        
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        
+      </CustomTabPanel>
+    </div>
+  );
+}
+
+
+{/* <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
@@ -231,36 +287,4 @@ export default function Userpage() {
               ))}
             </Grid>
           </Box>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <div className={styles.gallery}>
-          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
-            <p>
-              A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit
-              messy and rushed sometimes, and had a certain exaggeration at
-              parts.
-            </p>
-          </Box>
-          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
-            <p>
-              A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit
-              messy and rushed sometimes, and had a certain exaggeration at
-              parts.
-            </p>
-          </Box>
-          <Box sx={{ borderBottom: 1, border: "divider", marginBottom: 1 }}>
-            <p>
-              A movie with a really interesting idea and with menacing aliens as
-              enemies. It was mostly fun to watch. Although, it could be a bit
-              messy and rushed sometimes, and had a certain exaggeration at
-              parts.
-            </p>
-          </Box>
-        </div>
-      </CustomTabPanel>
-    </div>
-  );
-}
+        </div> */}
