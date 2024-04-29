@@ -72,9 +72,9 @@ router.post("/login", async (req: Request, res: Response) => {
     const result = await loginUser(username, password);
     //currently returns the user object nice for testing
     res.json(result);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error logging in", error);
-    res.status(500).send("Error logging in");
+    res.status(400).send({ message: error.message });
   }
 });
 

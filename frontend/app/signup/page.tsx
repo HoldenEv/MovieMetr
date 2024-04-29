@@ -1,6 +1,6 @@
 "use client";
 
-import Signup from "@/_ui/components/Signup/Signup";
+import Signup from "@/_ui/components/UserAuth/Signup/Signup";
 import { useState } from "react";
 
 export default function SignupPage() {

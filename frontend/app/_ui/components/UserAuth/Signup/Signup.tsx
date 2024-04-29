@@ -1,4 +1,4 @@
-import styles from "./signup.module.css";
+import styles from "../Auth.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import ReactModal from "react-modal";
@@ -103,7 +103,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
                 priority
                 src={closeIcon}
                 width={30}
-                alt="Close login dropdown"
+                alt="Close create account modal"
                 className={styles.closeIcon}
               ></Image>
             </button>
