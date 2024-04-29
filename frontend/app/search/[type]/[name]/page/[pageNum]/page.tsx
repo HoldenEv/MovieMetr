@@ -8,8 +8,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 export default function Page({
   params,
@@ -102,42 +100,7 @@ export default function Page({
                 Invalid search category, &quot;{params.type}&quot;
               </h2>
             )}
-            {showSearchOptions ? (
-              <ArrowDropUpIcon
-                className={styles.arrow}
-                fontSize="medium"
-                onClick={handleArrowClick}
-              />
-            ) : (
-              <ArrowDropDownIcon
-                className={styles.arrow}
-                fontSize="medium"
-                onClick={handleArrowClick}
-              />
-            )}
           </div>
-          {showSearchOptions && (
-            <div className={styles.categoryButtonContainer}>
-              <button
-                className={`${styles.categoryButton} ${params.type === "films" ? styles.activeCategoryButton : ""}`}
-                onClick={() => handleClick("films")}
-              >
-                FILMS
-              </button>
-              <button
-                className={`${styles.categoryButton} ${params.type === "shows" ? styles.activeCategoryButton : ""}`}
-                onClick={() => handleClick("shows")}
-              >
-                SHOWS
-              </button>
-              <button
-                className={`${styles.categoryButton} ${params.type === "people" ? styles.activeCategoryButton : ""}`}
-                onClick={() => handleClick("people")}
-              >
-                PEOPLE
-              </button>
-            </div>
-          )}
           <hr className={styles.divider} />
           <ul className={styles.resultsContainer}>
             {searchData.searchResultData.data.map(
