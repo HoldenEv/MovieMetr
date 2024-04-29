@@ -3,7 +3,7 @@ import styles from "./userpage.module.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box } from '@mui/material';
+import { Tabs, Tab, Box, Divider} from '@mui/material';
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getListInfo, getMovieInfo, addList } from "@/_api/lists";
@@ -210,7 +210,7 @@ export default function Userpage() {
           <div className={styles.MovieButtons}>
             <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
               {isCreateListFormVisible && (
-                <form onSubmit={handleCreateListSubmit}>
+                <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
                   <input
                     type="text"
                     value={newListName}
