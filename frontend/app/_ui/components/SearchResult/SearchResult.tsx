@@ -1,6 +1,6 @@
 import styles from "./SearchResult.module.css";
 import Image from "next/image";
-import notfound from "@/_assets/NOTFOUND.png"
+import notfound from "@/_assets/NOTFOUND.png";
 
 export default function SearchResult({
   type,
@@ -26,10 +26,14 @@ export default function SearchResult({
   return (
     <div className={styles.searchResultContainer}>
       <Image
-        // use our own "not found" image if source is not found from TMDB 
-        src={data.image ? `https://image.tmdb.org/t/p/original${data.image}` : notfound}
-        width={100.8}
-        height={144}
+        // use our own "not found" image if source is not found from TMDB
+        src={
+          data.image
+            ? `https://image.tmdb.org/t/p/original${data.image}`
+            : notfound
+        }
+        width={100.8*1.5}
+        height={144*1.5}
         alt={`Poster for ${data.title}`}
         className={styles.moviePoster}
       ></Image>

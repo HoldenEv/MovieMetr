@@ -64,7 +64,7 @@ export default function Page({
   */
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     router.push(`/search/${params.type}/${params.name}/page/${value}`);
   };
@@ -146,7 +146,7 @@ export default function Page({
                   <SearchResult type={params.type} data={result} />
                   <hr className={styles.divider} />
                 </li>
-              )
+              ),
             )}
           </ul>
 

@@ -14,7 +14,6 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import axios from "axios";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 
-
 interface User {
   username: string;
   email: string;
@@ -22,14 +21,12 @@ interface User {
   bio: String;
 }
 
-
 // interface for the tabs
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
-
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -86,16 +83,16 @@ export default function Userpage() {
   };
 
   useEffect(() => {
-    const userId = '662031400e351377c31953ee';
+    const userId = "662031400e351377c31953ee";
     fetchUser(userId); // Fetch user data on mount
   }, []);
 
   const fetchUser = (userId: string) => {
     // Make API call to fetch user data
     fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => setUser(data))
-      .catch(error => console.error("Error fetching user data", error));
+      .then((response) => response.json())
+      .then((data) => setUser(data))
+      .catch((error) => console.error("Error fetching user data", error));
   };
 
   return (
@@ -118,12 +115,13 @@ export default function Userpage() {
             <p>300 followers</p>
             <p>300 following</p>
           </div>
-          <p className={styles.bio}>
-          {user?.bio}
-          </p>
+          <p className={styles.bio}>{user?.bio}</p>
           <div className={styles.extensions}>
-            <button className={styles.editProfile}
-              onClick={openEditProfileModal}>Edit Profile
+            <button
+              className={styles.editProfile}
+              onClick={openEditProfileModal}
+            >
+              Edit Profile
             </button>
             <button className={styles.shareProfile} type="submit">
               Share Profile
@@ -133,7 +131,7 @@ export default function Userpage() {
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={'662031400e351377c31953ee'}
+              userId={"662031400e351377c31953ee"}
             />
           )}
         </div>

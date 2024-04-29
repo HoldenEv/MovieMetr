@@ -103,8 +103,12 @@ section {
 
 body {
   color: var(--pure-white);
-  background: rgb(9,24,36);
-  background: linear-gradient(0deg, rgba(9,24,36,1) 37%, rgba(0,0,0,1) 100%);
+  background: rgb(9, 24, 36);
+  background: linear-gradient(
+    0deg,
+    rgba(9, 24, 36, 1) 37%,
+    rgba(0, 0, 0, 1) 100%
+  );
   background-attachment: fixed;
   line-height: 1;
   width: 100%;

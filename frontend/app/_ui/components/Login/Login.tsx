@@ -13,7 +13,7 @@ export default function Login({ setOpenState }: LoginProps) {
   const handleClick = () => {
     setOpenState(false);
   };
-  
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
