@@ -108,7 +108,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
               ></Image>
             </button>
           </div>
-          <h1 className={styles.head}>Join MovieMeter</h1>
+          <h1 className={styles.head}>JOIN MOVIEMETER</h1>
           <hr className={styles.line}></hr>
           <div className={styles.formRow}>
             <label htmlFor="email">Email</label>
@@ -215,7 +215,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
           )}
           <div className={styles.loginBottomButtons}>
             <button className={styles.createAccountButton} type="submit">
-              Create Account
+              SIGN UP
             </button>
           </div>
         </div>

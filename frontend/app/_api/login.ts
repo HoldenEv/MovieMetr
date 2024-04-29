@@ -20,7 +20,7 @@ export const logInUser = async (
 
     if (!response.ok) {
       if (response.status === 400) {
-        throw new Error("Invalid username");
+        throw new Error("Username and password do not match");
       } else {
         throw new Error("Internal server error");
       }

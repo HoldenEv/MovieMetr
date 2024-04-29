@@ -74,7 +74,7 @@ export default function Login({ isOpen, setOpenState }: LoginProps) {
               ></Image>
             </button>
           </div>
-          <h1 className={styles.head}>Login</h1>
+          <h1 className={styles.head}>LOGIN</h1>
           <hr className={styles.line}></hr>
           <div className={styles.formRow}>
             <label htmlFor="username">Username</label>
