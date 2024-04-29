@@ -5,8 +5,8 @@ import styles from "./Search.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
-import Login from "../Login/Login";
-import SignUp from "../Signup/Signup";
+import Login from "../UserAuth/Login/Login";
+import SignUp from "../UserAuth/Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { useRouter } from "next/navigation";
 

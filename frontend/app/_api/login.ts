@@ -2,7 +2,7 @@ const BASE_URL: string = "http://localhost:3001/authentication";
 
 export const logInUser = async (
   username: string,
-  password: string,
+  password: string
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({
@@ -19,12 +19,15 @@ export const logInUser = async (
     });
 
     if (!response.ok) {
-      throw new Error("Failed to sign up");
+      if (response.status === 400) {
+        throw new Error("Username and password do not match");
+      } else {
+        throw new Error("Internal server error");
+      }
     }
 
     return await response.json();
   } catch (error: any) {
-    console.error("Error signing up:", error.message);
     throw error;
   }
 };
