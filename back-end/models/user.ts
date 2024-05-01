@@ -5,11 +5,11 @@ export interface IUser extends Document {
   changePassword(
     oldPassword: string,
     newPassword: string,
-    callback: (err: any) => void,
+    callback: (err: Error | null) => void,
   ): void;
   authenticate(
     password: string,
-    callback: (err: any, result: any) => void,
+    callback: (err: Error | null, result: boolean) => void,
   ): void;
   username: string;
   email: string;
