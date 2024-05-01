@@ -1,4 +1,4 @@
-name: MovieMeter
+name: MovieMeter - Backend
 
 on:
   push:

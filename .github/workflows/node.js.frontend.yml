@@ -1,4 +1,4 @@
-name: MovieMeter - Fronted
+name: MovieMeter - Frontend
 
 on:
   push:
