@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <body className={`${inter.className}`}>
-          <SideBar /> 
+          <SideBar />
           <div className="maincontent">{children}</div>
         </body>
       </AuthProvider>

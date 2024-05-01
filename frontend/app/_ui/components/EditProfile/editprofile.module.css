@@ -44,7 +44,7 @@
   border-radius: 100px;
   padding: 0.7rem 1.2rem;
   color: var(--pure-white);
-  background-color: #22324A;
+  background-color: #22324a;
   transition:
     background-color 0.3s,
     color 0.3s;
@@ -63,10 +63,8 @@
   }
 }
 
-
 @media only screen and (max-width: 980px) {
-  .formContainer
-  {
+  .formContainer {
     max-width: 70%;
   }
 }

@@ -26,7 +26,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     // Add more fields as needed
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -40,52 +42,64 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       const response = await updateUser(userId, formData);
       console.log("Profile updated:", response);
       onClose();
-      refreshUserData(); 
+      refreshUserData();
     } catch (error: any) {
       console.error("Error updating profile:", error.message);
     }
   };
 
   return (
-    <ReactModal isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false} className={styles.modalOverlay}>
-        <div className={styles.formContainer}>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              
-              className={styles.formInput}
-            />
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      ariaHideApp={false}
+      className={styles.modalOverlay}
+    >
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={styles.formInput}
+          />
 
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className={styles.formInput}
-            />
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            className={styles.formInput}
+          />
 
-            <label htmlFor="bio">Bio:</label>
-            <textarea
-              id="bio"
-              name="bio"
-              value={formData.bio}
-              onChange={handleChange}
-              className={styles.formInput}
-            />
+          <label htmlFor="bio">Bio:</label>
+          <textarea
+            id="bio"
+            name="bio"
+            value={formData.bio}
+            onChange={handleChange}
+            className={styles.formInput}
+          />
 
-            <div className={styles.loginBottomButtons}>
-              <button type="submit" className={styles.editProfileButton}>Save Changes</button>
-              <button type="button" onClick={onClose} className={styles.editProfileButton}>Cancel</button>
-            </div>
-          </form>
-        </div>
+          <div className={styles.loginBottomButtons}>
+            <button type="submit" className={styles.editProfileButton}>
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className={styles.editProfileButton}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </ReactModal>
   );
 };

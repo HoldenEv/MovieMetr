@@ -1,28 +1,35 @@
-"use client" 
+"use client";
 import "./login.css";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../_context/authContext";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import isLoginIn from "@/protected/signedIn";
 //import Login from "@/_ui/components/UserAuth/Login/Login";
-
 
 const Login = () => {
   const [user, setUsername] = useState("");
   const [pass, setPassword] = useState("");
 
-  const { token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister } = useAuth();
+  const {
+    token,
+    username,
+    password,
+    confirmPassword,
+    email,
+    handleLogin,
+    handleLogout,
+    handleRegister,
+  } = useAuth();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault(); // Prevent page from reloading
     // You can remove the return statement if handleLogin doesn't return anything
-    setUsername(user)
-    setPassword(pass)
+    setUsername(user);
+    setPassword(pass);
     handleLogin(user, pass);
   };
-  
+
   useEffect(() => {
     // This effect will run whenever `user` or `pass` changes
   }, [user, pass]);
@@ -65,7 +72,9 @@ const Login = () => {
               />
             </div>
             <p className="forgot-password">
-              <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
+              <a href="https://www.fortnite.com/?lang=en-US">
+                Forgot Password?
+              </a>
             </p>
             <div className="login-bottom-buttons">
               <div className="remember-me-button">
@@ -73,7 +82,9 @@ const Login = () => {
                 <label htmlFor="rememberMe">Remember Me</label>
               </div>
               <p className="create-account-button">
-                <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
+                <a href="https://www.fortnite.com/?lang=en-US">
+                  Create Account
+                </a>
               </p>
               <button className="login-button" type="submit">
                 Login In
@@ -84,6 +95,6 @@ const Login = () => {
       </form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

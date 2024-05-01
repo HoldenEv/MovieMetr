@@ -1,7 +1,7 @@
 // const BASE_URL: string =
 //   process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication";
 
-const BASE_URL: string = 'http://localhost:3001/authentication/';
+const BASE_URL: string = "http://localhost:3001/authentication/";
 
 export const logInUser = async (
   username: string,
@@ -34,7 +34,6 @@ export const logInUser = async (
     throw error;
   }
 };
-
 
 // const BASE_URL: string = "http://localhost:3001/authentication";
 

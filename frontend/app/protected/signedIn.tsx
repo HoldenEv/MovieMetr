@@ -9,7 +9,7 @@ export default function isLoginIn(Component: any) {
         redirect("/userpage");
       } else {
         // Parse the token data as JSON
-        redirect("/login")
+        redirect("/login");
       }
     } else {
       // Return the component without modifications if not running in the browser

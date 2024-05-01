@@ -11,7 +11,6 @@ interface LoginProps {
 }
 
 export default function Login({ isOpen, setOpenState }: LoginProps) {
-  
   const handleClick = () => {
     setOpenState(false);
   };
@@ -24,7 +23,6 @@ export default function Login({ isOpen, setOpenState }: LoginProps) {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -54,7 +52,7 @@ export default function Login({ isOpen, setOpenState }: LoginProps) {
         setError("An error occured. Please try again later.");
       }
     }
-  };  
+  };
 
   return (
     <ReactModal
