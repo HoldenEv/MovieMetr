@@ -6,8 +6,6 @@ import {
   getAllMoviePeople,
   getAllTVPeople,
 } from "../middleware/apiPuller";
-//if we want to add all movie a person was in to the database
-import Movie from "../models/movies";
 
 //adds person to the database by person Id, queires the api for the person's details
 const addPerson = async (personId: string) => {
@@ -90,7 +88,7 @@ const addAllMoviePeople = async (movieId: string) => {
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllMoviePeople(movieId);
     //add each person to the database
-    for (let person of people) {
+    for (const person of people) {
       //check if person is already in the database
       if ((await Person.findOne({ _id: person.id })) == null) {
         await addPerson(person.id);
@@ -115,7 +113,7 @@ const addAllTVPeople = async (TVshowId: string) => {
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllTVPeople(TVshowId);
     //add each person to the database
-    for (let person of people) {
+    for (const person of people) {
       //check if person is already in the database
       if ((await Person.findOne({ _id: person.id })) == null) {
         await addPerson(person.id);

@@ -1,6 +1,5 @@
 import MovieGenres from "../models/movieGenres";
 import Genre from "../models/genre";
-import Movie from "../models/movies";
 import TVshowGenres from "../models/TVshowGenres";
 
 //adds a genre to the database

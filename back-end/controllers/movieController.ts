@@ -40,13 +40,13 @@ const addMovie = async (movieId: string) => {
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/
-    for (let genre of movie.genres) {
+    for (const genre of movie.genres) {
       addGenre(genre.id, genre.name);
     }
 
     //add genre-movie pairs to movieGenres collection
     //**need to make sure moviegenres are unique**do this in schema
-    for (let genre of movie.genres) {
+    for (const genre of movie.genres) {
       addMovieGenres(movieId, genre.id);
     }
     return newMovie;
@@ -65,7 +65,7 @@ const addPersonMovies = async (personId: string) => {
     //objects by calling people/moviecredits, so we need to grab the cast field from the result
     const movies = result.cast;
     //add each movie to the database
-    for (let movie of movies) {
+    for (const movie of movies) {
       addMovie(movie.id);
     }
   } catch (error) {

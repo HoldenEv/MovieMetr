@@ -1,7 +1,6 @@
-import List from "../models/lists";
+import List, { IListEntry } from "../models/lists";
 import User from "../models/user";
 import Movie from "../models/movies";
-import Tvshow from "../models/TVshows";
 import { addMovie } from "./movieController";
 
 //should add a trigger to create watched, favorites, and wishlists for each user when they are created
@@ -61,12 +60,12 @@ const addMovieToList = async (listId: string, movieId: string) => {
       addMovie(movieId);
     }
     //check if movie is already in list
-    if (list.entries.some((entry: any) => entry.item_id === movieId)) {
+    if (list.entries.some((entry: IListEntry) => entry.item_id === movieId)) {
       console.error("Error adding movie to list: Movie already in list");
       return null;
     }
     //create new entry object
-    const newEntry = {
+    const newEntry: IListEntry = {
       itemType: "Movie",
       item_id: movieId,
     };

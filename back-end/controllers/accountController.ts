@@ -28,7 +28,7 @@ const loginUser = async (username: string, password: string) => {
   }
 
   //creates a payload with the user id and an expiration date of 7 days
-  var payload = {
+  const payload = {
     id: user.id,
     expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
   };
@@ -49,7 +49,7 @@ calls passport-local-mongoose's register function*/
 const registerUser = async (
   email: string,
   username: string,
-  password: string,
+  password: string
 ) => {
   //check if username already exists in the database
   if ((await User.findOne({ username: username })) != null) {
@@ -71,11 +71,11 @@ const registerUser = async (
 
 //generic update function, will be called by other update functions
 //takes in the user id and the fields to update, removes some code duplication
-const update = async (userId: string, updateFields: {}) => {
+const update = async (userId: string, updateFields: object) => {
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
     updateFields,
-    { new: true },
+    { new: true }
   );
   if (!updatedUser) {
     throw new Error("User not found");
@@ -84,13 +84,13 @@ const update = async (userId: string, updateFields: {}) => {
 };
 
 //update a users email
-const updateEmail = async (userId: any, email: string) => {
+const updateEmail = async (userId: string, email: string) => {
   const updateFields = { email: email };
   return update(userId, updateFields);
 };
 
 //updates a users username
-const updateUsername = async (userId: any, username: string) => {
+const updateUsername = async (userId: string, username: string) => {
   const updateFields = { username: username };
   return update(userId, updateFields);
 };
@@ -113,7 +113,7 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
 const updatePassword = async (
   userId: string,
   oldPassword: string,
-  newPassword: string,
+  newPassword: string
 ) => {
   const user = await User.findById(userId).exec();
   if (!user) {
@@ -140,7 +140,7 @@ const updateUser = async (
   email: string,
   username: string,
   bio: string,
-  profilePath: string,
+  profilePath: string
 ) => {
   const user = await User.findById(userId).exec();
   if (!user) {

@@ -1,6 +1,5 @@
 import TVshow from "../models/TVshows";
 import TVshowGenres from "../models/TVshowGenres";
-import { addAllTVPeople } from "./personController";
 import { TVshowById, getAllPersonTVshows } from "../middleware/apiPuller";
 import { addGenre, addTVshowGenres } from "./genreController";
 
@@ -38,12 +37,12 @@ const addTVshow = async (TVshowId: string) => {
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/
-    for (let genre of show.genres) {
+    for (const genre of show.genres) {
       addGenre(genre.id, genre.name);
     }
 
     //add genre-TVshow pairs to TVshowGenres collection
-    for (let genre of show.genres) {
+    for (const genre of show.genres) {
       addTVshowGenres(TVshowId, genre.id);
     }
     return newTVshow;
@@ -99,7 +98,7 @@ const addPersonTVshows = async (personId: string) => {
     //objects by calling people/TVshowcredits, so we need to grab the cast field from the result
     const TVshows = result.cast;
     //add each TVshow to the database
-    for (let TVshow of TVshows) {
+    for (const TVshow of TVshows) {
       addTVshow(TVshow.id);
     }
   } catch (error) {
