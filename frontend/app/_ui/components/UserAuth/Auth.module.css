@@ -4,13 +4,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(34, 50, 74, 0.5);
+  background-color: rgba(49, 49, 50, 0.325);
   z-index: 9999;
 }
 
 .formContainer {
   border-radius: 10px;
-  background-color: var(--dark-blue);
+  background-color: rgba(9,24,36,1);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -18,15 +18,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.8rem 2rem;
+  padding: 1.2rem;
   z-index: 1000;
   opacity: 0;
   animation: fadeIn 0.3s ease-in-out forwards;
 }
+
+.formContainer label {
+  padding-left: 8px;
+  color: #efedea;
+}
+
 .passwordReq {
-  color: white;
+  color: #dadada;
   margin-top: 8px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   margin-bottom: 10px;
 }
 
@@ -48,21 +54,19 @@
 }
 
 .closeIcon {
+  color: rgba(253, 253, 253, 0.736);
   cursor: pointer;
 }
 
 .head {
-  color: var(--pure-white);
-  font-size: 1.2rem;
-  font-weight: 450;
-  font-style: italic;
-  text-align: center;
-  padding-bottom: 0.6rem;
+  color: #efedea;
+  padding-left: 8px;
+  font-size: large;
 }
 
 .line {
   border-top: 0px solid var(--grey);
-  margin-bottom: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .formRow {
@@ -101,20 +105,22 @@
   border: none;
   border-radius: 100px;
   padding: 0.7rem 1.2rem;
-  color: var(--pure-white);
-  background-color: var(--darker-blue);
+  color: #efedea;
+  background-color: #344464;
   transition:
     background-color 0.3s,
     color 0.3s;
 }
 
 .createAccountButton:hover {
-  background-color: #364159;
+  background-color: #43516e;
 }
 
 @media only screen and (max-width: 600px) {
-  .login {
-    padding: 1rem;
+  .formContainer {
+    margin: 0;
+    min-width: 15rem;
+    width: 90%;
   }
 
   .username,
@@ -130,5 +136,11 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .formContainer {
+    margin-top: 60px;
   }
 }

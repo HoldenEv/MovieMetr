@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@/_ui/global.css";
 import type { Viewport } from "next";
 import SideBar from "./_ui/components/SideBar/Sidebar";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from "./_context/authContext";
 import React from "react";
 
 export const viewport: Viewport = {

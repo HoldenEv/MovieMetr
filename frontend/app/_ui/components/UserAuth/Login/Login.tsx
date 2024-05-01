@@ -1,19 +1,25 @@
-import styles from "./Login.module.css";
+import styles from "../Auth.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import { useState } from "react";
-import { format } from "path";
+import ReactModal from "react-modal";
 import { logInUser } from "@/_api/login";
 
 interface LoginProps {
+  isOpen: boolean;
   setOpenState: (state: boolean) => void;
 }
 
-export default function Login({ setOpenState }: LoginProps) {
+export default function Login({ isOpen, setOpenState }: LoginProps) {
   const handleClick = () => {
     setOpenState(false);
   };
 
+<<<<<<< HEAD:frontend/app/_ui/components/Login/Login.tsx
+=======
+  const [error, setError] = useState<string>("");
+
+>>>>>>> 00df6cf723b95f31c96b46116266ca15cf3d17fe:frontend/app/_ui/components/UserAuth/Login/Login.tsx
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -22,7 +28,6 @@ export default function Login({ setOpenState }: LoginProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData({
       ...formData,
       [name]: value,
@@ -44,15 +49,24 @@ export default function Login({ setOpenState }: LoginProps) {
         password: "",
       });
     } catch (error: any) {
-      console.error("Error signing up:", error.message);
-      // Handle error, show error message, etc.
+      if (error.message) {
+        setError(error.message);
+        return;
+      } else {
+        setError("An error occured. Please try again later.");
+      }
     }
   };  
 
   return (
-    <div className={styles.formContainer}>
-      <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <div className={styles.formItems}>
+    <ReactModal
+      isOpen={isOpen}
+      ariaHideApp={false}
+      overlayClassName={styles.modalOverlay}
+      className={styles.modalOverlay}
+    >
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
+        <div>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
               <Image
@@ -64,50 +78,42 @@ export default function Login({ setOpenState }: LoginProps) {
               ></Image>
             </button>
           </div>
-          <div className={styles.inputContainer}>
-            <label htmlFor="username" className={styles.inputText}>
-              Username
-            </label>
+          <h1 className={styles.head}>LOGIN</h1>
+          <hr className={styles.line}></hr>
+          <div className={styles.formRow}>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              // placeholder="Username"
               required
+              className={styles.formInput}
             />
           </div>
-          <div className={styles.inputContainer}>
-            <label htmlFor="password" className={styles.inputText}>
-              Password
-            </label>
+          <div className={styles.formRow}>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              // placeholder="Password"
               required
+              className={styles.formInput}
             />
-            <p className={styles.forgotPassword}>
-              <a href="https://www.fortnite.com/?lang=en-US">
-                Forgot Password?
-              </a>
-            </p>
           </div>
+          {error && (
+            <p style={{ color: "#eb7673", fontSize: "0.85rem" }}>{error}</p>
+          )}
           <div className={styles.loginBottomButtons}>
-            <div className={styles.rememberMeButton}>
-              <input type="checkbox" id="rememberMe" name="rememberMe" />
-              <label htmlFor="rememberMe">Remember Me</label>
-            </div>
-            <button className={styles.loginButton} type="submit">
-              Login In
+            <button className={styles.createAccountButton} type="submit">
+              Login
             </button>
           </div>
         </div>
       </form>
-    </div>
+    </ReactModal>
   );
 }

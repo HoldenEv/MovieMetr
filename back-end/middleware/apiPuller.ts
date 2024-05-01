@@ -1,5 +1,7 @@
 import axios from "axios";
+import {getMovie} from "../controllers/movieController";
 import * as dotenv from "dotenv";
+import { get } from "http";
 dotenv.config();
 
 //access token is current method of authentication
@@ -193,6 +195,13 @@ const searchTvShows = async (searchString: string, page: string) => {
  * @returns all the movie details as json object in response
  */
 const movieById = async (id: string) => {
+  console.log (id);
+  if(await getMovie(id) != null){
+    console.log(getMovie(id));
+    return getMovie(id);
+  }
+
+
   const url =
     "https://api.themoviedb.org/3/movie/" +
     id +
