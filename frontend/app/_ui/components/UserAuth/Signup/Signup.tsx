@@ -1,6 +1,6 @@
 import styles from "../Auth.module.css";
 import Image from "next/image";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
@@ -67,7 +67,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword
+        formData.confirmPassword,
       );
       // Clear form data or perform any additional actions as needed
       setFormData({
@@ -99,7 +99,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         <div>
           <div className={styles.closeButtonContainer}>
             <button onClick={handleClick} className={styles.closeButton}>
-              <CloseIcon className={styles.closeIcon}/>
+              <CloseIcon className={styles.closeIcon} />
             </button>
           </div>
           <h1 className={styles.head}>JOIN MOVIEMETER</h1>

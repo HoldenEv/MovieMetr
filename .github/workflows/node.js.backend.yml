@@ -1,4 +1,4 @@
-name: MovieMeter
+name: MovieMeter - Backend
 
 on:
   push:
@@ -35,3 +35,4 @@ jobs:
           npm run build --if-present
           npm test --if-present  
           npm run coverage --if-present
+        working-directory: back-end

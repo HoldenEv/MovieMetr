@@ -3,12 +3,10 @@ import styles from "./userpage.module.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box, Divider} from '@mui/material';
+import { Tabs, Tab, Box } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
-import { getUserLists, getListInfo, getMovieInfo, addList } from "@/_api/lists";
-import notfound from "@/_assets/NOTFOUND.png";
-
+import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
 
 interface User {
   _id: string;
@@ -66,8 +64,7 @@ export default function Userpage() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
-  const [newListName, setNewListName] = useState('');
-
+  const [newListName, setNewListName] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -87,9 +84,8 @@ export default function Userpage() {
 
   const handleCancelClick = () => {
     setIsCreateListFormVisible(false);
-    setNewListName('');
+    setNewListName("");
   };
-
 
   useEffect(() => {
     const userId = '6632af44f5d2b656fe70c924';
@@ -100,9 +96,9 @@ export default function Userpage() {
   const fetchUser = (userId: string) => {
     // Make API call to fetch user data
     fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => setUser(data))
-      .catch(error => console.error("Error fetching user data", error));
+      .then((response) => response.json())
+      .then((data) => setUser(data))
+      .catch((error) => console.error("Error fetching user data", error));
   };
 
   const fetchUserListsData = async (userId: string) => {
@@ -111,25 +107,26 @@ export default function Userpage() {
       for (let list of lists) {
         for (let entry of list.entries) {
           const movieInfo = await getMovieInfo(entry.item_id);
-          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`
+          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`;
         }
       }
-      
-      setUserLists(lists);
 
+      setUserLists(lists);
     } catch (error) {
       console.error("Error fetching user lists", error);
     }
   };
 
-  const handleCreateListSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateListSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
     if (user) {
       const newList = await addList(newListName, user._id); // Replace with your API function and user ID
       setUserLists([...userLists, newList]);
     }
     setIsCreateListFormVisible(false);
-    setNewListName('');
+    setNewListName("");
   };
   
 
@@ -154,12 +151,13 @@ return (user && (
             <p>300 followers</p>
             <p>300 following</p>
           </div>
-          <p className={styles.bio}>
-          {user?.bio}
-          </p>
+          <p className={styles.bio}>{user?.bio}</p>
           <div className={styles.extensions}>
-            <button className={styles.editProfile}
-              onClick={openEditProfileModal}>Edit Profile
+            <button
+              className={styles.editProfile}
+              onClick={openEditProfileModal}
+            >
+              Edit Profile
             </button>
             <button className={styles.shareProfile} type="submit">
               Share Profile
@@ -169,7 +167,7 @@ return (user && (
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={'662031400e351377c31953ee'}
+              userId={"662031400e351377c31953ee"}
             />
           )}
         </div>
@@ -208,57 +206,63 @@ return (user && (
       <CustomTabPanel value={value} index={0}>
         <div className={styles.MovieLists}>
           <div className={styles.MovieButtons}>
-            <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
-              {isCreateListFormVisible && (
-                <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
-                  <input
-                    type="text"
-                    value={newListName}
-                    onChange={(e) => setNewListName(e.target.value)}
-                  />
-                  <button type="submit">Submit</button>
-                  <button type="button" onClick={handleCancelClick}>Cancel</button>
-                </form>
-              )}
-            </div>
-            {userLists.map((list) => (
-              <div key={list._id} className={styles.listContainer}>
-                <h2>{list.name}</h2>
-                <div className={styles.horizontalScroll}>
-                  {list.entries.map((entry, index) => (
-                    <div key={index} className={styles.imageItem}>
-                      {entry.imageUrl ? (
-                        <img
-                          src={entry.imageUrl}
-                          alt={entry.item_id}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      ) : (
-                        entry.item_id
-                      )}
-                    </div>
-                  ))}
-                </div>
+            <button
+              className={styles.addMovieList}
+              onClick={handleCreateListClick}
+            >
+              Create List
+            </button>
+            {isCreateListFormVisible && (
+              <form
+                className={styles.addMovieListForm}
+                onSubmit={handleCreateListSubmit}
+              >
+                <input
+                  type="text"
+                  value={newListName}
+                  onChange={(e) => setNewListName(e.target.value)}
+                />
+                <button type="submit">Submit</button>
+                <button type="button" onClick={handleCancelClick}>
+                  Cancel
+                </button>
+              </form>
+            )}
+          </div>
+          {userLists.map((list) => (
+            <div key={list._id} className={styles.listContainer}>
+              <h2>{list.name}</h2>
+              <div className={styles.horizontalScroll}>
+                {list.entries.map((entry, index) => (
+                  <div key={index} className={styles.imageItem}>
+                    {entry.imageUrl ? (
+                      <Image
+                        src={entry.imageUrl}
+                        alt={entry.item_id}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      entry.item_id
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        
-      </CustomTabPanel>
-    </div>)
+      <CustomTabPanel value={value} index={1}></CustomTabPanel>
+      <CustomTabPanel value={value} index={2}></CustomTabPanel>
+    </div>
   );
 }
 
-
-{/* <div className={styles.gallery}>
+{
+  /* <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container
@@ -287,4 +291,5 @@ return (user && (
               ))}
             </Grid>
           </Box>
-        </div> */}
+        </div> */
+}
