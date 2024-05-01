@@ -24,7 +24,6 @@ const router = Router();
 dotenv.config();
 
 router.use(bodyParser.urlencoded({ extended: false }));
-mongoose.connect(process.env.URI || "");
 router.use(passport.initialize());
 
 passport.use(

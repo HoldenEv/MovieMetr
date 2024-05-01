@@ -63,7 +63,8 @@ const registerUser = async (
     email: email,
     username: username,
     bio: username + " hasn't set a bio yet.",
-    profilePath: "",
+    profilePath:
+      "https://temp-bucket-h4i.s3.us-east-2.amazonaws.com/myFolder/blank-profile-picture-973460_1280.png",
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;

@@ -14,7 +14,7 @@ interface User {
   _id: string;
   username: string;
   email: string;
-  profilepath: string;
+  profilePath: string;
   bio: String;
 }
 
@@ -92,7 +92,7 @@ export default function Userpage() {
 
 
   useEffect(() => {
-    const userId = '662031400e351377c31953ee';
+    const userId = '6632af44f5d2b656fe70c924';
     fetchUser(userId); // Fetch user data on mount
     fetchUserListsData(userId);
   }, []);
@@ -134,13 +134,13 @@ export default function Userpage() {
   
 
  
-  return (
+return (user && (
     <div className={styles.userPage}>
       <div className={styles.userInfo}>
         <div className={styles.photoUsername}>
           <Image
             priority
-            src={profilePic} // src={user?.profilePic || profilePic}
+            src={user.profilePath} // src={user?.profilePic || profilePic}
             width={500}
             height={500}
             alt="Profile Picture"
@@ -253,7 +253,7 @@ export default function Userpage() {
       <CustomTabPanel value={value} index={2}>
         
       </CustomTabPanel>
-    </div>
+    </div>)
   );
 }
 
