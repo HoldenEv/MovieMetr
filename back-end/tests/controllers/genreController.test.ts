@@ -1,10 +1,12 @@
-import mockingoose from "mockingoose";
+const mockingoose = require('mockingoose').default;
 import Genre from "../../models/genre";
 import { addGenre, addMovieGenres, getGenre,deleteGenre,deleteMovieGenre,addTVshowGenres } from "../../controllers/genreController";
+const Model = require('../../models/genre');
 //connect to the db before all tests
 describe("add genre", () => {
-    beforeAll(async () => {
-       mockingoose.resetAll();
+
+    beforeEach(async () => {
+        mockingoose.resetAll();
     });
     it('should create a new genre if it does not exist', async () => {
         mockingoose(Genre).toReturn(null, 'findOne'); // Simulate no genre found
@@ -19,7 +21,7 @@ describe("add genre", () => {
       });
 
       //test if addGenre returns a genre if it already exists
-      
+
 
 });
 
