@@ -1,5 +1,9 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, PassportLocalModel } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
+
+interface IUserModel extends PassportLocalModel<IUser> {
+  verifyUser(email: string, password: string): Promise<IUser | null>;
+}
 
 export interface IUser extends Document {
   changePassword(
@@ -45,6 +49,6 @@ const UserSchema = new Schema<IUser>({
 
 UserSchema.plugin(passportLocalMongoose);
 
-const UserModel = mongoose.model<IUser>("User", UserSchema);
+const UserModel = mongoose.model<IUser, IUserModel>("User", UserSchema);
 
 export default UserModel;
