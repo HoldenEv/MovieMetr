@@ -4,7 +4,7 @@ const BASE_URL_3: string = "http://localhost:3001/authentication";
 
 /**
  * returnsa json object with all list_ids for a userId
- * @param userId 
+ * @param userId
  * @returns json object with all list_ids for a userId
  */
 export const getUserLists = async (userId: string): Promise<any> => {
@@ -30,7 +30,7 @@ export const getUserLists = async (userId: string): Promise<any> => {
  * where entries is an array of objects with fields itemType and item_id,
  * itemType can be 'Movie', 'TV Show'
  * item_id is the id of the movie or TV show
- * @param listId 
+ * @param listId
  * @returns list object
  */
 export const getListInfo = async (listId: string): Promise<any> => {
@@ -51,7 +51,6 @@ export const getListInfo = async (listId: string): Promise<any> => {
   }
 };
 
-
 // error check for movie that is not in db
 export const getMovieInfo = async (movieId: string): Promise<any> => {
   try {
@@ -71,14 +70,20 @@ export const getMovieInfo = async (movieId: string): Promise<any> => {
   }
 };
 
-export const addMovieToList = async (listId: string, movieId: string): Promise<any> => {
+export const addMovieToList = async (
+  listId: string,
+  movieId: string,
+): Promise<any> => {
   try {
-    const response = await fetch(`${BASE_URL}/addMovieToList?listId=${listId}&movieId=${movieId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${BASE_URL}/addMovieToList?listId=${listId}&movieId=${movieId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     if (!response.ok) {
       throw new Error("Internal server error");
     }
@@ -89,15 +94,20 @@ export const addMovieToList = async (listId: string, movieId: string): Promise<a
   }
 };
 
-
-export const addList = async (listName: string, userId: string): Promise<any> => {
+export const addList = async (
+  listName: string,
+  userId: string,
+): Promise<any> => {
   try {
-    const response = await fetch(`${BASE_URL}/addList?name=${listName}&userId=${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${BASE_URL}/addList?name=${listName}&userId=${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     if (!response.ok) {
       throw new Error("Internal server error");
     }

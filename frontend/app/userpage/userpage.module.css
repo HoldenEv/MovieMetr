@@ -99,7 +99,9 @@
 
 .editProfile:active,
 .shareProfile:active {
-  background-color: var(--darker-blue); /* Change back to original color on click */
+  background-color: var(
+    --darker-blue
+  ); /* Change back to original color on click */
 }
 
 .addMovieList {
@@ -110,7 +112,9 @@
   border-radius: 10px;
   padding: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   text-align: center;
   flex: 1;
 }
@@ -155,7 +159,9 @@
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   text-align: center;
   flex: 1;
   margin-top: 0.5rem;
@@ -165,7 +171,6 @@
 .addMovieListForm button:focus {
   background-color: var(--darker-blue-highlight);
 }
-
 
 .listContainer {
   border-bottom: 1px solid whitesmoke;
@@ -197,12 +202,14 @@
 }
 
 .horizontalScroll::-webkit-scrollbar-thumb:hover {
-  background-color: var(--darker-blue-highlight); /* color of the scroll thumb when hovering */
+  background-color: var(
+    --darker-blue-highlight
+  ); /* color of the scroll thumb when hovering */
 }
 
 .imageItem {
   flex: 0 0 auto;
-  width: 200px; 
+  width: 200px;
   margin-right: 10px;
   border: 2px solid #438b8b64;
   border-radius: 4px;
@@ -213,9 +220,6 @@
   cursor: pointer;
   border: 2px solid #60ecec;
 }
-
-
-
 
 @media only screen and (max-width: 525px) {
   .userInfo {

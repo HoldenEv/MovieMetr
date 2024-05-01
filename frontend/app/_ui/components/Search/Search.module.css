@@ -36,7 +36,7 @@
 .activeItem {
   border: none;
   border-radius: 3px 0 0 3px;
-  border: 1px solid #FF5EFF;
+  border: 1px solid #ff5eff;
   min-height: 1.8rem;
   width: 5rem;
   background-color: #566d79;
@@ -53,7 +53,7 @@
 .search {
   background-color: #566d79;
   color: white;
-  border: 1px solid #FF5EFF;
+  border: 1px solid #ff5eff;
   border-left: none;
   border-radius: 0 3px 3px 0;
   align-self: stretch;
