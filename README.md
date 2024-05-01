@@ -1,5 +1,4 @@
-[![MovieMeter](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.yml/badge.svg)](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.yml)<h2>Style Guidelines:</h2>
-<h3>for code linter assignment</h3>
+[![MovieMeter](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.yml/badge.svg)](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.yml)<h3>for code linter assignment</h3>
   React/Frontend: https://airbnb.io/javascript/react/ <br>
   TypeScript: https://google.github.io/styleguide/tsguide.html <br>
   <h3>scripts to run formatter/linter BEFORE all commits:</h3>
