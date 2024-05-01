@@ -1,6 +1,5 @@
 import TVshow from "../models/TVshows";
 import TVshowGenres from "../models/TVshowGenres";
-import { addAllTVPeople } from "./personController";
 import { TVshowById, getAllPersonTVshows } from "../middleware/apiPuller";
 import { addGenre, addTVshowGenres } from "./genreController";
 
@@ -34,16 +33,16 @@ const addTVshow = async (TVshowId: string) => {
 
     //add all people(actors, directors, producers,writers) to the database
     //defined in personController
-    (TVshowId);
+    TVshowId;
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/
-    for (let genre of show.genres) {
+    for (const genre of show.genres) {
       addGenre(genre.id, genre.name);
     }
 
     //add genre-TVshow pairs to TVshowGenres collection
-    for (let genre of show.genres) {
+    for (const genre of show.genres) {
       addTVshowGenres(TVshowId, genre.id);
     }
     return newTVshow;
@@ -82,13 +81,13 @@ const deleteTVshow = async (TVshowId: string) => {
     console.error("Error deleting TVshow", error);
     return false;
   }
-}
+};
 
 /**
  * adds all TVshows by a given person to the database
  * calls getAllPersonTVshows to get the list of TVshows from apiPuller
  * @param personId
- * 
+ *
  */
 //not tested yet
 const addPersonTVshows = async (personId: string) => {
@@ -99,12 +98,12 @@ const addPersonTVshows = async (personId: string) => {
     //objects by calling people/TVshowcredits, so we need to grab the cast field from the result
     const TVshows = result.cast;
     //add each TVshow to the database
-    for (let TVshow of TVshows) {
+    for (const TVshow of TVshows) {
       addTVshow(TVshow.id);
     }
   } catch (error) {
     console.error("Error adding TVshows", error);
   }
-}
+};
 
-export { addTVshow, getTVshow, deleteTVshow, addPersonTVshows}
+export { addTVshow, getTVshow, deleteTVshow, addPersonTVshows };

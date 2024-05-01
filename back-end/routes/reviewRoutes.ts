@@ -1,9 +1,11 @@
-import express from "express";
-import Movie from "../models/movies";
-import User from "../models/user";
-import {addMovie} from "../controllers/movieController";
 import { Request, Response, Router } from "express";
-import { addReview, getReview, deleteReview,getUserReviews, getMovieReviews } from "../controllers/reviewsController";
+import {
+  addReview,
+  getReview,
+  deleteReview,
+  getUserReviews,
+  getMovieReviews,
+} from "../controllers/reviewsController";
 const router = Router();
 
 //in the future could edit the review model to have a comment field
@@ -31,7 +33,7 @@ router.post("/addReview", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error adding review", error);
     res.status(500).send("Error adding review");
-  } 
+  }
 });
 
 /**

@@ -1,24 +1,26 @@
-import { loginUser, 
-  registerUser, 
-  updateEmail, 
+import {
+  loginUser,
+  registerUser,
+  updateEmail,
   updateUsername,
-  updateBio, 
+  updateBio,
   updatePassword,
-  updateProfilePath} from "../../controllers/accountController";
+  updateProfilePath,
+} from "../../controllers/accountController";
 const mongoose = require("mongoose");
 import * as dotenv from "dotenv";
 dotenv.config();
 //connect to the db before all tests
 beforeAll(async () => {
-    await mongoose.connect(process.env.URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+  await mongoose.connect(process.env.URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 });
 
 //disconnect from the db after all tests
 afterAll(async () => {
-    await mongoose.disconnect();
+  await mongoose.disconnect();
 });
 
 test("loginUser - Correct username and password", async () => {
@@ -32,7 +34,6 @@ test("loginUser - Correct username and password", async () => {
 });
 
 test("loginUser - Incorrect username", async () => {
-
   // Use a non-existent username
   const username = "nonExistentUser";
   const password = "testPassword";
@@ -40,14 +41,13 @@ test("loginUser - Incorrect username", async () => {
   try {
     await loginUser(username, password);
     fail("Expected loginUser to throw an error for incorrect username");
-  } catch (error : any) {
+  } catch (error: any) {
     // Assert that the error message is "Username not found"
     expect(error.message).toBe("Username not found");
   }
 });
 
 test("loginUser - Incorrect password", async () => {
-
   // Use a correct username but incorrect password
   const username = "testName";
   const password = "incorrectPassword";
@@ -57,7 +57,7 @@ test("loginUser - Incorrect password", async () => {
     await loginUser(username, password);
     // If the function does not throw an error, fail the test
     fail("Expected loginUser to throw an error for incorrect password");
-  } catch (error : any) {
+  } catch (error: any) {
     // Assert that the error message is "Incorrect password"
     expect(error.message).toBe("Incorrect password");
   }
@@ -132,7 +132,6 @@ test("updateUsername - Successful username update", async () => {
   expect(result.user.username).toBe(newUsername);
 });
 
-
 test("updateBio - Successful bio update", async () => {
   const userId = "65fbaf1722d131a9dea2bb8e";
   const newBio = "New bio for testing";
@@ -156,5 +155,3 @@ test("updateProfilePath - Successful profile path update", async () => {
   // Assert that the updated user object is returned
   expect(result.user.profilePath).toBe(newProfilePath);
 });
-
-
