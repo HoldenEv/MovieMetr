@@ -1,4 +1,4 @@
-import express, { Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   searchByPeople,
   movieById,
@@ -20,7 +20,7 @@ router.get("/search", async (req: Request, res: Response) => {
     const page = req.query.page as string;
     const category = req.query.category as string;
 
-    let results: any = {};
+    let results: object = {};
 
     if (category === "movies") {
       results = await searchMovies(name, page);
