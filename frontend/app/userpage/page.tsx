@@ -3,11 +3,10 @@ import styles from "./userpage.module.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box, Divider } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
-import { getUserLists, getListInfo, getMovieInfo, addList } from "@/_api/lists";
-import notfound from "@/_assets/NOTFOUND.png";
+import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
 
 interface User {
   _id: string;
@@ -235,7 +234,7 @@ export default function Userpage() {
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
-                      <img
+                      <Image
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{
