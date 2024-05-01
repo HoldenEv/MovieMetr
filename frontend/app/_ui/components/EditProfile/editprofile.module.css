@@ -1,68 +1,67 @@
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    backdrop-filter: blur(4px); /* blur effect */
-    z-index: 1000; /* Ensure the overlay is on top of other content */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  backdrop-filter: blur(4px); /* blur effect */
+  z-index: 1000; /* Ensure the overlay is on top of other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  border-radius: 10px;
+  background-color: var(--dark-blue);
+  padding: 1.8rem 2rem;
+  z-index: 1001; /* Ensure the modal content is on top of the overlay */
+}
+
+.formInput {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: var(--light-grey);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.formInput:focus {
+  outline: none;
+}
+
+.loginBottomButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1.5rem;
+}
+
+.createAccountButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 100px;
+  padding: 0.7rem 1.2rem;
+  color: var(--pure-white);
+  background-color: var(--darker-blue);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.createAccountButton:hover {
+  background-color: #364159;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .formContainer {
-    border-radius: 10px;
-    background-color: var(--dark-blue);
-    padding: 1.8rem 2rem;
-    z-index: 1001; /* Ensure the modal content is on top of the overlay */
+  to {
+    opacity: 1;
   }
-  
-  .formInput {
-    border: none;
-    border-radius: 8px;
-    padding: 0.5rem;
-    width: 100%;
-    background-color: var(--light-grey);
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .formInput:focus {
-    outline: none;
-  }
-  
-  .loginBottomButtons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1rem;
-    gap: 1.5rem;
-  }
-  
-  .createAccountButton {
-    cursor: pointer;
-    border: none;
-    border-radius: 100px;
-    padding: 0.7rem 1.2rem;
-    color: var(--pure-white);
-    background-color: var(--darker-blue);
-    transition:
-      background-color 0.3s,
-      color 0.3s;
-  }
-  
-  .createAccountButton:hover {
-    background-color: #364159;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
+}
