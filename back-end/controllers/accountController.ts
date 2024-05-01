@@ -49,7 +49,7 @@ calls passport-local-mongoose's register function*/
 const registerUser = async (
   email: string,
   username: string,
-  password: string
+  password: string,
 ) => {
   //check if username already exists in the database
   if ((await User.findOne({ username: username })) != null) {
@@ -75,7 +75,7 @@ const update = async (userId: string, updateFields: object) => {
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
     updateFields,
-    { new: true }
+    { new: true },
   );
   if (!updatedUser) {
     throw new Error("User not found");
@@ -113,7 +113,7 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
 const updatePassword = async (
   userId: string,
   oldPassword: string,
-  newPassword: string
+  newPassword: string,
 ) => {
   const user = await User.findById(userId).exec();
   if (!user) {
@@ -140,7 +140,7 @@ const updateUser = async (
   email: string,
   username: string,
   bio: string,
-  profilePath: string
+  profilePath: string,
 ) => {
   const user = await User.findById(userId).exec();
   if (!user) {

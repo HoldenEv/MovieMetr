@@ -25,8 +25,8 @@ passport.use(
         return cb(null, false, { message: "Incorrect email or password." });
       }
       return cb(null, user, { message: "Logged In Successfully" });
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -37,8 +37,8 @@ passport.use(
     },
     function (jwtPayload, cb) {
       return cb(null, jwtPayload);
-    }
-  )
+    },
+  ),
 );
 
 exports = passport;

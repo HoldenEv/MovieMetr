@@ -1,8 +1,5 @@
 import { Request, Response, Router } from "express";
-import {
-  addList,
-  addMovieToList,
-} from "../controllers/listController";
+import { addList, addMovieToList } from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
 

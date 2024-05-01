@@ -34,8 +34,8 @@ passport.use(
       passwordField: "password",
       session: false,
     },
-    User.authenticate()
-  )
+    User.authenticate(),
+  ),
 );
 
 type User = {
@@ -68,7 +68,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  }
+  },
 );
 
 //route to login a user, calls loginUser function from accountController
@@ -180,7 +180,7 @@ router.post("/updateUser", async (req: Request, res: Response) => {
       email,
       username,
       bio,
-      profilePath
+      profilePath,
     );
     res.json({ message: "User updated", user: updatedUser });
   } catch (error) {

@@ -69,7 +69,6 @@ interface IShow {
   poster_path: string;
   overview: string;
   image: string;
-
 }
 
 //search for movies given a search string, currently returns id, title, image, and summary
