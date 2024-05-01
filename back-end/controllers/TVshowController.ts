@@ -34,7 +34,7 @@ const addTVshow = async (TVshowId: string) => {
 
     //add all people(actors, directors, producers,writers) to the database
     //defined in personController
-    (TVshowId);
+    TVshowId;
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/
@@ -82,13 +82,13 @@ const deleteTVshow = async (TVshowId: string) => {
     console.error("Error deleting TVshow", error);
     return false;
   }
-}
+};
 
 /**
  * adds all TVshows by a given person to the database
  * calls getAllPersonTVshows to get the list of TVshows from apiPuller
  * @param personId
- * 
+ *
  */
 //not tested yet
 const addPersonTVshows = async (personId: string) => {
@@ -105,6 +105,6 @@ const addPersonTVshows = async (personId: string) => {
   } catch (error) {
     console.error("Error adding TVshows", error);
   }
-}
+};
 
-export { addTVshow, getTVshow, deleteTVshow, addPersonTVshows}
+export { addTVshow, getTVshow, deleteTVshow, addPersonTVshows };

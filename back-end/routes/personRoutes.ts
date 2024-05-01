@@ -2,7 +2,7 @@ import express from "express";
 import { Request, Response, Router } from "express";
 import { addPerson } from "../controllers/personController";
 const router = Router();
-//will need to modify the followers in user model and 
+//will need to modify the followers in user model and
 //some controller functions to allow for the ability for a user to follow person objects
 
 /**

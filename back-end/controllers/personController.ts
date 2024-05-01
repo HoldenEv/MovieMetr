@@ -1,7 +1,11 @@
 import Person from "../models/person";
 import MoviePeople from "../models/moviePeople";
 import TVPeople from "../models/TVshowPeople";
-import { personById, getAllMoviePeople,getAllTVPeople } from "../middleware/apiPuller";
+import {
+  personById,
+  getAllMoviePeople,
+  getAllTVPeople,
+} from "../middleware/apiPuller";
 //if we want to add all movie a person was in to the database
 import Movie from "../models/movies";
 
@@ -103,7 +107,7 @@ const addAllMoviePeople = async (movieId: string) => {
 
 /**
  * adds all people related to a TV show to the database
- * @param TVshowId 
+ * @param TVshowId
  */
 const addAllTVPeople = async (TVshowId: string) => {
   try {
@@ -137,4 +141,4 @@ const deletePerson = async (personId: string) => {
   }
 };
 
-export { addPerson, addAllMoviePeople, deletePerson, addAllTVPeople};
+export { addPerson, addAllMoviePeople, deletePerson, addAllTVPeople };

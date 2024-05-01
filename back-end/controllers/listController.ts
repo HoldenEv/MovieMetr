@@ -10,7 +10,6 @@ import { addMovie } from "./movieController";
 //adds a new list to the database, takes a list name and user id
 const addList = async (name: string, userId: string) => {
   try {
-
     //check if user exists
     const user = await User.findOne({ _id: userId });
     if (!user) {
@@ -23,22 +22,22 @@ const addList = async (name: string, userId: string) => {
     });
     await newList.save();
     return newList;
-    } catch (error) {
+  } catch (error) {
     console.error("Error adding list", error);
     return null;
-    }
-}
+  }
+};
 
 //deletes a list from the database by its id
 const deleteList = async (listId: string) => {
   try {
     await List.deleteOne({ _id: listId });
     return true;
-    } catch (error) {
+  } catch (error) {
     console.error("Error deleting list", error);
     return false;
-    }
-}
+  }
+};
 
 //adds a movie to a list by its id
 const addMovieToList = async (listId: string, movieId: string) => {
@@ -52,34 +51,34 @@ const addMovieToList = async (listId: string, movieId: string) => {
       return null;
     }
     //check if movie exists
-    const movie = await Movie.findOne ({ _id: movieId });
+    const movie = await Movie.findOne({ _id: movieId });
     console.log(movie);
-    if (!movie){
-        //add movie to db
-        //something fishy is happening here, the movie is not being added to the db
-        //debug later...
-        console.log("Movie not found, trying to add movie to db");
-       addMovie(movieId);
+    if (!movie) {
+      //add movie to db
+      //something fishy is happening here, the movie is not being added to the db
+      //debug later...
+      console.log("Movie not found, trying to add movie to db");
+      addMovie(movieId);
     }
     //check if movie is already in list
-    if(list.entries.some((entry: any) => entry.item_id === movieId)){
+    if (list.entries.some((entry: any) => entry.item_id === movieId)) {
       console.error("Error adding movie to list: Movie already in list");
       return null;
     }
     //create new entry object
     const newEntry = {
-      itemType: 'Movie',
+      itemType: "Movie",
       item_id: movieId,
     };
     //add entry to list
     list.entries.push(newEntry);
     await list.save();
     return list;
-    } catch (error) {
+  } catch (error) {
     console.error("Error adding movie to list", error);
     return null;
-    }
-}
+  }
+};
 
 //get all lists for a userId
 const getUserLists = async (userId: string) => {
@@ -92,22 +91,21 @@ const getUserLists = async (userId: string) => {
     }
     const lists = await List.find({ user_id: userId });
     return lists;
-    } catch (error) {
-      console.error("Error getting lists", error);
-      return null;
-    }
-}
+  } catch (error) {
+    console.error("Error getting lists", error);
+    return null;
+  }
+};
 
 //gets a list by its id
 const getList = async (listId: string) => {
   try {
     const list = await List.findOne({ _id: listId });
     return list;
-    } catch (error) {
+  } catch (error) {
     console.error("Error getting list", error);
     return null;
-    }
-}
+  }
+};
 
-export { addList, deleteList, addMovieToList, getUserLists, getList};
-
+export { addList, deleteList, addMovieToList, getUserLists, getList };

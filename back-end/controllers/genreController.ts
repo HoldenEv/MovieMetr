@@ -70,7 +70,7 @@ const deleteGenre = async (genreId: string) => {
     console.error("Error deleting genre", error);
     return false;
   }
-}
+};
 
 //deletes a movie genre from the db by movie id and genre id
 const deleteMovieGenre = async (movieId: string, genreId: string) => {
@@ -81,9 +81,15 @@ const deleteMovieGenre = async (movieId: string, genreId: string) => {
     console.error("Error deleting movie genre", error);
     return false;
   }
-}
+};
 
 //gets a list of all genres of a certain movie by movie id
 
-
-export { addGenre, addMovieGenres,getGenre,deleteGenre,deleteMovieGenre, addTVshowGenres };
+export {
+  addGenre,
+  addMovieGenres,
+  getGenre,
+  deleteGenre,
+  deleteMovieGenre,
+  addTVshowGenres,
+};

@@ -7,7 +7,7 @@ import {
   deleteTVshow,
 } from "../controllers/TVshowController";
 
-const router= Router();
+const router = Router();
 
 //route to add TVshow to database by its id
 //addTVsow function contains trigger to add TVshowGenres and TVshowCast
@@ -62,5 +62,3 @@ router.get("/getTVshow", async (req: Request, res: Response) => {
 });
 
 export default router;
-
-

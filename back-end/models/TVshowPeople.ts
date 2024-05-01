@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const tvShowPeopleSchema = new Schema({
-    TVshow_id: {
+  TVshow_id: {
     type: String,
     required: true,
     ref: "TVshow",

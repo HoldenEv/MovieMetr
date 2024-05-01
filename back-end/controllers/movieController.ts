@@ -4,19 +4,17 @@ import { addAllMoviePeople } from "./personController";
 import { addGenre, addMovieGenres } from "./genreController";
 import { movieById, getAllPersonMovies } from "../middleware/apiPuller";
 
-
 /*This function could have the genre operations split into seperate functions,
 especially if there are other instances they may need to be used, 
 just cant think of any rn*/
 /**
  * when given a movie ID, query the TMDB API for the movie details
  * then add the movie to the database, including all related fields
- * @param movieId 
+ * @param movieId
  * @returns Null if failed, or the movie object if successful
  */
 const addMovie = async (movieId: string) => {
   try {
-   
     //checks if movie is already in the database
     if ((await Movie.findOne({ _id: movieId })) != null) {
       console.error("Error adding movie: Movie already in database");
@@ -24,7 +22,7 @@ const addMovie = async (movieId: string) => {
     }
     //grabs all movie details from the API
     const movie = await movieById(movieId);
-    
+
     const newMovie = new Movie({
       _id: movie.id,
       title: movie.title,

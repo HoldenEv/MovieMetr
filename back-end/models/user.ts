@@ -2,8 +2,15 @@ import mongoose, { Schema, Document } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
 export interface IUser extends Document {
-  changePassword(oldPassword: string, newPassword: string, callback: (err: any) => void): void;
-  authenticate(password: string, callback: (err: any, result: any) => void): void;
+  changePassword(
+    oldPassword: string,
+    newPassword: string,
+    callback: (err: any) => void,
+  ): void;
+  authenticate(
+    password: string,
+    callback: (err: any, result: any) => void,
+  ): void;
   username: string;
   email: string;
   profilePath: string;
