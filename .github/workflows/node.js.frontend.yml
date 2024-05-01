@@ -30,6 +30,11 @@ jobs:
           cache: "npm"
           cache-dependency-path: "frontend/package-lock.json"
       - name: npm ci, build, and test
+        env:
+          NEXTPUBLICAWSS3REGION: ${{secrets.NEXTPUBLICAWSS3REGION}}
+          NEXTPUBLICAWSS3ACCESSKEYID: ${{secrets.NEXTPUBLICAWSS3ACCESSKEYID}}
+          NEXTPUBLICAWSS3SECRETACCESSKEYID: ${{secrets.NEXTPUBLICAWSS3SECRETACCESSKEYID}}
+          NEXTPUBLICAWSS3BUCKETNAME: ${{secrets.NEXTPUBLICAWSS3BUCKETNAME}}
         run: |
           npm ci
           npm run build --if-present
