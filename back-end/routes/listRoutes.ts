@@ -1,9 +1,6 @@
-import express from "express";
 import { Request, Response, Router } from "express";
-//import listController functions
 import {
   addList,
-  deleteList,
   addMovieToList,
 } from "../controllers/listController";
 import List from "../models/lists";

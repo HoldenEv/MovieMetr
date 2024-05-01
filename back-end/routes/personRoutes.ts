@@ -1,4 +1,3 @@
-import express from "express";
 import { Request, Response, Router } from "express";
 import { addPerson } from "../controllers/personController";
 const router = Router();

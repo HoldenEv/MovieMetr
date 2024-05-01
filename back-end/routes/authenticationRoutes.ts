@@ -15,17 +15,16 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
-const authenticationMiddleware = require("../middleware/authentication");
-const LocalStrategy = require("passport-local");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const mongoose = require("mongoose");
+import { Strategy as LocalStrategy } from "passport-local";
+import bodyParser from "body-parser";
+import passport from "passport";
+import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 const router = Router();
 dotenv.config();
 
 router.use(bodyParser.urlencoded({ extended: false }));
-mongoose.connect(process.env.URI);
+mongoose.connect(process.env.URI || "");
 router.use(passport.initialize());
 
 passport.use(
@@ -35,10 +34,17 @@ passport.use(
       passwordField: "password",
       session: false,
     },
-    User.authenticate(),
-  ),
+    User.authenticate()
+  )
 );
-passport.serializeUser(User.serializeUser());
+
+type User = {
+  _id?: number;
+};
+
+passport.serializeUser((user: User, done) => {
+  done(null, user._id);
+});
 
 //defaut route for /authentication
 router.get("/", (req: Request, res: Response) => {
@@ -62,7 +68,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  },
+  }
 );
 
 //route to login a user, calls loginUser function from accountController
@@ -72,9 +78,12 @@ router.post("/login", async (req: Request, res: Response) => {
     const result = await loginUser(username, password);
     //currently returns the user object nice for testing
     res.json(result);
-  } catch (error: any) {
-    console.error("Error logging in", error);
-    res.status(400).send({ message: error.message });
+  } catch (error) {
+    let message = "Unknown error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    res.status(400).send({ message: message });
   }
 });
 
@@ -85,9 +94,12 @@ router.post("/register", async (req: Request, res: Response) => {
     const result = await registerUser(email, username, password);
     //currently returns the user object nice for testing
     res.json(result);
-  } catch (error: any) {
-    console.error("Error registering", error);
-    res.status(409).send({ message: error.message });
+  } catch (error) {
+    let message = "Unknown error";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    res.status(409).send({ message: message });
   }
 });
 
@@ -168,7 +180,7 @@ router.post("/updateUser", async (req: Request, res: Response) => {
       email,
       username,
       bio,
-      profilePath,
+      profilePath
     );
     res.json({ message: "User updated", user: updatedUser });
   } catch (error) {

@@ -1,9 +1,7 @@
-import express from "express";
 import { Request, Response, Router } from "express";
 import {
   addMovie,
   getMovie,
-  addPersonMovies,
   deleteMovie,
 } from "../controllers/movieController";
 import { addGenre, deleteGenre } from "../controllers/genreController";

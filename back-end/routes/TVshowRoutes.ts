@@ -1,9 +1,7 @@
-import express from "express";
 import { Request, Response, Router } from "express";
 import {
   addTVshow,
   getTVshow,
-  addPersonTVshows,
   deleteTVshow,
 } from "../controllers/TVshowController";
 

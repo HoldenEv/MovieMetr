@@ -1,7 +1,3 @@
-import express from "express";
-import Movie from "../models/movies";
-import User from "../models/user";
-import { addMovie } from "../controllers/movieController";
 import { Request, Response, Router } from "express";
 import {
   addReview,
