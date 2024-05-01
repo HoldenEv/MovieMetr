@@ -10,7 +10,7 @@
     "serve": "node dist/app.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "test": "jest",
+    "test": "prettier --check . && eslint . --ext .ts", 
     "test:coverage": "jest --coverage"
   },
   "author": "",
