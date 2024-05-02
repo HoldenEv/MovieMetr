@@ -18,7 +18,6 @@ import {
 import { Strategy as LocalStrategy } from "passport-local";
 import bodyParser from "body-parser";
 import passport from "passport";
-import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 const router = Router();
 dotenv.config();

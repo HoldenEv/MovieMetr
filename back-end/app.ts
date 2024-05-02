@@ -17,8 +17,8 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 //database connection
- import mongoose from "mongoose";
- const uri = process.env.URI;
+import mongoose from "mongoose";
+const uri = process.env.URI;
 mongoose.connect(uri || "");
 
 // //Azure Blob Storage connection
