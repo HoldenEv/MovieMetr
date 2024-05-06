@@ -11,15 +11,13 @@ interface LoginProps {
 }
 
 export default function Login({ isOpen, setOpenState }: LoginProps) {
+  
   const handleClick = () => {
     setOpenState(false);
   };
 
-<<<<<<< HEAD:frontend/app/_ui/components/Login/Login.tsx
-=======
   const [error, setError] = useState<string>("");
 
->>>>>>> 00df6cf723b95f31c96b46116266ca15cf3d17fe:frontend/app/_ui/components/UserAuth/Login/Login.tsx
   const [formData, setFormData] = useState({
     username: "",
     password: "",

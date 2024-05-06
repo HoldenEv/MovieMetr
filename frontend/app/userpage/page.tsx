@@ -292,7 +292,7 @@ const Userpage = () => {
   );
 }
 
-export default Userpage;
+export default isAuth(Userpage);
 
 {/* <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>

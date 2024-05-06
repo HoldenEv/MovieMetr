@@ -1,11 +1,10 @@
-"use client"
+"use client" 
 import "./login.css";
 import { useState, useEffect} from "react";
 import { useAuth } from "../_context/authContext";
 import { BrowserRouter as Router } from 'react-router-dom';
 import React from "react";
 import isLoginIn from "@/protected/signedIn";
-
 //import Login from "@/_ui/components/UserAuth/Login/Login";
 
 
