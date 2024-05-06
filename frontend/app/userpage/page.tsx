@@ -9,7 +9,8 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
-import { getUserLists, getListInfo, getMovieInfo, addList } from "@/_api/lists";
+import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
+import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
@@ -78,13 +79,9 @@ const Userpage = () => {
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState('');
-
-  //const [id, setId] = useState(null);
-
-  var id : string = '';
+  const [id, setId] = useState('');
 
   // this basically is just letting computer know we are in a browser window
-  // 
   if (typeof window !== "undefined") {
     useEffect(() => {    
         const tokenData = localStorage.getItem("token");
@@ -95,11 +92,8 @@ const Userpage = () => {
           getProfileFromToken(tokenObject.token)
           // this allows us to unpack the promise we get from the profile route
                 .then(response => {
-                    id = response.user.id;
-                    console.log("HERE IS THE USER's ID : " + id.toString());
-                    fetchUser(id); // Fetch user data on mount
-                    fetchUserListsData(id);
-                    
+                  setId(response.user.id);
+                  console.log("HERE IS THE USER's ID : " + id);
                 })
                 .catch(error => {
                     console.error("Error fetching user ID: ", error);
@@ -130,21 +124,21 @@ const Userpage = () => {
     setNewListName('');
   };
 
-  // useEffect(() => {
-  //   if (id != "") {
-  //     fetchUser(id); // Fetch user data on mount
-  //     fetchUserListsData(id);
-  //   }
-  // }, []);
+  useEffect(() => {
+      fetchUser(id); // Fetch user data on mount
+      fetchUserListsData(id);
+  }, []);
 
   
-  const fetchUser = (userId: string) => {
-    // Make API call to fetch user data
-    fetch(`http://localhost:3001/authentication/getUser?userId=${userId}`)
-      .then(response => response.json())
-      .then(data => setUser(data))
-      .catch(error => console.error("Error fetching user data", error));
+  const fetchUser = async (userId: string) => {
+    try {
+      const data = await getUser(userId); 
+      setUser(data);
+    } catch (error) {
+      console.error("Error fetching user data", error);
+    }
   };
+  
 
   const fetchUserListsData = async (userId: string) => {
     try {
@@ -172,9 +166,6 @@ const Userpage = () => {
     setIsCreateListFormVisible(false);
     setNewListName('');
   };
-
-  fetchUser(id); 
-  fetchUserListsData(id);
   
  
   return (
@@ -300,7 +291,7 @@ const Userpage = () => {
   );
 }
 
-export default isAuth(Userpage);
+export default Userpage;
 
 {/* <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>

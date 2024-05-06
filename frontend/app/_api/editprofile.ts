@@ -1,5 +1,25 @@
 const BASE_URL: string = "http://localhost:3001/authentication";
 
+
+export const getUser = async (userId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/getUser?userId=${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error fetching user data:", error.message);
+    throw error;
+  }
+};
+
+
 export const updateUser = async (
   userId: string,
   data: Record<string, any>
