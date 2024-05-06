@@ -4,13 +4,42 @@
   margin: auto;
 }
 
+.modal {
+  padding: 35px 20px;
+  max-height: 65%;
+  color: none;
+  outline: 0;
+  position: fixed;
+  overflow-y: scroll;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 90%;
+  max-width: 500px;
+  background-color: #12171e;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #a7a7a7;
+  font-size: 24px;
+}
+
 .headshot {
   border-radius: 4px;
   border: 1px solid rgba(255, 205, 252, 0.477);
 }
 
 .nameMobile {
-  color: #efefef;
+  color: #e8e7e7;
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 8px;
@@ -22,7 +51,7 @@
   font-size: 1.6rem;
   margin-bottom: 8px;
   font-weight: bold;
-  color: #efefef;
+  color: #e8e7e7;
 }
 
 .bio {
@@ -33,17 +62,12 @@
 
 .moreButton {
   color: #fff;
+  cursor: pointer;
   text-decoration: underline;
 }
 
 .moreButton:hover {
-  cursor: pointer;
   color: #60ecec;
-}
-
-.moreButton:active {
-  cursor: pointer;
-  color: #3db5b5;
 }
 
 .infoContainer {
@@ -57,9 +81,15 @@
   margin-right: 10px;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 1000px) {
   .container {
     width: 70%;
+  }
+}
+
+@media (min-width: 700px) {
+  .modal {
+    transform: translate(-50%, -60%);
   }
 
   .infoContainer {

@@ -1,7 +1,10 @@
 import styles from "./PersonInfo.module.css";
 import Image from "next/image";
+import CloseIcon from "@mui/icons-material/Close";
 import notfound from "@/_assets/NOTFOUND.png";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Modal } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 interface PersonInfoProps {
   name: string;
@@ -10,52 +13,61 @@ interface PersonInfoProps {
 }
 
 export default function PersonInfo({ name, imagePath, bio }: PersonInfoProps) {
-  const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const toggleExpanded = () => setExpanded(!expanded);
+  const handleOpen = () => setOpen(true);
+
+  const handleClose = () => setOpen(false);
 
   const bioText =
-    bio.length > 400 && !expanded ? (
+    bio.length > 400 && !open ? (
       <>
         {bio.slice(0, 400)}
-        <span className={styles.moreButton} onClick={toggleExpanded}>
+        <span className={styles.moreButton} onClick={handleOpen}>
           More...
         </span>
       </>
+    ) : bio.length <= 400 ? (
+      bio
     ) : (
-      <>
-        {bio}
-        {bio.length > 400 && (
-          <span className={styles.moreButton} onClick={toggleExpanded}>
-            Less...
-          </span>
-        )}
-      </>
+      ""
     );
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.nameMobile}>{name}</h1>
-      <div className={styles.infoContainer}>
-        <div className={styles.textWrapper}>
-          <h1 className={styles.nameDesktop}>{name}</h1>
-          <p className={styles.bio}>{bioText}</p>
-        </div>
-        <div>
-          <Image
-            className={styles.headshot}
-            width={100}
-            height={150}
-            priority
-            src={
-              imagePath
-                ? `https://image.tmdb.org/t/p/original${imagePath}`
-                : notfound
-            }
-            alt={`headshot of ${name}`}
-          ></Image>
+    <div>
+      <div className={styles.container}>
+        <h1 className={styles.nameMobile}>{name}</h1>
+        <div className={styles.infoContainer}>
+          <div className={styles.textWrapper}>
+            <h1 className={styles.nameDesktop}>{name}</h1>
+            <p className={styles.bio}>{bioText}</p>
+          </div>
+          <div>
+            <Image
+              className={styles.headshot}
+              width={100}
+              height={150}
+              priority
+              src={
+                imagePath
+                  ? `https://image.tmdb.org/t/p/original${imagePath}`
+                  : notfound
+              }
+              alt={`headshot of ${name}`}
+            ></Image>
+          </div>
         </div>
       </div>
+      <Modal open={open} onClose={handleClose}>
+        <div className={styles.modal}>
+          <button className={styles.closeButton} onClick={handleClose}>
+            <CloseIcon />
+          </button>
+          <div>
+            <p className={styles.bio}>{bio}</p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
