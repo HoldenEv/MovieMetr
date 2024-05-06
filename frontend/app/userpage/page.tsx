@@ -125,8 +125,9 @@ const Userpage = () => {
   };
 
   useEffect(() => {
-      fetchUser(id); // Fetch user data on mount
-      fetchUserListsData(id);
+      const userId = "662031400e351377c31953ee";
+      fetchUser(userId); // Fetch user data on mount
+      fetchUserListsData(userId);
   }, []);
 
   
