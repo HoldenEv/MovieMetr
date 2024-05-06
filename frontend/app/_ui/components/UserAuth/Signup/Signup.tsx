@@ -67,7 +67,7 @@ export default function Signup({ isOpen, setOpenState }: SignUpProps) {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword,
+        formData.confirmPassword
       );
       // Clear form data or perform any additional actions as needed
       setFormData({
