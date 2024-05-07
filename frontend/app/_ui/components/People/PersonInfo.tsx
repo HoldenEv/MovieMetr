@@ -4,7 +4,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import notfound from "@/_assets/NOTFOUND.png";
 import { useState } from "react";
 import { Modal } from "@mui/material";
-import { red } from "@mui/material/colors";
 
 interface PersonInfoProps {
   name: string;
@@ -20,7 +19,7 @@ export default function PersonInfo({ name, imagePath, bio }: PersonInfoProps) {
   const handleClose = () => setOpen(false);
 
   const bioText =
-    bio.length > 400 && !open ? (
+    bio.length > 400 ? (
       <>
         {bio.slice(0, 400)}
         <span className={styles.moreButton} onClick={handleOpen}>
@@ -40,7 +39,7 @@ export default function PersonInfo({ name, imagePath, bio }: PersonInfoProps) {
         <div className={styles.infoContainer}>
           <div className={styles.textWrapper}>
             <h1 className={styles.nameDesktop}>{name}</h1>
-            <p className={styles.bio}>{bioText}</p>
+            <p className={`${styles.bio} ${open ? styles.bioBlur : ""}`}>{bioText}</p>
           </div>
           <div>
             <Image

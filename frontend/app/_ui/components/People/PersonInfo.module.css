@@ -58,10 +58,12 @@
   color: #ccc;
   font-size: 0.9rem;
   margin-bottom: 8px;
-  padding: 5px;
-  border-radius: 4px;
-  background-color: #4747476e;
-  border: 1px solid rgba(255, 205, 252, 0.477);
+  white-space: pre-line;
+  vertical-align: bottom;
+}
+
+.bioBlur {
+    filter: blur(3px);
 }
 
 .moreButton {
@@ -79,6 +81,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 5px;
   margin-top: 20px;
 }
 
