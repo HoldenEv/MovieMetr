@@ -1,4 +1,5 @@
 "use client";
+import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { fetchPersonDetails } from "@/_api/fetchPersonDetails";
 import PersonInfo from "@/_ui/components/People/PersonInfo";
@@ -25,7 +26,7 @@ export default function PeoplPage({
   return (
     <>
       {!personData.loading && (
-        <div>
+        <div className={styles.container}>
           <PersonInfo
             name={personData.details.name}
             imagePath={personData.details.profile_path}
