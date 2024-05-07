@@ -345,6 +345,27 @@ const popularMovies = async () => {
   }
 };
 
+const getCombinedCredits = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/person/" +
+    id +
+    "/combined_credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    return response.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
+    throw error;
+  }
+}
+
 //getAllPersonMovies returns a list of all movies for a person by id
 // use this on actor page to display all movies they have been in
 //upon click of "see all movies" button... should query api
@@ -482,4 +503,5 @@ export {
   TVshowById,
   getAllTVPeople,
   getAllPersonTVshows,
+  getCombinedCredits
 };

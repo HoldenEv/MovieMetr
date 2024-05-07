@@ -7,6 +7,7 @@ import {
   searchTvShows,
   nowPlaying,
   popularMovies,
+  getCombinedCredits
 } from "../middleware/apiPuller";
 const router = Router();
 
@@ -38,14 +39,39 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+interface Credit {
+  id: number;
+  title: string;
+  media_type: string;
+  poster_path: string;
+}
+
+interface Crew {
+  id: number;
+  title: string;
+  job: string;
+  media_type: string;
+  poster_path: string;
+}
+
+interface Credits {
+  cast: Credit[];
+  crew: Crew[];
+}
+
 /*
   Gets actor details by their TMDB id, calls personById function from apiPuller.
 */
 router.get("/people/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
-    const movie = await personById(id);
-    res.json(movie);
+    const person = await personById(id);
+    const credits: Credits = await getCombinedCredits(id);
+    credits.cast = credits.cast.map(({id, title, media_type, poster_path}) => ({id, title, media_type, poster_path}));
+    credits.crew = credits.crew.map(({id, title, job, media_type, poster_path}) => ({id, title, job, media_type, poster_path}));
+
+
+    res.json({...person, credits});
   } catch (error) {
     console.error("Error getting movie details", error);
     res.status(500).send("Error getting movie details");
