@@ -19,14 +19,14 @@ export default function PersonInfo({ name, imagePath, bio }: PersonInfoProps) {
   const handleClose = () => setOpen(false);
 
   const bioText =
-    bio.length > 400 ? (
+    bio.length > 300 ? (
       <>
-        {bio.slice(0, 400)}
+        {bio.slice(0, 300)}
         <span className={styles.moreButton} onClick={handleOpen}>
           More...
         </span>
       </>
-    ) : bio.length <= 400 ? (
+    ) : bio.length <= 300 ? (
       bio
     ) : (
       ""
@@ -39,7 +39,9 @@ export default function PersonInfo({ name, imagePath, bio }: PersonInfoProps) {
         <div className={styles.infoContainer}>
           <div className={styles.textWrapper}>
             <h1 className={styles.nameDesktop}>{name}</h1>
-            <p className={`${styles.bio} ${open ? styles.bioBlur : ""}`}>{bioText}</p>
+            <p className={`${styles.bio} ${open ? styles.bioBlur : ""}`}>
+              {bioText}
+            </p>
           </div>
           <div>
             <Image

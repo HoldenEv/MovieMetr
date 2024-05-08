@@ -2,7 +2,8 @@
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { fetchPersonDetails } from "@/_api/fetchPersonDetails";
-import PersonInfo from "@/_ui/components/People/PersonInfo";
+import PersonInfo from "@/_ui/components/People/PersonInfo/PersonInfo";
+import FilmGrid from "@/_ui/components/People/FilmGrid/FilmGrid";
 
 export default function PeoplPage({
   params,
@@ -32,6 +33,14 @@ export default function PeoplPage({
             imagePath={personData.details.profile_path}
             bio={personData.details.biography}
           />
+          <hr
+            style={{
+              border: "none",
+              height: "1px",
+              backgroundColor: "#8aa5ae",
+            }}
+          />
+          <FilmGrid cast={personData.details.credits.cast} />
         </div>
       )}
     </>

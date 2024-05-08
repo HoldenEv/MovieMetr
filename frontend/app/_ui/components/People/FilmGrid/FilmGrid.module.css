@@ -1,0 +1,24 @@
+.poster {
+  border-radius: 3px;
+  border: 2px solid #438b8b64;
+}
+
+.poster:hover {
+  cursor: pointer;
+  border-color: #8aa5ae;
+}
+
+.gridContainer {
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: #242a592b;
+  margin-top: 20px;
+}
+
+@media (min-width: 1000px) {
+  .gridContainer {
+    padding: 0;
+  }
+}
