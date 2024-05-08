@@ -43,7 +43,7 @@ const addMovieToList = async (listId: string, movieId: string) => {
   try {
     //grab list from db
     const list = await List.findOne({ _id: listId });
-    console.log(list);
+    //console.log(list);
     //check if list exists
     if (!list) {
       console.error("Error adding movie to list: List not found");
@@ -51,12 +51,12 @@ const addMovieToList = async (listId: string, movieId: string) => {
     }
     //check if movie exists
     const movie = await Movie.findOne({ _id: movieId });
-    console.log(movie);
+    //console.log(" Movie check:" + movie);
     if (!movie) {
       //add movie to db
       //something fishy is happening here, the movie is not being added to the db
       //debug later...
-      console.log("Movie not found, trying to add movie to db");
+      //console.log("Movie not found, trying to add movie to db");
       addMovie(movieId);
     }
     //check if movie is already in list
