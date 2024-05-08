@@ -6,6 +6,7 @@ import SideBar from "./_ui/components/SideBar/Sidebar";
 import { AuthProvider } from "./context/authContext";
 import { Router } from "react-router-dom";
 import React from "react";
+import UploadImage from "./_ui/components/UploadImage/UploadImage";
 
 
 export const viewport: Viewport = {

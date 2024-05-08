@@ -3,7 +3,7 @@ import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import { useState } from "react";
 import { format } from "path";
-import { logInUser } from "@/_api/login";
+import { logInUser } from "@/_services/login";
 
 interface LoginProps {
   setOpenState: (state: boolean) => void;

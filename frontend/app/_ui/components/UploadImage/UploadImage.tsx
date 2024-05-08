@@ -16,6 +16,8 @@ const UploadImage = () => {
 
     const formData = new FormData();
     formData.append("file", file);
+    
+    console.log(formData);
 
     try {
       // hit the aws route in api folder
