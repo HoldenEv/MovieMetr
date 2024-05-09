@@ -94,6 +94,8 @@ const Userpage = () => {
                 .then(response => {
                   setId(response.user.id);
                   console.log("HERE IS THE USER's ID : " + id);
+                  fetchUser(id); // Fetch user data on mount
+                  fetchUserListsData(id);
                 })
                 .catch(error => {
                     console.error("Error fetching user ID: ", error);
@@ -124,11 +126,11 @@ const Userpage = () => {
     setNewListName('');
   };
 
-  useEffect(() => {
-      const userId = "662031400e351377c31953ee";
-      fetchUser(userId); // Fetch user data on mount
-      fetchUserListsData(userId);
-  }, []);
+  // useEffect(() => {
+  //     const userId = "662031400e351377c31953ee";
+  //     fetchUser(userId); // Fetch user data on mount
+  //     fetchUserListsData(userId);
+  // }, []);
 
   
   const fetchUser = async (userId: string) => {
@@ -204,7 +206,7 @@ const Userpage = () => {
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={''}
+              userId={user?._id}
             />
           )}
         </div>
@@ -241,8 +243,8 @@ const Userpage = () => {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className={styles.MovieLists}>
-          <div className={styles.MovieButtons}>
+        <div className={styles.movieLists}>
+          <div className={styles.movieButtons}>
             <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
               {isCreateListFormVisible && (
                 <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
@@ -251,7 +253,7 @@ const Userpage = () => {
                     value={newListName}
                     onChange={(e) => setNewListName(e.target.value)}
                   />
-                  <button type="submit">Submit</button>
+                  <button type="submit">Create</button>
                   <button type="button" onClick={handleCancelClick}>Cancel</button>
                 </form>
               )}

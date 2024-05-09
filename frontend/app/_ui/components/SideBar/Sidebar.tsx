@@ -62,14 +62,25 @@ export default function SideBar() {
               <span className={styles.navitem}>Explore</span>
             </a>
           </li>
-          <li>
-            <a href="/userpage">
-              <div className={styles.icon}>
-                <ProfileIcon></ProfileIcon>
-              </div>
-              <span className={styles.navitem}>Profile</span>
-            </a>
-          </li>
+          {localToken ? (
+            <li>
+              <a href="/userpage">
+                <div className={styles.icon}>
+                  <ProfileIcon />
+                </div>
+                <span className={styles.navitem}>Profile</span>
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/login"> {/* Replace "/login" with your actual login route */}
+                <div className={styles.icon}>
+                  <ProfileIcon />
+                </div>
+                <span className={styles.navitem}>Login</span>
+              </a>
+            </li>
+            )}
         </ul>
       </div>
   );

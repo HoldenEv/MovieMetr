@@ -6,7 +6,7 @@ import styles from "./editprofile.module.css";
 interface EditProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userId: string; // Assuming you have access to the user's ID
+  userId: any; // Assuming you have access to the user's ID
 }
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
