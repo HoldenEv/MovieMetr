@@ -16,8 +16,8 @@ export default function SearchResult({
   let summary;
   if (type === "films" || type === "shows") {
     summary =
-      data.summary.length > 200
-        ? data.summary.slice(0, 200) + "..."
+      data.summary.length > 500
+        ? data.summary.slice(0, 500) + "..."
         : data.summary;
   } else {
     summary = "";
@@ -32,8 +32,8 @@ export default function SearchResult({
             ? `https://image.tmdb.org/t/p/original${data.image}`
             : notfound
         }
-        width={100.8*1.5}
-        height={144*1.5}
+        width={100.8 * 1.5}
+        height={144 * 1.5}
         alt={`Poster for ${data.title}`}
         className={styles.moviePoster}
       ></Image>
