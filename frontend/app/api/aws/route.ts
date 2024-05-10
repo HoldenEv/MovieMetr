@@ -2,12 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import { NextRequest, NextResponse } from "next/server";
 import { S3Client, S3ClientConfig, PutObjectCommand } from "@aws-sdk/client-s3";
-import awsObjectUrl from "../../../database/awsObjectUrlSchema"
-
 const region = process.env.NEXT_PUBLIC_AWS_S3_REGION;
 const accessKeyId = process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID;
 const secretAccessKey = process.env.NEXT_PUBLIC_AWS_S3_SECRET_ACCESS_KEY_ID;
-
 
 if (!region || !accessKeyId || !secretAccessKey) {
   console.log("AWS Credentials are undefined");
@@ -37,6 +34,7 @@ async function uploadFileToS3(file : any, fileName: String) {
     Body: fileBuffer,
     ContentType : "image/png"
   }
+
   const command = new PutObjectCommand(params);
   await s3Client.send(command);
 
@@ -44,7 +42,9 @@ async function uploadFileToS3(file : any, fileName: String) {
 }
 
 export async function POST(req: NextRequest) {
+  
   try {
+
     const formData = await req.formData();
     const file = formData.get("file");
 
@@ -54,12 +54,9 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = await uploadFileToS3(buffer, file.name);
-    console.log("riht heer ")
     const s3ObjectURL = "https://movie-meter-profile-images.s3.us-east-2.amazonaws.com/myFolder/" + fileName;
-    await awsObjectUrl.create({ objectUrl: s3ObjectURL });
-
+    
     return NextResponse.json({ success : true, s3ObjectURL});
-
   } catch (error : any) {
     return NextResponse.json({error});
   }
