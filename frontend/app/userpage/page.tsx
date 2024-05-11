@@ -3,8 +3,7 @@ import styles from "./userpage.module.css";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box, Divider} from '@mui/material';
-import Grid from "@mui/material/Unstable_Grid2"; 
+import { Tabs, Tab, Box} from '@mui/material';
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
@@ -64,14 +63,6 @@ function a11yProps(index: number) {
   };
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 const Userpage = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
@@ -125,12 +116,6 @@ const Userpage = () => {
     setNewListName('');
   };
 
-  // useEffect(() => {
-  //     const userId = "662031400e351377c31953ee";
-  //     fetchUser(userId); // Fetch user data on mount
-  //     fetchUserListsData(userId);
-  // }, []);
-
   
   const fetchUser = async (userId: string) => {
     try {
@@ -158,6 +143,7 @@ const Userpage = () => {
       console.error("Error fetching user lists", error);
     }
   };
+
 
   const handleCreateListSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -210,33 +196,34 @@ const Userpage = () => {
           )}
         </div>
       </div>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}
           centered
-          TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
-          sx={{ borderBottom: 1, borderColor: "white" }}
+          textColor="inherit"
+          TabIndicatorProps={{ style: { backgroundColor: "white" } }}
+          sx={{ borderBottom: 0.5, borderColor: "white" }}
         >
           <Tab
             label="Movie Lists"
             {...a11yProps(0)}
             sx={{
-              color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
+              color: value === 0 ? "white" : "white", // Set the text color based on the tab's selection
             }}
           />
           <Tab
             label="Watchlist"
             {...a11yProps(1)}
             sx={{
-              color: value === 1 ? "blue" : "white",
+              color: value === 1 ? "white" : "white",
             }}
           />
           <Tab
             label="Ratings"
             {...a11yProps(2)}
             sx={{
-              color: value === 2 ? "blue" : "white",
+              color: value === 2 ? "white" : "white",
             }}
           />
         </Tabs>
