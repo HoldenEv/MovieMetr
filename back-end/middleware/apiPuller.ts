@@ -369,7 +369,7 @@ const getCombinedCredits = async (id: string) => {
         // Check if the show ID is already in the list
         if (
           !uniqueShows.find(
-            (s: CrewData) => s.id === show.id && s.media_type === s.media_type
+            (s: CrewData) => s.id === show.id && s.media_type === s.media_type,
           )
         ) {
           // If not, add it to the list
@@ -377,7 +377,7 @@ const getCombinedCredits = async (id: string) => {
         }
         return uniqueShows;
       },
-      []
+      [],
     );
     return response.data;
   } catch (error) {

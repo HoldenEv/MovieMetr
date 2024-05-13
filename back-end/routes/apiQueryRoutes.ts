@@ -78,18 +78,26 @@ router.get("/people/:id", async (req: Request, res: Response) => {
         media_type,
         poster_path,
         popularity,
-        vote_count
+        vote_count,
       }),
     );
     credits.crew = credits.crew.map(
-      ({ id, title, job, media_type, poster_path, popularity, vote_count }) => ({
+      ({
         id,
         title,
         job,
         media_type,
         poster_path,
         popularity,
-        vote_count
+        vote_count,
+      }) => ({
+        id,
+        title,
+        job,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
       }),
     );
 

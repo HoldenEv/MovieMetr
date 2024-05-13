@@ -14,7 +14,7 @@ export default function FilmGrid({ cast }: { cast: any }) {
     .filter((result: any) => result.media_type == "tv")
     .sort((a: any, b: any) => (a.vote_count > b.vote_count ? -1 : 1));
   const all = cast.sort((a: any, b: any) =>
-    a.vote_count > b.vote_count ? -1 : 1
+    a.vote_count > b.vote_count ? -1 : 1,
   );
 
   const [activeButton, setActiveButton] = useState("film");
