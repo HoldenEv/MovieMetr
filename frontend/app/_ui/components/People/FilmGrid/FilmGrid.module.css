@@ -11,14 +11,14 @@
 .gridContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: 5px;
-  padding: 2px;
+  padding: 10px 5px 5px 10px;
   background-color: #242a592b;
   margin-top: 20px;
 }
 
-@media (min-width: 1000px) {
-  .gridContainer {
-    padding: 0;
-  }
+.filterBar {
+  background-color: #3c416824;
+  border-radius: 5px;
 }

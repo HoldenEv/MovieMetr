@@ -364,7 +364,7 @@ const getCombinedCredits = async (id: string) => {
     console.error("Error searching for person details", error);
     throw error;
   }
-}
+};
 
 //getAllPersonMovies returns a list of all movies for a person by id
 // use this on actor page to display all movies they have been in
@@ -503,5 +503,5 @@ export {
   TVshowById,
   getAllTVPeople,
   getAllPersonTVshows,
-  getCombinedCredits
+  getCombinedCredits,
 };

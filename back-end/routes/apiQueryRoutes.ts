@@ -7,7 +7,7 @@ import {
   searchTvShows,
   nowPlaying,
   popularMovies,
-  getCombinedCredits
+  getCombinedCredits,
 } from "../middleware/apiPuller";
 const router = Router();
 
@@ -44,6 +44,7 @@ interface Credit {
   title: string;
   media_type: string;
   poster_path: string;
+  popularity: string;
 }
 
 interface Crew {
@@ -52,6 +53,7 @@ interface Crew {
   job: string;
   media_type: string;
   poster_path: string;
+  popularity: string;
 }
 
 interface Credits {
@@ -67,11 +69,27 @@ router.get("/people/:id", async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const person = await personById(id);
     const credits: Credits = await getCombinedCredits(id);
-    credits.cast = credits.cast.map(({id, title, media_type, poster_path}) => ({id, title, media_type, poster_path}));
-    credits.crew = credits.crew.map(({id, title, job, media_type, poster_path}) => ({id, title, job, media_type, poster_path}));
+    credits.cast = credits.cast.map(
+      ({ id, title, media_type, poster_path, popularity }) => ({
+        id,
+        title,
+        media_type,
+        poster_path,
+        popularity,
+      }),
+    );
+    credits.crew = credits.crew.map(
+      ({ id, title, job, media_type, poster_path, popularity }) => ({
+        id,
+        title,
+        job,
+        media_type,
+        poster_path,
+        popularity,
+      }),
+    );
 
-
-    res.json({...person, credits});
+    res.json({ ...person, credits });
   } catch (error) {
     console.error("Error getting movie details", error);
     res.status(500).send("Error getting movie details");
