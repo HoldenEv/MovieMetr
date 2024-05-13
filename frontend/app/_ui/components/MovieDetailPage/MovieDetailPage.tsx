@@ -1,6 +1,17 @@
 import { ViewHeadline } from "@mui/icons-material";
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
+import { backdropClasses } from "@mui/material";
+import {
+  Key,
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+  PromiseLikeOfReactNode,
+} from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import assert from "assert";
 export default function MovieDetailPage({
   data,
 }: {
@@ -13,24 +24,26 @@ export default function MovieDetailPage({
   return (
     <div className={styles.moviepage}>
       {/* <div
-        style={{
-          position: "relative",
-          height: "480px",
-          width: "853px",
-          zIndex: "0",
-          margin: "auto",
-        }}
-      > */}
+          style={{
+            position: "relative",
+            height: "480px",
+            width: "853px",
+            zIndex: "0",
+            margin: "auto",
+          }}
+        > */}
       <div className={styles.backdrop}>
         <Image
+          className={styles.image}
           src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
           alt={`backdrop for ${data.title}`}
           //   fill={true}
           style={{
             margin: "auto",
-            width: "50%",
+            width: "80%",
             height: "auto",
-  
+            background: "#191c2d",
+            boxShadow: "0 0 20px 20px rgba(0,0,0,0.9)",
           }}
           width={1280}
           height={720}
@@ -42,14 +55,11 @@ export default function MovieDetailPage({
       <div className={styles.container}>
         <div className={styles.poster}>
           <Image
+            className={styles.posterimage}
             priority
             src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
-            style={{
-              padding: 0,
-              margin: 0,
-            }}
-            width={300}
-            height={450}
+            width={255}
+            height={382.5}
             alt="Search for a movie"
           ></Image>
         </div>
@@ -58,20 +68,59 @@ export default function MovieDetailPage({
           <div className={styles.moviedetail}>
             <div className={styles.set}>
               <label> Release Date</label>
-              <span> March 3, 2023</span>
+              <span> {data.release_date}</span>
             </div>
             <div className={styles.set}>
               <label> Running time</label>
-              <span> 1 Hr 47 Min</span>
+              <span> {data.runtime} minutes</span>
             </div>
             <div className={styles.set}>
               <label> Genre</label>
-              <span> Fantasy/ Adventure/ Family</span>
+              <span>
+                {data.genres.map((genre: any, index: number) => (
+                  <span key={genre.id}>
+                    {genre.name}
+                    {index !== data.genres.length - 1 && "/"}{" "}
+                    {/* add '/' if it's not the last genre */}
+                  </span>
+                ))}
+              </span>
+            </div>
+            <div className={styles.set}>
+              <label> About </label>
+              <span>{data.tagline}</span>
+              <div className={styles.moviedescription}>{data.overview}</div>
+            </div>
+            <div className={styles.set}>
+              <label> Cast </label>
+              <div className={styles.horizontalScroll}>
+                {data.credits.cast.map((entry: any, id: any) => (
+                  <div key={id} className={styles.imageItemContainer}>
+                    <div className={styles.imageItem}>
+                      {entry.profile_path ? (
+                        <Image
+                          className={styles.castImage}
+                          src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
+                          alt={entry.id}
+                          width={50}
+                          height={70}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : (
+                        entry.id
+                      )}
+                    </div>
+                    <div className={styles.name}>{entry.original_name}</div>
+                    <div className={styles.character}> {entry.character}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-
-          <div className={styles.moviedescription}>{data.overview}</div>
-          <div className={styles.moviecast}>Insert hamburger menu here</div>
         </div>
       </div>
     </div>
