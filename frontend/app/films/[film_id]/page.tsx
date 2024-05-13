@@ -28,7 +28,7 @@ export default function FilmDetailPage({
     <div>
       {!filmData.loading && (
         <div>
-           <MovieDetailPage data={filmData.data}></MovieDetailPage>
+          <MovieDetailPage data={filmData.data}></MovieDetailPage>
           {/* <h1>{filmData.data.title}</h1>
             <p>{filmData.data.overview}</p> */}
           {/* <Image

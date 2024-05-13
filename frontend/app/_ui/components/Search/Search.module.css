@@ -30,7 +30,6 @@
   width: 90%;
   min-height: 2.8rem;
   margin: 20px auto;
-  
 }
 
 /* active button on search form */
@@ -40,9 +39,9 @@
   border: 1px solid #ff5effd2;
   min-height: 2.8rem;
   width: 5rem;
-  background-color:rgba(48, 65, 78, 0.576);
+  background-color: rgba(48, 65, 78, 0.576);
   color: #919191;
-  font-weight: bold;  
+  font-weight: bold;
   font-size: 1rem;
 }
 
@@ -53,7 +52,7 @@
 
 /* search input */
 .search {
-  background-color:rgba(66, 82, 94, 0.576) ;
+  background-color: rgba(66, 82, 94, 0.576);
   color: white;
   border: 1px solid #ff5effd2;
   border-left: none;

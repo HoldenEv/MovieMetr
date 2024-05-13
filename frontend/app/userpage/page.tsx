@@ -88,7 +88,6 @@ export default function Userpage() {
   };
 
   useEffect(() => {
-    const userId = "662031400e351377c31953ee";
     const userId = "6632af44f5d2b656fe70c924";
     fetchUser(userId); // Fetch user data on mount
     fetchUserListsData(userId);
@@ -128,9 +127,6 @@ export default function Userpage() {
     }
     setIsCreateListFormVisible(false);
     setNewListName("");
-      .then((response) => response.json())
-      .then((data) => setUser(data))
-      .catch((error) => console.error("Error fetching user data", error));
   };
 
   return (
