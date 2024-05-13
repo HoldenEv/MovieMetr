@@ -8,7 +8,6 @@ import { Router } from "react-router-dom";
 import React from "react";
 import UploadImage from "./_ui/components/UploadImage/UploadImage";
 
-
 export const viewport: Viewport = {
   themeColor: "black",
   width: "device-width",

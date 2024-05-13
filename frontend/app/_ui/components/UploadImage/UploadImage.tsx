@@ -43,11 +43,8 @@ const UploadImage = () => {
         <input type="file" accept="image/*" onChange={handeFileChange}/>
         <button type="submit" disabled={!file || uploading}>
           {uploading ? "Uploading..." : "Upload"}
-
         </button>
-
       </form>
-
     </div>
   );
 }
