@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 import "./login.css";
 import { useState } from "react";
@@ -75,3 +76,15 @@ export default function Login() {
     </div>
   );
 }
+=======
+"use client";
+
+import Login from "@/_ui/components/UserAuth/Login/Login";
+import { useState } from "react";
+
+export default function LoginPage() {
+  const [isOpen, setOpen] = useState(true);
+
+  return <Login isOpen={isOpen} setOpenState={setOpen} />;
+}
+>>>>>>> d865453eb8231b8cfb2508a0aeb28fde7d2fb3dd

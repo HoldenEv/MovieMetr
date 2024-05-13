@@ -7,13 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "test": "prettier --check . --ignore-path .prettierignore && next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.15",
+    "axios": "^1.6.8",
     "next": "14.1.0",
     "next-auth": "^4.24.7",
     "react": "^18.2.0",
@@ -21,14 +23,18 @@
     "react-modal": "^3.16.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.1.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18.2.75",
     "@types/react-dom": "^18.2.24",
     "@types/react-modal": "^3.16.3",
-    "eslint": "^8",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.1.0",
     "prettier": "^3.2.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^7.8.0"
   }
 }

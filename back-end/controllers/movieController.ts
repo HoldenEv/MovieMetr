@@ -4,14 +4,13 @@ import { addAllMoviePeople } from "./personController";
 import { addGenre, addMovieGenres } from "./genreController";
 import { movieById, getAllPersonMovies } from "../middleware/apiPuller";
 
-
 /*This function could have the genre operations split into seperate functions,
 especially if there are other instances they may need to be used, 
 just cant think of any rn*/
 /**
  * when given a movie ID, query the TMDB API for the movie details
  * then add the movie to the database, including all related fields
- * @param movieId 
+ * @param movieId
  * @returns Null if failed, or the movie object if successful
  */
 const addMovie = async (movieId: string) => {
@@ -23,6 +22,7 @@ const addMovie = async (movieId: string) => {
     }
     //grabs all movie details from the API
     const movie = await movieById(movieId);
+
     const newMovie = new Movie({
       _id: movie.id,
       title: movie.title,
@@ -40,13 +40,13 @@ const addMovie = async (movieId: string) => {
 
     /*add genres to genre collection if not already there
         calls addGenre from genreController*/
-    for (let genre of movie.genres) {
+    for (const genre of movie.genres) {
       addGenre(genre.id, genre.name);
     }
 
     //add genre-movie pairs to movieGenres collection
     //**need to make sure moviegenres are unique**do this in schema
-    for (let genre of movie.genres) {
+    for (const genre of movie.genres) {
       addMovieGenres(movieId, genre.id);
     }
     return newMovie;
@@ -65,7 +65,7 @@ const addPersonMovies = async (personId: string) => {
     //objects by calling people/moviecredits, so we need to grab the cast field from the result
     const movies = result.cast;
     //add each movie to the database
-    for (let movie of movies) {
+    for (const movie of movies) {
       addMovie(movie.id);
     }
   } catch (error) {

@@ -5,8 +5,8 @@ import styles from "./Search.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
-import Login from "../Login/Login";
-import SignUp from "../Signup/Signup";
+import Login from "../UserAuth/Login/Login";
+import SignUp from "../UserAuth/Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default function Search() {
   /* on open, prevent any default event and set open state to 
   either closed or open */
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setOpen(!open);
@@ -30,7 +30,7 @@ export default function Search() {
   to category clicked close the dropdown */
   const handleClick = (
     category: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setActiveButton(category);
@@ -55,8 +55,6 @@ export default function Search() {
       inputText = inputText.replace(/\s+/g, "+").toLowerCase();
       /* go to search page for searched item */
       router.push(`/search/${activeButton.toLowerCase()}/${inputText}/page/1`);
-      /* reset the value of the search bar */
-      formElement.search.value = "";
     } catch (error) {
       console.error("Error getting results: ", error);
     }
@@ -118,75 +116,3 @@ export default function Search() {
     </div>
   );
 }
-
-// export default function Header() {
-//   const [loginOpen, setLoginOpen] = useState(false);
-//   const [signupOpen, setSignupOpen] = useState(false);
-
-//   const handleOpen = () => {
-//     setLoginOpen(!loginOpen);
-//   };
-
-//   const handleSignupClick = () => {
-//     setSignupOpen(!signupOpen);
-//   };
-
-//   return (
-//     <>
-//       <header className={styles.header}>
-//         <nav>
-//           <ul className={styles.list}>
-//             {loginOpen ? null : <Form />}
-//             <div className={styles.navLinkContainer}>
-//               <Link href="/" className={styles.navLink}>
-//                 HOME
-//               </Link>
-//               <a className={styles.navLink} onClick={handleOpen}>
-//                 SIGN IN
-//               </a>
-//               {loginOpen ? null : (
-//                 <a className={styles.navLink} onClick={handleSignupClick}>
-//                   CREATE ACCOUNT
-//                 </a>
-//               )}
-//             </div>
-//           </ul>
-//           <div className={styles.hamburger}>
-//             <span className={styles.bar}></span>
-//             <span className={styles.bar}></span>
-//             <span className={styles.bar}></span>
-//           </div>
-//         </nav>
-//       </header>
-//       {loginOpen ? <Login setOpenState={setLoginOpen} /> : null}
-//       {signupOpen ? (
-//         <SignUp isOpen={signupOpen} setOpenState={setSignupOpen} />
-//       ) : null}
-//     </>
-//   );
-// }
-
-// function AuthContainer() {
-//   const [isLoginOpen, setLoginOpen] = useState(false);
-//   const [isSignUpOpen, setSignUpOpen] = useState(false);
-
-//   const openLogin = () => {
-//     setLoginOpen(true);
-//     setSignUpOpen(false);
-//   };
-
-//   const openSignUp = () => {
-//     setSignUpOpen(true);
-//     setLoginOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={openLogin}>Open Login</button>
-//       <button onClick={openSignUp}>Open Sign Up</button>
-
-//       {isLoginOpen && <Login setOpenState={setLoginOpen} />}
-//       {isSignUpOpen && <SignUp setOpenState={setSignUpOpen} />}
-//     </div>
-//   );
-// }

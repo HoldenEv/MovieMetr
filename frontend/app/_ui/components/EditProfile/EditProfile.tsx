@@ -21,7 +21,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     // Add more fields as needed
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -34,7 +36,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     try {
       const response = await updateUser(userId, formData);
       console.log("Profile updated:", response);
-      onClose(); 
+      onClose();
     } catch (error: any) {
       console.error("Error updating profile:", error.message);
     }
@@ -52,7 +54,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               className={styles.formInput}
             />
 
@@ -63,7 +64,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               name="username"
               value={formData.username}
               onChange={handleChange}
-              required
               className={styles.formInput}
             />
 
@@ -77,8 +77,16 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             />
 
             <div className={styles.loginBottomButtons}>
-              <button type="submit" className={styles.createAccountButton}>Save Changes</button>
-              <button type="button" onClick={onClose} className={styles.createAccountButton}>Cancel</button>
+              <button type="submit" className={styles.createAccountButton}>
+                Save Changes
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className={styles.createAccountButton}
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>

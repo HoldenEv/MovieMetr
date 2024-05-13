@@ -1,10 +1,8 @@
-// editProfile.ts
-
 const BASE_URL: string = "http://localhost:3001/authentication";
 
 export const updateUser = async (
   userId: string,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<any> => {
   try {
     const response = await fetch(`${BASE_URL}/updateUser`, {
