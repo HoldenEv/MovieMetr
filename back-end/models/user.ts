@@ -18,6 +18,7 @@ export interface IUser extends Document {
   username: string;
   email: string;
   profilePath: string;
+  profileBanner: string;
   bio: string;
   following: string[];
   followers: string[];
@@ -37,6 +38,9 @@ const UserSchema = new Schema<IUser>({
     unique: true,
   },
   profilePath: {
+    type: String,
+  },
+  profileBanner: {
     type: String,
   },
   bio: {
