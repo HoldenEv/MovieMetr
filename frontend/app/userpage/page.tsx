@@ -7,12 +7,19 @@ import { Tabs, Tab, Box} from '@mui/material';
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
+import bannerPic from "@/_assets/sample_banner_pic.jpg";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
 import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import CreateIcon from '@mui/icons-material/Create';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 interface User {
   _id: string;
@@ -116,6 +123,10 @@ const Userpage = () => {
     setNewListName('');
   };
 
+  const actions = [
+    { icon: <CreateIcon />, name: 'Create List', onClick: handleCreateListClick },
+    // { icon: <EditIcon />, name: 'Edit List', onClick: handleEditListClick }, // You'll implement this later
+  ];
   
   const fetchUser = async (userId: string) => {
     try {
@@ -123,6 +134,12 @@ const Userpage = () => {
       setUser(data);
     } catch (error) {
       console.error("Error fetching user data", error);
+    }
+  };
+
+  const refreshUserData = () => {
+    if (user){
+      fetchUser(user._id);
     }
   };
   
@@ -150,6 +167,7 @@ const Userpage = () => {
     if (user) {
       const newList = await addList(newListName, user._id); // Replace with your API function and user ID
       setUserLists([...userLists, newList]);
+      refreshUserData();
     }
     setIsCreateListFormVisible(false);
     setNewListName('');
@@ -158,13 +176,21 @@ const Userpage = () => {
  
   return (
     <div className={styles.userPage}>
+      <div className={styles.banner}>
+        <Image
+          src= {bannerPic} // src={user?.bannerPic || defaultBannerPic}
+          layout="fill"
+          objectFit="cover"
+          alt="Banner Pictrue"
+        />
+      </div>
       <div className={styles.userInfo}>
         <div className={styles.photoUsername}>
           <Image
             priority
             src={profilePic} // src={user?.profilePic || profilePic}
-            width={500}
-            height={500}
+            width={200}
+            height={200}
             alt="Profile Picture"
             className={styles.profilePicture}
           />
@@ -192,6 +218,8 @@ const Userpage = () => {
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
               userId={user?._id}
+              user={user}
+              refreshUserData={refreshUserData}
             />
           )}
         </div>
@@ -231,7 +259,23 @@ const Userpage = () => {
       <CustomTabPanel value={value} index={0}>
         <div className={styles.movieLists}>
           <div className={styles.movieButtons}>
-            <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
+            <div>
+              <SpeedDial
+                ariaLabel="SpeedDial openIcon example"
+                direction="right"
+                icon={<SpeedDialIcon />}
+                className={styles.SpeedDial}
+              >
+                {actions.map((action) => (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    onClick={action.onClick}
+                  />
+                ))}
+              </SpeedDial>
+              </div>
               {isCreateListFormVisible && (
                 <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
                   <input

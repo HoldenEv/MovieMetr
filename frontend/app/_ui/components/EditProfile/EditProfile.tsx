@@ -7,17 +7,21 @@ interface EditProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
   userId: any; // Assuming you have access to the user's ID
+  user: any;
+  refreshUserData: any;
 }
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
   isOpen,
   onClose,
   userId,
+  user,
+  refreshUserData,
 }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    bio: "",
+    email: user?.email || "",
+    username: user?.username || "",
+    bio: user?.bio || "",
     // Add more fields as needed
   });
 
@@ -34,15 +38,15 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     try {
       const response = await updateUser(userId, formData);
       console.log("Profile updated:", response);
-      onClose(); 
+      onClose();
+      refreshUserData(); 
     } catch (error: any) {
       console.error("Error updating profile:", error.message);
     }
   };
 
   return (
-    <ReactModal isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false}>
-      <div className={styles.modalOverlay}>
+    <ReactModal isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false} className={styles.modalOverlay}>
         <div className={styles.formContainer}>
           <form onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
@@ -76,14 +80,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             />
 
             <div className={styles.loginBottomButtons}>
-              <button type="submit" className={styles.createAccountButton}>Save Changes</button>
-              <button type="button" onClick={onClose} className={styles.createAccountButton}>Cancel</button>
+              <button type="submit" className={styles.editProfileButton}>Save Changes</button>
+              <button type="button" onClick={onClose} className={styles.editProfileButton}>Cancel</button>
             </div>
           </form>
         </div>
-      </div>
     </ReactModal>
   );
 };
 
 export default EditProfileModal;
+
