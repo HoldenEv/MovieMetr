@@ -65,6 +65,9 @@ const registerUser = async (
     bio: username + " hasn't set a bio yet.",
     profilePath:
       "https://temp-bucket-h4i.s3.us-east-2.amazonaws.com/myFolder/blank-profile-picture-973460_1280.png",
+    profileBanner:
+      "https://image.tmdb.org/t/p/original/qYiaSl0Eb7G3VaxOg8PxExCFwon.jpg"
+
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;
