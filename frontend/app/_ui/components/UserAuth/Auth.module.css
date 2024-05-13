@@ -10,7 +10,7 @@
 
 .formContainer {
   border-radius: 10px;
-  background-color: #606060;
+  background-color: rgba(9, 24, 36, 1);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -54,6 +54,7 @@
 }
 
 .closeIcon {
+  color: rgba(253, 253, 253, 0.736);
   cursor: pointer;
 }
 
@@ -112,7 +113,7 @@
 }
 
 .createAccountButton:hover {
-  background-color: #3a4967;
+  background-color: #43516e;
 }
 
 @media only screen and (max-width: 600px) {

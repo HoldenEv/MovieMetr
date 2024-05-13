@@ -1,80 +1,83 @@
 .moviepage {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    transition: all 0.35s linear;
-    
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: all 0.35s linear;
 }
 
 .body {
-    min-height:  100vh;  
+  min-height: 100vh;
+}
+.backdrop {
+  display: flex;
+  justify-content: center;
 }
 
-.container{
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 480px 1fr;
-    grid-gap: 32px;
-    backdrop-filter: blur(7px) contrast(100%);
-    color: white;
+.container {
+  /* min-height: 100vh; */
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  grid-gap: 32px;
+  backdrop-filter: blur(7px) contrast(100%);
+  color: white;
+
 }
 
 .backdrop {
-    border: 4px solid transparent;
+  border: 4px solid transparent;
+  box-shadow: 0 0 30px 30px rgb(24, 28, 45) inset;
+  z-index: 99999;
 }
 
 .info {
-    padding-top: 190px;
-    padding-left: 24px;
+  padding-top: 20px;
+  padding-left: 24px;
 }
 
 .poster {
-    width: 480px;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding-top: 20px;
+  /* width: 100%; */
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .info > div {
-    margin-top: 32px;
-    margin-bottom: 32px;
-    margin-right: 32px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  margin-right: 32px;
 }
 
 .movietitle {
-    font-size: 64px;
-    font-weight: bold;
-    background-image: linear-gradient(45deg, white, white);
-    background-clip: text;
-    color: transparent;
+  font-size: 64px;
+  font-weight: bold;
+  background-image: linear-gradient(45deg, white, white);
+  background-clip: text;
+  color: transparent;
 }
 
-.moviedetail .set{
-    display: inline-block;
-    margin-right: 64px;
+.moviedetail .set {
+  display: inline-block;
+  margin-right: 64px;
 }
 
 .moviedetail label {
-    font-size: 14px;
-    color: white;
-    display: block;
+  font-size: 14px;
+  color: white;
+  display: block;
 }
 
 .moviedetail span {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 .moviedescription {
-    line-height: 24px;
-
+  line-height: 24px;
 }
 
 .moviecast .header {
-    font-size: 24px;
-    margin-bottom: 24px;
-
+  font-size: 24px;
+  margin-bottom: 24px;
 }
-

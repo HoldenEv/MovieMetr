@@ -21,27 +21,35 @@ export default function MovieDetailPage({
           margin: "auto",
         }}
       > */}
-      <Image
-        src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
-        alt={`backdrop for ${data.title}`}
-        //   fill={true}
-        style={{
-          margin: "auto",
-          width: "80%",
-          height: "auto",
-        }}
-        width={1280}
-        height={720}
-        //   layout="fill"
-      />
+      <div className={styles.backdrop}>
+        <Image
+          src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
+          alt={`backdrop for ${data.title}`}
+          //   fill={true}
+          style={{
+            margin: "auto",
+            width: "50%",
+            height: "auto",
+  
+          }}
+          width={1280}
+          height={720}
+          //   layout="fill"
+        />
+      </div>
+
       {/* </div> */}
       <div className={styles.container}>
         <div className={styles.poster}>
           <Image
             priority
             src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
+            style={{
+              padding: 0,
+              margin: 0,
+            }}
             width={300}
-            height={400}
+            height={450}
             alt="Search for a movie"
           ></Image>
         </div>

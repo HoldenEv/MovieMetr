@@ -54,7 +54,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
               className={styles.formInput}
             />
 
@@ -65,7 +64,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               name="username"
               value={formData.username}
               onChange={handleChange}
-              required
               className={styles.formInput}
             />
 

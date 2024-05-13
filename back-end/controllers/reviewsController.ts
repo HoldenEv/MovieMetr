@@ -17,12 +17,12 @@ const addReview = async (
     }
     //check is user exists
     if ((await User.findOne({ _id: userId })) == null) {
-        console.error("Error adding review: User not in database");
-        return null;
+      console.error("Error adding review: User not in database");
+      return null;
     }
-    if(reviewString == null){
-        console.error("Error adding review: Review string is null");
-        return null;
+    if (reviewString == null) {
+      console.error("Error adding review: Review string is null");
+      return null;
     }
     const newReview = new Review({
       movie_id: movieId,
@@ -61,7 +61,6 @@ const getReview = async (reviewId: string) => {
   }
 };
 
-
 //returns all reviews objects for a movie by its id
 const getMovieReviews = async (movieId: string) => {
   try {
@@ -84,4 +83,4 @@ const getUserReviews = async (userId: string) => {
   }
 };
 
-export { addReview, deleteReview, getMovieReviews, getUserReviews,getReview };
+export { addReview, deleteReview, getMovieReviews, getUserReviews, getReview };

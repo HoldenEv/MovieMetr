@@ -30,7 +30,7 @@ test("Add review and delete", async () => {
     testMovieId,
     testUserId,
     testReviewString,
-    testRating
+    testRating,
   );
 
   // addReview should add to database and return the object on success
@@ -57,7 +57,7 @@ test("Add review, movie not in database", async () => {
     testMovieId,
     testUserId,
     testReviewString,
-    testRating
+    testRating,
   );
 
   expect(result).toBe(null);
@@ -78,7 +78,7 @@ test("get review", async () => {
     testMovieId,
     testUserId,
     testReviewString,
-    testRating
+    testRating,
   );
 
   const result = await getReview(addResult._id);
@@ -107,7 +107,7 @@ test("get movie reviews, get user reviews", async () => {
     testMovieId,
     testUserId,
     testReviewString,
-    testRating
+    testRating,
   );
 
   const movieResult = await getMovieReviews("634492");
@@ -119,7 +119,7 @@ test("get movie reviews, get user reviews", async () => {
         review: testReviewString,
         rating: testRating,
       }),
-    ])
+    ]),
   );
 
   const userResult = await getUserReviews("12985");
@@ -131,6 +131,6 @@ test("get movie reviews, get user reviews", async () => {
         review: testReviewString,
         rating: testRating,
       }),
-    ])
+    ]),
   );
 });
