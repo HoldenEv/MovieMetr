@@ -20,11 +20,13 @@ jobs:
           node-version: '20.x'
       - name: Install Dependencies
         run: npm install
+      - name: Build
+        run: npm run build
       - name: Deploy to Azure Web App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'MovieMeter'
           publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE }}
-          package: .
+          package: dist
           
         
