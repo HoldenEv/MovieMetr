@@ -1,6 +1,7 @@
 import styles from "./SearchResult.module.css";
 import Image from "next/image";
 import notfound from "@/_assets/NOTFOUND.png";
+import Link from "next/link";
 
 export default function SearchResult({
   type,
@@ -23,26 +24,32 @@ export default function SearchResult({
     summary = "";
   }
 
+  const linkSource = `/${type}/${data.id}`;
+
   return (
     <div className={styles.searchResultContainer}>
-      <Image
-        // use our own "not found" image if source is not found from TMDB
-        src={
-          data.image
-            ? `https://image.tmdb.org/t/p/original${data.image}`
-            : notfound
-        }
-        width={100.8}
-        height={144}
-        alt={`Poster for ${data.title}`}
-        className={styles.moviePoster}
-      ></Image>
+      <Link href={linkSource}>
+        <Image
+          // use our own "not found" image if source is not found from TMDB
+          src={
+            data.image
+              ? `https://image.tmdb.org/t/p/original${data.image}`
+              : notfound
+          }
+          width={100.8}
+          height={144}
+          alt={`Poster for ${data.title}`}
+          className={styles.moviePoster}
+        ></Image>
+      </Link>
       <div className={styles.content}>
         <div>
           <div className={styles.titleContainer}>
-            <h2 className={styles.title}>
-              {type === "films" ? data.title : data.name}
-            </h2>
+            <Link href={linkSource}>
+              <h2 className={styles.title}>
+                {type === "films" ? data.title : data.name}
+              </h2>
+            </Link>
             <h3 className={styles.alternateTitle}>
               {(type === "films" && data.original_title !== data.title) ||
               (type === "shows" && data.original_name !== data.name)
