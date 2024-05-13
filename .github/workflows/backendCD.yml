@@ -24,7 +24,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'MovieMeter'
-          publish-profile: ${{ secrets.azureWebappPublishProfile }}
+          publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE }}
           package: .
           
         
