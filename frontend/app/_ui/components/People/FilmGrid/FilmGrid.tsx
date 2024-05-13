@@ -9,16 +9,19 @@ import Stack from "@mui/material/Stack";
 export default function FilmGrid({ cast }: { cast: any }) {
   const movies = cast
     .filter((result: any) => result.media_type == "movie")
-    .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1));
+    .sort((a: any, b: any) => (a.vote_count > b.vote_count ? -1 : 1));
   const shows = cast
     .filter((result: any) => result.media_type == "tv")
-    .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1));
+    .sort((a: any, b: any) => (a.vote_count > b.vote_count ? -1 : 1));
+  const all = cast.sort((a: any, b: any) =>
+    a.vote_count > b.vote_count ? -1 : 1
+  );
 
   const [activeButton, setActiveButton] = useState("film");
   const [items, setItems] = useState(movies);
 
   const buttons = [
-    // { label: "ALL", value: "all" },
+    { label: "ALL", value: "all" },
     { label: "FILM", value: "film" },
     { label: "TV", value: "tv" },
   ];
@@ -29,12 +32,17 @@ export default function FilmGrid({ cast }: { cast: any }) {
       setItems([]);
       setTimeout(() => {
         setItems(movies);
-      }, 0); // delay to allow the state update to render before setting the items
+      }, 0);
     } else if (category === "tv") {
       setItems([]);
       setTimeout(() => {
         setItems(shows);
-      }, 0); // delay to allow the state update to render before setting the items
+      }, 0);
+    } else if (category === "all") {
+      setItems([]);
+      setTimeout(() => {
+        setItems(all);
+      }, 0);
     }
   };
 
