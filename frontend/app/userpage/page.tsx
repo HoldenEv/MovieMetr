@@ -263,6 +263,111 @@ export default function Userpage() {
 
 {
   /* <div className={styles.gallery}>
+    <div className={styles.userPage}>
+      <div className={styles.userInfo}>
+        <div className={styles.photoUsername}>
+          <Image
+            priority
+            src={profilePic} // src={user?.profilePic || profilePic}
+            width={500}
+            height={500}
+            alt="Profile Picture"
+            className={styles.profilePicture}
+          />
+          <h2 className={styles.usernameText}>{user?.username}</h2>
+        </div>
+        <div className={styles.overviewBio}>
+          <div className={styles.overview}>
+            <p>300 films</p>
+            <p>300 followers</p>
+            <p>300 following</p>
+          </div>
+          <p className={styles.bio}>{user?.bio}</p>
+          <div className={styles.extensions}>
+            <button
+              className={styles.editProfile}
+              onClick={openEditProfileModal}
+            >
+              Edit Profile
+            </button>
+            <button className={styles.shareProfile} type="submit">
+              Share Profile
+            </button>
+          </div>
+          {isEditProfileOpen && (
+            <EditProfileModal
+              isOpen={isEditProfileOpen}
+              onClose={closeEditProfileModal}
+              userId={"662031400e351377c31953ee"}
+            />
+          )}
+        </div>
+      </div>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
+          sx={{ borderBottom: 1, borderColor: "white" }}
+        >
+          <Tab
+            label="Favorites"
+            {...a11yProps(0)}
+            sx={{
+              color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
+            }}
+          />
+          <Tab
+            label="Watchlist"
+            {...a11yProps(1)}
+            sx={{
+              color: value === 1 ? "blue" : "white",
+            }}
+          />
+          <Tab
+            label="Ratings"
+            {...a11yProps(2)}
+            sx={{
+              color: value === 2 ? "blue" : "white",
+            }}
+          />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <div className={styles.gallery}>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+              justifyContent="center"
+            >
+              {[
+                "https://image.tmdb.org/t/p/original/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg",
+                "https://i.ebayimg.com/images/g/ACIAAOSwdnphKthz/s-l1200.webp",
+                "https://m.media-amazon.com/images/I/71NPmBOdq7L._AC_UF894,1000_QL80_.jpg",
+                "https://i.ebayimg.com/images/g/oqwAAOSwy-5bwrx~/s-l1600.jpg",
+              ].map((imageUrl, index) => (
+                <Grid key={index} xs={6} sm={3} md={2}>
+                  <img
+                    src={imageUrl}
+                    className={styles.galleryItem}
+                    alt={`Poster for films`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </div>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <div className={styles.gallery}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid
               container

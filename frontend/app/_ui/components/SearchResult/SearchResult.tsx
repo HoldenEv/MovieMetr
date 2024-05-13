@@ -17,8 +17,8 @@ export default function SearchResult({
   let summary;
   if (type === "films" || type === "shows") {
     summary =
-      data.summary.length > 200
-        ? data.summary.slice(0, 200) + "..."
+      data.summary.length > 500
+        ? data.summary.slice(0, 500) + "..."
         : data.summary;
   } else {
     summary = "";
