@@ -45,6 +45,7 @@ interface Credit {
   media_type: string;
   poster_path: string;
   popularity: string;
+  vote_count: number;
 }
 
 interface Crew {
@@ -54,6 +55,7 @@ interface Crew {
   media_type: string;
   poster_path: string;
   popularity: string;
+  vote_count: number;
 }
 
 interface Credits {
@@ -70,22 +72,24 @@ router.get("/people/:id", async (req: Request, res: Response) => {
     const person = await personById(id);
     const credits: Credits = await getCombinedCredits(id);
     credits.cast = credits.cast.map(
-      ({ id, title, media_type, poster_path, popularity }) => ({
+      ({ id, title, media_type, poster_path, popularity, vote_count }) => ({
         id,
         title,
         media_type,
         poster_path,
         popularity,
+        vote_count
       }),
     );
     credits.crew = credits.crew.map(
-      ({ id, title, job, media_type, poster_path, popularity }) => ({
+      ({ id, title, job, media_type, poster_path, popularity, vote_count }) => ({
         id,
         title,
         job,
         media_type,
         poster_path,
         popularity,
+        vote_count
       }),
     );
 

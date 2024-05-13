@@ -7,12 +7,15 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 export default function FilmGrid({ cast }: { cast: any }) {
+  const movies = cast
+    .filter((result: any) => result.media_type == "movie")
+    .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1));
+  const shows = cast
+    .filter((result: any) => result.media_type == "tv")
+    .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1));
+
   const [activeButton, setActiveButton] = useState("film");
-  const [items, setItems] = useState(
-    cast
-      .filter((result: any) => result.media_type == "movie")
-      .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1)),
-  );
+  const [items, setItems] = useState(movies);
 
   const buttons = [
     // { label: "ALL", value: "all" },
@@ -23,28 +26,15 @@ export default function FilmGrid({ cast }: { cast: any }) {
   const filter = (category: string) => {
     setActiveButton(category);
     if (category === "film") {
-      setItems(
-        cast
-          .filter((result: any) => result.media_type == "movie")
-          .sort((a: any, b: any) => (a.popularity > b.popularity ? -1 : 1)),
-      );
+      setItems([]);
+      setTimeout(() => {
+        setItems(movies);
+      }, 0); // delay to allow the state update to render before setting the items
     } else if (category === "tv") {
-      // Filter TV shows by their IDs to ensure uniqueness
-      const uniqueTVShows = cast
-        .filter((result: any) => result.media_type === "tv")
-        .reduce((uniqueShows: any, show: any) => {
-          // Check if the show ID is already in the list
-          if (!uniqueShows.find((s: any) => s.id === show.id)) {
-            // If not, add it to the list
-            uniqueShows.push(show);
-          }
-          return uniqueShows;
-        }, []);
-      setItems(
-        uniqueTVShows.sort((a: any, b: any) =>
-          a.popularity > b.popularity ? -1 : 1,
-        ),
-      );
+      setItems([]);
+      setTimeout(() => {
+        setItems(shows);
+      }, 0); // delay to allow the state update to render before setting the items
     }
   };
 
