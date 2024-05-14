@@ -23,28 +23,28 @@ jobs:
           cache: 'npm'
 
       - name: Change Directory
-        run: cd back-end
+        run: cd ./back-end
 
       - name: Install Dependencies
         run: npm install --verbose
 
-      - name: Print working directory
-        run: pwd
+      # - name: Print working directory
+      #   run: pwd
 
-      - name: Change Directory
-        run: cd back-end
+      # - name: Change Directory
+      #   run: cd back-end
       
-      - name: Print working directory
-        run: pwd
+      # - name: Print working directory
+      #   run: pwd
 
-      - name: List files in the current directory
-        run: ls -la
+      # - name: List files in the current directory
+      #   run: ls -la
 
-      - name: Display package.json
-        run: cat package.json
+      # - name: Display package.json
+      #   run: cat package.json
 
-      - name: List available npm scripts
-        run: npm run
+      # - name: List available npm scripts
+      #   run: npm run
 
       - name: Build
         run: npm run build
