@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    //maybe switch back to es6
-    "target": "es2020",
+    //maybe switch back to es6 or es2020
+    "target": "es6",
     "module": "CommonJS",
     "outDir": "./dist",
     "strict": true,
