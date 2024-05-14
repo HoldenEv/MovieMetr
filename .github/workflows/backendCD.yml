@@ -22,11 +22,14 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
 
-      - name: Clear NPM cache
-        run: npm cache clean --force
-
       - name: Install Dependencies
         run: npm install --verbose
+
+      - name: Print working directory
+        run: pwd
+
+      - name: List files in the current directory
+        run: ls -la
 
       - name: Display package.json
         run: cat package.json
