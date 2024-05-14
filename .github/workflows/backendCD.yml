@@ -22,14 +22,15 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
 
-      - name: Change Directory
-        run: cd ./back-end
+      # - name: Change Directory
+      #   run: cd ./back-end
 
-      - name: Print working directory
-        run: pwd
+      # - name: Print working directory
+      #   run: pwd
 
       - name: Install Dependencies
         run: npm install --verbose
+        working-directory: back-end
 
       # - name: Change Directory
       #   run: cd back-end
@@ -48,10 +49,11 @@ jobs:
 
       - name: Build
         run: npm run build
+        working-directory: back-end
 
       - name: Deploy to Azure Web App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'MovieMeter'
           publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE }}
-          package: dist   
+          package: back-end/dist   
