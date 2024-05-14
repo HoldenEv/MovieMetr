@@ -33,7 +33,7 @@ jobs:
         run: |
           cp back-end/package.json back-end/dist
           cp back-end/package-lock.json back-end/dist
-          cp backe-end/tscconfig.json back-end/dist
+          cp back-end/tscconfig.json back-end/dist
 
       - name: Deploy to Azure Web App Service
         uses: azure/webapps-deploy@v2
