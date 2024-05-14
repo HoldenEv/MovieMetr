@@ -24,10 +24,16 @@ jobs:
 
       - name: Change Directory
         run: cd back-end
-        
+
       - name: Install Dependencies
         run: npm install --verbose
 
+      - name: Print working directory
+        run: pwd
+
+      - name: Change Directory
+        run: cd back-end
+      
       - name: Print working directory
         run: pwd
 
