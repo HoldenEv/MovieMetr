@@ -20,36 +20,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'npm'
-
-      # - name: Change Directory
-      #   run: cd ./back-end
-
-      # - name: Print working directory
-      #   run: pwd
 
       - name: Install Dependencies
         run: npm install --verbose
         working-directory: back-end
 
-      # - name: Change Directory
-      #   run: cd back-end
-      
-      # - name: Print working directory
-      #   run: pwd
-
-      # - name: List files in the current directory
-      #   run: ls -la
-
-      # - name: Display package.json
-      #   run: cat package.json
-
-      # - name: List available npm scripts
-      #   run: npm run
-
       - name: Build
         run: npm run build
         working-directory: back-end
+
+      - name: Prepare Deployment Package
+        run: |
+          cp back-end/package.json back-end/dist
+          cp back-end/package-lock.json back-end/dist
+          cp backe-end/tscconfig.json back-end/dist
 
       - name: Deploy to Azure Web App Service
         uses: azure/webapps-deploy@v2
