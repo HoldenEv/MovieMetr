@@ -22,3 +22,8 @@
   background-color: #3c416824;
   border-radius: 5px;
 }
+
+.arrow:hover {
+  cursor: pointer;
+  color: #63cbee;
+}

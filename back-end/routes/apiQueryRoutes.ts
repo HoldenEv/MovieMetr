@@ -42,20 +42,24 @@ router.get("/search", async (req: Request, res: Response) => {
 interface Credit {
   id: number;
   title: string;
+  name: string;
   media_type: string;
   poster_path: string;
   popularity: string;
   vote_count: number;
+  release_date: string;
 }
 
 interface Crew {
   id: number;
   title: string;
+  name: string;
   job: string;
   media_type: string;
   poster_path: string;
   popularity: string;
   vote_count: number;
+  release_date: string;
 }
 
 interface Credits {
@@ -72,33 +76,48 @@ router.get("/people/:id", async (req: Request, res: Response) => {
     const person = await personById(id);
     const credits: Credits = await getCombinedCredits(id);
     credits.cast = credits.cast.map(
-      ({ id, title, media_type, poster_path, popularity, vote_count }) => ({
+      ({
         id,
         title,
+        name,
         media_type,
         poster_path,
         popularity,
         vote_count,
-      }),
+        release_date,
+      }) => ({
+        id,
+        title: media_type === "tv" ? name : title,
+        name,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
+        release_date,
+      })
     );
     credits.crew = credits.crew.map(
       ({
         id,
         title,
+        name,
         job,
         media_type,
         poster_path,
         popularity,
         vote_count,
+        release_date,
       }) => ({
         id,
         title,
+        name,
         job,
         media_type,
         poster_path,
         popularity,
         vote_count,
-      }),
+        release_date,
+      })
     );
 
     res.json({ ...person, credits });

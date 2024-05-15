@@ -9,12 +9,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
   const sortByOptions = useMemo(
     () => ({
       popularity: (a: any, b: any) => (a.vote_count > b.vote_count ? -1 : 1),
-      name: (a: any, b: any) => a.title.localeCompare(b.title),
+      title: (a: any, b: any) => a.title.localeCompare(b.title),
       date: (a: any, b: any) =>
         new Date(b.release_date).getTime() - new Date(a.release_date).getTime(),
     }),
@@ -23,37 +25,52 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
 
   type SortByOption = keyof typeof sortByOptions;
   type Category = "all" | "film" | "tv";
+  type Order = "asc" | "desc";
 
   const buttons = [
-    { label: "ALL", value: "all" },
     { label: "FILM", value: "film" },
     { label: "TV", value: "tv" },
   ];
 
-  const getFilteredItems = useCallback((category: Category, sortBy: SortByOption) => {
-    let filteredItems = cast;
-    if (category === "film") {
-      filteredItems = cast.filter(
-        (result: any) => result.media_type == "movie"
-      );
-    } else if (category === "tv") {
-      filteredItems = cast.filter((result: any) => result.media_type == "tv");
-    }
-    return filteredItems.sort(sortByOptions[sortBy]);
-  }, [cast, sortByOptions]);
+  const getFilteredItems = useCallback(
+    (category: Category, sortBy: SortByOption) => {
+      let filteredItems = cast;
+      if (category === "film") {
+        filteredItems = cast.filter(
+          (result: any) => result.media_type == "movie"
+        );
+      } else if (category === "tv") {
+        filteredItems = cast.filter((result: any) => result.media_type == "tv");
+      }
+
+      const sortedItems = filteredItems.sort(sortByOptions[sortBy]);
+
+      return sortedItems;
+    },
+    [cast, sortByOptions]
+  );
 
   const [activeButton, setActiveButton] = useState<Category>("film");
   const [items, setItems] = useState(getFilteredItems("film", "popularity"));
   const [sortBy, setSortBy] = useState<SortByOption>("popularity");
+  const [order, setOrder] = useState<Order>("desc");
 
   const handleChange = (event: SelectChangeEvent) => {
     setSortBy(event.target.value.toLowerCase() as SortByOption);
   };
 
+  const toggleOrder = () => {
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+  };
+
   useEffect(() => {
-    setItems(getFilteredItems(activeButton, sortBy));
+    const sortedItems = getFilteredItems(activeButton, sortBy);
+    if (order === "asc") {
+      sortedItems.reverse();
+    }
+    setItems(sortedItems);
     console.log("USE EFFECRT!!!!");
-  }, [activeButton, sortBy, getFilteredItems]);
+  }, [activeButton, sortBy, getFilteredItems, order]);
 
   return (
     <div>
@@ -79,6 +96,7 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
                     activeButton === button.value ? "#49508565" : "",
                   borderColor:
                     activeButton === button.value ? "#438b8b64" : "inherit",
+                  marginRight: "10px",
                 }}
                 onClick={() => setActiveButton(button.value as Category)}
               >
@@ -86,7 +104,7 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
               </Button>
             ))}
           </div>
-          <div>
+          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <FormControl
               variant="standard"
               size="small"
@@ -118,6 +136,14 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
                 <MenuItem value={"date"}>DATE</MenuItem>
               </Select>
             </FormControl>
+            {order === "desc" ? (
+              <ArrowDownwardIcon
+                onClick={toggleOrder}
+                className={styles.arrow}
+              />
+            ) : (
+              <ArrowUpwardIcon onClick={toggleOrder} className={styles.arrow} />
+            )}
           </div>
         </Stack>
       </div>
