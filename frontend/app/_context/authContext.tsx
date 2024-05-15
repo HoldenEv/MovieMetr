@@ -9,13 +9,18 @@ const TOKEN_KEY = "JWT_AUTH_TOKEN";
 const INVALID_TOKEN = "INVALID_TOKEN";
 const EXPIRATION_KEY = 'expiration';
 
-// Store data with expiration time
-function setWithExpiration(key: string, data: any, expirationMinutes: number) {
-  const expiration = new Date();
-  expiration.setMinutes(expiration.getMinutes() + expirationMinutes);
-  localStorage.setItem(key, JSON.stringify(data));
-  localStorage.setItem(EXPIRATION_KEY, expiration.getTime().toString());
+interface ExpiringData<T> {
+  value: T;
+  expiration: number;
 }
+
+// Store data with expiration time
+function setWithExpiration<T>(key: string, value: T, expirationMinutes: number): void {
+  const expiration = new Date().getTime() + expirationMinutes * 60000;
+  const expiringData: ExpiringData<T> = { value, expiration };
+  localStorage.setItem(key, JSON.stringify(expiringData));
+}
+
 
 // Retrieve data with expiration check
 function getWithExpiration(key: string): any | null {
