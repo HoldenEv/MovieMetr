@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "start": "node dist/app.ts",
+    "start": "node app.js",
     "dev": "nodemon ./app.ts",
     "build": "tsc",
     "serve": "node dist/app.ts",
