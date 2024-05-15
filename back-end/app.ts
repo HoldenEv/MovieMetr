@@ -14,7 +14,7 @@ dotenv.config();
 
 //start express
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001 || 8080;
 
 //database connection
 import mongoose from "mongoose";

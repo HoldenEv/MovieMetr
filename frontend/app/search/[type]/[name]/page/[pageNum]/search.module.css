@@ -51,7 +51,7 @@
 .divider {
   border: 0;
   height: 1px;
-  background-color: #ff5eff54;
+  /* background-color: #ff5eff54; */
 }
 
 @media (max-width: 650px) {
