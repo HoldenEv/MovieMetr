@@ -29,14 +29,14 @@ jobs:
         run: npm run build
         working-directory: back-end
 
-      - name: Prepare Deployment Package
-        run: |
-          cp back-end/package.json back-end/dist
-          cp back-end/package-lock.json back-end/dist
+      # - name: Prepare Deployment Package
+      #   run: |
+      #     cp back-end/package.json back-end/dist
+      #     cp back-end/package-lock.json back-end/dist
 
       - name: Deploy to Azure Web App Service
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'MovieMeter'
           publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE }}
-          package: back-end/dist   
+          package: back-end
