@@ -21,8 +21,8 @@ describe("add genre", () => {
 
     const result = await addGenre(gId, gName);
 
-    expect(result._id.toString()).toBe(gId);
-    expect(result.name).toBe(gName);
+    expect(result?._id.toString()).toBe(gId);
+    expect(result?.name).toBe(gName);
     expect(Genre.prototype.save).toHaveBeenCalled(); // Check that save was called
   });
 
