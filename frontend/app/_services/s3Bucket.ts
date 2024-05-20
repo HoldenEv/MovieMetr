@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = await uploadFileToS3(buffer, file.name);
     console.log("riht heer ")
-    const s3ObjectURL = "https://movie-meter-profile-images.s3.us-east-2.amazonaws.com/myFolder/" + fileName;
+    const s3ObjectURL = "https://temp-bucket-h4i.s3.us-east-2.amazonaws.com/myFolder/" + fileName;
     await awsObjectUrl.create({ objectUrl: s3ObjectURL });
 
     return NextResponse.json({ success : true, s3ObjectURL});
