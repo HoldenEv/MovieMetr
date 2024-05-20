@@ -95,7 +95,10 @@ export default function Userpage() {
 
   const fetchUser = (userId: string) => {
     // Make API call to fetch user data
-    fetch(process.env.NEXT_PUBLIC_BACKEND_URL + `/authentication/getUser?userId=${userId}`)
+    fetch(
+      process.env.NEXT_PUBLIC_BACKEND_URL +
+        `/authentication/getUser?userId=${userId}`,
+    )
       .then((response) => response.json())
       .then((data) => setUser(data))
       .catch((error) => console.error("Error fetching user data", error));
