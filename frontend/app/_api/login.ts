@@ -1,4 +1,4 @@
-const BASE_URL: string = "http://localhost:3001/authentication";
+const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL+"/authentication";
 
 export const logInUser = async (
   username: string,

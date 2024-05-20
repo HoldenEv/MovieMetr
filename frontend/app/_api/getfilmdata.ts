@@ -1,5 +1,5 @@
 export async function getfilmdata(film_id: string) {
-  const BASE_URL: string = `http://localhost:3001/apiQueryRoutes/movies/${film_id}`;
+  const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL +`/apiQueryRoutes/movies/${film_id}`;
   const response = await fetch(BASE_URL);
 
   if (!response.ok) {
