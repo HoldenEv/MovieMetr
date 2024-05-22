@@ -37,7 +37,6 @@ async function uploadFileToS3(file : any, fileName: String) {
 
   const command = new PutObjectCommand(params);
   await s3Client.send(command);
-
   return fileName;
 }
 

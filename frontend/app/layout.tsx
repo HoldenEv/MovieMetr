@@ -3,9 +3,10 @@ import { Inter } from "next/font/google";
 import "@/_ui/global.css";
 import type { Viewport } from "next";
 import SideBar from "./_ui/components/SideBar/Sidebar";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from "./_context/authContext";
 import { Router } from "react-router-dom";
 import React from "react";
+import UploadImage from "./_ui/components/UploadImage/UploadImage";
 
 
 export const viewport: Viewport = {
@@ -34,7 +35,6 @@ export default function RootLayout({
           <div className="maincontent">{children}</div>
         </body>
       </AuthProvider>
-      
     </html>
   );
 }
