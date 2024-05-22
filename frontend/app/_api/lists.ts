@@ -1,6 +1,7 @@
-const BASE_URL: string = "http://localhost:3001/listRoutes";
-const BASE_URL_2: string = "http://localhost:3001/movieRoutes";
-const BASE_URL_3: string = "http://localhost:3001/authentication";
+const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/listRoutes";
+const BASE_URL_2: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/movieRoutes";
+const BASE_URL_3: string =
+  process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication";
 
 /**
  * returnsa json object with all list_ids for a userId
