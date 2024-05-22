@@ -1,7 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-import { fetchPersonDetails } from "@/_api/fetchPersonDetails";
+import { fetchPersonDetails } from "@/_services/fetchPersonDetails";
 import PersonInfo from "@/_ui/components/People/PersonInfo/PersonInfo";
 import FilmGrid from "@/_ui/components/People/FilmGrid/FilmGrid";
 

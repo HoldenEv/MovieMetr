@@ -3,7 +3,7 @@ import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import ReactModal from "react-modal";
 import { useState } from "react";
-import { signUpUser } from "@/_api/signup";
+import { signUpUser } from "@/_services/signup";
 
 interface SignUpProps {
   isOpen: boolean;

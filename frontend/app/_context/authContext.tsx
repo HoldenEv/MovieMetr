@@ -1,8 +1,8 @@
 "use client"
 import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signUpUser } from "../_api/signup";
-import { logInUser } from "../_api/login";
+import { signUpUser } from "../_services/signup";
+import { logInUser } from "../_services/login";
 import { ReactNode } from 'react';
 import { setTokenCookie } from "../actions/cookieActions";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";

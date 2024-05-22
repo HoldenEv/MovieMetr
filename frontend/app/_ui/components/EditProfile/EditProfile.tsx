@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
-import { updateUser } from "@/_api/editprofile";
+import { updateUser } from "@/_services/editprofile";
 import styles from "./editprofile.module.css";
 
 interface EditProfileModalProps {
