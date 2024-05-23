@@ -7,6 +7,7 @@ import { Tabs, Tab, Box } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
+import isAuth from "@/protected/protectedRoute";
 
 interface User {
   _id: string;
@@ -253,40 +254,7 @@ const Userpage = () => {
         <CustomTabPanel value={value} index={1}></CustomTabPanel>
         <CustomTabPanel value={value} index={2}></CustomTabPanel>
       </div>
-    )
-  );
-}
+    )                    
+  }
 
 export default isAuth(Userpage);
-
-{/* <div className={styles.gallery}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
-              justifyContent="center"
-            >
-              {[
-                "https://m.media-amazon.com/images/I/61Mde7eiFbL.jpg",
-                "https://i5.walmartimages.com/seo/La-La-Land-Movie-Poster-Poster-Print-24-x-36_20f02811-01b4-4aea-9bb2-a79942bd2642_1.856c035d66f8fd216f6d933259bc3dfb.jpeg",
-                "https://m.media-amazon.com/images/I/61FzjavGTHL._AC_UF894,1000_QL80_.jpg",
-                "https://m.media-amazon.com/images/I/51vQHyG8GOL._AC_UF894,1000_QL80_.jpg",
-              ].map((imageUrl, index) => (
-                <Grid key={index} xs={6} sm={3} md={2}>
-                  <img
-                    src={imageUrl}
-                    className={styles.galleryItem}
-                    alt={`Poster for films`}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </div> */
-}
