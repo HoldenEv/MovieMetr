@@ -1,4 +1,5 @@
 import express from "express";
+// import { BlobServiceClient } from "@azure/storage-blob";
 import { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
@@ -16,9 +17,17 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 //database connection
-const mongoose = require("mongoose");
-//connect to the database later
+import mongoose from "mongoose";
+const uri = process.env.URI;
+mongoose.connect(uri || "");
 
+// //Azure Blob Storage connection
+// const accountName = process.env.ACCOUNT_NAME;
+// const sasToken = process.env.SAS_TOKEN;
+// const containerName = process.env.CONTAINER_NAME;
+
+//const blobServiceClient = new BlobServiceClient('https://' + accountName + '.blob.core.windows.net/' + sasToken);
+//const containerClient = blobServiceClient.getContainerClass(containerName);
 
 app.use(cors());
 app.use(express.json());

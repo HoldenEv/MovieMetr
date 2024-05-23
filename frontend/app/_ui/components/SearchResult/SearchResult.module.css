@@ -3,6 +3,13 @@
   display: flex;
   width: 100%;
   padding: 6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.752);
+  background-color: #161e28ac;
+}
+
+.searchResultContainer:hover {
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .content {
@@ -11,7 +18,7 @@
   justify-content: space-between;
   word-wrap: break-word;
   width: 100%;
-  padding-bottom: 15px;
+  padding-bottom: 50px;
 }
 
 .italic {
@@ -45,11 +52,6 @@
   border: 2px solid #438b8b64;
   border-radius: 4px;
   margin-right: 10px;
-}
-
-.moviePoster:hover {
-  cursor: pointer;
-  border: 2px solid #60ecec;
 }
 
 .title {

@@ -3,23 +3,16 @@ import styles from "./userpage.module.css";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box, Divider} from '@mui/material';
-import Grid from "@mui/material/Unstable_Grid2"; 
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import { Tabs, Tab, Box } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
-import { getUser } from "@/_api/editprofile";
-import notfound from "@/_assets/NOTFOUND.png";
-import { getProfileFromToken } from "@/_api/profile";
-import isAuth from "@/protected/protectedRoute";
 
 interface User {
   _id: string;
   username: string;
   email: string;
-  profilepath: string;
+  profilePath: string;
   bio: String;
 }
 
@@ -64,44 +57,13 @@ function a11yProps(index: number) {
   };
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 const Userpage = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
-  const [newListName, setNewListName] = useState('');
-  const [id, setId] = useState('');
-
-  // this basically is just letting computer know we are in a browser window
-  if (typeof window !== "undefined") {
-    useEffect(() => {    
-        const tokenData = localStorage.getItem("token");
-        if (tokenData) {
-          // This allows us to parse the token in a usable
-          const tokenObject = JSON.parse(tokenData);
-          // Hit our profile route 
-          getProfileFromToken(tokenObject.token)
-          // this allows us to unpack the promise we get from the profile route
-                .then(response => {
-                  setId(response.user.id);
-                  console.log("HERE IS THE USER's ID : " + id);
-                })
-                .catch(error => {
-                    console.error("Error fetching user ID: ", error);
-                });
-      }
-    }, []);
-  }
-
+  const [newListName, setNewListName] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -121,23 +83,24 @@ const Userpage = () => {
 
   const handleCancelClick = () => {
     setIsCreateListFormVisible(false);
-    setNewListName('');
+    setNewListName("");
   };
 
   useEffect(() => {
-      const userId = "662031400e351377c31953ee";
-      fetchUser(userId); // Fetch user data on mount
-      fetchUserListsData(userId);
+    const userId = "6632af44f5d2b656fe70c924";
+    fetchUser(userId); // Fetch user data on mount
+    fetchUserListsData(userId);
   }, []);
 
-  
-  const fetchUser = async (userId: string) => {
-    try {
-      const data = await getUser(userId); 
-      setUser(data);
-    } catch (error) {
-      console.error("Error fetching user data", error);
-    }
+  const fetchUser = (userId: string) => {
+    // Make API call to fetch user data
+    fetch(
+      process.env.NEXT_PUBLIC_BACKEND_URL +
+        `/authentication/getUser?userId=${userId}`,
+    )
+      .then((response) => response.json())
+      .then((data) => setUser(data))
+      .catch((error) => console.error("Error fetching user data", error));
   };
   
 
@@ -147,28 +110,28 @@ const Userpage = () => {
       for (let list of lists) {
         for (let entry of list.entries) {
           const movieInfo = await getMovieInfo(entry.item_id);
-          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`
+          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`;
         }
       }
-      
-      setUserLists(lists);
 
+      setUserLists(lists);
     } catch (error) {
       console.error("Error fetching user lists", error);
     }
   };
 
-  const handleCreateListSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateListSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
     if (user) {
       const newList = await addList(newListName, user._id); // Replace with your API function and user ID
       setUserLists([...userLists, newList]);
     }
     setIsCreateListFormVisible(false);
-    setNewListName('');
+    setNewListName("");
   };
-  
- 
+
   return (
     <div className={styles.userPage}>
       <div className={styles.userInfo}>
@@ -245,14 +208,19 @@ const Userpage = () => {
           <div className={styles.MovieButtons}>
             <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
               {isCreateListFormVisible && (
-                <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
+                <form
+                  className={styles.addMovieListForm}
+                  onSubmit={handleCreateListSubmit}
+                >
                   <input
                     type="text"
                     value={newListName}
                     onChange={(e) => setNewListName(e.target.value)}
                   />
                   <button type="submit">Submit</button>
-                  <button type="button" onClick={handleCancelClick}>Cancel</button>
+                  <button type="button" onClick={handleCancelClick}>
+                    Cancel
+                  </button>
                 </form>
               )}
             </div>
@@ -263,7 +231,7 @@ const Userpage = () => {
                   {list.entries.map((entry, index) => (
                     <div key={index} className={styles.imageItem}>
                       {entry.imageUrl ? (
-                        <img
+                        <Image
                           src={entry.imageUrl}
                           alt={entry.item_id}
                           style={{
@@ -280,15 +248,12 @@ const Userpage = () => {
                 </div>
               </div>
             ))}
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        
-      </CustomTabPanel>
-    </div>
+          </div>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}></CustomTabPanel>
+        <CustomTabPanel value={value} index={2}></CustomTabPanel>
+      </div>
+    )
   );
 }
 
@@ -323,4 +288,5 @@ export default isAuth(Userpage);
               ))}
             </Grid>
           </Box>
-        </div> */}
+        </div> */
+}

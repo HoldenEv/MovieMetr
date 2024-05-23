@@ -1,12 +1,10 @@
-import express from "express";
 import { Request, Response, Router } from "express";
 import {
   addMovie,
   getMovie,
-  addPersonMovies,
   deleteMovie,
 } from "../controllers/movieController";
-import { addGenre,deleteGenre } from "../controllers/genreController";
+import { addGenre, deleteGenre } from "../controllers/genreController";
 
 const router = Router();
 
@@ -57,12 +55,10 @@ router.get("/getMovie", async (req: Request, res: Response) => {
   }
 });
 
-
 //TEST ROUTES, can delete later----------------------------------------------
 //test route to add genre to db by id and name
 router.post("/test", async (req: Request, res: Response) => {
   try {
-    
     const genreId = req.query.genreId as string;
     const name = req.query.name as string;
     const result = await addGenre(genreId, name);

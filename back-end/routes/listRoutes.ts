@@ -1,10 +1,7 @@
-import express from "express";
 import { Request, Response, Router } from "express";
-//import listController functions
-import { addList, deleteList, addMovieToList } from "../controllers/listController";
+import { addList, addMovieToList } from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
-
 
 //route to add list to db
 router.post("/addList", async (req: Request, res: Response) => {
@@ -40,10 +37,10 @@ router.post("/addMovieToList", async (req: Request, res: Response) => {
     } else {
       res.status(500).send("Error adding movie to list");
     }
-    } catch (error) {
-        console.error("Error adding movie to list", error);
-        res.status(500).send("Error adding movie to list");
-    }
+  } catch (error) {
+    console.error("Error adding movie to list", error);
+    res.status(500).send("Error adding movie to list");
+  }
 });
 
 //route to get all list from a user
@@ -54,10 +51,10 @@ router.get("/getLists", async (req: Request, res: Response) => {
     const userId = req.query.userId as string;
     const lists = await List.find({ user_id: userId });
     res.json(lists);
-    } catch (error) {
-        console.error("Error getting lists", error);
-        res.status(500).send("Error getting lists");
-    } 
+  } catch (error) {
+    console.error("Error getting lists", error);
+    res.status(500).send("Error getting lists");
+  }
 });
 
 //route to get list by id
@@ -68,11 +65,10 @@ router.get("/getList", async (req: Request, res: Response) => {
     const listId = req.query.listId as string;
     const list = await List.findOne({ _id: listId });
     res.json(list);
-    } catch (error) {
-        console.error("Error getting list", error);
-        res.status(500).send("Error getting list");
-    }
+  } catch (error) {
+    console.error("Error getting list", error);
+    res.status(500).send("Error getting list");
+  }
 });
 
 export default router;
-

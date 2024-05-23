@@ -4,7 +4,7 @@ import jwt from "jwt-simple";
 
 //responsible for logging in a user, takes in a username and returns a token
 //password verificationis not yet handled
-const loginUser = async (username: string, password:string) => {
+const loginUser = async (username: string, password: string) => {
   const user = await User.findOne({ username: username }).exec();
   if (!user) {
     throw new Error("Username not found");
@@ -12,10 +12,10 @@ const loginUser = async (username: string, password:string) => {
 
   //handles password verification
   const isAuthenticated = await new Promise((resolve, reject) => {
-    user.authenticate(password, (err,result) => {
-      if ( err ){
-        reject( err );
-      } else if( !result ) {
+    user.authenticate(password, (err, result) => {
+      if (err) {
+        reject(err);
+      } else if (!result) {
         reject(new Error("Incorrect password"));
       } else {
         resolve(true);
@@ -69,9 +69,9 @@ const registerUser = async (
   return registeredUser;
 };
 
-// generic update function, will be called by other update functions
-// takes in the user id and the fields to update, removes some code duplication
-const update = async (userId: string, updateFields: {}) => {
+//generic update function, will be called by other update functions
+//takes in the user id and the fields to update, removes some code duplication
+const update = async (userId: string, updateFields: object) => {
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
     updateFields,
@@ -258,8 +258,8 @@ const getFollowers = async (userId: string) => {
     console.error("Error getting users followers list", error);
     return null;
   }
-}
-  
+};
+
 export {
   loginUser,
   registerUser,

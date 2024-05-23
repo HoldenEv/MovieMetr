@@ -1,10 +1,11 @@
-const BASE_URL: string = "http://localhost:3001/authentication";
+const BASE_URL: string =
+  process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication";
 
 export const signUpUser = async (
   email: string,
   username: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
 ): Promise<any> => {
   try {
     const requestBody = new URLSearchParams({

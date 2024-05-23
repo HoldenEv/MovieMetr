@@ -2,17 +2,15 @@
 import React from "react";
 import { useState } from "react";
 import styles from "./Search.module.css";
-import Link from "next/link";
 import Image from "next/image";
 import Dropdown from "../DropDown/Dropdown";
-import Login from "../UserAuth/Login/Login";
-import SignUp from "../UserAuth/Signup/Signup";
 import searchIcon from "@/_assets/search.svg";
 import { useRouter } from "next/navigation";
 
 export default function Search() {
   /* what button is active: starts off with 'Movies' */
   const [activeButton, setActiveButton] = useState("Films");
+  const [searchText, setSearchText] = useState("");
   /* state of dropdown form (open/closed): starts on closed */
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -20,7 +18,7 @@ export default function Search() {
   /* on open, prevent any default event and set open state to 
   either closed or open */
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setOpen(!open);
@@ -30,7 +28,7 @@ export default function Search() {
   to category clicked close the dropdown */
   const handleClick = (
     category: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setActiveButton(category);
@@ -100,6 +98,8 @@ export default function Search() {
           type="text"
           placeholder="Search..."
           className={styles.search}
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
           autoComplete="off"
           name="search"
         />

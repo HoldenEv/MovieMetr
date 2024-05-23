@@ -1,4 +1,5 @@
-const BASE_URL: string = "http://localhost:3001/authentication";
+const BASE_URL: string =
+  process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication";
 
 
 export const getUser = async (userId: string): Promise<any> => {
@@ -22,7 +23,7 @@ export const getUser = async (userId: string): Promise<any> => {
 
 export const updateUser = async (
   userId: string,
-  data: Record<string, any>
+  data: Record<string, any>,
 ): Promise<any> => {
   try {
     const response = await fetch(`${BASE_URL}/updateUser`, {

@@ -1,5 +1,6 @@
-<h1>Style Guidelines:</h1>
-<h3>for code linter assignment</h3>
+[![MovieMeter - Frontend](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.frontend.yml/badge.svg?branch=main)](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.frontend.yml)
+[![MovieMeter - Backend](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.backend.yml/badge.svg)](https://github.com/HoldenEv/MovieMetr/actions/workflows/node.js.backend.yml)
+[![Backend Deployment to Azure](https://github.com/HoldenEv/MovieMetr/actions/workflows/backendCD.yml/badge.svg)](https://github.com/HoldenEv/MovieMetr/actions/workflows/backendCD.yml)
   React/Frontend: https://airbnb.io/javascript/react/ <br>
   TypeScript: https://google.github.io/styleguide/tsguide.html <br>
   <h3>scripts to run formatter/linter BEFORE all commits:</h3>
