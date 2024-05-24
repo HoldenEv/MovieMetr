@@ -3,32 +3,30 @@ import styles from "./userpage.module.css";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { Tabs, Tab, Box } from "@mui/material";
+import { Tabs, Tab, Box} from '@mui/material';
 import profilePic from "@/_assets/sample_profile_pic.png";
+import bannerPic from "@/_assets/sample_banner_pic.jpg";
+//import bannerPic from "@/_assets/logo1.png";
 import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
-import isAuth from "@/protected/protectedRoute";
+import { getUser } from "@/_api/editprofile";
+import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
-
-/*************************************************************************************************/
-
-import bannerPic from "@/_assets/sample_banner_pic.jpg";
+import isAuth from "@/protected/protectedRoute";
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import CreateIcon from '@mui/icons-material/Create';
 import EditIcon from '@mui/icons-material/Edit';
 
-
-/*************************************************************************************************/
-
 interface User {
   _id: string;
   username: string;
   email: string;
-  profilePath: string;
+  profilepath: string;
   bio: String;
 }
+
 
 // interface for the tabs
 interface TabPanelProps {
@@ -77,12 +75,11 @@ const Userpage = () => {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
-  const [newListName, setNewListName] = useState("");
+  const [newListName, setNewListName] = useState('');
 
-
+  // this basically is just letting computer know we are in a browser window
   if (typeof window !== "undefined") {
-    useEffect(() => {
-        console.log("here")
+    useEffect(() => {    
         const tokenData = localStorage.getItem("token");
         if (tokenData) {
           // This allows us to parse the token in a usable
@@ -121,24 +118,27 @@ const Userpage = () => {
 
   const handleCancelClick = () => {
     setIsCreateListFormVisible(false);
-    setNewListName("");
+    setNewListName('');
   };
 
-  useEffect(() => {
-    const userId = "6632af44f5d2b656fe70c924";
-    fetchUser(userId); // Fetch user data on mount
-    fetchUserListsData(userId);
-  }, []);
+  const actions = [
+    { icon: <CreateIcon />, name: 'Create List', onClick: handleCreateListClick },
+    // { icon: <EditIcon />, name: 'Edit List', onClick: handleEditListClick }, // You'll implement this later
+  ];
+  
+  const fetchUser = async (userId: any) => {
+    try {
+      const data = await getUser(userId); 
+      setUser(data);
+    } catch (error) {
+      console.error("Error fetching user data", error);
+    }
+  };
 
-  const fetchUser = (userId: string) => {
-    // Make API call to fetch user data
-    fetch(
-      process.env.NEXT_PUBLIC_BACKEND_URL +
-        `/authentication/getUser?userId=${userId}`,
-    )
-      .then((response) => response.json())
-      .then((data) => setUser(data))
-      .catch((error) => console.error("Error fetching user data", error));
+  const refreshUserData = () => {
+    if (user){
+      fetchUser(user._id);
+    }
   };
   
 
@@ -148,37 +148,47 @@ const Userpage = () => {
       for (let list of lists) {
         for (let entry of list.entries) {
           const movieInfo = await getMovieInfo(entry.item_id);
-          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`;
+          entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`
         }
       }
-
+      
       setUserLists(lists);
+
     } catch (error) {
       console.error("Error fetching user lists", error);
     }
   };
 
-  const handleCreateListSubmit = async (
-    event: React.FormEvent<HTMLFormElement>,
-  ) => {
+
+  const handleCreateListSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (user) {
       const newList = await addList(newListName, user._id); // Replace with your API function and user ID
       setUserLists([...userLists, newList]);
+      refreshUserData();
     }
     setIsCreateListFormVisible(false);
-    setNewListName("");
+    setNewListName('');
   };
-
+  
+ 
   return (
     <div className={styles.userPage}>
+      <div className={styles.banner}>
+        <Image
+          src= {bannerPic} // src={user?.bannerPic || defaultBannerPic}
+          layout="fill"
+          objectFit="cover"
+          alt="Banner Pictrue"
+        />
+      </div>
       <div className={styles.userInfo}>
         <div className={styles.photoUsername}>
           <Image
             priority
             src={profilePic} // src={user?.profilePic || profilePic}
-            width={500}
-            height={500}
+            width={200}
+            height={200}
             alt="Profile Picture"
             className={styles.profilePicture}
           />
@@ -201,64 +211,78 @@ const Userpage = () => {
               Share Profile
             </button>
           </div>
-          {isEditProfileOpen && (
+          {/* {isEditProfileOpen && (
             <EditProfileModal
               isOpen={isEditProfileOpen}
               onClose={closeEditProfileModal}
-              userId={''}
+              userId={user?._id ?? ''}
+              user={user as User | null}
+              refreshUserData={refreshUserData}
             />
-          )}
+          )} */}
         </div>
       </div>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}
           centered
-          TabIndicatorProps={{ style: { backgroundColor: "blue" } }}
-          sx={{ borderBottom: 1, borderColor: "white" }}
+          textColor="inherit"
+          TabIndicatorProps={{ style: { backgroundColor: "white" } }}
+          sx={{ borderBottom: 0.5, borderColor: "white" }}
         >
           <Tab
             label="Movie Lists"
             {...a11yProps(0)}
             sx={{
-              color: value === 0 ? "blue" : "white", // Set the text color based on the tab's selection
+              color: value === 0 ? "white" : "white", // Set the text color based on the tab's selection
             }}
           />
           <Tab
             label="Watchlist"
             {...a11yProps(1)}
             sx={{
-              color: value === 1 ? "blue" : "white",
+              color: value === 1 ? "white" : "white",
             }}
           />
           <Tab
             label="Ratings"
             {...a11yProps(2)}
             sx={{
-              color: value === 2 ? "blue" : "white",
+              color: value === 2 ? "white" : "white",
             }}
           />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <div className={styles.MovieLists}>
-          <div className={styles.MovieButtons}>
-            <button className={styles.addMovieList}onClick={handleCreateListClick}>Create List</button>
+        <div className={styles.movieLists}>
+          <div className={styles.movieButtons}>
+            <div>
+              <SpeedDial
+                ariaLabel="SpeedDial openIcon example"
+                direction="right"
+                icon={<SpeedDialIcon />}
+                className={styles.SpeedDial}
+              >
+                {actions.map((action) => (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    onClick={action.onClick}
+                  />
+                ))}
+              </SpeedDial>
+              </div>
               {isCreateListFormVisible && (
-                <form
-                  className={styles.addMovieListForm}
-                  onSubmit={handleCreateListSubmit}
-                >
+                <form className={styles.addMovieListForm} onSubmit={handleCreateListSubmit}>
                   <input
                     type="text"
                     value={newListName}
                     onChange={(e) => setNewListName(e.target.value)}
                   />
-                  <button type="submit">Submit</button>
-                  <button type="button" onClick={handleCancelClick}>
-                    Cancel
-                  </button>
+                  <button type="submit">Create</button>
+                  <button type="button" onClick={handleCancelClick}>Cancel</button>
                 </form>
               )}
             </div>
@@ -269,7 +293,7 @@ const Userpage = () => {
                   {list.entries.map((entry, index) => (
                     <div key={index} className={styles.imageItem}>
                       {entry.imageUrl ? (
-                        <Image
+                        <img
                           src={entry.imageUrl}
                           alt={entry.item_id}
                           style={{
@@ -286,13 +310,16 @@ const Userpage = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}></CustomTabPanel>
-        <CustomTabPanel value={value} index={2}></CustomTabPanel>
-      </div>
-    )                    
-  }
+        </div>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        
+      </CustomTabPanel>
+    </div>
+  );
+}
 
 export default isAuth(Userpage);
-
