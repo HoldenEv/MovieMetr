@@ -56,6 +56,9 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
   const [email, setEmail] = useState<string>("");
 
   const handleLogin = async (user : string, pass : string) => {
+
+    console.log(user);
+    console.log(pass);
     setUsername(user);
     setPassword(pass);
     const token = await logInUser(user, pass);    

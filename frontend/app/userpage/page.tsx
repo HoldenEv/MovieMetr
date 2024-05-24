@@ -124,11 +124,11 @@ const Userpage = () => {
     setNewListName("");
   };
 
-  useEffect(() => {
-    const userId = "6632af44f5d2b656fe70c924";
-    fetchUser(userId); // Fetch user data on mount
-    fetchUserListsData(userId);
-  }, []);
+  // useEffect(() => {
+  //   //const userI;
+  //   fetchUser(userId); // Fetch user data on mount
+  //   fetchUserListsData(userId);
+  // }, []);
 
   const fetchUser = (userId: string) => {
     // Make API call to fetch user data
