@@ -68,8 +68,11 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
     if (order === "asc") {
       sortedItems.reverse();
     }
-    setItems(sortedItems);
-    console.log("USE EFFECRT!!!!");
+    setItems([]);
+
+    setTimeout(() => {
+      setItems(sortedItems);
+    }, 0);
   }, [activeButton, sortBy, getFilteredItems, order]);
 
   return (
