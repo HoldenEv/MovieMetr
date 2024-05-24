@@ -169,17 +169,23 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
               <Link
                 href={`/${result.media_type === "movie" ? "films" : "shows"}/${result.id}`}
               >
-                <Image
-                  className={styles.poster}
-                  width={100.8}
-                  height={144}
-                  src={
-                    result.poster_path
-                      ? `https://image.tmdb.org/t/p/original${result.poster_path}`
-                      : notfound
-                  }
-                  alt="poster"
-                />
+                {result.poster_path ? (
+                  <Image
+                    className={styles.poster}
+                    width={100.8}
+                    height={144}
+                    src={
+                      result.poster_path
+                        ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+                        : notfound
+                    }
+                    alt="poster"
+                  />
+                ) : (
+                  <div className={`${styles.poster} ${styles.posterNoImage}`}>
+                    <p>{result.title}</p>
+                  </div>
+                )}
               </Link>
             </Grid>
           ))}
