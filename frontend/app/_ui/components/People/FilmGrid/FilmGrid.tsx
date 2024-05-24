@@ -28,36 +28,75 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
   type Category = "all" | "film" | "tv";
   type Order = "asc" | "desc";
 
+  interface CrewItem {
+    id: number;
+    title: string;
+    job: string;
+    media_type: string;
+    poster_path: string;
+    popularity: number;
+    vote_count: number;
+    release_date: string;
+  }
+
   const buttons = [
     { label: "FILM", value: "film" },
     { label: "TV", value: "tv" },
   ];
 
+  const [role, setRole] = useState("actor");
   const getFilteredItems = useCallback(
     (category: Category, sortBy: SortByOption) => {
-      let filteredItems = cast;
+      let filteredItems;
+
+      if (role === "actor") {
+        filteredItems = cast;
+      } else {
+        filteredItems = crew;
+      }
+
       if (category === "film") {
-        filteredItems = cast.filter(
+        filteredItems = filteredItems.filter(
           (result: any) => result.media_type == "movie"
         );
       } else if (category === "tv") {
-        filteredItems = cast.filter((result: any) => result.media_type == "tv");
+        filteredItems = filteredItems.filter(
+          (result: any) => result.media_type == "tv"
+        );
+      }
+
+      if (role !== "actor") {
+        filteredItems = filteredItems.filter(
+          (result: any) => result.job.toLowerCase() === role
+        );
       }
 
       const sortedItems = filteredItems.sort(sortByOptions[sortBy]);
-
       return sortedItems;
     },
-    [cast, sortByOptions]
+    [cast, crew, role, sortByOptions]
   );
 
   const [activeButton, setActiveButton] = useState<Category>("film");
   const [items, setItems] = useState(getFilteredItems("film", "popularity"));
   const [sortBy, setSortBy] = useState<SortByOption>("popularity");
   const [order, setOrder] = useState<Order>("desc");
+  const [uniqueJobs, setUniqueJobs] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Extract unique job roles from the crew array
+    const jobs: string[] = crew.map((item: CrewItem) => item.job);
+    const uniqueJobs: string[] = Array.from(new Set(jobs));
+    setUniqueJobs(uniqueJobs);
+    console.log(uniqueJobs);
+  }, [crew]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSortBy(event.target.value.toLowerCase() as SortByOption);
+  };
+
+  const handleRoleChange = (event: SelectChangeEvent) => {
+    setRole(event.target.value.toLowerCase() as SortByOption);
   };
 
   const toggleOrder = () => {
@@ -107,6 +146,47 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
                 {button.label}
               </Button>
             ))}
+          </div>
+          <div
+            style={{ display: "flex", alignItems: "flex-start", gap: "5px" }}
+          >
+            <FormControl
+              variant="standard"
+              size="small"
+              sx={{ minWidth: "150px" }}
+            >
+              <InputLabel sx={{ color: "#ccc" }}>Role:</InputLabel>
+              <Select
+                value={role}
+                label="Sort By"
+                onChange={handleRoleChange}
+                sx={{
+                  color: "white",
+                  "& .MuiSelect-icon": {
+                    color: "white",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "white",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "white",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "white",
+                  },
+                }}
+              >
+                <MenuItem value={"actor"}>ACTOR</MenuItem>
+                {uniqueJobs &&
+                  uniqueJobs.map((job, index) => {
+                    return (
+                      <MenuItem value={job.toLowerCase()} key={index}>
+                        {job.toUpperCase()}
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+            </FormControl>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <FormControl
@@ -159,37 +239,41 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
         }}
       />
       <div className={styles.gridContainer}>
-        <Grid
-          container
-          spacing={{ xs: 0, sm: 1.2 }}
-          columns={{ xs: 4, sm: 5, md: 6 }}
-        >
-          {items.map((result: any, index: number) => (
-            <Grid item xs key={index}>
-              <Link
-                href={`/${result.media_type === "movie" ? "films" : "shows"}/${result.id}`}
-              >
-                {result.poster_path ? (
-                  <Image
-                    className={styles.poster}
-                    width={100.8}
-                    height={144}
-                    src={
-                      result.poster_path
-                        ? `https://image.tmdb.org/t/p/original${result.poster_path}`
-                        : notfound
-                    }
-                    alt="poster"
-                  />
-                ) : (
-                  <div className={`${styles.poster} ${styles.posterNoImage}`}>
-                    <p>{result.title}</p>
-                  </div>
-                )}
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
+        {items.length === 0 ? (
+          <p>no results found</p>
+        ) : (
+          <Grid
+            container
+            spacing={{ xs: 0, sm: 1.2 }}
+            columns={{ xs: 4, sm: 5, md: 6 }}
+          >
+            {items.map((result: any, index: number) => (
+              <Grid item xs key={index}>
+                <Link
+                  href={`/${result.media_type === "movie" ? "films" : "shows"}/${result.id}`}
+                >
+                  {result.poster_path ? (
+                    <Image
+                      className={styles.poster}
+                      width={100.8}
+                      height={144}
+                      src={
+                        result.poster_path
+                          ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+                          : notfound
+                      }
+                      alt="poster"
+                    />
+                  ) : (
+                    <div className={`${styles.poster} ${styles.posterNoImage}`}>
+                      <p>{result.title}</p>
+                    </div>
+                  )}
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </div>
     </div>
   );
