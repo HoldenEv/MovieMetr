@@ -15,7 +15,8 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
-import { Strategy as LocalStrategy } from "passport-local";
+const authenticationMiddleware = require("../middleware/authentication");
+const LocalStrategy = require("passport-local");
 import bodyParser from "body-parser";
 import passport from "passport";
 import * as dotenv from "dotenv";
@@ -66,7 +67,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  },
+  }
 );
 
 //route to login a user, calls loginUser function from accountController
