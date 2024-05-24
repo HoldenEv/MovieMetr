@@ -15,6 +15,10 @@
   background-color: #4040436b;
 }
 
+.inputLabel {
+  max-width: 100px;
+}
+
 .poster:hover {
   cursor: pointer;
   border-color: #8aa5ae;

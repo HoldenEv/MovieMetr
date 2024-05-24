@@ -153,7 +153,8 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
             <FormControl
               variant="standard"
               size="small"
-              sx={{ minWidth: "150px" }}
+              className={styles.inputLabel}
+              sx={{ minWidth: "100px" }}
             >
               <InputLabel sx={{ color: "#ccc" }}>Role:</InputLabel>
               <Select
@@ -192,7 +193,8 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
             <FormControl
               variant="standard"
               size="small"
-              sx={{ minWidth: "150px" }}
+              className={styles.inputLabel}
+              sx={{ minWidth: "100px" }}
             >
               <InputLabel sx={{ color: "#ccc" }}>Sort By:</InputLabel>
               <Select
