@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
+import Link from "next/link";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
 import styles from "./FilmGrid.module.css";
@@ -165,17 +166,21 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
         >
           {items.map((result: any, index: number) => (
             <Grid item xs key={index}>
-              <Image
-                className={styles.poster}
-                width={100.8}
-                height={144}
-                src={
-                  result.poster_path
-                    ? `https://image.tmdb.org/t/p/original${result.poster_path}`
-                    : notfound
-                }
-                alt="poster"
-              />
+              <Link
+                href={`/${result.media_type === "movie" ? "films" : "shows"}/${result.id}`}
+              >
+                <Image
+                  className={styles.poster}
+                  width={100.8}
+                  height={144}
+                  src={
+                    result.poster_path
+                      ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+                      : notfound
+                  }
+                  alt="poster"
+                />
+              </Link>
             </Grid>
           ))}
         </Grid>
