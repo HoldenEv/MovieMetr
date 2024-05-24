@@ -21,7 +21,7 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
       date: (a: any, b: any) =>
         new Date(b.release_date).getTime() - new Date(a.release_date).getTime(),
     }),
-    []
+    [],
   );
 
   type SortByOption = keyof typeof sortByOptions;
@@ -57,24 +57,24 @@ export default function FilmGrid({ cast, crew }: { cast: any; crew: any }) {
 
       if (category === "film") {
         filteredItems = filteredItems.filter(
-          (result: any) => result.media_type == "movie"
+          (result: any) => result.media_type == "movie",
         );
       } else if (category === "tv") {
         filteredItems = filteredItems.filter(
-          (result: any) => result.media_type == "tv"
+          (result: any) => result.media_type == "tv",
         );
       }
 
       if (role !== "actor") {
         filteredItems = filteredItems.filter(
-          (result: any) => result.job.toLowerCase() === role
+          (result: any) => result.job.toLowerCase() === role,
         );
       }
 
       const sortedItems = filteredItems.sort(sortByOptions[sortBy]);
       return sortedItems;
     },
-    [cast, crew, role, sortByOptions]
+    [cast, crew, role, sortByOptions],
   );
 
   const [activeButton, setActiveButton] = useState<Category>("film");

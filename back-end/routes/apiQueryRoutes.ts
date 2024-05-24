@@ -94,7 +94,7 @@ router.get("/people/:id", async (req: Request, res: Response) => {
         popularity,
         vote_count,
         release_date,
-      })
+      }),
     );
     credits.crew = credits.crew.map(
       ({
@@ -117,7 +117,7 @@ router.get("/people/:id", async (req: Request, res: Response) => {
         popularity,
         vote_count,
         release_date,
-      })
+      }),
     );
 
     res.json({ ...person, credits });
