@@ -16,16 +16,22 @@ export default function SideBar() {
   const pathname = usePathname();
 
   const [localToken, setToken] = useState(null);
-  if (typeof window !== "undefined") {
-    useEffect(() => {
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       const tokenData = localStorage.getItem("token");
       if (tokenData) {
         const tokenObject = JSON.parse(tokenData);
         setToken(tokenObject);
-        router.push(pathname);
       }
-    }, [pathname]);
-  }
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (localToken) {
+      router.push(pathname);
+    }
+  }, [localToken, router, pathname]);
 
   return (
     <div className={styles.sidebar}>
