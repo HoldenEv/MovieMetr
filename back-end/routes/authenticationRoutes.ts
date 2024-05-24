@@ -67,7 +67,7 @@ router.get(
       console.error("Error getting profile", error);
       res.status(500).send("Error getting profile");
     }
-  }
+  },
 );
 
 //route to login a user, calls loginUser function from accountController

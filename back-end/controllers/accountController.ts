@@ -23,7 +23,7 @@ const loginUser = async (username: string, password: string) => {
     });
   });
 
-  if(!isAuthenticated){
+  if (!isAuthenticated) {
     throw new Error("Incorrect password");
   }
 
@@ -32,13 +32,13 @@ const loginUser = async (username: string, password: string) => {
     id: user.id,
     expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
   };
-//checks if the jwt secret exists
+  //checks if the jwt secret exists
   if (!config.jwtSecret) {
     // if it exists
     // Pass { session: false } as an option to indicate that sessions are not needed
     throw new Error("JWT Secret not found");
   }
-//creates the token, using the payload and the jwt secret
+  //creates the token, using the payload and the jwt secret
   const token = jwt.encode(payload, config.jwtSecret);
   //returns the token
   return { token: token };
@@ -62,8 +62,8 @@ const registerUser = async (
   const user = new User({
     email: email,
     username: username,
-    bio:username+ " hasn't set a bio yet.",
-    profilePath:"",
+    bio: username + " hasn't set a bio yet.",
+    profilePath: "",
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;
@@ -110,28 +110,38 @@ const updateProfilePath = async (userId: string, profilePath: string) => {
 //updates a users password
 //doesnt work rn, .changepassword doesnt work llike it should,
 //at least being called the way it is, needs to be fixed
-const updatePassword = async (userId: string, oldPassword: string,newPassword: string ) => {
+const updatePassword = async (
+  userId: string,
+  oldPassword: string,
+  newPassword: string,
+) => {
   const user = await User.findById(userId).exec();
   if (!user) {
     throw new Error("User not found");
   }
   return new Promise((resolve, reject) => {
     user.changePassword(oldPassword, newPassword, (err) => {
-      if(err){
-        if(err.name === "IncorrectPasswordError"){
+      if (err) {
+        if (err.name === "IncorrectPasswordError") {
           reject(new Error("Incorrect password"));
         } else {
           reject(new Error("Error updating password"));
         }
-      }else{
-        resolve({message: "Password updated"});
+      } else {
+        resolve({ message: "Password updated" });
       }
     });
   });
 };
 
 //update all user info except, password
-const updateUser = async (userId: string, email: string, username: string, bio: string, profilePath: string) => {
+const updateUser = async (
+  userId: string,
+  email: string,
+  username: string,
+  bio: string,
+  profilePath: string,
+) => {
   const user = await User.findById(userId).exec();
   if (!user) {
     throw new Error("User not found");
@@ -141,8 +151,7 @@ const updateUser = async (userId: string, email: string, username: string, bio: 
   user.bio = bio;
   user.profilePath = profilePath;
   return user.save();
-}
-
+};
 
 //gets user all user info by user id
 const getUser = async (userId: string) => {
@@ -151,11 +160,10 @@ const getUser = async (userId: string) => {
     throw new Error("User not found");
   }
   return user;
-}
-
+};
 
 //FOLLOWING AND FOLLOWERS FUNCTIONS
-//will need to modify the followers in user model and 
+//will need to modify the followers in user model and
 //some controller functions to allow for the ability for a user to follow person objects
 
 //could create a object or add a check to see if the id is a userId and personId
@@ -168,19 +176,19 @@ const getUser = async (userId: string) => {
  * @param userId the user id of the follower
  * @param followId the user id of the user to follow
  * @returns the updated user object
- * 
+ *
  */
 const followUser = async (userId: string, followId: string) => {
   const user = await User.findById(userId).exec();
   const follow = await User.findById(followId).exec();
   //one error for both users for now
-  if(!user || !follow){
+  if (!user || !follow) {
     throw new Error("User not found");
   }
   //check if user is already following the followee
   //may need to adjust because of the way following is stored as object ids
   //not strings
-  if(user.following.includes(followId)){
+  if (user.following.includes(followId)) {
     throw new Error("Already following user");
   }
   user.following.push(followId);
@@ -188,7 +196,7 @@ const followUser = async (userId: string, followId: string) => {
   await user.save();
   await follow.save();
   return user;
-} 
+};
 
 /**
  * Unfollow a user, given the user id of the user and the user id of the user to unfollow
@@ -196,18 +204,18 @@ const followUser = async (userId: string, followId: string) => {
  * @param userId the user id of the follower
  * @param followId the user id of the user to unfollow
  * @returns the updated user object
- * 
+ *
  */
 const unfollowUser = async (userId: string, followId: string) => {
   const user = await User.findById(userId).exec();
   const follow = await User.findById(followId).exec();
   //one error for both
-  if(!user || !follow){
+  if (!user || !follow) {
     throw new Error("User not found");
   }
   //check if user is already following the followee
   //may need to adjust because of the way following is stored as object ids
-  if(!user.following.includes(followId)){
+  if (!user.following.includes(followId)) {
     throw new Error("Not following user");
   }
   //remove the followee from the user's following list and the user from the followee's followers list
@@ -216,7 +224,7 @@ const unfollowUser = async (userId: string, followId: string) => {
   await user.save();
   await follow.save();
   return user;
-}
+};
 
 /**
  * Get all users that a user is following
@@ -224,9 +232,9 @@ const unfollowUser = async (userId: string, followId: string) => {
  * @returns an array of user objects
  */
 const getFollowing = async (userId: string) => {
-  try{
+  try {
     const user = await User.findById(userId).exec();
-    if(!user){
+    if (!user) {
       throw new Error("User not found");
     }
     //get all users that the user is following
@@ -237,7 +245,7 @@ const getFollowing = async (userId: string) => {
     console.error("Error getting user's following list", error);
     return null;
   }
-}
+};
 
 /**
  * Get all users that are following a user
@@ -245,9 +253,9 @@ const getFollowing = async (userId: string) => {
  * @returns an array of user objects
  */
 const getFollowers = async (userId: string) => {
-  try{
+  try {
     const user = await User.findById(userId).exec();
-    if(!user){
+    if (!user) {
       throw new Error("User not found");
     }
     //get all users that are following the user

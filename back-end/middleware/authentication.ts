@@ -43,7 +43,6 @@ passport.use(
 
 exports = passport;
 
-
 // const passport = require("passport");
 // const LocalStrategy = require("passport-local").Strategy;
 // const passportJWT = require("passport-jwt");
