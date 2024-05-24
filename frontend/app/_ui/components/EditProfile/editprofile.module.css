@@ -1,7 +1,4 @@
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
@@ -14,7 +11,7 @@
 
 .formContainer {
   border-radius: 10px;
-  background-color: var(--dark-blue);
+  background-color: #141d2b;
   padding: 1.8rem 2rem;
   z-index: 1001; /* Ensure the modal content is on top of the overlay */
 }
@@ -41,19 +38,19 @@
   gap: 1.5rem;
 }
 
-.createAccountButton {
+.editProfileButton {
   cursor: pointer;
   border: none;
   border-radius: 100px;
   padding: 0.7rem 1.2rem;
   color: var(--pure-white);
-  background-color: var(--darker-blue);
+  background-color: #22324A;
   transition:
     background-color 0.3s,
     color 0.3s;
 }
 
-.createAccountButton:hover {
+.editProfileButton:hover {
   background-color: #364159;
 }
 
@@ -63,5 +60,13 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+
+@media only screen and (max-width: 980px) {
+  .formContainer
+  {
+    max-width: 70%;
   }
 }

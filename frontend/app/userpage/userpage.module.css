@@ -1,6 +1,5 @@
 .userPage {
-  background-color: #22324a;
-  padding-left: 10px;
+  background-color: #141d2b;
   padding-right: 10px;
   min-width: 100%;
 }
@@ -8,22 +7,30 @@
 .userInfo {
   display: flex;
   justify-content: space-around;
-  max-width: 600px;
+  max-width: 700px;
   margin-bottom: 10px;
 }
 
+.banner {
+  width: 100%;
+  height: 150px;
+  position: relative;
+}
+
 .profilePicture {
-  width: 200px;
-  height: 200px;
   border-radius: 100px;
   object-fit: cover;
   margin-top: 10px;
   margin-right: 5px;
+  border: 6px solid #192536;
 }
 
 .photoUsername {
+  position: relative;
+  top: -100px;
   text-align: center;
   font-size: larger;
+
 }
 
 .usernameText {
@@ -35,6 +42,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  font-size: larger;
 }
 .overview {
   display: flex;
@@ -83,7 +91,7 @@
   border-radius: 5px;
   cursor: pointer;
   border: none;
-  background-color: var(--darker-blue);
+  background-color: #22324A;
   color: var(--pure-white);
   padding: 10px;
   font-size: 16px;
@@ -99,22 +107,23 @@
 
 .editProfile:active,
 .shareProfile:active {
-  background-color: var(
-    --darker-blue
-  ); /* Change back to original color on click */
+  background-color: var(--darker-blue); /* Change back to original color on click */
+}
+
+.speedDial {
+  position: absolute;
+  left: 0; 
 }
 
 .addMovieList {
   border: none;
-  background-color: var(--darker-blue);
+  background-color: #22324A;
   color: var(--pure-white);
   border-color: var(--pure-white);
   border-radius: 10px;
   padding: 0.5rem;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   text-align: center;
   flex: 1;
 }
@@ -159,9 +168,7 @@
   border-radius: 20px;
   padding: 0.5rem;
   cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
   text-align: center;
   flex: 1;
   margin-top: 0.5rem;
@@ -172,8 +179,9 @@
   background-color: var(--darker-blue-highlight);
 }
 
+
 .listContainer {
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 0.5px solid whitesmoke;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -198,18 +206,16 @@
 .horizontalScroll::-webkit-scrollbar-thumb {
   background-color: var(--darker-blue); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
-  border: 1px solid var(--light-grey); /* creates padding around scroll thumb */
+  border: 0.5px solid var(--light-grey); /* creates padding around scroll thumb */
 }
 
 .horizontalScroll::-webkit-scrollbar-thumb:hover {
-  background-color: var(
-    --darker-blue-highlight
-  ); /* color of the scroll thumb when hovering */
+  background-color: var(--darker-blue-highlight); /* color of the scroll thumb when hovering */
 }
 
 .imageItem {
   flex: 0 0 auto;
-  width: 200px;
+  width: 200px; 
   margin-right: 10px;
   border: 2px solid #438b8b64;
   border-radius: 4px;
@@ -220,6 +226,9 @@
   cursor: pointer;
   border: 2px solid #60ecec;
 }
+
+
+
 
 @media only screen and (max-width: 525px) {
   .userInfo {
@@ -251,5 +260,15 @@
 @media only screen and (min-width: 525px) {
   .userInfo {
     margin-left: 10%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .movieButtons
+  {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
