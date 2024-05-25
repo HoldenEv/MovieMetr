@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/_ui/global.css";
 import type { Viewport } from "next";
 import SideBar from "./_ui/components/SideBar/Sidebar";
+import { AuthProvider } from "./_context/authContext";
 import React from "react";
 
 export const viewport: Viewport = {
@@ -25,10 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
-        <SideBar />
-        <div className="maincontent">{children}</div>
-      </body>
+      <AuthProvider>
+        <body className={`${inter.className}`}>
+          <SideBar />
+          <div className="maincontent">{children}</div>
+        </body>
+      </AuthProvider>
     </html>
   );
 }

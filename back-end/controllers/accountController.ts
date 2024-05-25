@@ -28,7 +28,7 @@ const loginUser = async (username: string, password: string) => {
   }
 
   //creates a payload with the user id and an expiration date of 7 days
-  const payload = {
+  var payload = {
     id: user.id,
     expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
   };
@@ -63,10 +63,7 @@ const registerUser = async (
     email: email,
     username: username,
     bio: username + " hasn't set a bio yet.",
-    profilePath:
-      "https://temp-bucket-h4i.s3.us-east-2.amazonaws.com/myFolder/blank-profile-picture-973460_1280.png",
-    profileBanner:
-      "https://image.tmdb.org/t/p/original/qYiaSl0Eb7G3VaxOg8PxExCFwon.jpg",
+    profilePath: "",
   });
   const registeredUser = await User.register(user, password);
   return registeredUser;
@@ -87,13 +84,13 @@ const update = async (userId: string, updateFields: object) => {
 };
 
 //update a users email
-const updateEmail = async (userId: string, email: string) => {
+const updateEmail = async (userId: any, email: string) => {
   const updateFields = { email: email };
   return update(userId, updateFields);
 };
 
 //updates a users username
-const updateUsername = async (userId: string, username: string) => {
+const updateUsername = async (userId: any, username: string) => {
   const updateFields = { username: username };
   return update(userId, updateFields);
 };

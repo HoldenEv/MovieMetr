@@ -6,15 +6,42 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import ProfileIcon from "@mui/icons-material/AccountCircle";
 import Logo from "@/_assets/logo2.png";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getProfileFromToken } from "@/_api/profile";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [localToken, setToken] = useState(null);
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const tokenData = localStorage.getItem("token");
+      if (tokenData) {
+        const tokenObject = JSON.parse(tokenData);
+        setToken(tokenObject);
+      }
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (localToken) {
+      router.push(pathname);
+    }
+  }, [localToken, router, pathname]);
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.top}>
         <div className={styles.logo}>
           <Image src={Logo} alt="logo" width={100} height={80} />
+          {/* <span>MovieMeter</span>   */}
         </div>
       </div>
+
       <ul>
         <li>
           <a href="/">
@@ -41,14 +68,25 @@ export default function SideBar() {
             <span className={styles.navitem}>Explore</span>
           </a>
         </li>
-        <li>
-          <a href="/userpage">
-            <div className={styles.icon}>
-              <ProfileIcon></ProfileIcon>
-            </div>
-            <span className={styles.navitem}>Profile</span>
-          </a>
-        </li>
+        {localToken ? (
+          <li>
+            <a href="/userpage">
+              <div className={styles.icon}>
+                <ProfileIcon></ProfileIcon>
+              </div>
+              <span className={styles.navitem}>Profile</span>
+            </a>
+          </li>
+        ) : (
+          <li>
+            <a href="/login">
+              <div className={styles.icon}>
+                <ProfileIcon></ProfileIcon>
+              </div>
+              <span className={styles.navitem}>Sign In</span>
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );

@@ -1,17 +1,6 @@
-import { ViewHeadline } from "@mui/icons-material";
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
-import { backdropClasses } from "@mui/material";
-import {
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  PromiseLikeOfReactNode,
-} from "react";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import assert from "assert";
+
 export default function MovieDetailPage({
   data,
 }: {
