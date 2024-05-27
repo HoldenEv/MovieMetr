@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-"use client"
-=======
 "use client";
->>>>>>> ca5661a952e5938548d0ec4cd14056d017e9bbb1
 import "./login.css";
 import { useState, useEffect } from "react";
 import { useAuth } from "../_context/authContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
-<<<<<<< HEAD
-=======
-import isLoginIn from "@/protected/signedIn";
-//import Login from "@/_ui/components/UserAuth/Login/Login";
->>>>>>> ca5661a952e5938548d0ec4cd14056d017e9bbb1
 
 const Login = () => {
   const [user, setUsername] = useState("");
