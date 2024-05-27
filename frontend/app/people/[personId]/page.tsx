@@ -40,7 +40,10 @@ export default function PeoplPage({
               backgroundColor: "#8aa5ae",
             }}
           />
-          <FilmGrid cast={personData.details.credits.cast} />
+          <FilmGrid
+            cast={personData.details.credits.cast}
+            crew={personData.details.credits.crew}
+          />
         </div>
       )}
     </>

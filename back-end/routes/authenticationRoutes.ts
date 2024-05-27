@@ -15,7 +15,8 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
-import { Strategy as LocalStrategy } from "passport-local";
+const authenticationMiddleware = require("../middleware/authentication");
+const LocalStrategy = require("passport-local");
 import bodyParser from "body-parser";
 import passport from "passport";
 import * as dotenv from "dotenv";
