@@ -1,11 +1,5 @@
-const BASE_URL: string = "http://localhost:3001/authentication";
-
-class BackendValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "BackendValidationError";
-  }
-}
+const BASE_URL: string =
+  process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication";
 
 export const signUpUser = async (
   email: string,
@@ -30,12 +24,15 @@ export const signUpUser = async (
     });
 
     if (!response.ok) {
-      throw new Error("Internal server error");
+      if (response.status === 409) {
+        throw new Error("Username or email already exists");
+      } else {
+        throw new Error("Internal server error");
+      }
     }
 
     return await response.json();
   } catch (error: any) {
-    console.error("Error signing up:", error.message);
     throw error;
   }
 };

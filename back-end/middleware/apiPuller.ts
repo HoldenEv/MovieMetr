@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getMovie } from "../controllers/movieController";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -41,6 +42,35 @@ interface ApiResponse {
   data: (MovieData | PersonData | ShowData)[];
 }
 
+interface IMovie {
+  id: number;
+  title: string;
+  original_title: string;
+  release_date: string;
+  poster_path: string;
+  overview: string;
+  image: string;
+}
+
+interface IPerson {
+  id: number;
+  name: string;
+  known_for_department: string;
+  known_for: IMovie[];
+  profile_path: string;
+  image: string;
+}
+
+interface IShow {
+  id: number;
+  name: string;
+  original_name: string;
+  first_air_date: string;
+  poster_path: string;
+  overview: string;
+  image: string;
+}
+
 //search for movies given a search string, currently returns id, title, image, and summary
 const searchMovies = async (searchString: string, page: string) => {
   /* configure url for TMDB movie search URL */
@@ -65,7 +95,7 @@ const searchMovies = async (searchString: string, page: string) => {
     const response = await axios.get(url, options);
 
     /* map movie results data to our own array */
-    const data: MovieData[] = response.data.results.map((movie: any) => ({
+    const data: MovieData[] = response.data.results.map((movie: IMovie) => ({
       id: movie.id,
       title: movie.title,
       original_title: movie.original_title,
@@ -112,13 +142,13 @@ const searchByPeople = async (searchString: string, page: string) => {
     /* make GET request to the configured url */
     const response = await axios.get(url, options);
     /* map people results data to our own array */
-    const data: PersonData[] = response.data.results.map((person: any) => ({
+    const data: PersonData[] = response.data.results.map((person: IPerson) => ({
       id: person.id,
       name: person.name,
       known_for_department: person.known_for_department,
       known_for: person.known_for
-        .filter((movie: any) => movie.id && movie.title)
-        .map((movie: any) => ({ id: movie.id, title: movie.title })),
+        .filter((movie: IMovie) => movie.id && movie.title)
+        .map((movie: IMovie) => ({ id: movie.id, title: movie.title })),
       image: person.profile_path,
     }));
     /* store page and result info */
@@ -160,7 +190,7 @@ const searchTvShows = async (searchString: string, page: string) => {
     //make GET request to the configured url
     const response = await axios.get(url, options);
     // map show results to our own array
-    const data: ShowData[] = response.data.results.map((show: any) => ({
+    const data: ShowData[] = response.data.results.map((show: IShow) => ({
       id: show.id,
       name: show.name,
       image: show.poster_path,
@@ -193,6 +223,12 @@ const searchTvShows = async (searchString: string, page: string) => {
  * @returns all the movie details as json object in response
  */
 const movieById = async (id: string) => {
+  console.log(id);
+  if ((await getMovie(id)) != null) {
+    console.log(getMovie(id));
+    return getMovie(id);
+  }
+
   const url =
     "https://api.themoviedb.org/3/movie/" +
     id +
@@ -271,7 +307,7 @@ const nowPlaying = async () => {
   try {
     const response = await axios.get(url, options);
     //can edit this function to return different data if needed
-    const movies = response.data.results.map((movie: any) => ({
+    const movies = response.data.results.map((movie: IMovie) => ({
       id: movie.id,
       title: movie.title,
       image: movie.poster_path,
@@ -296,7 +332,7 @@ const popularMovies = async () => {
   try {
     const response = await axios.get(url, options);
     //can edit this function to return different data if needed
-    const movies = response.data.results.map((movie: any) => ({
+    const movies = response.data.results.map((movie: IMovie) => ({
       id: movie.id,
       title: movie.title,
       image: movie.poster_path,
@@ -305,6 +341,47 @@ const popularMovies = async () => {
     return movies;
   } catch (error) {
     console.error("Error searching movies", error);
+    throw error;
+  }
+};
+
+interface CrewData {
+  id: number;
+  media_type: string;
+}
+
+const getCombinedCredits = async (id: string) => {
+  const url =
+    "https://api.themoviedb.org/3/person/" +
+    id +
+    "/combined_credits?api_key=" +
+    apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    response.data.cast = response.data.cast.reduce(
+      (uniqueShows: CrewData[], show: CrewData) => {
+        // Check if the show ID is already in the list
+        if (
+          !uniqueShows.find(
+            (s: CrewData) => s.id === show.id && s.media_type === s.media_type,
+          )
+        ) {
+          // If not, add it to the list
+          uniqueShows.push(show);
+        }
+        return uniqueShows;
+      },
+      [],
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error searching for person details", error);
     throw error;
   }
 };
@@ -354,7 +431,7 @@ const getAllMoviePeople = async (id: string) => {
     const response = await axios.get(url, options);
     //filter by department being acting, wrting, directing, production
     //right now only looking through cast, not crew, add crew later for more comprehensive search
-    const people = response.data.cast.filter((person: any) => {
+    const people = response.data.cast.filter((person: IPerson) => {
       return (
         person.known_for_department === "Acting" ||
         person.known_for_department === "Directing" ||
@@ -390,7 +467,7 @@ const getAllTVPeople = async (TVshowId: string) => {
     const response = await axios.get(url, options);
     //filter by department being acting, wrting, directing, production
     //right now only looking through cast, not crew, add crew later for more comprehensive search
-    const people = response.data.cast.filter((person: any) => {
+    const people = response.data.cast.filter((person: IPerson) => {
       return (
         person.known_for_department === "Acting" ||
         person.known_for_department === "Directing" ||
@@ -446,4 +523,5 @@ export {
   TVshowById,
   getAllTVPeople,
   getAllPersonTVshows,
+  getCombinedCredits,
 };

@@ -1,4 +1,4 @@
-import express, { Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import {
   searchByPeople,
   movieById,
@@ -7,6 +7,7 @@ import {
   searchTvShows,
   nowPlaying,
   popularMovies,
+  getCombinedCredits,
 } from "../middleware/apiPuller";
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get("/search", async (req: Request, res: Response) => {
     const page = req.query.page as string;
     const category = req.query.category as string;
 
-    let results: any = {};
+    let results: object = {};
 
     if (category === "movies") {
       results = await searchMovies(name, page);
@@ -38,14 +39,88 @@ router.get("/search", async (req: Request, res: Response) => {
   }
 });
 
+interface Credit {
+  id: number;
+  title: string;
+  name: string;
+  media_type: string;
+  poster_path: string;
+  popularity: string;
+  vote_count: number;
+  release_date: string;
+}
+
+interface Crew {
+  id: number;
+  title: string;
+  name: string;
+  job: string;
+  media_type: string;
+  poster_path: string;
+  popularity: string;
+  vote_count: number;
+  release_date: string;
+}
+
+interface Credits {
+  cast: Credit[];
+  crew: Crew[];
+}
+
 /*
   Gets actor details by their TMDB id, calls personById function from apiPuller.
 */
 router.get("/people/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
-    const movie = await personById(id);
-    res.json(movie);
+    const person = await personById(id);
+    const credits: Credits = await getCombinedCredits(id);
+    credits.cast = credits.cast.map(
+      ({
+        id,
+        title,
+        name,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
+        release_date,
+      }) => ({
+        id,
+        title: media_type === "tv" ? name : title,
+        name,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
+        release_date,
+      }),
+    );
+    credits.crew = credits.crew.map(
+      ({
+        id,
+        title,
+        name,
+        job,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
+        release_date,
+      }) => ({
+        id,
+        title,
+        name,
+        job,
+        media_type,
+        poster_path,
+        popularity,
+        vote_count,
+        release_date,
+      }),
+    );
+
+    res.json({ ...person, credits });
   } catch (error) {
     console.error("Error getting movie details", error);
     res.status(500).send("Error getting movie details");

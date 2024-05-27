@@ -11,7 +11,6 @@ const GenreSchema = new Schema({
     required: true,
     unique: true,
   },
-
 });
 
 const Genre = mongoose.model("Genre", GenreSchema);

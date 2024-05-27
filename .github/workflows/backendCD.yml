@@ -1,0 +1,42 @@
+name: Backend Deployment to Azure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install Dependencies
+        run: npm install --verbose
+        working-directory: back-end
+
+      - name: Build
+        run: npm run build
+        working-directory: back-end
+
+      # - name: Prepare Deployment Package
+      #   run: |
+      #     cp back-end/package.json back-end/dist
+      #     cp back-end/package-lock.json back-end/dist
+
+      - name: Deploy to Azure Web App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'MovieMeter'
+          publish-profile: ${{ secrets.AZUREWEBAPPPUBLISHPROFILE }}
+          package: back-end

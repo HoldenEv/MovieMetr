@@ -4,11 +4,10 @@
   left: 0;
   height: 100%;
   width: 130px;
-  z-index: 99999;
+  z-index: 9999;
   background-color: #12171e;
   padding: 0.4rem 0.8rem;
   transition: all 0.5s ease;
-  border-right: 1px solid #60ecec;
 }
 
 .sidebar:hover ~ .maincontent {

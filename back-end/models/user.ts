@@ -1,12 +1,24 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, PassportLocalModel } from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
+interface IUserModel extends PassportLocalModel<IUser> {
+  verifyUser(email: string, password: string): Promise<IUser | null>;
+}
+
 export interface IUser extends Document {
-  changePassword(oldPassword: string, newPassword: string, callback: (err: any) => void): void;
-  authenticate(password: string, callback: (err: any, result: any) => void): void;
+  changePassword(
+    oldPassword: string,
+    newPassword: string,
+    callback: (err: Error | null) => void,
+  ): void;
+  authenticate(
+    password: string,
+    callback: (err: Error | null, result: boolean) => void,
+  ): void;
   username: string;
   email: string;
   profilePath: string;
+  profileBanner: string;
   bio: string;
   following: string[];
   followers: string[];
@@ -28,6 +40,9 @@ const UserSchema = new Schema<IUser>({
   profilePath: {
     type: String,
   },
+  profileBanner: {
+    type: String,
+  },
   bio: {
     type: String,
   },
@@ -38,6 +53,6 @@ const UserSchema = new Schema<IUser>({
 
 UserSchema.plugin(passportLocalMongoose);
 
-const UserModel = mongoose.model<IUser>("User", UserSchema);
+const UserModel = mongoose.model<IUser, IUserModel>("User", UserSchema);
 
 export default UserModel;

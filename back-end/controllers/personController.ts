@@ -1,9 +1,11 @@
 import Person from "../models/person";
 import MoviePeople from "../models/moviePeople";
 import TVPeople from "../models/TVshowPeople";
-import { personById, getAllMoviePeople,getAllTVPeople } from "../middleware/apiPuller";
-//if we want to add all movie a person was in to the database
-import Movie from "../models/movies";
+import {
+  personById,
+  getAllMoviePeople,
+  getAllTVPeople,
+} from "../middleware/apiPuller";
 
 //adds person to the database by person Id, queires the api for the person's details
 const addPerson = async (personId: string) => {
@@ -86,7 +88,7 @@ const addAllMoviePeople = async (movieId: string) => {
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllMoviePeople(movieId);
     //add each person to the database
-    for (let person of people) {
+    for (const person of people) {
       //check if person is already in the database
       if ((await Person.findOne({ _id: person.id })) == null) {
         await addPerson(person.id);
@@ -103,7 +105,7 @@ const addAllMoviePeople = async (movieId: string) => {
 
 /**
  * adds all people related to a TV show to the database
- * @param TVshowId 
+ * @param TVshowId
  */
 const addAllTVPeople = async (TVshowId: string) => {
   try {
@@ -111,7 +113,7 @@ const addAllTVPeople = async (TVshowId: string) => {
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllTVPeople(TVshowId);
     //add each person to the database
-    for (let person of people) {
+    for (const person of people) {
       //check if person is already in the database
       if ((await Person.findOne({ _id: person.id })) == null) {
         await addPerson(person.id);
@@ -137,4 +139,4 @@ const deletePerson = async (personId: string) => {
   }
 };
 
-export { addPerson, addAllMoviePeople, deletePerson, addAllTVPeople};
+export { addPerson, addAllMoviePeople, deletePerson, addAllTVPeople };

@@ -1,24 +1,45 @@
+<<<<<<< HEAD
 "use client"
+=======
+"use client";
+>>>>>>> ca5661a952e5938548d0ec4cd14056d017e9bbb1
 import "./login.css";
-import { useState } from "react";
-import { useAuth } from "../context/authContext";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useAuth } from "../_context/authContext";
+import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
+<<<<<<< HEAD
+=======
+import isLoginIn from "@/protected/signedIn";
+//import Login from "@/_ui/components/UserAuth/Login/Login";
+>>>>>>> ca5661a952e5938548d0ec4cd14056d017e9bbb1
 
-export default function Login() {
+const Login = () => {
   const [user, setUsername] = useState("");
   const [pass, setPassword] = useState("");
 
-  const { token, username, password, confirmPassword, email, handleLogin, handleLogout, handleRegister } = useAuth();
-
+  const {
+    token,
+    username,
+    password,
+    confirmPassword,
+    email,
+    handleLogin,
+    handleLogout,
+    handleRegister,
+  } = useAuth();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent page from reloading
-    console.log("made it into handle submit");
-    console.log("username: " +  username, "password: " + password);
-    return handleLogin(user, pass);
-    //if (value !== undefined && value.token !== undefined) {
+    // You can remove the return statement if handleLogin doesn't return anything
+    setUsername(user);
+    setPassword(pass);
+    handleLogin(user, pass);
   };
+
+  useEffect(() => {
+    // This effect will run whenever `user` or `pass` changes
+  }, [user, pass]);
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -38,6 +59,7 @@ export default function Login() {
                 type="text"
                 id="username"
                 name="username"
+                autoComplete="username"
                 value={user} // Set value to username state
                 onChange={handleUsernameChange} // Handle input change
                 required
@@ -49,13 +71,16 @@ export default function Login() {
                 type="password"
                 id="password"
                 name="password"
+                autoComplete="current-password"
                 value={pass} // Set value to password state
                 onChange={handlePasswordChange} // Handle input change
                 required
               />
             </div>
             <p className="forgot-password">
-              <a href="https://www.fortnite.com/?lang=en-US">Forgot Password?</a>
+              <a href="https://www.fortnite.com/?lang=en-US">
+                Forgot Password?
+              </a>
             </p>
             <div className="login-bottom-buttons">
               <div className="remember-me-button">
@@ -63,7 +88,9 @@ export default function Login() {
                 <label htmlFor="rememberMe">Remember Me</label>
               </div>
               <p className="create-account-button">
-                <a href="https://www.fortnite.com/?lang=en-US">Create Account</a>
+                <a href="https://www.fortnite.com/?lang=en-US">
+                  Create Account
+                </a>
               </p>
               <button className="login-button" type="submit">
                 Login In
@@ -74,4 +101,6 @@ export default function Login() {
       </form>
     </div>
   );
-}
+};
+
+export default Login;
