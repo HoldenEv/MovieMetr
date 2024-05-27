@@ -1,15 +1,14 @@
 "use client";
 
 import styles from "../login/Auth.module.css";
-import Image from "next/image";
-import CloseIcon from "@mui/icons-material/Close";
-import ReactModal from "react-modal";
 import Link from "next/link";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
+import { useRouter } from 'next/navigation';
 
 export default function Signup() {
   const [error, setError] = useState<string>("");
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -55,6 +54,8 @@ export default function Signup() {
       return;
     }
 
+    let isSuccess = false;
+
     try {
       // Call the signUpUser function from signup.ts
       await signUpUser(
@@ -70,13 +71,17 @@ export default function Signup() {
         password: "",
         confirmPassword: "",
       });
+      isSuccess = true;
     } catch (error: any) {
       if (error.message) {
         setError(error.message);
-        return;
       } else {
         setError("An error occured. Please try again later.");
       }
+      return;
+    }
+    if (isSuccess) {
+      router.push("/login");
     }
   };
 
