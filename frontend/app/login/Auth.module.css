@@ -100,6 +100,17 @@
   gap: 1.5rem;
 }
 
+.link {
+  color: "#ff5eff";
+  font-weight: 250;
+  font-size: medium;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: #ccc;
+}
+
 .createAccountButton {
   cursor: pointer;
   border: none;
