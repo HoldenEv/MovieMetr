@@ -4,7 +4,7 @@ import styles from "../login/Auth.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [error, setError] = useState<string>("");
@@ -192,7 +192,12 @@ export default function Signup() {
             />
           </div>
           {error && (
-            <p style={{ color: "#eb7673", fontSize: "0.85rem" }}>{error}</p>
+            <p
+              id="errorMessage"
+              style={{ color: "#eb7673", fontSize: "0.85rem" }}
+            >
+              {error}
+            </p>
           )}
           <div className={styles.loginBottomButtons}>
             <button className={styles.createAccountButton} type="submit">
