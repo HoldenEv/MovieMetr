@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier . --write",
-    "test": "prettier --check . --ignore-path .prettierignore && next lint"
+    "test": "prettier --check . --ignore-path .prettierignore && next lint",
+    "cy:open": "cyprus open"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -30,6 +31,7 @@
     "@types/react": "^18.2.75",
     "@types/react-dom": "^18.2.24",
     "@types/react-modal": "^3.16.3",
+    "cypress": "^13.10.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
     "eslint-plugin-react": "^7.34.1",
