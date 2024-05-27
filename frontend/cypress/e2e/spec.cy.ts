@@ -26,7 +26,7 @@ describe("Sign Up", () => {
       cy.get("#errorMessage").should("be.visible");
       cy.get("#errorMessage").should(
         "contain.text",
-        "Username or email already exists"
+        "Username or email already exists",
       );
     });
 

@@ -323,7 +323,7 @@ const Userpage = () => {
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
-                      <img
+                      <Image
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{
