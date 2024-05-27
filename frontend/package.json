@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "npx prettier . --write",
     "test": "prettier --check . --ignore-path .prettierignore && next lint",
-    "cy:open": "cyprus open"
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
