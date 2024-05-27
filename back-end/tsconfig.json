@@ -7,13 +7,16 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types":[
+      "node","jest"] 
   },
   "include": [
     "**/*.ts",
+    "**/*.spec.ts",
     "express.d.ts",
     "middleware/authentication.ts",
     "config.ts"
   ],
-  "exclude": ["node_modules", "dist", "tests/**/*.test.ts"]
+  "exclude": ["node_modules", "dist"]
 }
