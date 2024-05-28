@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { addList, addMovieToList, deleteList, deleteMovieFromList } from "../controllers/listController";
+import { addList, addMovieToList, deleteList, deleteMovieFromList, updateList } from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
 
@@ -103,5 +103,23 @@ router.delete("/deleteMovieFromList", async (req: Request, res: Response) => {
     res.status(500).send("Error deleting movie from list");
   }
 });
+
+// Route to update a list
+router.put("/updateList", async (req: Request, res: Response) => {
+  try {
+    const listId = req.query.listId as string;
+    const newName = req.query.newName as string;
+    const result = await updateList(listId, newName);
+    if (result != null) {
+      res.json(result);
+    } else {
+      res.status(500).send("Error updating list");
+    }
+  } catch (error) {
+    console.error("Error updating list", error);
+    res.status(500).send("Error updating list");
+  }
+});
+
 
 export default router;

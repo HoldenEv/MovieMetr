@@ -119,3 +119,70 @@ export const addList = async (
     throw error;
   }
 };
+
+export const deleteList = async (listId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/deleteList?listId=${listId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error deleting list:", error.message);
+    throw error;
+  }
+};
+
+export const deleteMovieFromList = async (
+  listId: string,
+  movieId: string,
+): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/deleteMovieFromList?listId=${listId}&movieId=${movieId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error deleting movie from list:", error.message);
+    throw error;
+  }
+};
+
+export const updateList = async (
+  listId: string,
+  newName: string,
+): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/updateList?listId=${listId}&newName=${newName}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error updating list:", error.message);
+    throw error;
+  }
+};
+

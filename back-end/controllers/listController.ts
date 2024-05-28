@@ -133,7 +133,25 @@ const deleteMovieFromList = async (listId: string, movieId: string) => {
   }
 };
 
+// Updates the name of a list by its id
+const updateList = async (listId: string, newName: string) => {
+  try {
+    // Grab list from db
+    const list = await List.findOne({ _id: listId });
+    // Check if list exists
+    if (!list) {
+      console.error("Error updating list: List not found");
+      return null;
+    }
+    // Update list name
+    list.name = newName;
+    await list.save();
+    return list;
+  } catch (error) {
+    console.error("Error updating list", error);
+    return null;
+  }
+};
 
 
-
-export { addList, deleteList, deleteMovieFromList, addMovieToList, getUserLists, getList };
+export { addList, deleteList, deleteMovieFromList, addMovieToList, getUserLists, getList, updateList };

@@ -9,7 +9,7 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
-import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
 import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
@@ -19,7 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from "@mui/icons-material/Edit";
 import Link from 'next/link';
 
-
+// interface for the user
 interface User {
   _id: string;
   username: string;
@@ -35,6 +35,7 @@ interface TabPanelProps {
   value: number;
 }
 
+//interface for the movielist
 interface MovieList {
   _id: string;
   name: string;
@@ -165,7 +166,7 @@ const Userpage = () => {
   ) => {
     event.preventDefault();
     if (user) {
-      const newList = await addList(newListName, user._id); // Replace with your API function and user ID
+      const newList = await addList(newListName, user._id); 
       setUserLists([...userLists, newList]);
       refreshUserData();
     }
@@ -280,7 +281,7 @@ const Userpage = () => {
               <form
                 className={styles.addMovieListForm}
                 onSubmit={handleCreateListSubmit}
-              >
+                >
                 <input
                   type="text"
                   value={newListName}
@@ -295,10 +296,12 @@ const Userpage = () => {
           </div>
           {userLists.map((list) => (
             <div key={list._id} className={styles.listContainer}>
-              <Link href={`/movielist/${list._id}`}> 
-                <h2>{list.name}</h2> 
-              </Link>
-              <div className={styles.horizontalScroll}>
+              <div className={styles.listName}>
+                <Link href={`/movielist/${list._id}`}> 
+                  <h2>{list.name}</h2> 
+                </Link>
+              </div>
+              <div className={styles.scrollContainer}>
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
@@ -306,8 +309,8 @@ const Userpage = () => {
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{
-                          width: "100%",
-                          height: "100%",
+                          width: "75%",
+                          height: "75%",
                           objectFit: "cover",
                         }}
                       />
