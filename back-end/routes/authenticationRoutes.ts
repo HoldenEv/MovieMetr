@@ -15,7 +15,7 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
-const authenticationMiddleware = require("../middleware/authentication");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const LocalStrategy = require("passport-local");
 import bodyParser from "body-parser";
 import passport from "passport";
