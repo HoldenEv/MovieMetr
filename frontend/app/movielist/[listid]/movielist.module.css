@@ -1,0 +1,152 @@
+.container {
+  padding: 100px;
+}
+
+.listHeader {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.listName {
+  font-size: 3em;
+  padding-bottom: 20px;
+}
+
+.editlistButton {
+  border: none;
+  background-color: #22324a;
+  color: var(--pure-white);
+  border-color: var(--pure-white);
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  text-align: center;
+  flex: 1;
+}
+
+.editlistButton:hover,
+.editlistButton:focus {
+  background-color: var(--darker-blue-highlight);
+}
+
+.EditListForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--grey);
+  border-radius: 8px;
+  max-width: 50%;
+  margin-bottom: 20px;
+}
+
+.EditListForm input {
+  border: none;
+  margin-top: 0.3rem;
+  padding: 0.2rem 0.3rem;
+  padding-left: 0.8rem;
+  min-width: 80%;
+  border-radius: 8px;
+  width: 100%;
+  background-color: var(--light-grey);
+  font-weight: 300;
+  font-size: 0.9rem;
+  transition: opacity 0.5s;
+}
+
+.EditListForm input:focus {
+  outline: none;
+}
+
+.EditListForm button {
+  border: none;
+  background-color: var(--darker-blue);
+  color: var(--pure-white);
+  border-color: var(--pure-white);
+  border-radius: 20px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  text-align: center;
+  flex: 1;
+  margin-top: 0.5rem;
+}
+
+.EditListForm button:hover,
+.EditListForm button:focus {
+  background-color: var(--darker-blue-highlight);
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 8px;
+}
+
+.overlay button {
+  color: white;
+  background: rgb(105, 27, 27);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.imageContainer:hover .overlay {
+  opacity: 1;
+}
+
+.movieItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.movieImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.movieTitle {
+  margin-top: 10px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+}
+
+.movieImage:hover {
+  transition: 0.1s;
+  cursor: pointer;
+  border: 3px solid #60ecec;
+  cursor: pointer;
+  scale: 1.1;
+}

@@ -1,6 +1,5 @@
-const BASE_URL: string = "http://localhost:3001/listRoutes";
-const BASE_URL_2: string = "http://localhost:3001/movieRoutes";
-const BASE_URL_3: string = "http://localhost:3001/authentication";
+const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/listRoutes";
+const BASE_URL_2: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/movieRoutes";
 
 /**
  * returnsa json object with all list_ids for a userId
@@ -114,6 +113,72 @@ export const addList = async (
     return await response.json();
   } catch (error: any) {
     console.error("Error adding list:", error.message);
+    throw error;
+  }
+};
+
+export const deleteList = async (listId: string): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/deleteList?listId=${listId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error deleting list:", error.message);
+    throw error;
+  }
+};
+
+export const deleteMovieFromList = async (
+  listId: string,
+  movieId: string,
+): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/deleteMovieFromList?listId=${listId}&movieId=${movieId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error deleting movie from list:", error.message);
+    throw error;
+  }
+};
+
+export const updateList = async (
+  listId: string,
+  newName: string,
+): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/updateList?listId=${listId}&newName=${newName}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error("Internal server error");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.error("Error updating list:", error.message);
     throw error;
   }
 };
