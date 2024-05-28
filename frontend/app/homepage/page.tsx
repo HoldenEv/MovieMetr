@@ -93,7 +93,7 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({
 );
 
 const HomePage: React.FC = () => {
-  const [filmData, setFilmData] = useState<{ data: any; loading: boolean }>({
+  const [playingData, setPlayingData] = useState<{ data: any; loading: boolean }>({
     data: null,
     loading: true,
   });
@@ -101,7 +101,21 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getNowPlaying();
-      setFilmData({ data: data, loading: false });
+      setPlayingData({ data: data, loading: false });
+      console.log(data);
+    };
+    fetchData();
+  }, []);
+
+  const [popularData, setPopularData] = useState<{ data: any; loading: boolean }>({
+    data: null,
+    loading: true,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPopularMovies();
+      setPopularData({ data: data, loading: false });
       console.log(data);
     };
     fetchData();
@@ -109,22 +123,22 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      {!filmData.loading && (
+      {!playingData.loading && !popularData.loading && (
         <div className="container">
           <div className="content-container">
             <FeaturedContent
-              image={filmData.data[0].image}
-              title={filmData.data[0].title}
-              summary={filmData.data[0].summary}
+              image={playingData.data[0].image}
+              title={playingData.data[0].title}
+              summary={playingData.data[0].summary}
             />
-            <MovieListContainer title="NEW RELEASES" movies={filmData.data} />
+            <MovieListContainer title="NEW RELEASES" movies={playingData.data} />
             <FeaturedContent
               image="/img/f-2.jpg"
               title="/img/f-t-2.png"
               summary="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis minima voluptatibus incidunt. Accusamus, provident."
             />
-            <MovieListContainer title="NEW RELEASES" movies={filmData.data} />
-            <MovieListContainer title="NEW RELEASES" movies={filmData.data} />
+            <MovieListContainer title="POPULAR" movies={popularData.data} />
+            <MovieListContainer title="NEW RELEASES" movies={popularData.data} />
           </div>
         </div>
       )}
