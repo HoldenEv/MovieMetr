@@ -169,10 +169,9 @@
   border-bottom: 0.5px solid white;
 }
 
-.listName:hover{
+.listName:hover {
   color: #60ecec;
 }
-
 
 .scrollContainer {
   width: 290px;
@@ -181,7 +180,6 @@
   max-width: 500px;
   overflow: hidden;
 }
-
 
 .imageItem {
   position: relative;
@@ -204,7 +202,6 @@
   z-index: 10; /* Bring to front on hover */
   cursor: pointer;
 }
-
 
 @media only screen and (max-width: 525px) {
   .userInfo {
@@ -247,7 +244,6 @@
     align-items: center;
   }
 }
-
 
 /* .horizontalScroll::-webkit-scrollbar {
   width: 10px;

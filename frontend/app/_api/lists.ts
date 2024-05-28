@@ -1,8 +1,5 @@
-const BASE_URL: string =
-  process.env.NEXT_PUBLIC_BACKEND_URL + "/listRoutes";
-  const BASE_URL_2: string =
-  process.env.NEXT_PUBLIC_BACKEND_URL + "/movieRoutes";
-
+const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/listRoutes";
+const BASE_URL_2: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/movieRoutes";
 
 /**
  * returnsa json object with all list_ids for a userId
@@ -185,4 +182,3 @@ export const updateList = async (
     throw error;
   }
 };
-

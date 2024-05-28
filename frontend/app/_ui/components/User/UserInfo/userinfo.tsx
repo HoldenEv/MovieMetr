@@ -9,12 +9,17 @@ interface UserInfoProps {
   bannerPic: string | undefined;
 }
 
-export default function UserInfo({ username, profilePic, bio, bannerPic }: UserInfoProps) {
+export default function UserInfo({
+  username,
+  profilePic,
+  bio,
+  bannerPic,
+}: UserInfoProps) {
   return (
     <div>
       <div className={styles.banner}>
         <Image
-          src={bannerPic || '/path/to/default/banner.jpg'}
+          src={bannerPic || "/path/to/default/banner.jpg"}
           layout="fill"
           objectFit="cover"
           alt="Banner Picture"
@@ -24,13 +29,15 @@ export default function UserInfo({ username, profilePic, bio, bannerPic }: UserI
         <div className={styles.photoUsername}>
           <Image
             priority
-            src={profilePic || '/path/to/default/profile.jpg'}
+            src={profilePic || "/path/to/default/profile.jpg"}
             width={200}
             height={200}
             alt="Profile Picture"
             className={styles.profilePicture}
           />
-          <h2 className={styles.usernameText}>{username || 'Default Username'}</h2>
+          <h2 className={styles.usernameText}>
+            {username || "Default Username"}
+          </h2>
         </div>
         <div className={styles.overviewBio}>
           <div className={styles.overview}>
@@ -38,7 +45,7 @@ export default function UserInfo({ username, profilePic, bio, bannerPic }: UserI
             <p>300 followers</p>
             <p>300 following</p>
           </div>
-          <p className={styles.bio}>{bio || 'Default Bio'}</p>
+          <p className={styles.bio}>{bio || "Default Bio"}</p>
         </div>
       </div>
     </div>

@@ -15,9 +15,9 @@ import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import Link from 'next/link';
+import Link from "next/link";
 
 // interface for the user
 interface User {
@@ -166,7 +166,7 @@ const Userpage = () => {
   ) => {
     event.preventDefault();
     if (user) {
-      const newList = await addList(newListName, user._id); 
+      const newList = await addList(newListName, user._id);
       setUserLists([...userLists, newList]);
       refreshUserData();
     }
@@ -281,7 +281,7 @@ const Userpage = () => {
               <form
                 className={styles.addMovieListForm}
                 onSubmit={handleCreateListSubmit}
-                >
+              >
                 <input
                   type="text"
                   value={newListName}
@@ -297,15 +297,15 @@ const Userpage = () => {
           {userLists.map((list) => (
             <div key={list._id} className={styles.listContainer}>
               <div className={styles.listName}>
-                <Link href={`/movielist/${list._id}`}> 
-                  <h2>{list.name}</h2> 
+                <Link href={`/movielist/${list._id}`}>
+                  <h2>{list.name}</h2>
                 </Link>
               </div>
               <div className={styles.scrollContainer}>
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
-                      <img
+                      <Image
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{
