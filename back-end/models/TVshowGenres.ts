@@ -14,5 +14,6 @@ const TVshowGenresSchema = new Schema({
   },
 });
 
-const TVshowGenres = mongoose.model("TVshowGenres", TVshowGenresSchema);
+const TVshowGenres = mongoose.models.TVshowGenres ||
+mongoose.model("TVshowGenres", TVshowGenresSchema);
 export default TVshowGenres;

@@ -21,5 +21,6 @@ const tvShowPeopleSchema = new Schema({
     required: true,
   },
 });
-const TVshowPeople = mongoose.model("TVshowPeople", tvShowPeopleSchema);
+const TVshowPeople = mongoose.models.TVshowPeople ||
+mongoose.model("TVshowPeople", tvShowPeopleSchema);
 export default TVshowPeople;

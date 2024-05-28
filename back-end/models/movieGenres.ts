@@ -14,5 +14,5 @@ const movieGenresSchema = new Schema({
   },
 });
 
-const MovieGenres = mongoose.model("MovieGenres", movieGenresSchema);
+const MovieGenres =  mongoose.models.MovieGenres || mongoose.model("MovieGenres", movieGenresSchema);
 export default MovieGenres;

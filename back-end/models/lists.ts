@@ -43,5 +43,6 @@ const ListSchema = new Schema<IListDocument>({
 //need to fix this, not lettign duplicate names different users right now
 ListSchema.index({ name: 1, user_id: 1 }, { unique: true });
 
-const List = mongoose.model<IListDocument, IListModel>("List", ListSchema);
+const List = mongoose.models.List ||
+mongoose.model<IListDocument, IListModel>("List", ListSchema);
 export default List;

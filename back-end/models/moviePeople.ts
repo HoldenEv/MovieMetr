@@ -21,5 +21,6 @@ const moviePeopleSchema = new Schema({
   },
 });
 
-const MoviePeople = mongoose.model("MoviePeople", moviePeopleSchema);
+const MoviePeople = mongoose.models.MoviePeople || 
+mongoose.model("MoviePeople", moviePeopleSchema);
 export default MoviePeople;

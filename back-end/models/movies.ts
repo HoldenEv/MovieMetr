@@ -35,5 +35,5 @@ const MovieSchema = new Schema({
 
 //or can not use virtuals and directly query reviews by movie Id where it needs to be displayed
 
-const Movie = mongoose.model("Movie", MovieSchema);
+const Movie = mongoose.models.Movie || mongoose.model("Movie", MovieSchema);
 export default Movie;

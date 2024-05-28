@@ -32,5 +32,6 @@ const TVshowSchema = new Schema({
   },
 });
 
-const TVshow = mongoose.model("TVshow", TVshowSchema);
+const TVshow = mongoose.models.TVshow ||
+mongoose.model("TVshow", TVshowSchema);
 export default TVshow;

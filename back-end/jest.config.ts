@@ -11,5 +11,6 @@ const config: Config.InitialOptions = {
   //   "^.+\\.ts$": "ts-jest"
   // },
   testEnvironment: "node",
+  testPathIgnorePatterns: ['/node_modules/', '/dist/']
   }
 export default config;
