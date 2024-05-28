@@ -1,5 +1,11 @@
 import { Request, Response, Router } from "express";
-import { addList, addMovieToList, deleteList, deleteMovieFromList, updateList } from "../controllers/listController";
+import {
+  addList,
+  addMovieToList,
+  deleteList,
+  deleteMovieFromList,
+  updateList,
+} from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
 
@@ -120,6 +126,5 @@ router.put("/updateList", async (req: Request, res: Response) => {
     res.status(500).send("Error updating list");
   }
 });
-
 
 export default router;

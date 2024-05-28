@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL: string = process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication/";
+const BASE_URL: string =
+  process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication/";
 
 export const getProfileFromToken = async (token: string): Promise<any> => {
   try {

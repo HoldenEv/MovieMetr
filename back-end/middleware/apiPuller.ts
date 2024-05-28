@@ -347,8 +347,7 @@ const popularMovies = async () => {
 
 //topRatedMovies returns a list of top rated movies from TMDB
 const topRatedMovies = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/top_rated?api_key=" + apiKey;
+  const url = "https://api.themoviedb.org/3/movie/top_rated?api_key=" + apiKey;
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -373,8 +372,7 @@ const topRatedMovies = async () => {
 
 //upcomingMovies returns a list of upcoming movies from TMDB
 const upcomingMovies = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/upcoming?api_key=" + apiKey;
+  const url = "https://api.themoviedb.org/3/movie/upcoming?api_key=" + apiKey;
   const options = {
     headers: {
       "Content-Type": "application/json",
