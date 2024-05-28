@@ -1,5 +1,5 @@
 .userPage {
-  background-color: #141d2b;
+  background-color: #121a27;
   padding-right: 10px;
   min-width: 100%;
 }
@@ -185,7 +185,6 @@
 }
 
 .listContainer {
-  border-bottom: 0.5px solid whitesmoke;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -221,7 +220,7 @@
 
 .imageItem {
   flex: 0 0 auto;
-  width: 200px;
+  width: 175px;
   margin-right: 10px;
   border: 2px solid #438b8b64;
   border-radius: 4px;
@@ -229,8 +228,10 @@
 }
 
 .imageItem:hover {
+  transition: 0.1s;
   cursor: pointer;
-  border: 2px solid #60ecec;
+  border: 3px solid #60ecec;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 525px) {
