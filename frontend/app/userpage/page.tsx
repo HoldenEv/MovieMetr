@@ -1,25 +1,26 @@
+
 "use client";
 import styles from "./userpage.module.css";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { Tabs, Tab, Box } from "@mui/material";
+import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
-import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
+import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList } from "@/_services/lists";
 import { getUser } from "@/_services/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_services/profile";
 import isAuth from "@/protected/protectedRoute";
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
-import CreateIcon from "@mui/icons-material/Create";
+import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
+import Link from "next/link";
 
+// interface for the user
 interface User {
   _id: string;
   username: string;
@@ -35,6 +36,7 @@ interface TabPanelProps {
   value: number;
 }
 
+//interface for the movielist
 interface MovieList {
   _id: string;
   name: string;
@@ -76,29 +78,6 @@ const Userpage = () => {
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState("");
-
-  // this basically is just letting computer know we are in a browser window
-  // if (typeof window !== "undefined") {
-  //   useEffect(() => {
-  //     const tokenData = localStorage.getItem("token");
-  //     if (tokenData) {
-  //       // This allows us to parse the token in a usable
-  //       const tokenObject = JSON.parse(tokenData);
-  //       // Hit our profile route
-  //       getProfileFromToken(tokenObject.value.token)
-  //         // this allows us to unpack the promise we get from the profile route
-  //         .then((response) => {
-  //           // console.log(response.user.id);
-  //           console.log("HERE IS THE USER's ID : " + response.user.id); //come back to this
-  //           fetchUser(response.user.id); // Fetch user data on mount
-  //           fetchUserListsData(response.user.id);
-  //         })
-  //         .catch((error) => {
-  //           console.error("Error fetching user ID: ", error);
-  //         });
-  //     }
-  //   }, []);
-  // }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -145,7 +124,7 @@ const Userpage = () => {
 
   const actions = [
     {
-      icon: <CreateIcon />,
+      icon: <AddIcon />,
       name: "Create List",
       onClick: handleCreateListClick,
     },
@@ -188,7 +167,7 @@ const Userpage = () => {
   ) => {
     event.preventDefault();
     if (user) {
-      const newList = await addList(newListName, user._id); // Replace with your API function and user ID
+      const newList = await addList(newListName, user._id);
       setUserLists([...userLists, newList]);
       refreshUserData();
     }
@@ -318,17 +297,23 @@ const Userpage = () => {
           </div>
           {userLists.map((list) => (
             <div key={list._id} className={styles.listContainer}>
-              <h2>{list.name}</h2>
-              <div className={styles.horizontalScroll}>
+              <div className={styles.listName}>
+                <Link href={`/movielist/${list._id}`}>
+                  <h2>{list.name}</h2>
+                </Link>
+              </div>
+              <div className={styles.scrollContainer}>
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
-                      <img
+                      <Image
+                        width={200}
+                        height={200}
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{
-                          width: "100%",
-                          height: "100%",
+                          width: "75%",
+                          height: "75%",
                           objectFit: "cover",
                         }}
                       />

@@ -1,5 +1,11 @@
 import { Request, Response, Router } from "express";
-import { addList, addMovieToList } from "../controllers/listController";
+import {
+  addList,
+  addMovieToList,
+  deleteList,
+  deleteMovieFromList,
+  updateList,
+} from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
 
@@ -68,6 +74,56 @@ router.get("/getList", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error getting list", error);
     res.status(500).send("Error getting list");
+  }
+});
+
+// Route to delete a list
+router.delete("/deleteList", async (req: Request, res: Response) => {
+  try {
+    const listId = req.query.listId as string;
+    const result = await deleteList(listId);
+    if (result != null) {
+      res.json(result);
+    } else {
+      res.status(500).send("Error deleting list");
+    }
+  } catch (error) {
+    console.error("Error deleting list", error);
+    res.status(500).send("Error deleting list");
+  }
+});
+
+// Route to delete a movie from a list
+router.delete("/deleteMovieFromList", async (req: Request, res: Response) => {
+  try {
+    const listId = req.query.listId as string;
+    const movieId = req.query.movieId as string;
+    const result = await deleteMovieFromList(listId, movieId);
+    if (result != null) {
+      res.json(result);
+    } else {
+      res.status(500).send("Error deleting movie from list");
+    }
+  } catch (error) {
+    console.error("Error deleting movie from list", error);
+    res.status(500).send("Error deleting movie from list");
+  }
+});
+
+// Route to update a list
+router.put("/updateList", async (req: Request, res: Response) => {
+  try {
+    const listId = req.query.listId as string;
+    const newName = req.query.newName as string;
+    const result = await updateList(listId, newName);
+    if (result != null) {
+      res.json(result);
+    } else {
+      res.status(500).send("Error updating list");
+    }
+  } catch (error) {
+    console.error("Error updating list", error);
+    res.status(500).send("Error updating list");
   }
 });
 
