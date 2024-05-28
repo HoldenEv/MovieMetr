@@ -345,6 +345,58 @@ const popularMovies = async () => {
   }
 };
 
+//topRatedMovies returns a list of top rated movies from TMDB
+const topRatedMovies = async () => {
+  const url =
+    "https://api.themoviedb.org/3/movie/top_rated?api_key=" + apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //can edit this function to return different data if needed
+    const movies = response.data.results.map((movie: IMovie) => ({
+      id: movie.id,
+      title: movie.title,
+      image: movie.poster_path,
+      summary: movie.overview,
+    }));
+    return movies;
+  } catch (error) {
+    console.error("Error searching movies", error);
+    throw error;
+  }
+};
+
+//upcomingMovies returns a list of upcoming movies from TMDB
+const upcomingMovies = async () => {
+  const url =
+    "https://api.themoviedb.org/3/movie/upcoming?api_key=" + apiKey;
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + apiAccessToken,
+    },
+  };
+  try {
+    const response = await axios.get(url, options);
+    //can edit this function to return different data if needed
+    const movies = response.data.results.map((movie: IMovie) => ({
+      id: movie.id,
+      title: movie.title,
+      image: movie.poster_path,
+      summary: movie.overview,
+    }));
+    return movies;
+  } catch (error) {
+    console.error("Error searching movies", error);
+    throw error;
+  }
+};
+
 interface CrewData {
   id: number;
   media_type: string;
@@ -524,4 +576,6 @@ export {
   getAllTVPeople,
   getAllPersonTVshows,
   getCombinedCredits,
+  topRatedMovies,
+  upcomingMovies,
 };
