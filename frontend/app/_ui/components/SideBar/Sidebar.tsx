@@ -16,7 +16,7 @@ export default function SideBar() {
   const pathname = usePathname();
 
   const [localToken, setToken] = useState(null);
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const tokenData = localStorage.getItem("token");
