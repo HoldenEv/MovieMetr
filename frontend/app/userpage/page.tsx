@@ -306,6 +306,8 @@ const Userpage = () => {
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
                       <Image
+                        width={200}
+                        height={200}
                         src={entry.imageUrl}
                         alt={entry.item_id}
                         style={{

@@ -109,6 +109,8 @@ export default function MovieListPage({
               <div key={index} className={styles.movieItem}>
                 <div className={styles.imageContainer}>
                   <Image
+                    width={200}
+                    height={200}
                     src={entry.imageUrl}
                     alt={entry.item_id}
                     className={styles.movieImage}
