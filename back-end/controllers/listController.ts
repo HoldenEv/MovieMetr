@@ -156,7 +156,10 @@ const updateList = async (listId: string, newName: string) => {
 };
 
 //updates the description of a list by its id
-const updateListDescription = async (listId: string, newDescription: string) => {
+const updateListDescription = async (
+  listId: string,
+  newDescription: string,
+) => {
   try {
     //grab list from db
     const list = await List.findOne({ _id: listId });
@@ -173,7 +176,7 @@ const updateListDescription = async (listId: string, newDescription: string) => 
     console.error("Error updating list description", error);
     return null;
   }
-}
+};
 
 export {
   addList,
