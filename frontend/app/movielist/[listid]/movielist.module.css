@@ -1,9 +1,15 @@
 .container {
     padding: 100px;
-  }  
+  }
+  
+  .listHeader {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
 
   .listName {
-    font-size: 2em; 
+    font-size: 3em; 
     padding-bottom: 20px;
   }
 
@@ -34,6 +40,7 @@
     background-color: var(--grey);
     border-radius: 8px;
     max-width: 50%;
+    margin-bottom: 20px;
   }
 
   .EditListForm input {
