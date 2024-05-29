@@ -2,13 +2,8 @@ import styles from "../Auth.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import { useState } from "react";
-<<<<<<< HEAD:frontend/app/_ui/components/Login/Login.tsx
-import { format } from "path";
-import { logInUser } from "@/_services/login";
-=======
 import ReactModal from "react-modal";
-import { logInUser } from "@/_api/login";
->>>>>>> ca5661a952e5938548d0ec4cd14056d017e9bbb1:frontend/app/_ui/components/UserAuth/Login/Login.tsx
+import { logInUser } from "@/_services/login";
 
 interface LoginProps {
   isOpen: boolean;

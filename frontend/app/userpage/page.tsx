@@ -1,4 +1,3 @@
-
 "use client";
 import styles from "./userpage.module.css";
 import React, { useEffect } from "react";
