@@ -4,7 +4,7 @@ import styles from "../login/Auth.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { signUpUser } from "@/_api/signup";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   const [error, setError] = useState<string>("");
@@ -62,7 +62,7 @@ export default function Signup() {
         formData.email,
         formData.username,
         formData.password,
-        formData.confirmPassword
+        formData.confirmPassword,
       );
       // Clear form data or perform any additional actions as needed
       setFormData({

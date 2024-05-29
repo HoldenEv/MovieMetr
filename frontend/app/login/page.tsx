@@ -1,14 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../_context/authContext";
 import Link from "next/link";
-import { logInUser } from "@/_api/login";
 import React from "react";
-import isLoginIn from "@/protected/signedIn";
 import styles from "./Auth.module.css";
 
 export default function LoginPage() {
   const [error, setError] = useState<string>("");
+
+  const { handleLogin } = useAuth();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -25,25 +25,16 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    // Clear form data or perform any additional actions as needed
+    setFormData({
+      username: "",
+      password: "",
+    });
     try {
-      // Call the signUpUser function from signup.ts
-      const response = await logInUser(formData.username, formData.password);
-      const token = response;
-      console.log("Sign up successful:", response);
-
-      // Clear form data or perform any additional actions as needed
-      setFormData({
-        username: "",
-        password: "",
-      });
+      await handleLogin(formData.username, formData.password);
     } catch (error: any) {
-      if (error.message) {
-        setError(error.message);
-        return;
-      } else {
-        setError("An error occured. Please try again later.");
-      }
+      setError("Username and password don't match");
+      return;
     }
   };
 
