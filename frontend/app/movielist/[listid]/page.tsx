@@ -1,9 +1,9 @@
 "use client";
 import styles from "./movielist.module.css";
 import { useCallback, useEffect, useState } from "react";
-import { getListInfo, getMovieInfo } from "@/_api/lists";
+import { getListInfo, getMovieInfo } from "@/_services/lists";
 import Link from "next/link";
-import { updateList, deleteMovieFromList } from "@/_api/lists";
+import { updateList, deleteMovieFromList } from "@/_services/lists";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "next/image";
