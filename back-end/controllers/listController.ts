@@ -107,4 +107,84 @@ const getList = async (listId: string) => {
   }
 };
 
-export { addList, deleteList, addMovieToList, getUserLists, getList };
+// Deletes a movie from a list by its id
+const deleteMovieFromList = async (listId: string, movieId: string) => {
+  try {
+    // Grab list from db
+    const list = await List.findOne({ _id: listId });
+    // Check if list exists
+    if (!list) {
+      console.error("Error deleting movie from list: List not found");
+      return null;
+    }
+    // Check if movie exists in list
+    const movieIndex = list.entries.findIndex(
+      (entry: IListEntry) => entry.item_id === movieId,
+    );
+    if (movieIndex === -1) {
+      console.error("Error deleting movie from list: Movie not in list");
+      return null;
+    }
+    // Remove movie from list
+    list.entries.splice(movieIndex, 1);
+    await list.save();
+    return list;
+  } catch (error) {
+    console.error("Error deleting movie from list", error);
+    return null;
+  }
+};
+
+// Updates the name of a list by its id
+const updateList = async (listId: string, newName: string) => {
+  try {
+    // Grab list from db
+    const list = await List.findOne({ _id: listId });
+    // Check if list exists
+    if (!list) {
+      console.error("Error updating list: List not found");
+      return null;
+    }
+    // Update list name
+    list.name = newName;
+    await list.save();
+    return list;
+  } catch (error) {
+    console.error("Error updating list", error);
+    return null;
+  }
+};
+
+//updates the description of a list by its id
+const updateListDescription = async (
+  listId: string,
+  newDescription: string,
+) => {
+  try {
+    //grab list from db
+    const list = await List.findOne({ _id: listId });
+    //check if list exists
+    if (!list) {
+      console.error("Error updating list description: List not found");
+      return null;
+    }
+    //update list description
+    list.description = newDescription;
+    await list.save();
+    return list;
+  } catch (error) {
+    console.error("Error updating list description", error);
+    return null;
+  }
+};
+
+export {
+  addList,
+  deleteList,
+  deleteMovieFromList,
+  addMovieToList,
+  getUserLists,
+  getList,
+  updateList,
+  updateListDescription,
+};

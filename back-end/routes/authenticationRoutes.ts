@@ -15,10 +15,12 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
-const authenticationMiddleware = require("../middleware/authentication");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const LocalStrategy = require("passport-local");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+//const authenticationMiddleware = require("../middleware/authentication");
 import bodyParser from "body-parser";
-import passport from "passport";
+import passport from "../middleware/authentication";
 import * as dotenv from "dotenv";
 const router = Router();
 dotenv.config();
