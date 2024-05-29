@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getfilmdata } from "@/_api/getfilmdata";
+import { getfilmdata } from "@/_services/getfilmdata";
 import Image from "next/image";
 import MovieDetailPage from "@/_ui/components/MovieDetailPage/MovieDetailPage";
 
