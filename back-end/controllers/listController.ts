@@ -118,7 +118,9 @@ const deleteMovieFromList = async (listId: string, movieId: string) => {
       return null;
     }
     // Check if movie exists in list
-    const movieIndex = list.entries.findIndex((entry: IListEntry) => entry.item_id === movieId);
+    const movieIndex = list.entries.findIndex(
+      (entry: IListEntry) => entry.item_id === movieId,
+    );
     if (movieIndex === -1) {
       console.error("Error deleting movie from list: Movie not in list");
       return null;
@@ -153,5 +155,36 @@ const updateList = async (listId: string, newName: string) => {
   }
 };
 
+//updates the description of a list by its id
+const updateListDescription = async (
+  listId: string,
+  newDescription: string,
+) => {
+  try {
+    //grab list from db
+    const list = await List.findOne({ _id: listId });
+    //check if list exists
+    if (!list) {
+      console.error("Error updating list description: List not found");
+      return null;
+    }
+    //update list description
+    list.description = newDescription;
+    await list.save();
+    return list;
+  } catch (error) {
+    console.error("Error updating list description", error);
+    return null;
+  }
+};
 
-export { addList, deleteList, deleteMovieFromList, addMovieToList, getUserLists, getList, updateList };
+export {
+  addList,
+  deleteList,
+  deleteMovieFromList,
+  addMovieToList,
+  getUserLists,
+  getList,
+  updateList,
+  updateListDescription,
+};

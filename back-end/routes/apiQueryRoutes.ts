@@ -8,6 +8,8 @@ import {
   nowPlaying,
   popularMovies,
   getCombinedCredits,
+  upcomingMovies,
+  topRatedMovies,
 } from "../middleware/apiPuller";
 const router = Router();
 
@@ -152,6 +154,28 @@ router.get("/now-playing", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error getting now playing movies", error);
     res.status(500).send("Error getting now playing movies");
+  }
+});
+
+//route to get upcoming movies, calls upcomingMovies from apiPuller
+router.get("/upcoming-movies", async (req: Request, res: Response) => {
+  try {
+    const movies = await upcomingMovies();
+    res.json(movies);
+  } catch (error) {
+    console.error("Error getting upcoming movies", error);
+    res.status(500).send("Error getting upcoming movies");
+  }
+});
+
+//route to get top rated movies, calls topRatedMovies from apiPuller
+router.get("/top-rated-movies", async (req: Request, res: Response) => {
+  try {
+    const movies = await topRatedMovies();
+    res.json(movies);
+  } catch (error) {
+    console.error("Error getting top rated movies", error);
+    res.status(500).send("Error getting top rated movies");
   }
 });
 
