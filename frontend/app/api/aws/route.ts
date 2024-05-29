@@ -2,9 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import { NextRequest, NextResponse } from "next/server";
 import { S3Client, S3ClientConfig, PutObjectCommand } from "@aws-sdk/client-s3";
-const region = process.env.NEXT_PUBLIC_AWS_S3_REGION;
-const accessKeyId = process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID;
-const secretAccessKey = process.env.NEXT_PUBLIC_AWS_S3_SECRET_ACCESS_KEY_ID;
+const region = process.env.NEXTPUBLICAWSS3REGION;
+const accessKeyId = process.env.NEXTPUBLICAWSS3ACCESSKEYID;
+const secretAccessKey = process.env.NEXTPUBLICAWSS3SECRETACCESSKEYID;
 
 if (!region || !accessKeyId || !secretAccessKey) {
   console.log("AWS Credentials are undefined");
@@ -31,7 +31,7 @@ async function uploadFileToS3(file: any, fileName: String) {
   // Also I am not sure if we want unique images but right now we do
   // with how I set this up
   const params = {
-    Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME,
+    Bucket: process.env.NEXTPUBLICAWSS3BUCKETNAME,
     Key: `myFolder/${fileName}`,
     Body: fileBuffer,
     ContentType: "image/png",
