@@ -17,6 +17,8 @@ import {
 } from "../controllers/accountController";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const LocalStrategy = require("passport-local");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const authenticationMiddleware = require("../middleware/authentication");
 import bodyParser from "body-parser";
 import passport from "passport";
 import * as dotenv from "dotenv";
