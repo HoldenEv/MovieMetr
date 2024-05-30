@@ -70,15 +70,15 @@ jest.mock("../../middleware/apiPuller", () => ({
       }) as any);
   
       // Mock the save method on the Person prototype
-      jest.spyOn(Person.prototype, "save").mockResolvedValue(personData as any);
+      const save = jest.spyOn(Person.prototype, "save").mockResolvedValue(personData as any);
   
       // Call the addPerson function
       const result = await addPerson(personId);
   
       // Assertions
+      expect(save).toHaveBeenCalled();
       expect(result).toEqual(personData);
       expect(personById).toHaveBeenCalledWith(personId);
       expect(Person.findOne).toHaveBeenCalledWith({ _id: personId });
-      expect(Person.prototype.save).toHaveBeenCalled();
     });
   });
