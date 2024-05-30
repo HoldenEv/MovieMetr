@@ -1,100 +1,95 @@
 "use client";
-import "./login.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../_context/authContext";
-import { BrowserRouter as Router } from "react-router-dom";
+import Link from "next/link";
 import React from "react";
-import isLoginIn from "@/protected/signedIn";
-//import Login from "@/_ui/components/UserAuth/Login/Login";
+import styles from "./Auth.module.css";
 
-const Login = () => {
-  const [user, setUsername] = useState("");
-  const [pass, setPassword] = useState("");
+export default function LoginPage() {
+  const [error, setError] = useState<string>("");
 
-  const {
-    token,
-    username,
-    password,
-    confirmPassword,
-    email,
-    handleLogin,
-    handleLogout,
-    handleRegister,
-  } = useAuth();
+  const { handleLogin } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent page from reloading
-    // You can remove the return statement if handleLogin doesn't return anything
-    setUsername(user);
-    setPassword(pass);
-    handleLogin(user, pass);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  useEffect(() => {
-    // This effect will run whenever `user` or `pass` changes
-  }, [user, pass]);
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Clear form data or perform any additional actions as needed
+    setFormData({
+      username: "",
+      password: "",
+    });
+    try {
+      await handleLogin(formData.username, formData.password);
+    } catch (error: any) {
+      setError("Username and password don't match");
+      return;
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="login">
-          <div>
-            <div className="username">
-              <p className="username-text">Username</p>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                autoComplete="username"
-                value={user} // Set value to username state
-                onChange={handleUsernameChange} // Handle input change
-                required
-              />
-            </div>
-            <div className="password">
-              <p className="password-text">Password</p>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                autoComplete="current-password"
-                value={pass} // Set value to password state
-                onChange={handlePasswordChange} // Handle input change
-                required
-              />
-            </div>
-            <p className="forgot-password">
-              <a href="https://www.fortnite.com/?lang=en-US">
-                Forgot Password?
-              </a>
-            </p>
-            <div className="login-bottom-buttons">
-              <div className="remember-me-button">
-                <input type="checkbox" id="rememberMe" name="rememberMe" />
-                <label htmlFor="rememberMe">Remember Me</label>
-              </div>
-              <p className="create-account-button">
-                <a href="https://www.fortnite.com/?lang=en-US">
-                  Create Account
-                </a>
-              </p>
-              <button className="login-button" type="submit">
-                Login In
-              </button>
-            </div>
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
+        <div>
+          <h1 className={styles.head}>LOGIN</h1>
+          <hr className={styles.line}></hr>
+          <div className={styles.formRow}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className={styles.formInput}
+            />
           </div>
+          <div className={styles.formRow}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className={styles.formInput}
+            />
+          </div>
+          {error && (
+            <p style={{ color: "#eb7673", fontSize: "0.85rem" }}>{error}</p>
+          )}
+          <div className={styles.loginBottomButtons}>
+            <button className={styles.createAccountButton} type="submit">
+              Login
+            </button>
+          </div>
+          <p
+            style={{
+              fontWeight: "150",
+              textAlign: "center",
+              margin: "8px",
+            }}
+          >
+            No account?&nbsp;
+            <Link className={styles.link} href="/signup">
+              Create Account
+            </Link>
+          </p>
         </div>
       </form>
     </div>
   );
-};
-
-export default Login;
+}

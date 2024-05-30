@@ -28,7 +28,7 @@ const loginUser = async (username: string, password: string) => {
   }
 
   //creates a payload with the user id and an expiration date of 7 days
-  var payload = {
+  const payload = {
     id: user.id,
     expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
   };
@@ -84,13 +84,13 @@ const update = async (userId: string, updateFields: object) => {
 };
 
 //update a users email
-const updateEmail = async (userId: any, email: string) => {
+const updateEmail = async (userId: string, email: string) => {
   const updateFields = { email: email };
   return update(userId, updateFields);
 };
 
 //updates a users username
-const updateUsername = async (userId: any, username: string) => {
+const updateUsername = async (userId: string, username: string) => {
   const updateFields = { username: username };
   return update(userId, updateFields);
 };

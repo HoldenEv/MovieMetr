@@ -8,6 +8,7 @@ export interface IListEntry {
 interface IListDocument extends Document {
   name: string;
   user_id: mongoose.Types.ObjectId;
+  description: string;
   entries: IListEntry[];
 }
 
@@ -36,6 +37,9 @@ const ListSchema = new Schema<IListDocument>({
     type: Schema.Types.ObjectId,
     required: true,
     ref: "User",
+  },
+  description: {
+    type: String,
   },
   //an array of list entries, each entry is a movie or tvshow, the reference is determined by the itemType ref path
   entries: [ListEntrySchema],
