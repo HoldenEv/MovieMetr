@@ -29,24 +29,24 @@ export default function SearchResult({
   return (
     <Link href={linkSource}>
       <div className={styles.searchResultContainer}>
-          <Image
-            // use our own "not found" image if source is not found from TMDB
-            src={
-              data.image
-                ? `https://image.tmdb.org/t/p/original${data.image}`
-                : notfound
-            }
-            width={100.8}
-            height={144}
-            alt={`Poster for ${data.title}`}
-            className={styles.moviePoster}
-          ></Image>
+        <Image
+          // use our own "not found" image if source is not found from TMDB
+          src={
+            data.image
+              ? `https://image.tmdb.org/t/p/original${data.image}`
+              : notfound
+          }
+          width={100.8}
+          height={144}
+          alt={`Poster for ${data.title}`}
+          className={styles.moviePoster}
+        ></Image>
         <div className={styles.content}>
           <div>
             <div className={styles.titleContainer}>
-                <h2 className={styles.title}>
-                  {type === "films" ? data.title : data.name}
-                </h2>
+              <h2 className={styles.title}>
+                {type === "films" ? data.title : data.name}
+              </h2>
               <h3 className={styles.alternateTitle}>
                 {(type === "films" && data.original_title !== data.title) ||
                 (type === "shows" && data.original_name !== data.name)
