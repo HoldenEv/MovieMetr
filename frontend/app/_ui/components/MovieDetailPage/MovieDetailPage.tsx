@@ -1,5 +1,6 @@
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
+import notfound from "@/_assets/NOTFOUND.png";
 
 export default function MovieDetailPage({
   data,
@@ -21,32 +22,37 @@ export default function MovieDetailPage({
             margin: "auto",
           }}
         > */}
-      <div className={styles.backdrop}>
-        <Image
-          className={styles.image}
-          src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
-          alt={`backdrop for ${data.title}`}
-          //   fill={true}
-          style={{
-            margin: "auto",
-            width: "80%",
-            height: "auto",
-            background: "#191c2d",
-            boxShadow: "0 0 20px 20px rgba(0,0,0,0.9)",
-          }}
-          width={1280}
-          height={720}
-          //   layout="fill"
-        />
-      </div>
-
+      {data.backdrop_path && (
+        <div className={styles.backdrop}>
+          <Image
+            className={styles.image}
+            src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
+            alt={`backdrop for ${data.title}`}
+            //   fill={true}
+            style={{
+              margin: "auto",
+              width: "80%",
+              height: "auto",
+              background: "#191c2d",
+              boxShadow: "0 0 20px 20px rgba(0,0,0,0.9)",
+            }}
+            width={1280}
+            height={720}
+            //   layout="fill"
+          />
+        </div>
+      )}
       {/* </div> */}
       <div className={styles.container}>
         <div className={styles.poster}>
           <Image
             className={styles.posterimage}
             priority
-            src={`https://image.tmdb.org/t/p/original${data.poster_path}`}
+            src={
+              data.poster_path 
+              ? `https://image.tmdb.org/t/p/original${data.poster_path}`
+              : notfound
+            }
             width={255}
             height={382.5}
             alt="Search for a movie"
