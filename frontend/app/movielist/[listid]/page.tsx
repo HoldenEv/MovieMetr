@@ -40,8 +40,6 @@ export default function MovieListPage({
   const handleSaveClick = async () => {
     await updateList(params.listid, newName);
     setIsEditing(false);
-    // Refresh list data
-    // fetchData();
   };
 
   const handleDeleteMovieClick = async (movieId: string) => {

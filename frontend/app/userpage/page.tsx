@@ -5,18 +5,17 @@ import { useState } from "react";
 import Image from "next/image";
 import { Tabs, Tab, Box } from "@mui/material";
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
 import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
-import { getUserLists, getMovieInfo, addList } from "@/_api/lists";
+import { getUserLists, getMovieInfo, addList, deleteList } from "@/_api/lists";
 import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
+import CancelIcon from "@mui/icons-material/Cancel"
 import Link from "next/link";
 
 // interface for the user
@@ -77,6 +76,28 @@ const Userpage = () => {
   const [userLists, setUserLists] = useState<MovieList[]>([]);
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState("");
+  const [isListEditing, setIsListEditing] = useState(false);
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  const openEditProfileModal = () => {
+    setIsEditProfileOpen(true);
+  };
+
+  const closeEditProfileModal = () => {
+    setIsEditProfileOpen(false);
+  };
+
+  const handleCreateListClick = () => {
+    setIsCreateListFormVisible(true);
+    setIsListEditing(false)
+  };
+
+  const handleCancelClick = () => {
+    setIsCreateListFormVisible(false);
+    setNewListName("");
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -100,26 +121,7 @@ const Userpage = () => {
     }
   }, []);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
 
-  const openEditProfileModal = () => {
-    setIsEditProfileOpen(true);
-  };
-
-  const closeEditProfileModal = () => {
-    setIsEditProfileOpen(false);
-  };
-
-  const handleCreateListClick = () => {
-    setIsCreateListFormVisible(true);
-  };
-
-  const handleCancelClick = () => {
-    setIsCreateListFormVisible(false);
-    setNewListName("");
-  };
 
   const actions = [
     {
@@ -127,7 +129,20 @@ const Userpage = () => {
       name: "Create List",
       onClick: handleCreateListClick,
     },
-    // { icon: <EditIcon />, name: 'Edit List', onClick: handleEditListClick }, // You'll implement this later
+    { 
+      icon: <EditIcon />, 
+      name: 'Edit List', 
+      onClick: () => {
+        setIsListEditing(true);
+      }
+    },
+    {
+      icon: <CancelIcon />, 
+      name: "Cancel",
+      onClick: () => {
+        setIsListEditing(false);
+      }
+    }
   ];
 
   const fetchUser = async (userId: string) => {
@@ -142,6 +157,7 @@ const Userpage = () => {
   const refreshUserData = () => {
     if (user) {
       fetchUser(user._id);
+      fetchUserListsData(user._id);
     }
   };
 
@@ -154,7 +170,6 @@ const Userpage = () => {
           entry.imageUrl = `https://image.tmdb.org/t/p/original${movieInfo.image_path}`;
         }
       }
-
       setUserLists(lists);
     } catch (error) {
       console.error("Error fetching user lists", error);
@@ -168,10 +183,15 @@ const Userpage = () => {
     if (user) {
       const newList = await addList(newListName, user._id);
       setUserLists([...userLists, newList]);
-      refreshUserData();
     }
     setIsCreateListFormVisible(false);
     setNewListName("");
+  };
+
+  const handleDeleteListClick = async (listId: string) => {
+    await deleteList(listId); 
+    refreshUserData();
+    setIsListEditing(false);
   };
 
   return (
@@ -302,6 +322,13 @@ const Userpage = () => {
                 </Link>
               </div>
               <div className={styles.scrollContainer}>
+                {isListEditing && (
+                  <div className={styles.listOverlay}>
+                    <button onClick={() => handleDeleteListClick(list._id)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
                 {list.entries.map((entry, index) => (
                   <div key={index} className={styles.imageItem}>
                     {entry.imageUrl ? (
