@@ -3,7 +3,7 @@ import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import { useState } from "react";
 import ReactModal from "react-modal";
-import { logInUser } from "@/_services/login";
+import { logInUser } from "@/_api/login";
 
 interface LoginProps {
   isOpen: boolean;

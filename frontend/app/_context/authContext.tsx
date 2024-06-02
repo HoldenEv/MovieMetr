@@ -1,9 +1,9 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signUpUser } from "../_services/signup";
-import { logInUser } from "../_services/login";
-import { getProfileFromToken } from "../_services/profile";
+import { signUpUser } from "../_api/signup";
+import { logInUser } from "../_api/login";
+import { getProfileFromToken } from "../_api/profile";
 import { ReactNode } from "react";
 const TOKEN_KEY = "JWT_AUTH_TOKEN";
 const INVALID_TOKEN = "INVALID_TOKEN";

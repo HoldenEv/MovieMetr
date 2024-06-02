@@ -7,7 +7,7 @@ import ProfileIcon from "@mui/icons-material/AccountCircle";
 import Logo from "@/_assets/logo2.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getProfileFromToken } from "@/_services/profile";
+import { getProfileFromToken } from "@/_api/profile";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 

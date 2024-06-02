@@ -1,5 +1,5 @@
 "use client";
-import { search } from "@/_services/search";
+import { search } from "@/_api/search";
 import { useEffect, useState } from "react";
 import SearchResult from "@/_ui/components/SearchResult/SearchResult";
 import styles from "./search.module.css";
