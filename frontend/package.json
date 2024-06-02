@@ -12,7 +12,7 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.569.0",
+    "@aws-sdk/client-s3": "^3.588.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.13",
