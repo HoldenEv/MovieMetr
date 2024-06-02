@@ -26,6 +26,7 @@ export default function Signup() {
     matches: true,
   });
 
+  // handles change in from
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
