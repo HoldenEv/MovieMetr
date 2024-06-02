@@ -50,6 +50,7 @@ interface IMovie {
   poster_path: string;
   overview: string;
   image: string;
+  backdrop_path: string;
 }
 
 interface IPerson {
@@ -312,6 +313,7 @@ const nowPlaying = async () => {
       title: movie.title,
       image: movie.poster_path,
       summary: movie.overview,
+      backdrop_path: movie.backdrop_path,
     }));
     return movies;
   } catch (error) {
@@ -337,6 +339,7 @@ const popularMovies = async () => {
       title: movie.title,
       image: movie.poster_path,
       summary: movie.overview,
+      backdrop_path: movie.backdrop_path,
     }));
     return movies;
   } catch (error) {
@@ -362,6 +365,7 @@ const topRatedMovies = async () => {
       title: movie.title,
       image: movie.poster_path,
       summary: movie.overview,
+      backdrop_path: movie.backdrop_path,
     }));
     return movies;
   } catch (error) {
@@ -387,6 +391,7 @@ const upcomingMovies = async () => {
       title: movie.title,
       image: movie.poster_path,
       summary: movie.overview,
+      backdrop_path: movie.backdrop_path,
     }));
     return movies;
   } catch (error) {

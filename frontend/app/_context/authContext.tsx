@@ -63,22 +63,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     console.log(pass);
     setUsername(user);
     setPassword(pass);
-    const token = await logInUser(user, pass);
-    if (token) {
-      setToken(token);
-      //setTokenCookie(token);
-      // this will locally store a token for 30 minutes
-      setWithExpiration("token", token, 30);
-      console.log(token);
-      //console.log(getProfileFromToken(token));
-      //router.refresh();
-      //navigate("/userpage");
-      router.push("/userpage");
-      router.push("/");
-    } else {
-      // if token is not valid we want to put the user in the homepage and not login
-      router.push("/");
-      alert("invalid login");
+    try {
+      const token = await logInUser(user, pass);
+      if (token) {
+        setToken(token);
+        //setTokenCookie(token);
+        // this will locally store a token for 30 minutes
+        setWithExpiration("token", token, 30);
+        console.log(token);
+        //console.log(getProfileFromToken(token));
+        //router.refresh();
+        //navigate("/userpage");
+        router.push("/userpage");
+        router.push("/");
+      } else {
+        // if token is not valid we want to put the user in the homepage and not login
+        router.push("/");
+        alert("invalid login");
+      }
+    } catch (error: any) {
+      console.log("passwords don't match");
+      throw new Error("Username and password don't match");
     }
   };
 

@@ -5,6 +5,7 @@ import {
   deleteList,
   deleteMovieFromList,
   updateList,
+  updateListDescription,
 } from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();
@@ -124,6 +125,23 @@ router.put("/updateList", async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error updating list", error);
     res.status(500).send("Error updating list");
+  }
+});
+
+// Route to update a list's description
+router.put("/updateListDescription", async (req: Request, res: Response) => {
+  try {
+    const listId = req.query.listId as string;
+    const newDescription = req.query.newDescription as string;
+    const result = await updateListDescription(listId, newDescription);
+    if (result != null) {
+      res.json(result);
+    } else {
+      res.status(500).send("Error updating list description");
+    }
+  } catch (error) {
+    console.error("Error updating list description", error);
+    res.status(500).send("Error updating list description");
   }
 });
 

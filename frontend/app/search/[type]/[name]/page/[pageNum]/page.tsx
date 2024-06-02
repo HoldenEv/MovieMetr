@@ -19,8 +19,6 @@ export default function Page({
     loading: true,
   });
 
-  const [showSearchOptions, setShowSearchOptions] = useState<boolean>(false);
-
   // called whenever a search is made or a page is changed
   useEffect(() => {
     /*
@@ -65,14 +63,6 @@ export default function Page({
     value: number,
   ) => {
     router.push(`/search/${params.type}/${params.name}/page/${value}`);
-  };
-
-  const handleClick = (type: string) => {
-    router.push(`/search/${type}/${params.name}/page/1`);
-  };
-
-  const handleArrowClick = () => {
-    setShowSearchOptions(!showSearchOptions);
   };
 
   /*
