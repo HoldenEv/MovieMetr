@@ -1,4 +1,4 @@
-import styles from "../Auth.module.css";
+import styles from "../../../../login/Auth.module.css";
 import Image from "next/image";
 import closeIcon from "@/_assets/close.svg";
 import { useState } from "react";
