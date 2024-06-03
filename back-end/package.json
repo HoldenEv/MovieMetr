@@ -10,8 +10,7 @@
     "serve": "node dist/app.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "test": "prettier --check . --ignore-path .prettierignore && eslint . --ext .ts",
-    "test:unit": "jest",
+    "test": "prettier --check . --ignore-path .prettierignore",
     "test:coverage": "jest --coverage"
   },
   "author": "",
