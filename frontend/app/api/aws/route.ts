@@ -30,7 +30,7 @@ async function uploadFileToS3(file: any, fileName: String) {
 
   // NOTE: We can change the content type to whatever we need
   // Also I am not sure if we want unique images but right now we do
-  // with how I set this up
+  // with how I set this up lizard
   const params = {
     Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME,
     Key: `myFolder/${fileName}`,
