@@ -32,5 +32,13 @@ describe('addGenre', () => {
     assert(genre !== null);
     }
   );
+
+
+  it('should return null if the genre already exists', async () => {
+    await addGenre("1", 'Action');
+    const genre = await addGenre("1", 'Action');
+    assert(genre === null);
+    }
+  );
 });
   
