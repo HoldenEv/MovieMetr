@@ -6,6 +6,7 @@ const region = process.env.NEXTPUBLICAWSS3REGION;
 const accessKeyId = process.env.NEXTPUBLICAWSS3ACCESSKEYID;
 const secretAccessKey = process.env.NEXTPUBLICAWSS3SECRETACCESSKEYID;
 
+// tells us if env aws stuff works
 if (!region || !accessKeyId || !secretAccessKey) {
   console.log("AWS Credentials are undefined");
   throw new Error(
