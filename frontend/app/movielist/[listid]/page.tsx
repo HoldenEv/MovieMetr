@@ -110,7 +110,7 @@ export default function MovieListPage({
               </form>
             )}
           </div>
-          <h2 className={styles.listDescription}>{listData.details.description}</h2>
+          <h2 className={styles.listDescription}>{listData.details.description.substring(0, 100)}...</h2>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
               <div key={index} className={styles.movieItem}>

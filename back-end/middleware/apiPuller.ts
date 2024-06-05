@@ -225,10 +225,10 @@ const searchTvShows = async (searchString: string, page: string) => {
  */
 const movieById = async (id: string) => {
   console.log(id);
-  if ((await getMovie(id)) != null) {
-    console.log(getMovie(id));
-    return getMovie(id);
-  }
+  // if ((await getMovie(id)) != null) {
+  //   console.log(getMovie(id));
+  //   return getMovie(id);
+  // }
 
   const url =
     "https://api.themoviedb.org/3/movie/" +
