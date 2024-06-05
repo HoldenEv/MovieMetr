@@ -26,6 +26,7 @@ export default function MovieListPage({
   });
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newDescription, setnewDescription] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -38,10 +39,12 @@ export default function MovieListPage({
   };
 
   const handleSaveClick = async () => {
-    await updateList(params.listid, newName);
+    const finalName = newName !== "" ? newName : listData.details.name;
+    const finalDescription = newDescription !== "" ? newDescription : listData.details.description;
+    await updateList(params.listid, finalName, finalDescription);
     setIsEditing(false);
   };
-
+  
   const handleDeleteMovieClick = async (movieId: string) => {
     await deleteMovieFromList(params.listid, movieId);
     // if (window.confirm('Are you sure you want to delete this movie?')) {
@@ -95,6 +98,11 @@ export default function MovieListPage({
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                 />
+                <input
+                  type="text"
+                  value={newDescription}
+                  onChange={(e) => setnewDescription(e.target.value)}
+                />
                 <button type="submit">Save</button>
                 <button type="button" onClick={handleCancelEditClick}>
                   Cancel
@@ -102,6 +110,7 @@ export default function MovieListPage({
               </form>
             )}
           </div>
+          <h2 className={styles.listDescription}>{listData.details.description}</h2>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
               <div key={index} className={styles.movieItem}>

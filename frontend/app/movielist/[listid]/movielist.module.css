@@ -15,6 +15,12 @@
   padding-bottom: 20px;
 }
 
+.listDescription {
+  font-size: 1.5em;
+  color: white;
+  padding-bottom: 20px;
+}
+
 .editlistButton {
   border: none;
   background-color: #22324a;

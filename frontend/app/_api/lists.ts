@@ -162,15 +162,21 @@ export const deleteMovieFromList = async (
 export const updateList = async (
   listId: string,
   newName: string,
+  newDescription: string,
 ): Promise<any> => {
   try {
     const response = await fetch(
-      `${BASE_URL}/updateList?listId=${listId}&newName=${newName}`,
+      `${BASE_URL}/updateList`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          listId,
+          newName,
+          newDescription,
+        }),
       },
     );
     if (!response.ok) {
@@ -182,3 +188,4 @@ export const updateList = async (
     throw error;
   }
 };
+
