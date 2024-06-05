@@ -1,26 +1,27 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Genre from '../../models/genre';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import TVshowGenres from '../../models/TVshowGenres';
 import MovieGenres from '../../models/movieGenres';
 import { addGenre, addMovieGenres, addTVshowGenres, getGenre, deleteGenre, deleteMovieGenre }
 from '../../controllers/genreController';
-import { addMovie } from '../../controllers/movieController';
-import { dot } from 'node:test/reporters';
-import { before } from 'node:test';
 import Movie from '../../models/movies';
 import { assert } from 'node:console';
-import exp from 'node:constants';
 dotenv.config();
+let mongoServer: MongoMemoryServer;
 //as of now make sure to spin up the db at localhost:27017 before testing
 //may be able to get the script to do this
 beforeAll(async () => {
-  await mongoose.connect(process.env.TESTURI as string);
+  mongoServer= await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+  await mongoose.connect(uri);
   });
 
 afterAll(async () => {
   await mongoose.connection.dropDatabase();
   await mongoose.connection.close();
+  await mongoServer.stop();
   });
 
 //test addGenre

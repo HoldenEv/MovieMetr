@@ -88,7 +88,9 @@ const addAllMoviePeople = async (movieId: string) => {
     //getAllMoviePeople returns a json object.data,which holds cast objects for each relavent person
     const people = await getAllMoviePeople(movieId);
     //add each person to the database
+    console.log(people);
     for (const person of people) {
+      console.log(person);
       //check if person is already in the database
       if ((await Person.findOne({ _id: person.id })) == null) {
         await addPerson(person.id);
