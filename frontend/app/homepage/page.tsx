@@ -145,20 +145,20 @@ const HomePage: React.FC = () => {
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? playingData.data.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? playingData.data.length - 1 : prevIndex - 1
     );
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1,
+        prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
       );
     }, 10000); // 15 seconds
 
@@ -180,14 +180,14 @@ const HomePage: React.FC = () => {
               <div
                 className="arrow"
                 onClick={handlePrev}
-                style={{ right: "1330px", top: "350px", fontSize: "60px" }}
+                style={{ right: "1340px", top: "350px", fontSize: "60px" }}
               >
                 {"<"}
               </div>
               <div
                 className="arrow"
                 onClick={handleNext}
-                style={{ right: "-10px", top: "350px", fontSize: "60px" }}
+                style={{ top: "350px", fontSize: "60px" }}
               >
                 {">"}
               </div>
