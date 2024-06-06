@@ -42,3 +42,28 @@ export const updateUser = async (
     throw error;
   }
 };
+
+// New function to handle profile picture upload
+export const uploadProfilePicture = async (
+  file: File,
+): Promise<string> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`${BASE_URL}/uploadProfilePicture`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Error uploading profile picture');
+    }
+
+    const data = await response.json();
+    return data.imageUrl;
+  } catch (error: any) {
+    console.error('Error uploading profile picture:', error.message);
+    throw error;
+  }
+};
