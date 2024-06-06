@@ -1,6 +1,6 @@
 "use client";
 import styles from "./userpage.module.css";
-import React, { useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { Tabs, Tab, Box } from "@mui/material";
@@ -9,7 +9,11 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
 import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList, deleteList } from "@/_api/lists";
-import { getUser, uploadProfilePicture, updateProfilePath } from "@/_api/editprofile";
+import {
+  getUser,
+  uploadProfilePicture,
+  updateProfilePath,
+} from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
@@ -200,7 +204,9 @@ const Userpage = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       try {
@@ -212,7 +218,7 @@ const Userpage = () => {
         console.log("New image URL:", newImageUrl);
         if (user) {
           // Update the user profile picture
-          await updateProfilePath(user._id, newImageUrl );
+          await updateProfilePath(user._id, newImageUrl);
           // Refresh user data to reflect changes
           refreshUserData();
         }
@@ -221,7 +227,6 @@ const Userpage = () => {
       }
     }
   };
-
 
   return (
     <div className={styles.userPage}>

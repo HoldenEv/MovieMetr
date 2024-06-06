@@ -181,14 +181,8 @@ router.post("/uploadProfilePicture", upload.single("file"), uploadImage);
 //needs a user id, email, username, bio, and profilePath in req body
 router.post("/updateUser", async (req: Request, res: Response) => {
   try {
-    const { userId, email, username, bio, profilePath } = req.body;
-    const updatedUser = await updateUser(
-      userId,
-      email,
-      username,
-      bio,
-      profilePath,
-    );
+    const { userId, email, username, bio } = req.body;
+    const updatedUser = await updateUser(userId, email, username, bio);
     res.json({ message: "User updated", user: updatedUser });
   } catch (error) {
     console.error("Error updating user", error);

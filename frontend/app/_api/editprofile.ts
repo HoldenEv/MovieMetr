@@ -1,10 +1,9 @@
 const BASE_URL: string =
   process.env.NEXT_PUBLIC_BACKEND_URL + "/authentication/";
 
-
-  interface UploadProfilePictureResponse {
-    imageUrl: string;
-  }
+interface UploadProfilePictureResponse {
+  imageUrl: string;
+}
 
 export const getUser = async (userId: string): Promise<any> => {
   try {
@@ -53,25 +52,30 @@ export const uploadProfilePicture = async (
   file: File,
 ): Promise<UploadProfilePictureResponse> => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   try {
-    console.log('starting file upload in uploadProfilePicture in editprofile.ts');
+    console.log(
+      "starting file upload in uploadProfilePicture in editprofile.ts",
+    );
     const response = await fetch(`${BASE_URL}/uploadProfilePicture`, {
-      method: 'POST',
+      method: "POST",
       body: formData,
     });
 
-    console.log('response from uploadProfilePicture in editprofile.ts:', response);
+    console.log(
+      "response from uploadProfilePicture in editprofile.ts:",
+      response,
+    );
     if (!response.ok) {
-      throw new Error('Error uploading profile picture');
+      throw new Error("Error uploading profile picture");
     }
 
-    const data : UploadProfilePictureResponse = await response.json();
-    console.log('data from uploadProfilePicture in editprofile.ts:', data);
+    const data: UploadProfilePictureResponse = await response.json();
+    console.log("data from uploadProfilePicture in editprofile.ts:", data);
     return data;
   } catch (error: any) {
-    console.error('Error uploading profile picture:', error.message);
+    console.error("Error uploading profile picture:", error.message);
     throw error;
   }
 };
