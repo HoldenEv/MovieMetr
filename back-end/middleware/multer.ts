@@ -1,4 +1,4 @@
-import multer from 'multer';
+import multer from "multer";
 
 // Configure multer storage and file filter
 const storage = multer.memoryStorage(); // Store files in memory

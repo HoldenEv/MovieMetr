@@ -175,7 +175,7 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
 
 //route to upload a profile picture, calls uploadImage function from azureBlob
 //returns the image url
-router.post("/uploadProfilePicture", upload.single('file'), uploadImage);
+router.post("/uploadProfilePicture", upload.single("file"), uploadImage);
 
 //route to update all user fields in one go, calls updateUser function from accountController
 //needs a user id, email, username, bio, and profilePath in req body
