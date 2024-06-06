@@ -1,34 +1,25 @@
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
 import notfound from "@/_assets/NOTFOUND.png";
+import { MovieData } from "@/_api/types"; // Adjust the import path accordingly
 
-export default function MovieDetailPage({
-  data,
-}: {
-  /* 
-    not declaring the types directly here so that we can gracefully
-    handle invalid category params in a URL 
-    */
-  data: any;
-}) {
+interface MovieDetailPageProps {
+  data: MovieData | null;
+}
+
+export default function MovieDetailPage({ data }: MovieDetailPageProps) {
+  if (!data) {
+    return <div>No data available</div>;
+  }
+
   return (
     <div className={styles.moviepage}>
-      {/* <div
-          style={{
-            position: "relative",
-            height: "480px",
-            width: "853px",
-            zIndex: "0",
-            margin: "auto",
-          }}
-        > */}
       {data.backdrop_path && (
         <div className={styles.backdrop}>
           <Image
             className={styles.image}
             src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
             alt={`backdrop for ${data.title}`}
-            //   fill={true}
             style={{
               margin: "auto",
               width: "80%",
@@ -38,11 +29,9 @@ export default function MovieDetailPage({
             }}
             width={1280}
             height={720}
-            //   layout="fill"
           />
         </div>
       )}
-      {/* </div> */}
       <div className={styles.container}>
         <div className={styles.poster}>
           <Image
@@ -73,11 +62,10 @@ export default function MovieDetailPage({
               <div className={styles.set}>
                 <label> Genre</label>
                 <span>
-                  {data.genres.map((genre: any, index: number) => (
+                  {data.genres.map((genre, index) => (
                     <span key={genre.id}>
                       {genre.name}
                       {index !== data.genres.length - 1 && "/"}{" "}
-                      {/* add '/' if it's not the last genre */}
                     </span>
                   ))}
                 </span>
@@ -92,14 +80,14 @@ export default function MovieDetailPage({
               <div className={styles.set}>
                 <label> Cast </label>
                 <div className={styles.horizontalScroll}>
-                  {data.credits.cast.map((entry: any, id: any) => (
-                    <div key={id} className={styles.imageItemContainer}>
+                  {data.credits.cast.map((entry) => (
+                    <div key={entry.id} className={styles.imageItemContainer}>
                       <div className={styles.imageItem}>
                         {entry.profile_path ? (
                           <Image
                             className={styles.castImage}
                             src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
-                            alt={entry.id}
+                            alt={entry.id.toString()}
                             width={50}
                             height={70}
                             style={{

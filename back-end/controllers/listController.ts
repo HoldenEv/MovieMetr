@@ -18,6 +18,7 @@ const addList = async (name: string, userId: string) => {
     const newList = new List({
       name: name,
       user_id: userId,
+      description: "",
     });
     await newList.save();
     return newList;
@@ -136,7 +137,11 @@ const deleteMovieFromList = async (listId: string, movieId: string) => {
 };
 
 // Updates the name of a list by its id
-const updateList = async (listId: string, newName: string) => {
+const updateList = async (
+  listId: string,
+  newName: string,
+  newDescription: string,
+) => {
   try {
     // Grab list from db
     const list = await List.findOne({ _id: listId });
@@ -147,33 +152,11 @@ const updateList = async (listId: string, newName: string) => {
     }
     // Update list name
     list.name = newName;
-    await list.save();
-    return list;
-  } catch (error) {
-    console.error("Error updating list", error);
-    return null;
-  }
-};
-
-//updates the description of a list by its id
-const updateListDescription = async (
-  listId: string,
-  newDescription: string,
-) => {
-  try {
-    //grab list from db
-    const list = await List.findOne({ _id: listId });
-    //check if list exists
-    if (!list) {
-      console.error("Error updating list description: List not found");
-      return null;
-    }
-    //update list description
     list.description = newDescription;
     await list.save();
     return list;
   } catch (error) {
-    console.error("Error updating list description", error);
+    console.error("Error updating list", error);
     return null;
   }
 };
@@ -186,5 +169,4 @@ export {
   getUserLists,
   getList,
   updateList,
-  updateListDescription,
 };
