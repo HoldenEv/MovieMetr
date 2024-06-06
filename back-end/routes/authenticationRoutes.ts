@@ -15,6 +15,7 @@ import {
   getFollowing,
   getFollowers,
 } from "../controllers/accountController";
+import { uploadImage } from "../middleware/azureBlob";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const LocalStrategy = require("passport-local");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -22,6 +23,7 @@ const LocalStrategy = require("passport-local");
 import bodyParser from "body-parser";
 import passport from "../middleware/authentication";
 import * as dotenv from "dotenv";
+import upload from "../middleware/multer";
 const router = Router();
 dotenv.config();
 
@@ -170,6 +172,10 @@ router.post("/updatePassword", async (req: Request, res: Response) => {
     res.status(500).send("Error updating password");
   }
 });
+
+//route to upload a profile picture, calls uploadImage function from azureBlob
+//returns the image url
+router.post("/uploadProfilePicture", upload.single('file'), uploadImage);
 
 //route to update all user fields in one go, calls updateUser function from accountController
 //needs a user id, email, username, bio, and profilePath in req body
