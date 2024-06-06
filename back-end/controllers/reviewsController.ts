@@ -65,6 +65,10 @@ const getReview = async (reviewId: string) => {
 const getMovieReviews = async (movieId: string) => {
   try {
     const reviews = await Review.find({ movie_id: movieId });
+    if (reviews.length == 0) {
+      console.error("Error getting reviews: No reviews found");
+      return null;
+    }
     return reviews;
   } catch (error) {
     console.error("Error getting reviews", error);

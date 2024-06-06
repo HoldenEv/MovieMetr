@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import { addPerson, addAllMoviePeople, addAllTVPeople, deletePerson } 
 from '../../controllers/personController';
 import {MongoMemoryServer} from 'mongodb-memory-server';
