@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getPopularMovies } from "@/_api/getpopularmovies";
 import Image from "next/image";
 import { getNowPlaying } from "@/_api/getnowplaying";
+import { getTopRated } from "@/_api/gettopratedmovies";
 import "./homepage.css";
 
 interface Movie {
@@ -30,9 +31,8 @@ const MovieListItem: React.FC<MovieListItemProps> = ({
       width={150}
       height={225}
     />
-    <span className="movie-list-item-title">{title}</span>
-    <p className="movie-list-item-desc">{summary}</p>
-    <button className="movie-list-item-button">Watch</button>
+    <div className="movie-list-item-title">{title}</div>
+    {/* <p className="movie-list-item-desc">{summary}</p> */}
   </div>
 );
 
@@ -74,26 +74,27 @@ const FeaturedContent: React.FC<FeaturedContentProps> = ({
   title,
   summary,
 }) => (
-  <div
-    className="featured-content"
-    style={{
-      background: `linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('https://image.tmdb.org/t/p/original${image}')`,
-    }}
-  >
-    {/* <Image
-      className="featured-title"
+  <div className="featured-content">
+    <Image
+      className="backdrop-image"
       src={`https://image.tmdb.org/t/p/original${image}`}
       alt=""
-      width={150}
-      height={225}
-    /> */}
-    
-    <p className="featured-desc">{summary}</p>
+      width={1400}
+      height={1200}
+      style={{ height: "auto" }}
+    />
+    <div className="featured-info">
+      <div className="featured-title">{title}</div>
+      <div className="featured-desc">{summary}</div>
+    </div>
   </div>
 );
 
 const HomePage: React.FC = () => {
-  const [playingData, setPlayingData] = useState<{ data: any; loading: boolean }>({
+  const [playingData, setPlayingData] = useState<{
+    data: any;
+    loading: boolean;
+  }>({
     data: null,
     loading: true,
   });
@@ -107,7 +108,10 @@ const HomePage: React.FC = () => {
     fetchData();
   }, []);
 
-  const [popularData, setPopularData] = useState<{ data: any; loading: boolean }>({
+  const [popularData, setPopularData] = useState<{
+    data: any;
+    loading: boolean;
+  }>({
     data: null,
     loading: true,
   });
@@ -120,28 +124,85 @@ const HomePage: React.FC = () => {
     };
     fetchData();
   }, []);
+  const [topratedData, setTopRatedData] = useState<{
+    data: any;
+    loading: boolean;
+  }>({
+    data: null,
+    loading: true,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getTopRated();
+      setTopRatedData({ data: data, loading: false });
+      console.log(data);
+    };
+    fetchData();
+  }, []);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? playingData.data.length - 1 : prevIndex - 1
+    );
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 10000); // 15 seconds
+
+    return () => clearInterval(interval);
+  }, [playingData.data]);
 
   return (
     <div>
-      {!playingData.loading && !popularData.loading && (
-        <div className="container">
-          <div className="content-container">
-            <FeaturedContent
-              image={playingData.data[0].image}
-              title={playingData.data[0].title}
-              summary={playingData.data[0].summary}
-            />
-            <MovieListContainer title="NEW RELEASES" movies={playingData.data} />
-            <FeaturedContent
-              image="/img/f-2.jpg"
-              title="/img/f-t-2.png"
-              summary="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis minima voluptatibus incidunt. Accusamus, provident."
-            />
-            <MovieListContainer title="POPULAR" movies={popularData.data} />
-            <MovieListContainer title="NEW RELEASES" movies={popularData.data} />
+      {!playingData.loading &&
+        !popularData.loading &&
+        !topratedData.loading && (
+          <div className="container">
+            <div className="content-container">
+              <FeaturedContent
+                image={playingData.data[currentIndex].backdrop_path}
+                title={playingData.data[currentIndex].title}
+                summary={playingData.data[currentIndex].summary}
+              />
+              <div
+                className="arrow"
+                onClick={handlePrev}
+                style={{ right: "1330px", top: "350px", fontSize: "60px" }}
+              >
+                {"<"}
+              </div>
+              <div
+                className="arrow"
+                onClick={handleNext}
+                style={{ right: "-10px", top: "350px", fontSize: "60px" }}
+              >
+                {">"}
+              </div>
+              <MovieListContainer
+                title="NEW RELEASES"
+                movies={playingData.data}
+              />
+              <MovieListContainer title="POPULAR" movies={popularData.data} />
+              <MovieListContainer
+                title="ALL TIME FAVORITES"
+                movies={topratedData.data}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };

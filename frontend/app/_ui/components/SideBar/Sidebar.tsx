@@ -44,7 +44,7 @@ export default function SideBar() {
 
       <ul>
         <li>
-          <a href="/">
+          <a href="/homepage">
             <div className={styles.icon}>
               <HomeIcon></HomeIcon>
             </div>
