@@ -42,7 +42,7 @@
 }
 
 .movie-list-container {
-  padding: 0 20px;
+  padding: 0 25px;
   display: flex;
   flex-direction: column;
 }
