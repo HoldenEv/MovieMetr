@@ -1,122 +1,263 @@
-const mockingoose = require("mockingoose").default;
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import Genre from "../../models/genre";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import TVshowGenres from "../../models/TVshowGenres";
+import MovieGenres from "../../models/movieGenres";
 import {
   addGenre,
   addMovieGenres,
+  addTVshowGenres,
   getGenre,
   deleteGenre,
   deleteMovieGenre,
-  addTVshowGenres,
 } from "../../controllers/genreController";
-const Model = require("../../models/genre");
-//connect to the db before all tests
-describe("add genre", () => {
-  beforeEach(async () => {
-    mockingoose.resetAll();
-  });
-  it("should create a new genre if it does not exist", async () => {
-    mockingoose(Genre).toReturn(null, "findOne"); // Simulate no genre found
-    const gId = "1";
-    const gName = "Action";
-
-    const result = await addGenre(gId, gName);
-
-    expect(result._id.toString()).toBe(gId);
-    expect(result.name).toBe(gName);
-    expect(Genre.prototype.save).toHaveBeenCalled(); // Check that save was called
-  });
-
-  //test if addGenre returns a genre if it already exists
+import Movie from "../../models/movies";
+import { assert } from "node:console";
+dotenv.config();
+let mongoServer: MongoMemoryServer;
+//as of now make sure to spin up the db at localhost:27017 before testing
+//may be able to get the script to do this
+beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+  await mongoose.connect(uri);
 });
 
-// //tests get genre function
-// describe("get genre", () => {
-//     beforeAll(async () => {
-//         //mockingoose.resetAll();
-//     });
-//     //test that getGenre returns a genre if it exists
-//     it('should return a genre if it exists', async () => {
-//         const genreId = '1';
-//         const genreName = 'Action';
-//         mockingoose(Genre).toReturn({ _id: genreId, name: genreName }, 'findOne'); // Simulate genre found
-//         const result = await getGenre(genreId);
-//         expect(result.name).toBe(genreName);
-//         expect(result._id).toBe(genreId);
-//       });
-//     //test that getGenre returns null if genre does not exist
-//     it('should return null if genre does not exist', async () => {
-//         const genreId = '1';
-//         mockingoose(Genre).toReturn(null, 'findOne'); // Simulate genre not found
-//         const result = await getGenre(genreId);
-//         expect(result).toBe(null);
-//       });
-// });
+afterAll(async () => {
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  await mongoServer.stop();
+});
 
-// //tests deleet genre function
-// describe("delete genre", () => {
-//     beforeAll(async () => {
-//         //mockingoose.resetAll();
-//     });
-//     //test that deleteGenre deletes a genre if it exists
-//     it('should delete a genre if it exists', async () => {
-//         const genreId = '1';
-//         const genreName = 'Action';
-//         mockingoose(Genre).toReturn({ _id: genreId, name: genreName }, 'findOne'); // Simulate genre found
-//         mockingoose(Genre).toReturn({ _id: genreId, name: genreName }, 'remove'); // Simulate genre removed
-//         const result = await deleteGenre(genreId);
-//         expect(result).toBe(true);
-//       });
-//     //test that deleteGenre returns false if genre does not exist
-//     it('should return false if genre does not exist', async () => {
-//         const genreId = '1';
-//         mockingoose(Genre).toReturn(null, 'findOne'); // Simulate genre not found
-//         const result = await deleteGenre(genreId);
-//         expect(result).toBe(false);
-//       });
-// });
+//test addGenre
+describe("addGenre", () => {
+  beforeEach(async () => {
+    await Genre.deleteMany({});
+    await TVshowGenres.deleteMany({});
+    await Movie.deleteMany({});
+  });
 
-// //tests addMovieGenres function
-// describe("add movie genre", () => {
-//     beforeAll(async () => {
-//         //mockingoose.resetAll();
-//     });
-//     //test that addMovieGenres adds a movie genre pairing
-//     it('should add a movie genre pairing', async () => {
-//         const movieId = '1';
-//         const genreId = '1';
-//         mockingoose(Genre).toReturn({ _id: genreId }, 'findOne'); // Simulate genre found
-//         const result = await addMovieGenres(movieId, genreId);
-//         expect(result).toBe(undefined);
-//       });
-// });
+  it("should add a genre to the database", async () => {
+    const genre = await addGenre("1", "Action");
+    assert(genre !== null);
+  });
 
-// //tests deleteMovieGenre function
-// describe("delete movie genre", () => {
-//     beforeAll(async () => {
-//         //mockingoose.resetAll();
-//     });
-//     //test that deleteMovieGenre deletes a movie genre pairing
-//     it('should delete a movie genre pairing', async () => {
-//         const movieId = '1';
-//         const genreId = '1';
-//         mockingoose(Genre).toReturn({ _id: genreId }, 'findOne'); // Simulate genre found
-//         mockingoose(Genre).toReturn({ _id: genreId }, 'remove'); // Simulate genre removed
-//         const result = await deleteMovieGenre(movieId, genreId);
-//         expect(result).toBe(true);
-//       });
-// });
+  it("should return null if the genre already exists", async () => {
+    await addGenre("1", "Action");
+    const genre = await addGenre("1", "Action");
+    assert(genre === null);
+  });
+  it("should return null if the genre already exists", async () => {
+    const genreId = "1";
+    const genreName = "Action";
+    await addGenre(genreId, genreName);
+    // Spy on console.error
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const result = await addGenre(genreId, genreName);
+    expect(result).toBeNull();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Error adding genre: Genre already in database",
+    );
+    consoleSpy.mockRestore();
+  });
+  //checks that the error in the catch block is logged, mock findone to do so
+  it("should log an error if the genre cannot be added", async () => {
+    // Spy on console.error
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    // Mock the findOne method to throw an error
+    jest.spyOn(Genre, "findOne").mockImplementation(() => {
+      throw new Error("findOne error");
+    });
+    const result = await addGenre("1", "Action");
+    expect(result).toBeUndefined();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Error adding genre",
+      new Error("findOne error"),
+    );
+    consoleSpy.mockRestore();
+  });
 
-// //tests addTVshowGenres function
-// describe("add tv genre", () => {
-//     beforeAll(async () => {
-//         //mockingoose.resetAll();
-//     });
-//     //test that addTVshowGenres adds a tv genre pairing
-//     it('should add a tv genre pairing', async () => {
-//         const TVshowId = '1';
-//         const genreId = '1';
-//         mockingoose(Genre).toReturn({ _id: genreId }, 'findOne'); // Simulate genre found
-//         const result = await addTVshowGenres(TVshowId, genreId);
-//         expect(result).toBe(undefined);
-//       });
-// });
+  //test addMovieGenres
+  describe("addMovieGenres", () => {
+    beforeEach(async () => {
+      await Genre.deleteMany({});
+      await TVshowGenres.deleteMany({});
+      await Movie.deleteMany({});
+    });
+
+    it("should add a movie genre pairing to the database", async () => {
+      await addGenre("1", "Action");
+      //await addMovie("1");
+      await addMovieGenres("1", "1");
+      const movieGenre = await MovieGenres.findOne({
+        movie_id: "1",
+        genre_id: "1",
+      });
+      assert(movieGenre !== null);
+    });
+    //test addMovieGenres console error with save error
+    it("should console.error if the movie genre already exists", async () => {
+      await addGenre("1", "Action");
+      await addMovieGenres("1", "1");
+      //mock save to throw an error
+      jest.spyOn(MovieGenres.prototype, "save").mockImplementation(() => {
+        throw new Error("save error");
+      });
+      // Spy on console.error
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      await addMovieGenres("1", "1");
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error adding movie genre",
+        new Error("save error"),
+      );
+    });
+  });
+
+  //test getGenre
+  describe("getGenre", () => {
+    beforeEach(async () => {
+      await Genre.deleteMany({});
+      await TVshowGenres.deleteMany({});
+      await Movie.deleteMany({});
+    });
+
+    it("should get a genre by its id from the database", async () => {
+      await addGenre("1", "Action");
+      const genre = await getGenre("1");
+      assert(genre !== null);
+    });
+    it("should return null if the genre does not exist", async () => {
+      const genre = await getGenre("1");
+      assert(genre === null);
+    });
+    it("should log an error if the genre cannot be found", async () => {
+      // Spy on console.error
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      // Mock the findOne method to throw an error
+      jest.spyOn(Genre, "findOne").mockImplementation(() => {
+        throw new Error("findOne error");
+      });
+      const result = await getGenre("1");
+      expect(result).toBeNull();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error getting genre",
+        new Error("findOne error"),
+      );
+      consoleSpy.mockRestore();
+    });
+  });
+
+  //test deleteGenre
+  describe("deleteGenre", () => {
+    beforeEach(async () => {
+      await Genre.deleteMany({});
+      await TVshowGenres.deleteMany({});
+      await Movie.deleteMany({});
+    });
+
+    it("should delete a genre by its id", async () => {
+      await addGenre("1", "Action");
+      await deleteGenre("1");
+      const genre = await getGenre("1");
+      assert(genre === null);
+    });
+    it("should log an error if the genre cannot be deleted", async () => {
+      // Spy on console.error
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      // Mock the deleteOne method to throw an error
+      jest.spyOn(Genre, "deleteOne").mockImplementation(() => {
+        throw new Error("deleteOne error");
+      });
+      await deleteGenre("1");
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error deleting genre",
+        new Error("deleteOne error"),
+      );
+      consoleSpy.mockRestore();
+    });
+  });
+
+  //test deleteMovieGenre
+  describe("deleteMovieGenre", () => {
+    beforeEach(async () => {
+      await Genre.deleteMany({});
+      await TVshowGenres.deleteMany({});
+      await Movie.deleteMany({});
+    });
+
+    it("should delete a movie genre pairing by its id", async () => {
+      await addGenre("1", "Action");
+      //await addMovie("1");
+      await addMovieGenres("1", "1");
+      await deleteMovieGenre("1", "1");
+      const movieGenre = await MovieGenres.findOne({
+        movie_id: "1",
+        genre_id: "1",
+      });
+      assert(movieGenre === null);
+    });
+    it("should log an error if the movie genre cannot be deleted", async () => {
+      // Spy on console.error
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      // Mock the deleteOne method to throw an error
+      jest.spyOn(MovieGenres, "deleteOne").mockImplementation(() => {
+        throw new Error("deleteOne error");
+      });
+      await deleteMovieGenre("1", "1");
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error deleting movie genre",
+        new Error("deleteOne error"),
+      );
+      consoleSpy.mockRestore();
+    });
+  });
+
+  //test addTVshowGenres
+  describe("addTVshowGenres", () => {
+    beforeEach(async () => {
+      await Genre.deleteMany({});
+      await TVshowGenres.deleteMany({});
+      await Movie.deleteMany({});
+    });
+
+    it("should add a tv genre pairing to the database", async () => {
+      await addGenre("1", "Action");
+      await addTVshowGenres("1", "1");
+      const tvGenre = await TVshowGenres.findOne({
+        TVshow_id: "1",
+        genre_id: "1",
+      });
+      assert(tvGenre !== null);
+    });
+    it("should console.error if the tv genre already exists", async () => {
+      await addGenre("1", "Action");
+      await addTVshowGenres("1", "1");
+      //mock save to throw an error
+      jest.spyOn(TVshowGenres.prototype, "save").mockImplementation(() => {
+        throw new Error("save error");
+      });
+      // Spy on console.error
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+      await addTVshowGenres("1", "1");
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Error adding tv genre",
+        new Error("save error"),
+      );
+    });
+  });
+});

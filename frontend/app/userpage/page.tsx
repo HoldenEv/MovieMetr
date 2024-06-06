@@ -1,6 +1,6 @@
 "use client";
 import styles from "./userpage.module.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { Tabs, Tab, Box } from "@mui/material";
@@ -9,7 +9,11 @@ import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
 import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList, deleteList } from "@/_api/lists";
-import { getUser } from "@/_api/editprofile";
+import {
+  getUser,
+  uploadProfilePicture,
+  updateProfilePath,
+} from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
 import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
@@ -23,7 +27,7 @@ interface User {
   _id: string;
   username: string;
   email: string;
-  profilepath: string;
+  profilePath: string;
   bio: String;
 }
 
@@ -78,6 +82,9 @@ const Userpage = () => {
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [isListEditing, setIsListEditing] = useState(false);
+  //profile pic upload
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -192,6 +199,34 @@ const Userpage = () => {
     refreshUserData();
     setIsListEditing(false);
   };
+  //profile pic upload
+  const handleProfilePicClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        console.log("Uploading profile picture...");
+        const response = await uploadProfilePicture(file);
+        console.log("Profile picture uploaded successfully", response);
+        // Assuming the response contains the new image URL
+        const newImageUrl = response.imageUrl;
+        console.log("New image URL:", newImageUrl);
+        if (user) {
+          // Update the user profile picture
+          await updateProfilePath(user._id, newImageUrl);
+          // Refresh user data to reflect changes
+          refreshUserData();
+        }
+      } catch (error) {
+        console.error("Error uploading profile picture", error);
+      }
+    }
+  };
 
   return (
     <div className={styles.userPage}>
@@ -207,11 +242,18 @@ const Userpage = () => {
         <div className={styles.photoUsername}>
           <Image
             priority
-            src={profilePic} // src={user?.profilePic || profilePic}
+            src={user?.profilePath || profilePic}
             width={200}
             height={200}
             alt="Profile Picture"
             className={styles.profilePicture}
+            onClick={handleProfilePicClick}
+          />
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
           />
           <h2 className={styles.usernameText}>{user?.username}</h2>
         </div>

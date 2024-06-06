@@ -140,7 +140,6 @@ const updateUser = async (
   email: string,
   username: string,
   bio: string,
-  profilePath: string,
 ) => {
   const user = await User.findById(userId).exec();
   if (!user) {
@@ -149,7 +148,6 @@ const updateUser = async (
   user.email = email;
   user.username = username;
   user.bio = bio;
-  user.profilePath = profilePath;
   return user.save();
 };
 
