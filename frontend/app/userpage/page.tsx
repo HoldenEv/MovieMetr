@@ -38,6 +38,7 @@ interface TabPanelProps {
 interface MovieList {
   _id: string;
   name: string;
+  description: string;
   entries: { itemType: string; item_id: string; imageUrl?: string }[];
 }
 
@@ -316,11 +317,6 @@ const Userpage = () => {
           </div>
           {userLists.map((list) => (
             <div key={list._id} className={styles.listContainer}>
-              <div className={styles.listName}>
-                <Link href={`/movielist/${list._id}`}>
-                  <h2>{list.name}</h2>
-                </Link>
-              </div>
               <div className={styles.scrollContainer}>
                 {isListEditing && (
                   <div className={styles.listOverlay}>
@@ -348,6 +344,15 @@ const Userpage = () => {
                     )}
                   </div>
                 ))}
+              </div>
+              <div className={styles.listInfo}>
+                <div className={styles.listName}>
+                  <Link href={`/movielist/${list._id}`}>
+                    <h2>{list.name}</h2>
+                  </Link>
+                </div>
+                <p>{list.entries.length} movies</p>
+                <p>{list.description.substring(0, 100)}...</p>
               </div>
             </div>
           ))}
