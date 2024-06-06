@@ -145,20 +145,20 @@ const HomePage: React.FC = () => {
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
+      prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? playingData.data.length - 1 : prevIndex - 1
+      prevIndex === 0 ? playingData.data.length - 1 : prevIndex - 1,
     );
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1
+        prevIndex === playingData.data.length - 1 ? 0 : prevIndex + 1,
       );
     }, 10000); // 15 seconds
 
