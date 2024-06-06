@@ -40,11 +40,12 @@ export default function MovieListPage({
 
   const handleSaveClick = async () => {
     const finalName = newName !== "" ? newName : listData.details.name;
-    const finalDescription = newDescription !== "" ? newDescription : listData.details.description;
+    const finalDescription =
+      newDescription !== "" ? newDescription : listData.details.description;
     await updateList(params.listid, finalName, finalDescription);
     setIsEditing(false);
   };
-  
+
   const handleDeleteMovieClick = async (movieId: string) => {
     await deleteMovieFromList(params.listid, movieId);
     // if (window.confirm('Are you sure you want to delete this movie?')) {
@@ -110,27 +111,31 @@ export default function MovieListPage({
               </form>
             )}
           </div>
-          <h2 className={styles.listDescription}>{listData.details.description.substring(0, 100)}...</h2>
+          <h2 className={styles.listDescription}>
+            {listData.details.description.substring(0, 100)}...
+          </h2>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
               <div key={index} className={styles.movieItem}>
                 <div className={styles.imageContainer}>
-                <Link href={`/films/${entry.id}`}>
-                  <Image
-                    width={200}
-                    height={200}
-                    src={entry.imageUrl}
-                    alt={entry.item_id}
-                    className={styles.movieImage}
-                  />
-                  {isEditing && (
-                    <div className={styles.overlay}>
-                      <button onClick={() => handleDeleteMovieClick(entry.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </Link>
+                  <Link href={`/films/${entry.id}`}>
+                    <Image
+                      width={200}
+                      height={200}
+                      src={entry.imageUrl}
+                      alt={entry.item_id}
+                      className={styles.movieImage}
+                    />
+                    {isEditing && (
+                      <div className={styles.overlay}>
+                        <button
+                          onClick={() => handleDeleteMovieClick(entry.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </Link>
                 </div>
               </div>
             ))}

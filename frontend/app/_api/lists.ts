@@ -165,20 +165,17 @@ export const updateList = async (
   newDescription: string,
 ): Promise<any> => {
   try {
-    const response = await fetch(
-      `${BASE_URL}/updateList`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          listId,
-          newName,
-          newDescription,
-        }),
+    const response = await fetch(`${BASE_URL}/updateList`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        listId,
+        newName,
+        newDescription,
+      }),
+    });
     if (!response.ok) {
       throw new Error("Internal server error");
     }
@@ -188,4 +185,3 @@ export const updateList = async (
     throw error;
   }
 };
-

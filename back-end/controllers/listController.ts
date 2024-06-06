@@ -137,7 +137,11 @@ const deleteMovieFromList = async (listId: string, movieId: string) => {
 };
 
 // Updates the name of a list by its id
-const updateList = async (listId: string, newName: string, newDescription: string) => {
+const updateList = async (
+  listId: string,
+  newName: string,
+  newDescription: string,
+) => {
   try {
     // Grab list from db
     const list = await List.findOne({ _id: listId });

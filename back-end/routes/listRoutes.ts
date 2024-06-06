@@ -4,7 +4,7 @@ import {
   addMovieToList,
   deleteList,
   deleteMovieFromList,
-  updateList
+  updateList,
 } from "../controllers/listController";
 import List from "../models/lists";
 const router = Router();

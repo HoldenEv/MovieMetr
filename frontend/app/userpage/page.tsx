@@ -15,7 +15,7 @@ import { getProfileFromToken } from "@/_api/profile";
 import isAuth from "@/protected/protectedRoute";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import CancelIcon from "@mui/icons-material/Cancel"
+import CancelIcon from "@mui/icons-material/Cancel";
 import Link from "next/link";
 
 // interface for the user
@@ -78,7 +78,7 @@ const Userpage = () => {
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [isListEditing, setIsListEditing] = useState(false);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -92,7 +92,7 @@ const Userpage = () => {
 
   const handleCreateListClick = () => {
     setIsCreateListFormVisible(true);
-    setIsListEditing(false)
+    setIsListEditing(false);
   };
 
   const handleCancelClick = () => {
@@ -122,28 +122,26 @@ const Userpage = () => {
     }
   }, []);
 
-
-
   const actions = [
     {
       icon: <AddIcon />,
       name: "Create List",
       onClick: handleCreateListClick,
     },
-    { 
-      icon: <EditIcon />, 
-      name: 'Edit List', 
+    {
+      icon: <EditIcon />,
+      name: "Edit List",
       onClick: () => {
         setIsListEditing(true);
-      }
+      },
     },
     {
-      icon: <CancelIcon />, 
+      icon: <CancelIcon />,
       name: "Cancel",
       onClick: () => {
         setIsListEditing(false);
-      }
-    }
+      },
+    },
   ];
 
   const fetchUser = async (userId: string) => {
@@ -190,7 +188,7 @@ const Userpage = () => {
   };
 
   const handleDeleteListClick = async (listId: string) => {
-    await deleteList(listId); 
+    await deleteList(listId);
     refreshUserData();
     setIsListEditing(false);
   };

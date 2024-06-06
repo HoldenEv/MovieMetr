@@ -1,6 +1,5 @@
 .container {
   padding: 100px;
-  
 }
 
 .listHeader {
@@ -179,5 +178,4 @@
     flex-direction: column;
     align-items: center;
   }
-
 }
