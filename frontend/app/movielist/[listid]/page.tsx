@@ -26,6 +26,7 @@ export default function MovieListPage({
   });
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newDescription, setnewDescription] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -38,10 +39,11 @@ export default function MovieListPage({
   };
 
   const handleSaveClick = async () => {
-    await updateList(params.listid, newName);
+    const finalName = newName !== "" ? newName : listData.details.name;
+    const finalDescription =
+      newDescription !== "" ? newDescription : listData.details.description;
+    await updateList(params.listid, finalName, finalDescription);
     setIsEditing(false);
-    // Refresh list data
-    // fetchData();
   };
 
   const handleDeleteMovieClick = async (movieId: string) => {
@@ -97,6 +99,11 @@ export default function MovieListPage({
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                 />
+                <input
+                  type="text"
+                  value={newDescription}
+                  onChange={(e) => setnewDescription(e.target.value)}
+                />
                 <button type="submit">Save</button>
                 <button type="button" onClick={handleCancelEditClick}>
                   Cancel
@@ -104,24 +111,31 @@ export default function MovieListPage({
               </form>
             )}
           </div>
+          <h2 className={styles.listDescription}>
+            {listData.details.description.substring(0, 100)}...
+          </h2>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
               <div key={index} className={styles.movieItem}>
                 <div className={styles.imageContainer}>
-                  <Image
-                    width={200}
-                    height={200}
-                    src={entry.imageUrl}
-                    alt={entry.item_id}
-                    className={styles.movieImage}
-                  />
-                  {isEditing && (
-                    <div className={styles.overlay}>
-                      <button onClick={() => handleDeleteMovieClick(entry.id)}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
+                  <Link href={`/films/${entry.id}`}>
+                    <Image
+                      width={200}
+                      height={200}
+                      src={entry.imageUrl}
+                      alt={entry.item_id}
+                      className={styles.movieImage}
+                    />
+                    {isEditing && (
+                      <div className={styles.overlay}>
+                        <button
+                          onClick={() => handleDeleteMovieClick(entry.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </Link>
                 </div>
               </div>
             ))}

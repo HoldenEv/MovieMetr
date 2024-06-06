@@ -1,5 +1,4 @@
 .userPage {
-  padding-right: 50px;
   min-width: 100%;
 }
 
@@ -159,8 +158,9 @@
 }
 
 .listContainer {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 20px;
   padding: 10px; /* Add some padding */
   margin: 10px 0; /* Add vertical margin */
@@ -169,16 +169,55 @@
   border-bottom: 0.5px solid white;
 }
 
+.listInfo {
+  max-width: 50%;
+  padding-left: 10px;
+}
+
 .listName:hover {
   color: #60ecec;
 }
 
+.listContainer:hover .listOverlay {
+  opacity: 1;
+}
+
 .scrollContainer {
+  position: relative;
   width: 290px;
   display: flex;
   padding: 10px 0;
   max-width: 500px;
   overflow: hidden;
+}
+
+.listOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.listOverlay button {
+  color: white;
+  background: rgb(105, 27, 27);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.scrollContainer:hover .listOverlay {
+  opacity: 1;
 }
 
 .imageItem {
@@ -195,12 +234,6 @@
   object-fit: cover;
   border-radius: 4px;
   border: 2px solid #438b8b64;
-}
-
-.imageItem:hover {
-  transform: scale(1.1);
-  z-index: 10; /* Bring to front on hover */
-  cursor: pointer;
 }
 
 @media only screen and (max-width: 525px) {
