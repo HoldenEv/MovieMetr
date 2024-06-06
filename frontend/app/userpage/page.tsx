@@ -392,7 +392,12 @@ const Userpage = () => {
                   </Link>
                 </div>
                 <p>{list.entries.length} movies</p>
-                <p>{list.description ? list.description.substring(0, 100) : "No description available"}...</p>
+                <p>
+                  {list.description
+                    ? list.description.substring(0, 100)
+                    : "No description available"}
+                  ...
+                </p>
               </div>
             </div>
           ))}
