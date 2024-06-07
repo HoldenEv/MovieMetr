@@ -149,18 +149,18 @@ export default function MovieListPage({
                       alt={entry.item_id}
                       className={styles.movieImage}
                     />
-                    {isEditing && (
-                      <div className={styles.overlay}>
-                        <button
-                          onClick={(event) =>
-                            handleDeleteMovieClick(event, entry.id)
-                          }
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    )}
                   </Link>
+                  {isEditing && (
+                    <div className={styles.overlay}>
+                      <button
+                        onClick={(event) =>
+                          handleDeleteMovieClick(event, entry.id)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
