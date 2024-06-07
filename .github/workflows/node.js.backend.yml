@@ -36,8 +36,9 @@ jobs:
         run: npm run build --if-present
         working-directory: back-end
       - name: test formatting
-          npm test --if-present  
-          npm run coverage --if-present
+        run: | 
+            npm test --if-present  
+            npm run coverage --if-present
         working-directory: back-end
       - name: Run unit tests
         run: npm run test:coverage
