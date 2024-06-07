@@ -395,7 +395,7 @@ const Userpage = () => {
                 <p>
                   {list.description
                     ? list.description.substring(0, 100)
-                    : "No description available"}
+                    : "No description yet"}
                   ...
                 </p>
               </div>

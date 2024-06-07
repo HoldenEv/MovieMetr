@@ -112,7 +112,10 @@ export default function MovieListPage({
             )}
           </div>
           <h2 className={styles.listDescription}>
-            {listData.details.description.substring(0, 100)}...
+            {listData.details.description
+              ? listData.details.description.substring(0, 100)
+              : "No description yet"}
+            ...
           </h2>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
