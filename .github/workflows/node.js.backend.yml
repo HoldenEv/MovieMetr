@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: back-end
+      - name: unit tests
+        run: npm run test:coverage
+        working-directory: back-end
       - name: Build project
         run: npm run build --if-present
         working-directory: back-end
