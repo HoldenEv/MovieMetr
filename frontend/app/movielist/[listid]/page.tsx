@@ -6,6 +6,7 @@ import Link from "next/link";
 import { updateList, deleteMovieFromList } from "@/_api/lists";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from '@mui/icons-material/Add';
 import Image from "next/image";
 
 interface Entry {
@@ -27,15 +28,20 @@ export default function MovieListPage({
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
   const [newDescription, setnewDescription] = useState("");
+  const [showAddIcon, setShowAddIcon] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
 
   const handleEditClick = () => {
     setIsEditing(true);
     setNewName(listData.details.name);
+    setShowAddIcon(true);
   };
 
   const handleCancelEditClick = () => {
     setIsEditing(false);
     setNewName("");
+    setShowAddIcon(false);
   };
 
   const handleSaveClick = async () => {
@@ -46,12 +52,15 @@ export default function MovieListPage({
     setIsEditing(false);
   };
 
-  const handleDeleteMovieClick = async (movieId: string) => {
+  const handleDeleteMovieClick = async (event: React.MouseEvent, movieId: string) => {
     await deleteMovieFromList(params.listid, movieId);
-    // if (window.confirm('Are you sure you want to delete this movie?')) {
-    //   await deleteMovieFromList(params.listid, movieId);
-    // Refresh list data
+    event.stopPropagation();
+    event.preventDefault();
     fetchData();
+  };
+
+  const handleDescriptionClick = () => {
+    setShowFullDescription(!showFullDescription);
   };
 
   const fetchData = useCallback(async () => {
@@ -91,6 +100,15 @@ export default function MovieListPage({
                   <EditIcon style={{ fontSize: 30 }} />
                 </IconButton>
               )}
+              {showAddIcon && (
+                <Link href={`/search`}>
+                  <IconButton
+                    style={{ color: "white" }}
+                  >
+                    <AddIcon style={{ fontSize: 30 }} />
+                  </IconButton>
+                </Link>
+              )}
             </div>
             {isEditing && (
               <form className={styles.EditListForm} onSubmit={handleSaveClick}>
@@ -111,12 +129,11 @@ export default function MovieListPage({
               </form>
             )}
           </div>
-          <h2 className={styles.listDescription}>
-            {listData.details.description
-              ? listData.details.description.substring(0, 100)
-              : "No description yet"}
-            ...
-          </h2>
+          <p className={styles.listDescription} onClick={handleDescriptionClick}>
+            {showFullDescription
+              ? listData.details.description
+              : `${listData.details.description.substring(0, 100)}...`}
+          </p>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
               <div key={index} className={styles.movieItem}>
@@ -132,7 +149,7 @@ export default function MovieListPage({
                     {isEditing && (
                       <div className={styles.overlay}>
                         <button
-                          onClick={() => handleDeleteMovieClick(entry.id)}
+                          onClick={(event) => handleDeleteMovieClick(event, entry.id)}
                         >
                           Delete
                         </button>

@@ -66,7 +66,7 @@ export default function MovieDetailPage({
         </div>
         <div className={styles.info}>
           <div className={styles.movietitle}>{data.title}</div>
-          <button onClick={openAddToListModal}>Add to List</button>
+          <button className={styles.addMovieButton} onClick={openAddToListModal}>Add to List</button>
           <AddMovieToListModal
             isOpen={isAddToListModalOpen}
             onClose={closeAddToListModal}

@@ -17,7 +17,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
   movieId,
 }) => {
   const [userLists, setUserLists] = useState<{ _id: string; name: string }[]>(
-    [],
+    []
   );
   const [selectedLists, setSelectedLists] = useState<string[]>([]);
 
@@ -40,7 +40,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
     if (e.target.checked) {
       setSelectedLists([...selectedLists, e.target.value]);
     } else {
-      setSelectedLists(selectedLists.filter((id) => id !== e.target.value));
+      setSelectedLists(selectedLists.filter(id => id !== e.target.value));
     }
   };
 
@@ -56,10 +56,23 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
     }
   };
 
+  const handleClose = () => {
+    setSelectedLists([]); // Uncheck all boxes
+    onClose();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   return (
     <ReactModal
       isOpen={isOpen}
-      onRequestClose={onClose}
+      onRequestClose={handleClose}
       ariaHideApp={false}
       className={styles.modalOverlay}
     >
@@ -67,7 +80,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
         <form onSubmit={handleSubmit}>
           <label>Select lists:</label>
           {userLists.map((list) => (
-            <div key={list._id}>
+            <div key={list._id} className={styles.checkboxContainer}>
               <input
                 type="checkbox"
                 id={list._id}
@@ -82,11 +95,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
             <button type="submit" className={styles.SaveButton}>
               Save
             </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className={styles.CancelButton}
-            >
+            <button type="button" onClick={handleClose} className={styles.CancelButton}>
               Cancel
             </button>
           </div>

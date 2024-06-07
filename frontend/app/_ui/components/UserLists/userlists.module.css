@@ -48,3 +48,44 @@
 .CancelButton:hover {
   background-color: #364159;
 }
+
+/* Checkbox styles */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkboxContainer input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #364159;
+  border-radius: 5px;
+  border: 2px solid #a1adbe;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.checkboxContainer input[type="checkbox"]:checked {
+  background: #60ecab;
+}
+
+.checkboxContainer input[type="checkbox"]:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #364159;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxContainer label {
+  margin-left: 10px;
+  cursor: pointer;
+}

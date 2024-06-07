@@ -76,6 +76,22 @@
   color: transparent;
 }
 
+.addMovieButton{
+  cursor: pointer;
+  border: none;
+  border-radius: 100px;
+  padding: 0.7rem 1.2rem;
+  color: var(--pure-white);
+  background-color: #22324a;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.addMovieButton:hover{
+  background-color: #364159;
+}
+
 .moviedetail .set {
   display: inline-block;
   margin-right: 64px;
