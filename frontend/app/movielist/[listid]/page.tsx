@@ -134,8 +134,8 @@ export default function MovieListPage({
             onClick={handleDescriptionClick}
           >
             {showFullDescription
-              ? listData.details.description
-              : `${listData.details.description.substring(0, 100)}...`}
+              ? listData.details.description || "No description available"
+              : `${listData.details.description?.substring(0, 100) || "No description available"}...`}
           </p>
           <div className={styles.movieGrid}>
             {listData.details.entries.map((entry: any, index: number) => (
