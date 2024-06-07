@@ -24,4 +24,4 @@ https://www.figma.com/file/6HzuRMbpORCYMu3xcAyC26/Basics?type=design&node-id=132
 [Demo Video Link]([https://drive.google.com/file/d/1w8ixqDiPolhIjdwJ_SZ1-1zmniDGvoAK/view?usp=drive_link](https://drive.google.com/file/d/1-K-DOcaYxlbvQA1BsPs3i87SCY6cag_n/view?usp=drive_link)) 
 
 <h2>Test Coverage</h2>
-<img width="562" alt="Screenshot 2024-03-20 at 8 00 38 PM" src="https://github.com/HoldenEv/MovieMetr/assets/93685782/44d8775c-094c-44fd-8340-cae5bd2b1682">
+<img width="562" alt="Screenshot 2024-03-20 at 8 00 38 PM" src="https://github.com/HoldenEv/MovieMetr/assets/94203737/beda6254-4e46-4ff8-aa5e-f637e4c8bb11">
