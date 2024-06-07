@@ -1,5 +1,5 @@
 // export default EditProfileModal;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import { updateUser } from "@/_api/editprofile";
 import styles from "./editprofile.module.css";
@@ -48,6 +48,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     }
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -57,16 +65,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     >
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={styles.formInput}
-          />
-
           <label htmlFor="username">Username:</label>
           <input
             type="text"

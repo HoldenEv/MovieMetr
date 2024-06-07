@@ -1,0 +1,91 @@
+.modalOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #141d2b;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  max-width: 500px;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+}
+
+.BottomButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1.5rem;
+}
+
+.SaveButton,
+.CancelButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 100px;
+  padding: 0.7rem 1.2rem;
+  color: var(--pure-white);
+  background-color: #22324a;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.SaveButton:hover,
+.CancelButton:hover {
+  background-color: #364159;
+}
+
+/* Checkbox styles */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkboxContainer input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #364159;
+  border-radius: 5px;
+  border: 2px solid #a1adbe;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.checkboxContainer input[type="checkbox"]:checked {
+  background: #60ecab;
+}
+
+.checkboxContainer input[type="checkbox"]:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #364159;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxContainer label {
+  margin-left: 10px;
+  cursor: pointer;
+}

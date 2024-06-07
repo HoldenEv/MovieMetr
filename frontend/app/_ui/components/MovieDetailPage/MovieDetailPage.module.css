@@ -31,9 +31,9 @@
 }
 
 .info {
-  padding-right: 95px;
+  padding-right: 5%;
   align-items: flex-start;
-  width: 600px;
+  width: 100%;
 }
 
 .poster {
@@ -74,6 +74,22 @@
   background-image: linear-gradient(45deg, white, white);
   background-clip: text;
   color: transparent;
+}
+
+.addMovieButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 100px;
+  padding: 0.7rem 1.2rem;
+  color: var(--pure-white);
+  background-color: #22324a;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.addMovieButton:hover {
+  background-color: #364159;
 }
 
 .moviedetail .set {
@@ -169,8 +185,8 @@
   }
 
   .info {
-    padding-right: 15px;
-    width: 500px;
+    padding-right: 2%;
+    width: 100%;
   }
 
   .poster {
@@ -179,7 +195,9 @@
   }
 
   .horizontalScroll {
-    flex-direction: row;
-    align-items: center;
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    max-width: 100%;
   }
 }

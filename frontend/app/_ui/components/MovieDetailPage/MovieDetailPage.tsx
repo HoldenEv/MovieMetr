@@ -1,17 +1,33 @@
 import Link from "next/link";
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
+import { useState } from "react";
 import notfound from "@/_assets/NOTFOUND.png";
 import { MovieData } from "@/_api/types"; // Adjust the import path accordingly
+import AddMovieToListModal from "../UserLists/UserLists";
 
 interface MovieDetailPageProps {
   data: MovieData | null;
+  userId: string;
 }
 
-export default function MovieDetailPage({ data }: MovieDetailPageProps) {
+export default function MovieDetailPage({
+  data,
+  userId,
+}: MovieDetailPageProps) {
+  const [isAddToListModalOpen, setAddToListModalOpen] = useState(false);
+
   if (!data) {
     return <div>No data available</div>;
   }
+
+  const openAddToListModal = () => {
+    setAddToListModalOpen(true);
+  };
+
+  const closeAddToListModal = () => {
+    setAddToListModalOpen(false);
+  };
 
   return (
     <div className={styles.moviepage}>
@@ -50,6 +66,18 @@ export default function MovieDetailPage({ data }: MovieDetailPageProps) {
         </div>
         <div className={styles.info}>
           <div className={styles.movietitle}>{data.title}</div>
+          <button
+            className={styles.addMovieButton}
+            onClick={openAddToListModal}
+          >
+            Add to List
+          </button>
+          <AddMovieToListModal
+            isOpen={isAddToListModalOpen}
+            onClose={closeAddToListModal}
+            userId={userId}
+            movieId={data.id} // Pass the movie ID to the modal
+          />
           <div className={styles.moviedetail}>
             <div className={styles.set}>
               <label> Release Date</label>

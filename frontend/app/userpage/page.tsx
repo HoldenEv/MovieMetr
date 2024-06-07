@@ -7,7 +7,7 @@ import { Tabs, Tab, Box } from "@mui/material";
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
-import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
+import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList, deleteList } from "@/_api/lists";
 import {
   getUser,
@@ -82,7 +82,6 @@ const Userpage = () => {
   const [isCreateListFormVisible, setIsCreateListFormVisible] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [isListEditing, setIsListEditing] = useState(false);
-  //profile pic upload
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -197,12 +196,16 @@ const Userpage = () => {
   const handleDeleteListClick = async (listId: string) => {
     await deleteList(listId);
     refreshUserData();
-    setIsListEditing(false);
   };
   //profile pic upload
   const handleProfilePicClick = () => {
     fileInputRef.current?.click();
   };
+
+  const totalFilms = userLists.reduce(
+    (total, list) => total + list.entries.length,
+    0,
+  );
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -259,7 +262,7 @@ const Userpage = () => {
         </div>
         <div className={styles.overviewBio}>
           <div className={styles.overview}>
-            <p>300 films</p>
+            <p>{totalFilms} films</p>
             <p>300 followers</p>
             <p>300 following</p>
           </div>
@@ -322,21 +325,24 @@ const Userpage = () => {
         <div className={styles.movieLists}>
           <div className={styles.movieButtons}>
             <div>
-              <SpeedDial
-                ariaLabel="SpeedDial openIcon example"
-                direction="right"
-                icon={<SpeedDialIcon />}
-                className={styles.SpeedDial}
-              >
-                {actions.map((action) => (
-                  <SpeedDialAction
-                    key={action.name}
-                    icon={action.icon}
-                    tooltipTitle={action.name}
-                    onClick={action.onClick}
-                  />
-                ))}
-              </SpeedDial>
+              {!isEditProfileOpen && (
+                <SpeedDial
+                  ariaLabel="SpeedDial openIcon example"
+                  direction="right"
+                  icon={<SpeedDialIcon />}
+                  className={styles.SpeedDial}
+                >
+                  {actions.map((action) => (
+                    <SpeedDialAction
+                      key={action.name}
+                      icon={action.icon}
+                      tooltipTitle={action.name}
+                      onClick={action.onClick}
+                    />
+                  ))}
+                </SpeedDial>
+              )}
+              {isListEditing && <p>Editing List...</p>}
             </div>
             {isCreateListFormVisible && (
               <form
@@ -391,13 +397,15 @@ const Userpage = () => {
                     <h2>{list.name}</h2>
                   </Link>
                 </div>
-                <p>{list.entries.length} movies</p>
-                <p>
-                  {list.description
-                    ? list.description.substring(0, 100)
-                    : "No description available"}
-                  ...
-                </p>
+                <div className={styles.listDescription}>
+                  <p>{list.entries.length} movies</p>
+                  <p>
+                    {list.description
+                      ? list.description.substring(0, 100)
+                      : "No description yet"}
+                    ...
+                  </p>
+                </div>
               </div>
             </div>
           ))}

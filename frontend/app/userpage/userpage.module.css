@@ -170,10 +170,27 @@
 }
 
 .listInfo {
+  padding-top: 35px;
   max-width: 50%;
   padding-left: 10px;
 }
 
+.listInfo > * {
+  margin-bottom: 15px; /* Adjust as needed */
+}
+
+.listName {
+  font-size: larger;
+}
+
+.listDescription {
+  font-size: smaller;
+  color: rgb(179, 177, 177);
+}
+
+.listDescription > * {
+  margin-bottom: 15px;
+}
 .listName:hover {
   color: #60ecec;
 }
@@ -277,23 +294,3 @@
     align-items: center;
   }
 }
-
-/* .horizontalScroll::-webkit-scrollbar {
-  width: 10px;
-}
-
-.horizontalScroll::-webkit-scrollbar-track {
-  background: var(--darker-blue-highlight);color of the tracking area
-}
-
-.horizontalScroll::-webkit-scrollbar-thumb {
-  background-color: var(--darker-blue); color of the scroll thumb
-  border-radius: 20px; roundness of the scroll thumb
-  border: 0.5px solid var(--light-grey); creates padding around scroll thumb 
-}
-
-.horizontalScroll::-webkit-scrollbar-thumb:hover {
-  background-color: var(
-    --darker-blue-highlight
-  );  color of the scroll thumb when hovering 
-} */
