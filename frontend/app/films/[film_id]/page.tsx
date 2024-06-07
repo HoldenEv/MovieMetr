@@ -26,11 +26,11 @@ export default function FilmDetailPage({
         const data = await getfilmdata(params.film_id);
         setFilmData({ data: data, loading: false, error: null });
       } catch (error) {
-        setFilmData({
-          data: null,
-          loading: false,
-          error: (error as Error).message,
-        });
+        let errorMessage = 'An unknown error occurred';
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        setFilmData({ data: null, loading: false, error: errorMessage });
       }
     };
     fetchData();

@@ -2,12 +2,14 @@ import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
 import notfound from "@/_assets/NOTFOUND.png";
 import { MovieData } from "@/_api/types"; // Adjust the import path accordingly
+import Link from "next/link";
 
 interface MovieDetailPageProps {
   data: MovieData | null;
 }
 
 export default function MovieDetailPage({ data }: MovieDetailPageProps) {
+  
   if (!data) {
     return <div>No data available</div>;
   }
@@ -48,6 +50,7 @@ export default function MovieDetailPage({ data }: MovieDetailPageProps) {
           ></Image>
         </div>
         <div className={styles.info}>
+        
           <div className={styles.movietitle}>{data.title}</div>
           <div className={styles.moviedetail}>
             <div className={styles.set}>
@@ -84,18 +87,20 @@ export default function MovieDetailPage({ data }: MovieDetailPageProps) {
                     <div key={entry.id} className={styles.imageItemContainer}>
                       <div className={styles.imageItem}>
                         {entry.profile_path ? (
-                          <Image
-                            className={styles.castImage}
-                            src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
-                            alt={entry.id.toString()}
-                            width={50}
-                            height={70}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
+                          <Link href={`/people/${entry.id}`}>
+                            <Image
+                              className={styles.castImage}
+                              src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
+                              alt={entry.id.toString()}
+                              width={50}
+                              height={70}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </Link>
                         ) : (
                           entry.id
                         )}

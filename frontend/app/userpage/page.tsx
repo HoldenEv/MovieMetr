@@ -7,7 +7,7 @@ import { Tabs, Tab, Box } from "@mui/material";
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
 import profilePic from "@/_assets/sample_profile_pic.png";
 import bannerPic from "@/_assets/sample_banner_pic.jpg";
-import EditProfileModal from "@/_ui/components/User/EditProfile/EditProfile";
+import EditProfileModal from "@/_ui/components/EditProfile/EditProfile";
 import { getUserLists, getMovieInfo, addList, deleteList } from "@/_api/lists";
 import { getUser } from "@/_api/editprofile";
 import notfound from "@/_assets/NOTFOUND.png";
