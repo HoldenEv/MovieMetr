@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
 import notfound from "@/_assets/NOTFOUND.png";
@@ -82,24 +83,26 @@ export default function MovieDetailPage({ data }: MovieDetailPageProps) {
                 <div className={styles.horizontalScroll}>
                   {data.credits.cast.map((entry) => (
                     <div key={entry.id} className={styles.imageItemContainer}>
-                      <div className={styles.imageItem}>
-                        {entry.profile_path ? (
-                          <Image
-                            className={styles.castImage}
-                            src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
-                            alt={entry.id.toString()}
-                            width={50}
-                            height={70}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        ) : (
-                          entry.id
-                        )}
-                      </div>
+                      <Link href={`/people/${entry.id}`}>
+                        <div className={styles.imageItem}>
+                          {entry.profile_path ? (
+                            <Image
+                              className={styles.castImage}
+                              src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
+                              alt={entry.id.toString()}
+                              width={50}
+                              height={70}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          ) : (
+                            entry.id
+                          )}
+                        </div>
+                      </Link>
                       <div className={styles.name}>{entry.original_name}</div>
                       <div className={styles.character}> {entry.character}</div>
                     </div>
