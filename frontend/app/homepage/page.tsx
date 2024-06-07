@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getPopularMovies } from "@/_api/getpopularmovies";
 import Image from "next/image";
@@ -9,28 +10,33 @@ import "./homepage.css";
 interface Movie {
   image: string;
   title: string;
+  id: number;
   summary: string;
 }
 
 interface MovieListItemProps {
   image: string;
   title: string;
+  id: number;
   summary: string;
 }
 
 const MovieListItem: React.FC<MovieListItemProps> = ({
   image,
   title,
+  id,
   summary,
 }) => (
   <div className="movie-list-item">
-    <Image
-      className="movie-list-item-img"
-      src={`https://image.tmdb.org/t/p/original${image}`}
-      alt={title}
-      width={150}
-      height={225}
-    />
+    <Link href={`/films/${id}`}>
+      <Image
+        className="movie-list-item-img"
+        src={`https://image.tmdb.org/t/p/original${image}`}
+        alt={title}
+        width={150}
+        height={225}
+      />
+    </Link>
     <div className="movie-list-item-title">{title}</div>
     {/* <p className="movie-list-item-desc">{summary}</p> */}
   </div>
@@ -52,6 +58,7 @@ const MovieListContainer: React.FC<MovieListContainerProps> = ({
         {movies.map((movie, index) => (
           <MovieListItem
             key={index}
+            id={movie.id}
             image={movie.image}
             title={movie.title}
             summary={movie.summary}

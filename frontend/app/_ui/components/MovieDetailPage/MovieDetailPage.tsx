@@ -1,9 +1,9 @@
+import Link from "next/link";
 import styles from "./MovieDetailPage.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import notfound from "@/_assets/NOTFOUND.png";
 import { MovieData } from "@/_api/types"; // Adjust the import path accordingly
-import Link from "next/link";
 import AddMovieToListModal from "../UserLists/UserLists";
 
 interface MovieDetailPageProps {
@@ -106,9 +106,9 @@ export default function MovieDetailPage({
                 <div className={styles.horizontalScroll}>
                   {data.credits.cast.map((entry) => (
                     <div key={entry.id} className={styles.imageItemContainer}>
-                      <div className={styles.imageItem}>
-                        {entry.profile_path ? (
-                          <Link href={`/people/${entry.id}`}>
+                      <Link href={`/people/${entry.id}`}>
+                        <div className={styles.imageItem}>
+                          {entry.profile_path ? (
                             <Image
                               className={styles.castImage}
                               src={`https://image.tmdb.org/t/p/original${entry.profile_path}`}
@@ -121,11 +121,11 @@ export default function MovieDetailPage({
                                 objectFit: "cover",
                               }}
                             />
-                          </Link>
-                        ) : (
-                          entry.id
-                        )}
-                      </div>
+                          ) : (
+                            entry.id
+                          )}
+                        </div>
+                      </Link>
                       <div className={styles.name}>{entry.original_name}</div>
                       <div className={styles.character}> {entry.character}</div>
                     </div>
