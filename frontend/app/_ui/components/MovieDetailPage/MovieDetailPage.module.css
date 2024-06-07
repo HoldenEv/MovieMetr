@@ -76,7 +76,7 @@
   color: transparent;
 }
 
-.addMovieButton{
+.addMovieButton {
   cursor: pointer;
   border: none;
   border-radius: 100px;
@@ -88,7 +88,7 @@
     color 0.2s;
 }
 
-.addMovieButton:hover{
+.addMovieButton:hover {
   background-color: #364159;
 }
 

@@ -202,8 +202,10 @@ const Userpage = () => {
     fileInputRef.current?.click();
   };
 
-  const totalFilms = userLists.reduce((total, list) => total + list.entries.length, 0);
-
+  const totalFilms = userLists.reduce(
+    (total, list) => total + list.entries.length,
+    0,
+  );
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -323,24 +325,24 @@ const Userpage = () => {
         <div className={styles.movieLists}>
           <div className={styles.movieButtons}>
             <div>
-            {!isEditProfileOpen && (
-              <SpeedDial
-                ariaLabel="SpeedDial openIcon example"
-                direction="right"
-                icon={<SpeedDialIcon />}
-                className={styles.SpeedDial}
-              >
-                {actions.map((action) => (
-                  <SpeedDialAction
-                    key={action.name}
-                    icon={action.icon}
-                    tooltipTitle={action.name}
-                    onClick={action.onClick}
-                  />
-                ))}
-              </SpeedDial>
-            )}
-            {isListEditing && <p>Editing List...</p>}
+              {!isEditProfileOpen && (
+                <SpeedDial
+                  ariaLabel="SpeedDial openIcon example"
+                  direction="right"
+                  icon={<SpeedDialIcon />}
+                  className={styles.SpeedDial}
+                >
+                  {actions.map((action) => (
+                    <SpeedDialAction
+                      key={action.name}
+                      icon={action.icon}
+                      tooltipTitle={action.name}
+                      onClick={action.onClick}
+                    />
+                  ))}
+                </SpeedDial>
+              )}
+              {isListEditing && <p>Editing List...</p>}
             </div>
             {isCreateListFormVisible && (
               <form

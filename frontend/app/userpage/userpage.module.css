@@ -179,17 +179,17 @@
   margin-bottom: 15px; /* Adjust as needed */
 }
 
-.listName{
+.listName {
   font-size: larger;
 }
 
-.listDescription{
+.listDescription {
   font-size: smaller;
   color: rgb(179, 177, 177);
 }
 
 .listDescription > * {
-  margin-bottom: 15px; 
+  margin-bottom: 15px;
 }
 .listName:hover {
   color: #60ecec;

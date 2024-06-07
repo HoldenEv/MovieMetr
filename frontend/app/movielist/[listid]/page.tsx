@@ -6,7 +6,7 @@ import Link from "next/link";
 import { updateList, deleteMovieFromList } from "@/_api/lists";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import Image from "next/image";
 
 interface Entry {
@@ -31,7 +31,6 @@ export default function MovieListPage({
   const [showAddIcon, setShowAddIcon] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-
   const handleEditClick = () => {
     setIsEditing(true);
     setNewName(listData.details.name);
@@ -52,7 +51,10 @@ export default function MovieListPage({
     setIsEditing(false);
   };
 
-  const handleDeleteMovieClick = async (event: React.MouseEvent, movieId: string) => {
+  const handleDeleteMovieClick = async (
+    event: React.MouseEvent,
+    movieId: string,
+  ) => {
     await deleteMovieFromList(params.listid, movieId);
     event.stopPropagation();
     event.preventDefault();
@@ -102,9 +104,7 @@ export default function MovieListPage({
               )}
               {showAddIcon && (
                 <Link href={`/search`}>
-                  <IconButton
-                    style={{ color: "white" }}
-                  >
+                  <IconButton style={{ color: "white" }}>
                     <AddIcon style={{ fontSize: 30 }} />
                   </IconButton>
                 </Link>
@@ -129,7 +129,10 @@ export default function MovieListPage({
               </form>
             )}
           </div>
-          <p className={styles.listDescription} onClick={handleDescriptionClick}>
+          <p
+            className={styles.listDescription}
+            onClick={handleDescriptionClick}
+          >
             {showFullDescription
               ? listData.details.description
               : `${listData.details.description.substring(0, 100)}...`}
@@ -149,7 +152,9 @@ export default function MovieListPage({
                     {isEditing && (
                       <div className={styles.overlay}>
                         <button
-                          onClick={(event) => handleDeleteMovieClick(event, entry.id)}
+                          onClick={(event) =>
+                            handleDeleteMovieClick(event, entry.id)
+                          }
                         >
                           Delete
                         </button>

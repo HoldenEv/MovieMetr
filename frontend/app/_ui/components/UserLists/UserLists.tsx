@@ -17,7 +17,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
   movieId,
 }) => {
   const [userLists, setUserLists] = useState<{ _id: string; name: string }[]>(
-    []
+    [],
   );
   const [selectedLists, setSelectedLists] = useState<string[]>([]);
 
@@ -40,7 +40,7 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
     if (e.target.checked) {
       setSelectedLists([...selectedLists, e.target.value]);
     } else {
-      setSelectedLists(selectedLists.filter(id => id !== e.target.value));
+      setSelectedLists(selectedLists.filter((id) => id !== e.target.value));
     }
   };
 
@@ -63,9 +63,9 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [isOpen]);
 
@@ -95,7 +95,11 @@ const AddToListModal: React.FC<AddToListModalProps> = ({
             <button type="submit" className={styles.SaveButton}>
               Save
             </button>
-            <button type="button" onClick={handleClose} className={styles.CancelButton}>
+            <button
+              type="button"
+              onClick={handleClose}
+              className={styles.CancelButton}
+            >
               Cancel
             </button>
           </div>
