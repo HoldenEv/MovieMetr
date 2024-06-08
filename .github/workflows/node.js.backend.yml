@@ -29,10 +29,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: "back-end/package-lock.json"
-      - name: npm ci, build, and test
-        run: |
-          npm ci
-          npm run build --if-present
-          npm test --if-present  
-          npm run coverage --if-present
+      - name: Install dependencies
+        run: npm ci
+        working-directory: back-end
+      - name: unit tests
+        run: npm run test:coverage
+        working-directory: back-end
+      - name: Build project
+        run: npm run build --if-present
+        working-directory: back-end
+      - name: test formatting
+        run: | 
+            npm test --if-present  
+            npm run coverage --if-present
         working-directory: back-end
